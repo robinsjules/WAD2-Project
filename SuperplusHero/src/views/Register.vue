@@ -13,10 +13,7 @@
                             <span class="text-primary">Surplus Hero</span>
                         </h1>
                         <p style="color: hsl(217, 10%, 50.8%)">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet,
-                            itaque accusantium odio, soluta, corrupti aliquam quibusdam
-                            tempora at cupiditate quis eum maiores libero veritatis? Dicta
-                            facilis sint aliquid ipsum atque?
+                            The one stop platform for surplus groceries and recipe generation!
                         </p>
                     </div>
 
@@ -46,6 +43,12 @@
                                         <label class="form-label" for="form3Example3">Email address</label>
                                     </div>
 
+                                    <!-- Phone Number -->
+                                    <div class="form-outline mb-4">
+                                        <input type="phonenum" id="form3Example3" class="form-control" />
+                                        <label class="form-label" for="form3Example3">Phone Number</label>
+                                    </div>
+
                                     <!-- Password input -->
                                     <div class="form-outline mb-4">
                                         <input type="password" id="form3Example4" class="form-control" />
@@ -60,14 +63,14 @@
                                             Subscribe to our newsletter
                                         </label>
                                     </div>
-
+                                    <p style="text-align: center;">Already have an account? Click <router-link :to="{ name: 'Login' }">here</router-link> to log in</p>
                                     <!-- Submit button -->
                                     <button type="submit" class="btn btn-primary btn-block mb-4">
-                                        Sign up
+                                        Next
                                     </button>
 
                                     <!-- Register buttons -->
-                                    <div class="text-center">
+                                    <!-- <div class="text-center">
                                         <p>or sign up with:</p>
                                         <button type="button" class="btn btn-link btn-floating mx-1">
                                             <i class="fab fa-facebook-f"></i>
@@ -84,7 +87,7 @@
                                         <button type="button" class="btn btn-link btn-floating mx-1">
                                             <i class="fab fa-github"></i>
                                         </button>
-                                    </div>
+                                    </div> -->
                                 </form>
                             </div>
                         </div>
