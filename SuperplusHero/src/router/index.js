@@ -4,6 +4,10 @@ import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import Profile from '@/views/Profile.vue'
 import Register from '@/views/Register.vue'
+import AllRecipes from '@/views/AllRecipes.vue'
+import Products from '@/views/Products.vue'
+import UserRecipes from '@/views/UserRecipes.vue'
+import Register2 from '@/views/Register2.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -27,6 +31,26 @@ const router = createRouter({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/allrecipes',
+      name: 'AllRecipes',
+      component: AllRecipes
+    },
+    {
+      path: '/products',
+      name: 'products',
+      component: Products
+    },
+    {
+      path: '/user/recipes', // once backend is clearer, make the user a variable/key
+      name: 'UserRecipes',
+      component: UserRecipes
+    },
+    {
+      path: '/register2',
+      name: 'Register2',
+      component: Register2
     }
   ]
 })
