@@ -10,7 +10,15 @@
                 <label for="fridgeItems">Items in Fridge</label>
                 <input type="text" class="form-control" id="fridgeItems" placeholder="Enter items in your fridge">
                 
-                <script>
+            
+                <button type="button" class="btn btn-success" @click="addItem()">Add Item</button>
+                <button type="button" class="btn btn-danger" @click="deleteItem()">Delete Item</button>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</template>
+<script>
                     export default {
                         data() {
                             return {
@@ -28,10 +36,3 @@
                         }
                     }
                 </script>
-                <button type="button" class="btn btn-success" @click="addItem()">Add Item</button>
-                <button type="button" class="btn btn-danger" @click="deleteItem()">Delete Item</button>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-</template>
