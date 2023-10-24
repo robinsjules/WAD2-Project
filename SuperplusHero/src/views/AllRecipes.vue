@@ -1,53 +1,128 @@
+<style>
+img {
+    width: 260px;
+    height:200px
+}
+</style>
 <template>
     <!-- All Recipes Page -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-
+    
+    <!-- Start of Search Bar -->
     <form>
         <div class="container-fluid">
             <h1>
-                <span class="text-primary" >All Recipes</span>
+                <span class="text-primary" style="font-weight: bold;" >All Recipes</span>
             </h1>
 
             <div class="form-group">
                 
-                    <label class="fw-bold"></label>
-                    <div class="form-group">
-                    <div class="col-6 input-group">
-                        <input type="search" class="form-control me-2" placeholder="Search Recipes..." name="find_recipe">
-
-                        
-                            <!-- Example single danger button --> 
-                            <div class="col-4 btn-group mx-2"> 
-                                <select class="form-select" aria-label="Default select example"> 
-                                <option selected>Filter by cuisine</option> 
-                                <option value="western" name="western">Western</option> 
-                                <option value="chinese" name="chinese">Chinese</option> 
-                                <option value="indian" name="indian">Indian</option>
-                                <option value="malay" name="malay">Malay</option> 
-                                <option value="japanese" name="japanese">Japanese</option>
-                                <option value="korean" name="korean">Korean</option>
-                                <option value="thai" name>Thai</option>
-                                <option value="french">French</option> 
-                            </select>
-                            </div> 
-
-                            
-                            
-                            
-                        
-                        
-                        <span class="col-2 input-group-btn">
-                            <button class="btn btn-outline-primary" type="search" style="width: 100%;" >Search</button>
-                        </span>
+                <div class="form-group">
+                    <div class="row justify-content-center mt-5">
+                    <div class="col-md">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search Recipe..">
+                    
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">Search</button>
+                        </div>
                     </div>
                     </div>
+                    </div>
+                </div>
+                        <!-- Filter Button Start --> 
+                        <div class="col-4 btn-group mt-2"> 
+                            <select class="form-select" aria-label="Default select example"> 
+                            <option selected>Filter by cuisine</option> 
+                            <option value="western" name="western">Western</option> 
+                            <option value="chinese" name="chinese">Chinese</option> 
+                            <option value="indian" name="indian">Indian</option>
+                            <option value="malay" name="malay">Malay</option> 
+                            <option value="japanese" name="japanese">Japanese</option>
+                            <option value="korean" name="korean">Korean</option>
+                            <option value="thai" name>Thai</option>
+                            <option value="french">French</option> 
+                        </select>
+                        <!-- Filter Button End  -->
+                        
+                        
+                        
                     
                     
-            </div>
+                    <!-- <input type="button" class="col-2 input-group-btn"> -->
+                        
+                    
+                
+                </div>
+                
+                
+        </div>
         </div>
     </form>
+
+
     
 
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <!-- BS card 1: Start --> 
+            
+            <div class="card m-2 pt-2" style="width: 18rem;"> 
+                <img src="./images/recipes/laksa.jpg"  alt="..."> 
+                <div class="card-body"> 
+                    <h5 class="card-title">Recipe 1</h5> 
+                    <p class="card-text">Some quick example text to make up the bulk of the card's content.</p>  
+                </div> 
+                
+                <div class="card-body"> 
+                    <button type="button" class="btn btn-primary">Read more</button>
+                </div> 
+            </div>
+            <!-- BS card: End --> 
+
+            <!-- BS card 2: Start --> 
+            <div class="card m-2 pt-2" style="width: 18rem;"> 
+                <img src="./images/recipes/chicken_rice.webp" class="card-img-top" alt="..."> 
+                <div class="card-body"> 
+                    <h5 class="card-title">Chicken Rice</h5> 
+                    <p class="card-text">Some quick example text to make up the bulk of the card's content.</p>  
+                </div> 
+                
+                <div class="card-body"> 
+                    <button type="button" class="btn btn-primary">Read more</button>
+                </div> 
+            </div>
+            <!-- BS card: End -->
+            
+            <!-- BS card 3: Start --> 
+            <div class="card m-2 pt-2" style="width: 18rem;"> 
+                <img src="./images/recipes/hokkien_mee.webp" class="card-img-top" alt="..."> 
+                <div class="card-body"> 
+                    <h5 class="card-title">Hokkien Mee</h5> 
+                    <p class="card-text">Some quick example text to make up the bulk of the card's content.</p>  
+                </div> 
+                
+                <div class="card-body"> 
+                    <button type="button" class="btn btn-primary">Read more</button>
+                </div> 
+            </div>
+            <!-- BS card: End -->
+
+            <!-- BS card 4: Start --> 
+            <div class="card m-2 pt-2" style="width: 18rem;"> 
+                <img src="./images/recipes/charkwayteow.jpg" class="card-img-top" alt="..."> 
+                <div class="card-body"> 
+                    <h5 class="card-title">Recipe 4</h5> 
+                    <p class="card-text">Some quick example text to make up the bulk of the card's content.</p>  
+                </div> 
+                
+                <div class="card-body"> 
+                    <button type="button" class="btn btn-primary">Read more</button>
+                </div> 
+            </div>
+            <!-- BS card: End --> 
+        </div>
+    </div> 
 
 </template>
 <script href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootspanstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"></script>
