@@ -9,7 +9,7 @@
       <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
           <div class="container">
               <div class="row gx-lg-5 justify-content-center">
-                  <div class="col-lg-6 mb-5 mb-lg-0">
+                  <div class="col-lg-4 mb-5 mb-lg-0">
                       <h1 class="my-5 display-3 fw-bold ls-tight">
                           Profile of our <br />
                           <span class="text-primary">Surplus Hero!</span>
@@ -30,6 +30,7 @@
                                     <img :src="userPicture" alt="Change Profile Picture" />
                                     <input type="file" @change="uploadPicture" accept="image/*" />
                                 </div>
+                                <br/>
                                 <div class="row">
                                     <div class="form-outline mb-4 col-md-6">
                                         <!-- need to include original name in box-->
@@ -81,7 +82,11 @@
                                     </div>
                                     <br/>
                                 </div>
-                                <button class="btn btn-dark btn-block mb-4" type="submit" value="submit"> Save changes </button>
+                                <div >
+
+                                </div>
+                                <button class="btn btn-primary btn-block mb-4" type="submit" value="submit"> Save changes </button>
+                                <button class="btn btn-primary mb-4" type="submit" value="logout">Log out</button>
                                     
                         </div>
                     </form>
@@ -119,9 +124,18 @@
             },
             {
             name: 'Gluten-free',
-            value: 'gluten-free'
+            value: 'gluten free'
+            },
+            {
+            name: 'Keto',
+            value: 'ketogenic'
             }],
             save:""
+            }
+        },
+        computed: {
+            rowsOfThree(){
+                
             }
         }
     };
