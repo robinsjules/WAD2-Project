@@ -9,7 +9,7 @@
                     <div class="col-lg-6 mb-5 mb-lg-0">
                         <h1 class="my-5 display-3 fw-bold ls-tight">
                             Welcome to <br />
-                            <span class="text-primary">Surplus Hero</span>
+                            <span class="text-success">Surplus Hero</span>
                         </h1>
                         <p style="color: hsl(217, 10%, 50.8%)">
                             The one stop platform for surplus groceries and recipe generation!
