@@ -1,6 +1,5 @@
 <template>
     <!-- <h2>Register Page</h2> --> 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <!-- Section: Design Block -->
     <section class="">
         <!-- Jumbotron -->
@@ -10,7 +9,7 @@
                     <div class="col-lg-6 mb-5 mb-lg-0">
                         <h1 class="my-5 display-3 fw-bold ls-tight">
                             Welcome to <br />
-                            <span class="text-primary">Surplus Hero</span>
+                            <span class="text-success">Surplus Hero</span>
                         </h1>
                         <p style="color: hsl(217, 10%, 50.8%)">
                             The one stop platform for surplus groceries and recipe generation!
@@ -25,34 +24,34 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-4">
                                             <div class="form-outline">
-                                                <input type="text" id="form3Example1" class="form-control" />
-                                                <label class="form-label" for="form3Example1">First name</label>
+                                                <input type="text" id="form3Example1" class="form-control" placeholder="First Name" />
+                                                <!-- <label class="form-label" for="form3Example1">First name</label> -->
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-4">
                                             <div class="form-outline">
-                                                <input type="text" id="form3Example2" class="form-control" />
-                                                <label class="form-label" for="form3Example2">Last name</label>
+                                                <input type="text" id="form3Example2" class="form-control" placeholder="Last Name" />
+                                                <!-- <label class="form-label" for="form3Example2">Last name</label> -->
                                             </div>
                                         </div>
                                     </div>
 
                                     <!-- Email input -->
                                     <div class="form-outline mb-4">
-                                        <input type="email" id="form3Example3" class="form-control" />
-                                        <label class="form-label" for="form3Example3">Email address</label>
+                                        <input type="email" id="form3Example3" class="form-control" placeholder="Email Address"/>
+                                        <!-- <label class="form-label" for="form3Example3">Email address</label> -->
                                     </div>
 
                                     <!-- Phone Number -->
                                     <div class="form-outline mb-4">
-                                        <input type="phonenum" id="form3Example3" class="form-control" />
-                                        <label class="form-label" for="form3Example3">Phone Number</label>
+                                        <input type="phonenum" id="form3Example3" class="form-control" placeholder="Phone Number"/>
+                                        <!-- <label class="form-label" for="form3Example3">Phone Number</label> -->
                                     </div>
 
                                     <!-- Password input -->
                                     <div class="form-outline mb-4">
-                                        <input type="password" id="form3Example4" class="form-control" />
-                                        <label class="form-label" for="form3Example4">Password</label>
+                                        <input type="password" id="form3Example4" class="form-control" placeholder="Password"/>
+                                        <!-- <label class="form-label" for="form3Example4">Password</label> -->
                                     </div>
 
                                     <!-- Checkbox -->
@@ -65,7 +64,7 @@
                                     </div>
                                     <p style="text-align: center;">Already have an account? Click <router-link :to="{ name: 'Login' }">here</router-link> to log in</p>
                                     <!-- Submit button -->
-                                    <button type="submit" class="btn btn-primary btn-block mb-4">
+                                    <button @click="goToNext" type="submit" class="btn btn-primary btn-block mb-4">
                                         Next
                                     </button>
 
@@ -99,4 +98,18 @@
     </section>
     <!-- Section: Design Block -->
 </template>
-<script href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"></script>
+<script>
+export default {
+  // Your component data and methods go here
+  methods: {
+    goToNext() {
+    this.$router.push({ name: 'Register2' });
+    }
+  }
+}
+</script>
+<!-- for register, have to make sure all fields are compulsory, and must be filled in properly
+eg. email must have @ sign
+Password must be 8-10 characters long
+phone number cannot have any letters
+name and last name cannot have any numbers -->

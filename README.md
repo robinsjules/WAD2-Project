@@ -9,3 +9,4 @@ Creative Commons Profile Icon by Kriya Barot
 Creative Commons Commnuity Icon by Kriya Barot
 Creative Commons Notification Icon by Kriya Barot
 Creative Commons Notification Alert Icon by Kriya Barot
+Creative Commons Shopping Cart Icon by Alejandro

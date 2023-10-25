@@ -42,9 +42,21 @@ button.carousel-control-next {
     font-size: 18px;
 }
 
+.repBtn{
+    width:fit-content;
+}
+
 .navbar-nav{
     margin-left: auto;
+
 }
+
+/* .nav-link{
+    height: 10%;
+    width: 10%
+} */
+
+
 
 </style>
 
@@ -55,9 +67,9 @@ button.carousel-control-next {
     <!-- <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
 
         <!-- <h2>Home Page</h2>  -->
-
+<!-- 
         <nav class="navbar navbar-expand-lg navbar-success bg-success   ">
-            <a class="navbar-brand" href="#"><img src="" alt="Logo" width="80" height="30"></a>
+            <a class="navbar-brand" href="#"><img src="../assets/appLogo.png" alt="Logo" width="80" height="30"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -67,7 +79,7 @@ button.carousel-control-next {
                         <a class="nav-link" href="#"><img src="../assets/comm.png" alt="Community" width="50" height="50"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><img src="../assets/cart.png" alt="Cart" width="50" height="50"></a>
+                        <a class="nav-link" id="cartSize" href="#"><img src="../assets/cart.png" alt="Cart" width="50" height="50"></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><img src="../assets/fridge.png" alt="Fridge" width="50" height="50"></a>
@@ -77,7 +89,7 @@ button.carousel-control-next {
                     </li>
                 </ul>
             </div>
-        </nav>
+        </nav> -->
 
         <div class="container">
             <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -197,6 +209,33 @@ button.carousel-control-next {
                                             <p><button>Add to Cart</button></p>    
                                         </div>
                                 </div>
+                                <!-- <div class="card text-center col-md-2 mb-3" data-bs-toggle="modal" data-bs-target="#myModal1" role="button" tabindex="0" aria-label="Open information in a popup modal">
+                                    <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" class="card-img-top" alt="Card image cap">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card title</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                            <p><button>Add to Cart</button></p> 
+                                        </div>
+                                </div>
+
+                                <div class="modal fade" id="myModal1" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="myModalLabel">Modal title</h5>
+                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                                <div class="modal-body">
+                                                    <p>Modal body text goes here.</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div> -->
                                 <div class="col-md-2 mb-3">
                                         <div class="card">
                                             <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
@@ -258,14 +297,6 @@ button.carousel-control-next {
                 </button>
         </div>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-2"><h2>Produce</h2></div>
-            </div>
-    </div>
-
-
 
     <!-- Carousel title Recipe -->
     <div class="container-fluid">
@@ -284,14 +315,41 @@ button.carousel-control-next {
                         <div class="row">
                             
                             <div class="col-md-1"></div>
-                            <div class="col-md-2 mb-3">
+                            <!-- <div class="col-md-2 mb-3">
                                     <div class="card">
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
                                         <p><button class="repBtn">Make!</button></p>    
                                     </div>
+                            </div> -->
+                            <div class="card text-center col-md-2 mb-3" data-bs-toggle="modal" data-bs-target="#myModal" role="button" tabindex="0" aria-label="Open information in a popup modal">
+                                <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" class="card-img-top" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h1 class="card-title">Chicken Rice</h1>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                <p><button class="repBtn">Click for more!</button></p>   
                             </div>
+
+                            <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title fs-5" id="myModalLabel">Modal title</h5>
+                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Modal body text goes here.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            
                             <div class="col-md-2 mb-3">
                                     <div class="card">
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
@@ -403,5 +461,32 @@ button.carousel-control-next {
     <!-- BS carousel: end -->
     
 
+
+    <!-- <div class="card text-center" data-bs-toggle="modal" data-bs-target="#myModal" role="button" tabindex="0" aria-label="Open information in a popup modal">
+        <img src="your_image.jpg" class="card-img-top" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Modal title</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
 </template>
 
