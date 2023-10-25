@@ -1,7 +1,14 @@
 <style>
-img {
+/* img {
     width: 260px;
     height:200px
+} */
+
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
 }
 </style>
 <template>

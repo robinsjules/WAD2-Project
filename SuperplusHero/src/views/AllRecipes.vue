@@ -1,8 +1,8 @@
 <style>
-img {
+/* img {
     width: 260px;
     height:200px
-}
+} */
 </style>
 <template>
     <!-- All Recipes Page -->
