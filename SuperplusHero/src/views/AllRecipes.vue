@@ -3,6 +3,11 @@
     width: 260px;
     height:200px
 } */
+.card-img-top {
+    width: 20vh;
+    height: 200px;
+    object-fit: cover;
+}
 </style>
 <template>
     <!-- All Recipes Page -->
@@ -11,20 +16,18 @@
     <!-- Start of Search Bar -->
     <form>
         <div class="container-fluid">
-            <h1>
-                <span class="text-primary" style="font-weight: bold;" >All Recipes</span>
+            <h1 class="text-success" style="font-weight: bold;">
+                All Recipes
             </h1>
 
             <div class="form-group">
-                
-                <div class="form-group">
-                    <div class="row justify-content-center mt-5">
+                    <div class="row justify-content-center">
                     <div class="col-md">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search Recipe..">
                     
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">Search</button>
+                            <button class="btn btn-success" type="button">Search</button>
                         </div>
                     </div>
                     </div>
@@ -58,7 +61,7 @@
                 
                 
         </div>
-        </div>
+        
     </form>
 
 
@@ -69,14 +72,14 @@
             <!-- BS card 1: Start --> 
             
             <div class="card m-2 pt-2" style="width: 18rem;"> 
-                <img src="./images/recipes/laksa.jpg"  alt="..."> 
+                <img src="./images/recipes/laksa.jpg" class="card-img-top" alt="..." > 
                 <div class="card-body"> 
                     <h5 class="card-title">Laksa</h5> 
                     <p class="card-text">Some quick example text to make up the bulk of the card's content.</p>  
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Read more</button>
+                    <button type="button" class="btn btn-outline-success">Read more</button>
                 </div> 
             </div>
             <!-- BS card: End --> 
@@ -90,7 +93,7 @@
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Read more</button>
+                    <button type="button" class="btn btn-outline-success">Read more</button>
                 </div> 
             </div>
             <!-- BS card: End -->
@@ -104,7 +107,7 @@
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Read more</button>
+                    <button type="button" class="btn btn-outline-success">Read more</button>
                 </div> 
             </div>
             <!-- BS card: End -->
@@ -118,7 +121,7 @@
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Read more</button>
+                    <button type="button" class="btn btn-outline-success">Read more</button>
                 </div> 
             </div>
             <!-- BS card: End -->
@@ -132,7 +135,7 @@
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Read more</button>
+                    <button type="button" class="btn btn-outline-success">Read more</button>
                 </div> 
             </div>
             <!-- BS card: End -->
@@ -146,7 +149,7 @@
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Read more</button>
+                    <button type="button" class="btn btn-outline-success">Read more</button>
                 </div> 
             </div>
             <!-- BS card: End -->
