@@ -70,7 +70,7 @@ img {
             <div class="card m-2 pt-2" style="width: 18rem;"> 
                 <img src="./images/recipes/laksa.jpg"  alt="..."> 
                 <div class="card-body"> 
-                    <h5 class="card-title">Recipe 1</h5> 
+                    <h5 class="card-title">Laksa</h5> 
                     <p class="card-text">Some quick example text to make up the bulk of the card's content.</p>  
                 </div> 
                 
@@ -112,7 +112,7 @@ img {
             <div class="card m-2 pt-2" style="width: 18rem;"> 
                 <img src="./images/recipes/charkwayteow.jpg" class="card-img-top" alt="..."> 
                 <div class="card-body"> 
-                    <h5 class="card-title">Recipe 4</h5> 
+                    <h5 class="card-title">Char Kway Teow</h5> 
                     <p class="card-text">Some quick example text to make up the bulk of the card's content.</p>  
                 </div> 
                 
