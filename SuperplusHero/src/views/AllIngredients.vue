@@ -18,20 +18,17 @@
     <!-- Start of Search Bar -->
     <form>
         <div class="container-fluid">
-            <h1>
-                <span class="text-primary" style="font-weight: bold;" >All Ingridients</span>
+            <h1 class="text-success" style="font-weight: bold;">
+                All Recipes
             </h1>
-
-            <div class="form-group">
-                
                 <div class="form-group">
-                    <div class="row justify-content-center mt-5">
+                    <div class="row justify-content-center">
                     <div class="col-md">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search Recipe..">
                     
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">Search</button>
+                            <button class="btn btn-success" type="button">Search</button>
                         </div>
                     </div>
                     </div>
@@ -60,7 +57,7 @@
                 
                 
         </div>
-        </div>
+        
     </form>
 
 
@@ -82,7 +79,7 @@
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Add To Cart</button>
+                    <button type="button" class="btn btn-sucess">Add To Cart</button>
                 </div> 
             </div>
             <!-- BS card: End --> 
@@ -100,7 +97,7 @@
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Add To Cart</button>
+                    <button type="button" class="btn btn-sucess">Add To Cart</button>
                 </div> 
             </div>
             <!-- BS card: End -->
@@ -118,7 +115,7 @@
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Add To Cart</button>
+                    <button type="button" class="btn btn-sucess">Add To Cart</button>
                 </div> 
             </div>
             <!-- BS card: End -->
@@ -136,7 +133,7 @@
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Add To Cart</button>
+                    <button type="button" class="btn btn-sucess">Add To Cart</button>
                 </div> 
             </div>
             <!-- BS card: End -->
@@ -154,7 +151,7 @@
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Add To Cart</button>
+                    <button type="button" class="btn btn-sucess">Add To Cart</button>
                 </div> 
             </div>
             <!-- BS card: End -->
@@ -172,7 +169,7 @@
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Add To Cart</button>
+                    <button type="button" class="btn btn-sucess">Add To Cart</button>
                 </div> 
             </div>
             <!-- BS card: End -->
