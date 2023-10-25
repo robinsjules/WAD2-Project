@@ -1,29 +1,8 @@
 <style>
-/* #surplusCaro{
-    margin-left: 50px;
-    margin-right: 50px;
-}
-
-.carousel-control.left {
-    margin-left: -25px;
-}
-
-.carousel-control.right {
-    margin-right: -25px;
-} */
-
 
 .carousel-item .card {
     height: 100%;
 }
-
-/* .carousel-control-prev-icon,
-.carousel-control-next-icon {
-  height: 30px;
-  width: 30px;
-  background-size: 30px, 30px;
-}
-*/
 
 button.carousel-control-prev,
 button.carousel-control-next {
@@ -31,11 +10,11 @@ button.carousel-control-next {
 } 
 
 .card button {
-    /* border: none; */
+    border: none;
     outline: 0;
     padding: 12px;
-    /* color: white; */
-    /* background-color: #000000; */
+    color: white;
+    background-color: #000000;
     text-align: center;
     cursor: pointer;
     width: 100%;
@@ -93,6 +72,10 @@ button.carousel-control-next {
 
         <div class="container">
             <div class="row row-cols-1 row-cols-md-3 g-4">
+
+
+
+
                 <div class="col">
                     <div class="card h-100">
                     <img src="..." class="card-img-top" alt="...">
@@ -102,7 +85,7 @@ button.carousel-control-next {
                         </div>
                     </div>
                 </div>
-                <div class="col">
+                <!-- <div class="col">
                     <div class="card h-100">
                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                         <div class="card-body">
@@ -110,8 +93,24 @@ button.carousel-control-next {
                             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                         </div>
                     </div>
+                </div> -->
+
+
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                        <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" class="img-fluid rounded-start" style="">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title">Viewed Recipes</h5>
+                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
+
+                <!-- <div class="col">
                     <div class="card h-100">
                     <img src="..." class="card-img-top" alt="...">
                         <div class="card-body">
@@ -119,7 +118,7 @@ button.carousel-control-next {
                             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 
             </div>
         </div>
@@ -150,7 +149,7 @@ button.carousel-control-next {
                                             <h1>Lettuce</h1>
                                             <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
                                             <p>Some text about the product</p>
-                                            <p><button>Add to Cart</button></p>    
+                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
                                         </div>
                                 </div>
                                 <div class="col-md-2 mb-3">
@@ -159,7 +158,7 @@ button.carousel-control-next {
                                             <h1>Lettuce</h1>
                                             <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
                                             <p>Some text about the product</p>
-                                            <p><button>Add to Cart</button></p>    
+                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
                                         </div>
                                 </div>
                                 <div class="col-md-2 mb-3">
@@ -168,7 +167,7 @@ button.carousel-control-next {
                                             <h1>Lettuce</h1>
                                             <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
                                             <p>Some text about the product</p>
-                                            <p><button>Add to Cart</button></p>    
+                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
                                         </div>
                                 </div>
                                 <div class="col-md-2 mb-3">
@@ -177,7 +176,7 @@ button.carousel-control-next {
                                             <h1>Lettuce</h1>
                                             <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
                                             <p>Some text about the product</p>
-                                            <p><button>Add to Cart</button></p>    
+                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
                                         </div>
                                 </div>
                                 <div class="col-md-2 mb-3">
@@ -186,7 +185,7 @@ button.carousel-control-next {
                                             <h1>Lettuce</h1>
                                             <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
                                             <p>Some text about the product</p>
-                                            <p><button>Add to Cart</button></p>    
+                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
                                         </div>
                                 </div>
                                 <div class="col-md-1"></div>
@@ -206,7 +205,7 @@ button.carousel-control-next {
                                             <h1>Lettuce</h1>
                                             <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
                                             <p>Some text about the product</p>
-                                            <p><button>Add to Cart</button></p>    
+                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
                                         </div>
                                 </div>
                                 <!-- <div class="card text-center col-md-2 mb-3" data-bs-toggle="modal" data-bs-target="#myModal1" role="button" tabindex="0" aria-label="Open information in a popup modal">
@@ -214,7 +213,7 @@ button.carousel-control-next {
                                         <div class="card-body">
                                             <h5 class="card-title">Card title</h5>
                                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                            <p><button>Add to Cart</button></p> 
+                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p> 
                                         </div>
                                 </div>
 
@@ -242,7 +241,7 @@ button.carousel-control-next {
                                             <h1>Lettuce</h1>
                                             <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
                                             <p>Some text about the product</p>
-                                            <p><button>Add to Cart</button></p>    
+                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
                                         </div>
                                 </div>
                                 <div class="col-md-2 mb-3">
@@ -251,7 +250,7 @@ button.carousel-control-next {
                                             <h1>Lettuce</h1>
                                             <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
                                             <p>Some text about the product</p>
-                                            <p><button>Add to Cart</button></p>    
+                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
                                         </div>
                                 </div>
                                 <div class="col-md-2 mb-3">
@@ -260,7 +259,7 @@ button.carousel-control-next {
                                             <h1>Lettuce</h1>
                                             <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
                                             <p>Some text about the product</p>
-                                            <p><button>Add to Cart</button></p> 
+                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p> 
                                         </div>
                                 </div>
                                 <div class="col-md-2 mb-3">
@@ -269,7 +268,7 @@ button.carousel-control-next {
                                             <h1>Lettuce</h1>
                                             <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
                                             <p>Some text about the product</p>
-                                            <p><button>Add to Cart</button></p> 
+                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p> 
                                         </div>
                                 </div>
                                 <div class="col-md-1"></div>
@@ -320,7 +319,7 @@ button.carousel-control-next {
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button class="repBtn">Make!</button></p>    
+                                        <p><button type="button" class="btn btn-dark">Make!</button></p>    
                                     </div>
                             </div> -->
                             <div class="card text-center col-md-2 mb-3" data-bs-toggle="modal" data-bs-target="#myModal" role="button" tabindex="0" aria-label="Open information in a popup modal">
@@ -329,7 +328,7 @@ button.carousel-control-next {
                                         <h1 class="card-title">Chicken Rice</h1>
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
-                                <p><button class="repBtn">Click for more!</button></p>   
+                                <p><button type="button" class="btn btn-dark">Click for more!</button></p>   
                             </div>
 
                             <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" role="dialog">
@@ -355,7 +354,7 @@ button.carousel-control-next {
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button class="repBtn">Make!</button></p>   
+                                        <p><button type="button" class="btn btn-dark">Make!</button></p>   
                                     </div>
                             </div>
                             <div class="col-md-2 mb-3">
@@ -363,7 +362,7 @@ button.carousel-control-next {
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button class="repBtn">Make!</button></p>    
+                                        <p><button type="button" class="btn btn-dark">Make!</button></p>    
                                     </div>
                             </div>
                             <div class="col-md-2 mb-3">
@@ -371,7 +370,7 @@ button.carousel-control-next {
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button class="repBtn">Make!</button></p>    
+                                        <p><button type="button" class="btn btn-dark">Make!</button></p>    
                                     </div>
                             </div>
                             <div class="col-md-2 mb-3">
@@ -379,7 +378,7 @@ button.carousel-control-next {
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button class="repBtn">Make!</button></p>    
+                                        <p><button type="button" class="btn btn-dark">Make!</button></p>    
                                     </div>
                             </div>
                             <div class="col-md-1"></div>
@@ -398,7 +397,7 @@ button.carousel-control-next {
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button class="repBtn">Make!</button></p>    
+                                        <p><button type="button" class="btn btn-dark">Make!</button></p>    
                                     </div>
                             </div>
                             <div class="col-md-2 mb-3">
@@ -406,7 +405,7 @@ button.carousel-control-next {
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button class="repBtn">Make!</button></p>    
+                                        <p><button type="button" class="btn btn-dark">Make!</button></p>    
                                     </div>
                             </div>
                             <div class="col-md-2 mb-3">
@@ -414,7 +413,7 @@ button.carousel-control-next {
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button class="repBtn">Make!</button></p>    
+                                        <p><button type="button" class="btn btn-dark">Make!</button></p>    
                                     </div>
                             </div>
                             <div class="col-md-2 mb-3">
@@ -422,7 +421,7 @@ button.carousel-control-next {
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button class="repBtn">Make!</button></p> 
+                                        <p><button type="button" class="btn btn-dark">Make!</button></p> 
                                     </div>
                             </div>
                             <div class="col-md-2 mb-3">
@@ -430,7 +429,7 @@ button.carousel-control-next {
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button class="repBtn">Make!</button></p> 
+                                        <p><button type="button" class="btn btn-dark">Make!</button></p> 
                                     </div>
                             </div>
                             <div class="col-md-1"></div>
