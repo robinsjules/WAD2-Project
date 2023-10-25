@@ -3,6 +3,11 @@
     width: 260px;
     height:200px
 } */
+.card-img-top {
+    width: 20vh;
+    height: 200px;
+    object-fit: cover;
+}
 </style>
 <template>
     <!-- All Recipes Page -->
@@ -69,7 +74,7 @@
             <!-- BS card 1: Start --> 
             
             <div class="card m-2 pt-2" style="width: 18rem;"> 
-                <img src="./images/recipes/laksa.jpg"  alt="..."> 
+                <img src="./images/recipes/laksa.jpg" class="card-img-top" alt="..." > 
                 <div class="card-body"> 
                     <h5 class="card-title">Laksa</h5> 
                     <p class="card-text">Some quick example text to make up the bulk of the card's content.</p>  
