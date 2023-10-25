@@ -25,31 +25,81 @@
                     </li>
                 </ul>
             </div>
-        </nav>
-    
-
-        <div id="app">
-
-  <div class="row around-xs">
-    <div>
-      <h4>Dietary Preferences</h4>
-      <div v-for="(preference,index) in dPreferences" :key="index">
-        <label>{{preference.name}}</label>
-        <input type="checkbox" :value="preference.value" v-model="foodPreferences">
-      </div>
+    </nav>
+        
+    <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="card">
+                        <div class="card-body py-5 px-md-5">
+                            <form>
+    <div id="app">
+        <!-- <div style="text-align: center;">
+            <div style="display: inline-block; text-align: left;">
+                Centered<br />
+                Content<br />
+                That
+            </div>
+        </div> -->
+        <div class="row around-xs">
+            <div class="text-center">
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Admin" class="rounded-circle p-1 bg-primary" width="200">
+            </div>
+            <div class="profile-picture">
+                <img :src="userPicture" alt="User's Profile Picture" />
+                <input type="file" @change="uploadPicture" accept="image/*" />
+            </div>
+            <p>
+                First Name: 
+                <input v-model="fName">
+            </p>
+            <p>
+                Last Name: 
+                <input v-model="lName">
+            </p>
+            <p>
+                Email: 
+                <input v-model="email" type="email">
+            </p>
+            <p>
+                Phone Number: 
+                <input v-model="phonenum" type="number">
+            </p>
+            <p>
+                <h5>Change Password:</h5> 
+                Old Password:  
+                <input v-model="password" type="password">
+            </p>
+            <p>
+                New Password: 
+                <input v-model="password" type="password">
+            </p>
+            <p>
+                Confirm New Password: 
+                <input v-model="password" type="password">
+            </p>
+            <div>
+            <h4>Dietary Preferences</h4>
+            <div v-for="(preference,index) in dPreferences" :key="index">
+                <label>{{preference.name}}</label>
+                <input type="checkbox" :value="preference.value" v-model="foodPreferences">
+            </div>
+            </div>
+            <div>
+            <h4>Dietary Preferences</h4>
+            <select v-model="foodPreferences" multiple>
+                <option :value="preference.value" v-for="(preference,index) in dPreferences" :key="index">{{preference.name}}</option>
+            </select>
+            </div>
+        </div>
+        <!-- test to see value -->
+        <!-- <h3>
+            Result: {{ foodPreferences }}
+        </h3> -->
+            <button type="submit" class="btn btn-primary btn-block mb-4" name="save"> Save </button>
+                
     </div>
-    <div>
-      <h4>Dietary Preferences</h4>
-      <select v-model="foodPreferences" multiple>
-        <option :value="preference.value" v-for="(preference,index) in dPreferences" :key="index">{{preference.name}}</option>
-      </select>
-    </div>
-    </div>
-    <h3>
-        Result: {{ foodPreferences }}
-    </h3>
-
-    
+                            </form>
+                        </div>
+                    </div>
     </div>
 
 </template>
@@ -58,6 +108,13 @@
     export default{
     data() {
         return {
+            // fetch first and last name of user from data stored
+            userPicture:"",
+            fName:"",
+            lName:"",
+            email:"",
+            phonenum:"",
+            password:[],
         foodPreferences: [],
         dPreferences: [{
             name: 'Halal',
@@ -70,7 +127,8 @@
             {
             name: 'Vegan',
             value: 'vegan'
-            }]
+            }],
+            save:""
             }
         }
     };
