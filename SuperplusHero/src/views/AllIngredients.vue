@@ -1,7 +1,14 @@
 <style>
-img {
+/* img {
     width: 260px;
     height:200px
+} */
+
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
 }
 </style>
 <template>
@@ -64,7 +71,7 @@ img {
             <!-- BS card 1: Start --> 
             
             <div class="card m-2 pt-2" style="width: 18rem;"> 
-                <img src="./images/ingridients/Broccoli.png"  alt="..."> 
+                <img src="./images/ingridients/Broccoli.png" class="card-img-top" alt="..."> 
                 <div class="card-body"> 
                     <h5 class="card-title">Broccoli (250g)</h5>
                     <p class="card-text">
