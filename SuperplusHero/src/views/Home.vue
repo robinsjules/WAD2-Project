@@ -44,7 +44,15 @@ button.carousel-control-next {
 
 .navbar-nav{
     margin-left: auto;
+
 }
+
+/* .nav-link{
+    height: 10%;
+    width: 10%
+} */
+
+
 
 </style>
 
@@ -67,7 +75,7 @@ button.carousel-control-next {
                         <a class="nav-link" href="#"><img src="../assets/comm.png" alt="Community" width="50" height="50"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><img src="../assets/cart.png" alt="Cart" width="50" height="50"></a>
+                        <a class="nav-link" id="cartSize" href="#"><img src="../assets/cart.png" alt="Cart" width="50" height="50"></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><img src="../assets/fridge.png" alt="Fridge" width="50" height="50"></a>
@@ -188,7 +196,7 @@ button.carousel-control-next {
     
                             <div class="row">
                                 <div class="col-md-1"></div>
-                                <div class="col-md-2 mb-3">
+                                <!-- <div class="col-md-2 mb-3">
                                         <div class="card">
                                             <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                             <h1>Lettuce</h1>
@@ -196,6 +204,33 @@ button.carousel-control-next {
                                             <p>Some text about the product</p>
                                             <p><button>Add to Cart</button></p>    
                                         </div>
+                                </div> -->
+                                <div class="card text-center col-md-2 mb-3" data-bs-toggle="modal" data-bs-target="#myModal" role="button" tabindex="0" aria-label="Open information in a popup modal">
+                                    <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" class="card-img-top" alt="Card image cap">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card title</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                            <p><button>Add to Cart</button></p> 
+                                        </div>
+                                </div>
+
+                                <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="myModalLabel">Modal title</h5>
+                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                                <div class="modal-body">
+                                                    <p>Modal body text goes here.</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-md-2 mb-3">
                                         <div class="card">
@@ -284,14 +319,41 @@ button.carousel-control-next {
                         <div class="row">
                             
                             <div class="col-md-1"></div>
-                            <div class="col-md-2 mb-3">
+                            <!-- <div class="col-md-2 mb-3">
                                     <div class="card">
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
                                         <p><button class="repBtn">Make!</button></p>    
                                     </div>
-                            </div>
+                            </div> -->
+                            <div class="card text-center col-md-2 mb-3" data-bs-toggle="modal" data-bs-target="#myModal" role="button" tabindex="0" aria-label="Open information in a popup modal">
+                                    <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" class="card-img-top" alt="Card image cap">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Chicken Rice</h5>
+                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                            <p><button class="repBtn">Make!</button></p>   
+                                        </div>
+                                </div>
+
+                                <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="myModalLabel">Modal title</h5>
+                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                                <div class="modal-body">
+                                                    <p>Modal body text goes here.</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
                             <div class="col-md-2 mb-3">
                                     <div class="card">
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
@@ -403,5 +465,32 @@ button.carousel-control-next {
     <!-- BS carousel: end -->
     
 
+
+    <div class="card text-center" data-bs-toggle="modal" data-bs-target="#myModal" role="button" tabindex="0" aria-label="Open information in a popup modal">
+        <img src="your_image.jpg" class="card-img-top" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Modal title</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
