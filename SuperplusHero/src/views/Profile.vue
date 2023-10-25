@@ -32,13 +32,6 @@
                         <div class="card-body py-5 px-md-5">
                             <form>
     <div id="app">
-        <!-- <div style="text-align: center;">
-            <div style="display: inline-block; text-align: left;">
-                Centered<br />
-                Content<br />
-                That
-            </div>
-        </div> -->
         <div class="row around-xs">
             <div class="text-center">
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Admin" class="rounded-circle p-1 bg-primary" width="200">
@@ -47,47 +40,46 @@
                 <img :src="userPicture" alt="User's Profile Picture" />
                 <input type="file" @change="uploadPicture" accept="image/*" />
             </div>
-            <p>
-                First Name: 
-                <input v-model="fName">
-            </p>
-            <p>
-                Last Name: 
-                <input v-model="lName">
-            </p>
-            <p>
-                Email: 
-                <input v-model="email" type="email">
-            </p>
-            <p>
-                Phone Number: 
-                <input v-model="phonenum" type="number">
-            </p>
-            <p>
-                <h5>Change Password:</h5> 
-                Old Password:  
-                <input v-model="password" type="password">
-            </p>
-            <p>
-                New Password: 
-                <input v-model="password" type="password">
-            </p>
-            <p>
-                Confirm New Password: 
-                <input v-model="password" type="password">
-            </p>
+            <div class="form-outline mb-4">
+                <!-- need to include original name in box-->
+                <input type="text" class="form-control" id="fName">
+                <label for="fName">First Name</label>
+            </div>
+            <div class="form-outline mb-4">
+                <!-- need to include original name in box-->
+                <input type="text" class="form-control" id="lName">
+                <label for="lName">Last Name</label>
+            </div>
+            <div class="form-outline mb-4">
+                <!-- need to include original email in box-->
+                <input type="email" class="form-control" id="email">
+                <label for="email">Email Address</label>
+            </div>
+            <div class="form-outline mb-4">
+                <!-- need to include original phone num in box-->
+                <input type="name" class="form-control" id="phoneNum">
+                <label for="phoneNum">Phone Number</label>
+            </div>
+            <div class="form-outline mb-4">
+                <input type="password" class="form-control" id="password">
+                <label for="password">Enter Old Password</label>
+            </div>
+            <div class="form-outline mb-4">
+                <input type="text" class="form-control" id="newPassword">
+                <label for="newPassword">Enter New Password</label>
+            </div>
+            <div class="form-outline mb-4">
+                <input type="text" class="form-control" id="newPassword2">
+                <label for="newPassword2">Re-enter New Password</label>
+                <!-- need to check newpw2 against newpw1-->
+            </div>
             <div>
-            <h4>Dietary Preferences</h4>
+            Dietary Preferences
             <div v-for="(preference,index) in dPreferences" :key="index">
-                <label>{{preference.name}}</label>
+                <label class="container text-white bg-primary"> {{preference.name}} &nbsp; </label>
                 <input type="checkbox" :value="preference.value" v-model="foodPreferences">
             </div>
-            </div>
-            <div>
-            <h4>Dietary Preferences</h4>
-            <select v-model="foodPreferences" multiple>
-                <option :value="preference.value" v-for="(preference,index) in dPreferences" :key="index">{{preference.name}}</option>
-            </select>
+            <br/>
             </div>
         </div>
         <!-- test to see value -->
@@ -108,12 +100,11 @@
     export default{
     data() {
         return {
-            // fetch first and last name of user from data stored
             userPicture:"",
             fName:"",
             lName:"",
             email:"",
-            phonenum:"",
+            phoneNum:"",
             password:[],
         foodPreferences: [],
         dPreferences: [{
