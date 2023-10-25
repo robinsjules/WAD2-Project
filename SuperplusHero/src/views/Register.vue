@@ -65,7 +65,7 @@
                                     </div>
                                     <p style="text-align: center;">Already have an account? Click <router-link :to="{ name: 'Login' }">here</router-link> to log in</p>
                                     <!-- Submit button -->
-                                    <button type="submit" class="btn btn-primary btn-block mb-4">
+                                    <button @click="goToNext" type="submit" class="btn btn-primary btn-block mb-4">
                                         Next
                                     </button>
 
@@ -100,3 +100,18 @@
     <!-- Section: Design Block -->
 </template>
 <script href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"></script>
+<script>
+export default {
+  // Your component data and methods go here
+  methods: {
+    goToNext() {
+      this.$router.push({ name: 'Register2' });
+    }
+  }
+}
+</script>
+<!-- for register, have to make sure all fields are compulsory, and must be filled in properly
+eg. email must have @ sign
+Password must be 8-10 characters long
+phone number cannot have any letters
+name and last name cannot have any numbers -->

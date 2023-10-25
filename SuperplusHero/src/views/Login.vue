@@ -59,7 +59,7 @@
 
                                   <!-- Submit button -->
                                   <button type="submit" class="btn btn-primary btn-block mb-4" style = " padding: 10px;justify-content: center;align-items: center;">
-                                      Next
+                                      Login
                                   </button>
                                 <p style="text-align: center;">New here? Click <router-link :to="{ name: 'Register' }">here</router-link> to register </p>
                                 
@@ -95,3 +95,4 @@
   <!-- Section: Design Block -->
 </template>
 <script href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"></script>
+<!-- need to firstly store user's email and password when they register, and check if they are correct before they can login -->
