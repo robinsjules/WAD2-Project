@@ -11,6 +11,7 @@ import Products from '@/views/Products.vue'
 import UserRecipes from '@/views/UserRecipes.vue'
 import Register2 from '@/views/Register2.vue'
 
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -68,3 +69,4 @@ const router = createRouter({
 })
 
 export default router
+
