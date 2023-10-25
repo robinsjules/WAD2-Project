@@ -10,11 +10,9 @@ button.carousel-control-next {
 } 
 
 .card button {
-    border: none;
     outline: 0;
     padding: 12px;
     color: white;
-    background-color: #000000;
     text-align: center;
     cursor: pointer;
     width: 100%;
