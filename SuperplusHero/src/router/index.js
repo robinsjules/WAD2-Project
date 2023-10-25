@@ -5,6 +5,8 @@ import Login from '@/views/Login.vue'
 import Profile from '@/views/Profile.vue'
 import Register from '@/views/Register.vue'
 import AllRecipes from '@/views/AllRecipes.vue'
+import readRecipe from '@/views/readRecipe.vue'
+import AllIngridients from '@/views/AllIngridients.vue'
 import Products from '@/views/Products.vue'
 import UserRecipes from '@/views/UserRecipes.vue'
 import Register2 from '@/views/Register2.vue'
@@ -36,6 +38,16 @@ const router = createRouter({
       path: '/allrecipes',
       name: 'AllRecipes',
       component: AllRecipes
+    },
+    {
+      path: '/readrecipe',
+      name: 'readRecipe',
+      component: readRecipe
+    },
+    {
+      path: '/allingridients',
+      name: 'AllIngridients',
+      component: AllIngridients
     },
     {
       path: '/products',

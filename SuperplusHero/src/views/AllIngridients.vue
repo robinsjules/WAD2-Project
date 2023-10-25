@@ -12,7 +12,7 @@ img {
     <form>
         <div class="container-fluid">
             <h1>
-                <span class="text-primary" style="font-weight: bold;" >All Recipes</span>
+                <span class="text-primary" style="font-weight: bold;" >All Ingridients</span>
             </h1>
 
             <div class="form-group">
@@ -33,16 +33,11 @@ img {
                         <!-- Filter Button Start --> 
                         <div class="col-4 btn-group mt-2"> 
                             <select class="form-select" aria-label="Default select example"> 
-                            <option selected>Filter by cuisine</option>
-                            <option value="local" name="local">Local (Singapore)</option>
-                            <option value="western" name="western">Western</option> 
-                            <option value="chinese" name="chinese">Chinese</option> 
-                            <option value="indian" name="indian">Indian</option>
-                            <option value="malay" name="malay">Malay</option> 
-                            <option value="japanese" name="japanese">Japanese</option>
-                            <option value="korean" name="korean">Korean</option>
-                            <option value="thai" name>Thai</option>
-                            <option value="french">French</option> 
+                            <option selected value="all">Filter by Ingridients</option>
+                            <option value="mns" name="mns">Meat & Seafood</option>
+                            <option value="fnv" name="fnv">Fruits & Vegetables</option> 
+                            <option value="rnc" name="rnc">Rice,Noodle & Cooking Ingridients</option> 
+                            <option value="dce" name="dce">Dairy, Chilled & Eggs</option>
                         </select>
                         <!-- Filter Button End  -->
                         
@@ -69,84 +64,108 @@ img {
             <!-- BS card 1: Start --> 
             
             <div class="card m-2 pt-2" style="width: 18rem;"> 
-                <img src="./images/recipes/laksa.jpg"  alt="..."> 
+                <img src="./images/ingridients/Broccoli.png"  alt="..."> 
                 <div class="card-body"> 
-                    <h5 class="card-title">Laksa</h5> 
+                    <h5 class="card-title">Broccoli (250g)</h5>
+                    <p class="card-text">
+                        <span style="font-weight: bold; font-size: 20px;">$3.05</span>&nbsp;
+                        <span style="text-decoration: line-through;">$4.20</span>
+                    </p>
                     <p class="card-text">Some quick example text to make up the bulk of the card's content.</p>  
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Read more</button>
+                    <button type="button" class="btn btn-primary">Add To Cart</button>
                 </div> 
             </div>
             <!-- BS card: End --> 
 
             <!-- BS card 2: Start --> 
             <div class="card m-2 pt-2" style="width: 18rem;"> 
-                <img src="./images/recipes/chicken_rice.webp" class="card-img-top" alt="..."> 
+                <img src="./images/ingridients/Cabbage.png" class="card-img-top" alt="..."> 
                 <div class="card-body"> 
-                    <h5 class="card-title">Chicken Rice</h5> 
+                    <h5 class="card-title">Cabbage</h5>
+                    <p class="card-text">
+                        <span style="font-weight: bold; font-size: 20px;">$3.05</span>&nbsp;
+                        <span style="text-decoration: line-through;">$4.20</span>
+                    </p>
                     <p class="card-text">Some quick example text to make up the bulk of the card's content.</p>  
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Read more</button>
+                    <button type="button" class="btn btn-primary">Add To Cart</button>
                 </div> 
             </div>
             <!-- BS card: End -->
             
             <!-- BS card 3: Start --> 
             <div class="card m-2 pt-2" style="width: 18rem;"> 
-                <img src="./images/recipes/hokkien_mee.webp" class="card-img-top" alt="..."> 
+                <img src="./images/ingridients/Pork Belly.png" class="card-img-top" alt="..."> 
                 <div class="card-body"> 
-                    <h5 class="card-title">Hokkien Mee</h5> 
+                    <h5 class="card-title">Pork Belly</h5>
+                    <p class="card-text">
+                        <span style="font-weight: bold; font-size: 20px;">$3.05</span>&nbsp;
+                        <span style="text-decoration: line-through;">$4.20</span>
+                    </p>
                     <p class="card-text">Some quick example text to make up the bulk of the card's content.</p>  
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Read more</button>
+                    <button type="button" class="btn btn-primary">Add To Cart</button>
                 </div> 
             </div>
             <!-- BS card: End -->
 
             <!-- BS card 4: Start --> 
             <div class="card m-2 pt-2" style="width: 18rem;"> 
-                <img src="./images/recipes/charkwayteow.jpg" class="card-img-top" alt="..."> 
+                <img src="./images/ingridients/Salmon.png" class="card-img-top" alt="..."> 
                 <div class="card-body"> 
-                    <h5 class="card-title">Char Kway Teow</h5> 
+                    <h5 class="card-title">Salmon</h5>
+                    <p class="card-text">
+                        <span style="font-weight: bold; font-size: 20px;">$3.05</span>&nbsp;
+                        <span style="text-decoration: line-through;">$4.20</span>
+                    </p>
                     <p class="card-text">Some quick example text to make up the bulk of the card's content.</p>  
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Read more</button>
+                    <button type="button" class="btn btn-primary">Add To Cart</button>
                 </div> 
             </div>
             <!-- BS card: End -->
 
             <!-- BS card 5: Start --> 
             <div class="card m-2 pt-2" style="width: 18rem;"> 
-                <img src="./images/recipes/hokkien_mee.webp" class="card-img-top" alt="..."> 
+                <img src="./images/ingridients/Broccoli.png" class="card-img-top" alt="..."> 
                 <div class="card-body"> 
-                    <h5 class="card-title">Hokkien Mee</h5> 
+                    <h5 class="card-title">Broccoli</h5>
+                    <p class="card-text">
+                        <span style="font-weight: bold; font-size: 20px;">$3.05</span>&nbsp;
+                        <span style="text-decoration: line-through;">$4.20</span>
+                    </p>
                     <p class="card-text">Some quick example text to make up the bulk of the card's content.</p>  
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Read more</button>
+                    <button type="button" class="btn btn-primary">Add To Cart</button>
                 </div> 
             </div>
             <!-- BS card: End -->
             
             <!-- BS card 6: Start --> 
             <div class="card m-2 pt-2" style="width: 18rem;"> 
-                <img src="./images/recipes/charkwayteow.jpg" class="card-img-top" alt="..."> 
+                <img src="./images/ingridients/Pork Belly.png" class="card-img-top" alt="..."> 
                 <div class="card-body"> 
-                    <h5 class="card-title">Char Kway Teow</h5> 
+                    <h5 class="card-title">Pork Belly</h5>
+                    <p class="card-text">
+                        <span style="font-weight: bold; font-size: 20px;">$3.05</span>&nbsp;
+                        <span style="text-decoration: line-through;">$4.20</span>
+                    </p>
                     <p class="card-text">Some quick example text to make up the bulk of the card's content.</p>  
                 </div> 
                 
                 <div class="card-body"> 
-                    <button type="button" class="btn btn-primary">Read more</button>
+                    <button type="button" class="btn btn-primary">Add To Cart</button>
                 </div> 
             </div>
             <!-- BS card: End -->
