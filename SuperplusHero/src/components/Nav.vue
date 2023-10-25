@@ -1,27 +1,38 @@
 <template>
   <nav v-if="showNavBar" class="navbar navbar-expand-lg navbar-success bg-success">
-    <a class="navbar-brand" href="#"><img src="" alt="Logo" width="80" height="30"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+    <router-link to="/">
+      <a class="navbar-brand" href="#"><img src="../assets/appLogo.png" alt="Logo" width="50" height="50"></a>
+    </router-link>
+    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
-    </button>
+    </button> -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="#"><img src="../assets/comm.png" alt="Community" width="50" height="50"></a>
+          <router-link to="/"> <!-- Edit to Community Page, also apply to index.js router -->
+            <a class="nav-link" href="#"><img src="../assets/comm.png" alt="Community" width="50" height="50"></a>
+          </router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><img src="../assets/cart.png" alt="Cart" width="50" height="50"></a>
+          <router-link to="/"> <!-- Edit to Cart Page, also apply to index.js router -->
+            <a class="nav-link" href="#"><img src="../assets/cart.png" alt="Cart" width="50" height="50"></a>
+          </router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><img src="../assets/fridge.png" alt="Fridge" width="50" height="50"></a>
+          <router-link to="/"> <!-- Edit to Fridge Page, also apply to index.js router -->
+            <a class="nav-link" href="#"><img src="../assets/fridge.png" alt="Fridge" width="50" height="50"></a>
+          </router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><img src="../assets/profile.png" alt="Profile" width="50" height="50"></a>
+          <router-link to="/profile">
+            <a class="nav-link" href="#"><img src="../assets/profile.png" alt="Profile" width="50" height="50"></a>
+          </router-link>
         </li>
       </ul>
     </div>
   </nav>
 </template>
+
 <script>
 export default {
   data() {
@@ -37,4 +48,3 @@ export default {
   },
 };
 </script>
-  
