@@ -3,29 +3,6 @@
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <!-- <h2>Profile Page</h2> -->
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-success bg-success   ">
-            <a class="navbar-brand" href="#"><img src="" alt="Logo" width="80" height="30"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><img src="../assets/comm.png" alt="Community" width="50" height="50"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><img src="../assets/cart.png" alt="Cart" width="50" height="50"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><img src="../assets/fridge.png" alt="Fridge" width="50" height="50"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><img src="../assets/profile.png" alt="Profile" width="50" height="50"></a>
-                    </li>
-                </ul>
-            </div>
-    </nav>
         
     <div class="col-lg-6 mb-5 mb-lg-0">
                     <div class="card">
