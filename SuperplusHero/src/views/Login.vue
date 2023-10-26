@@ -20,6 +20,7 @@
                   <div class="col-lg-6 mb-5 mb-lg-0">
                       <div class="card">
                           <div class="card-body py-5 px-md-5">
+                            <div class=" fw-bolder ls-tight"><h1>Login</h1></div><br>
                               <form>
                                   <!-- 2 column grid layout with text inputs for the first and last names -->
                                   <!-- <div class="row">
@@ -58,7 +59,7 @@
                                   </div>
 
                                   <!-- Submit button -->
-                                  <button type="submit" class="btn btn-primary btn-block mb-4" style = " padding: 10px;justify-content: center;align-items: center;">
+                                  <button type="submit" class="btn btn-success btn-block mb-4" style = " padding: 10px;justify-content: center;align-items: center;">
                                       Login
                                   </button>
                                 <p style="text-align: center;">New here? Click <router-link :to="{ name: 'Register' }">here</router-link> to register </p>

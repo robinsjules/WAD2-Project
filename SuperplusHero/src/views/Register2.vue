@@ -1,5 +1,4 @@
-<template>
-     <!-- <h2>Register Page</h2> --> 
+<template> 
 
     <!-- Section: Design Block -->
     <section class="">
@@ -10,7 +9,7 @@
                     <div class="col-lg-6 mb-5 mb-lg-0">
                         <h1 class="my-5 display-3 fw-bold ls-tight">
                             Welcome to <br />
-                            <span class="text-success">Surplus Hero</span>
+                            <span class="text-success">Surplus Hero.</span>
                         </h1>
                         <p style="color: hsl(217, 10%, 50.8%)">
                             The one stop platform for surplus groceries and recipe generation!
@@ -20,6 +19,7 @@
                     <div class="col-lg-6 mb-5 mb-lg-0">
                         <div class="card">
                             <div class="card-body py-5 px-md-5">
+                                <div class=" fw-bolder ls-tight"><h1>Create Account</h1></div><br>
                                 <form>
                                     <!-- 2 column grid layout with text inputs for the first and last names -->
                                         <div class="col-md-12 mb-4">
@@ -36,7 +36,7 @@
                                         </div>
                                         <div class="row">
                                         <div class="col-md-6">
-                                                <button type="button" class="btn btn-success" @click="addItem()">Add Item</button>
+                                                <button type="button" class="btn btn-primary" @click="addItem()">Add Item</button>
                                             </div>
                                             <div class="col-md-6">
                                                 <button type="button" class="btn btn-danger" @click="deleteItem()" >Delete Item</button>
@@ -44,7 +44,7 @@
                                         </div><br>
                                     <!-- Submit button -->
                                     <div>
-                                        <button type="submit" class="btn btn-primary btn-block mb-4">
+                                        <button type="submit" class="btn btn-success btn-block mb-4">
                                             Next
                                         </button>
                                     </div>

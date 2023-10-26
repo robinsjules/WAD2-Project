@@ -9,7 +9,7 @@
                     <div class="col-lg-6 mb-5 mb-lg-0">
                         <h1 class="my-5 display-3 fw-bold ls-tight">
                             Welcome to <br />
-                            <span class="text-success">Surplus Hero</span>
+                            <span class="text-success">Surplus Hero.</span>
                         </h1>
                         <p style="color: hsl(217, 10%, 50.8%)">
                             The one stop platform for surplus groceries and recipe generation!
@@ -19,6 +19,7 @@
                     <div class="col-lg-6 mb-5 mb-lg-0">
                         <div class="card">
                             <div class="card-body py-5 px-md-5">
+                                <div class=" fw-bolder ls-tight"><h1>Create Account</h1></div><br>
                                 <form>
                                     <!-- 2 column grid layout with text inputs for the first and last names -->
                                     <div class="row">
@@ -62,11 +63,11 @@
                                             Subscribe to our newsletter
                                         </label>
                                     </div>
-                                    <p style="text-align: center;">Already have an account? Click <router-link :to="{ name: 'Login' }">here</router-link> to log in</p>
                                     <!-- Submit button -->
-                                    <button @click="goToNext" type="submit" class="btn btn-primary btn-block mb-4">
+                                    <button @click="goToNext" type="submit" class="btn btn-success btn-block mb-4">
                                         Next
                                     </button>
+                                    <p style="text-align: center;">Already have an account? Click <router-link :to="{ name: 'Login' }">here</router-link> to log in</p>
 
                                     <!-- Register buttons -->
                                     <!-- <div class="text-center">
