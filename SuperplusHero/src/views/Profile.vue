@@ -72,7 +72,7 @@
                                     Dietary Preferences
                                     <div class="container">
                                         <div class="row">
-                                            <div v-for="(preference,index) in dPreferences" :key="index" class="col-sm text-white bg-primary rounded d-flex justify-content-center m-1">
+                                            <div v-for="(preference,index) in dPreferences" :key="index" :span="3" class="col-sm text-white bg-primary rounded d-flex justify-content-center m-1">
                                                 <input type="checkbox" :value="preference.value" v-model="foodPreferences"> &nbsp;
                                                 <label>
                                                     {{preference.name}} 
@@ -82,11 +82,21 @@
                                     </div>
                                     <br/>
                                 </div>
-                                <div >
-
+                                <div class="row">
+                                    <div class="form-outline mb-4 col-md-8">
+                                            <input type="text" class="form-control" id="allergens">
+                                            <label for="allergens">Allergies</label>
+                                    </div>
+                                    <div class="col-md-4 align-items-center justify-content-center">
+                                        <button type="button" class="btn btn-primary"
+                                            style="height:36px; width:100px">
+                                            Add
+                                        </button>
+                                    </div>
                                 </div>
-                                <button class="btn btn-primary btn-block mb-4" type="submit" value="submit"> Save changes </button>
-                                <button class="btn btn-primary mb-4" type="submit" value="logout">Log out</button>
+
+                                <button class="btn btn-dark btn-block mb-4" type="submit" value="submit"> Save changes </button>
+                                <button class="btn btn-dark  mb-4" type="submit" value="logout">Log out</button>
                                     
                         </div>
                     </form>
@@ -135,7 +145,7 @@
         },
         computed: {
             rowsOfThree(){
-                
+
             }
         }
     };
