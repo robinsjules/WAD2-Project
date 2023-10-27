@@ -34,20 +34,18 @@
                                                 <input type="text" id="form3Example2" class="form-control" placeholder="Eg. Banana" />
                                             </div><br>
                                         </div>
-                                        <div class="row">
-                                        <div class="col-md-6">
-                                                <button type="button" class="btn btn-primary" @click="addItem()">Add Item</button>
+                                        <div class="col-md-12 mb-4">
+                                            <div class="d-flex justify-content-between">
+                                                <button type="button" class="btn btn-primary w-100" @click="addItem()">Add Item</button>
+                                                <button type="button" class="btn btn-danger w-100" @click="deleteItem()" >Delete Item</button>
                                             </div>
-                                            <div class="col-md-6">
-                                                <button type="button" class="btn btn-danger" @click="deleteItem()" >Delete Item</button>
-                                            </div>
-                                        </div><br>
+                                        </div>
                                     <!-- Submit button -->
-                                    <div>
-                                        <button type="submit" class="btn btn-success btn-block mb-4">
-                                            Next
-                                        </button>
-                                    </div>
+                                    <div class="col-md-12 mb-4">
+                                            <div class="d-flex justify-content-between">
+                                                <button type="submit" class="btn btn-success w-100">Next</button>
+                                            </div>
+                                        </div>
 
                                 
                                 </form>

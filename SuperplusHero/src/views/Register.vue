@@ -1,3 +1,8 @@
+<style scoped>
+.btn{
+    text-align: center;
+}
+</style>
 <template>
     <!-- <h2>Register Page</h2> --> 
     <!-- Section: Design Block -->
@@ -22,20 +27,23 @@
                                 <div class=" fw-bolder ls-tight"><h1>Create Account</h1></div><br>
                                 <form>
                                     <!-- 2 column grid layout with text inputs for the first and last names -->
-                                    <div class="row">
-                                        <div class="col-md-6 mb-4">
+                                    <div class="col-md-12 mb-4">
+                                        <div class="form-outline">
+                                            <select class="form-control" id="dropdown">
+                                                <option selected>What type of user are you?</option>
+                                                <option>Consumer</option>
+                                                <option>Business</option>
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                        <div class="col-md-12 mb-4">
                                             <div class="form-outline">
-                                                <input type="text" id="form3Example1" class="form-control" placeholder="First Name" />
+                                                <input type="text" id="form3Example1" class="form-control" placeholder="Username" />
                                                 <!-- <label class="form-label" for="form3Example1">First name</label> -->
                                             </div>
                                         </div>
-                                        <div class="col-md-6 mb-4">
-                                            <div class="form-outline">
-                                                <input type="text" id="form3Example2" class="form-control" placeholder="Last Name" />
-                                                <!-- <label class="form-label" for="form3Example2">Last name</label> -->
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
 
                                     <!-- Email input -->
                                     <div class="form-outline mb-4">
@@ -64,11 +72,14 @@
                                         </label>
                                     </div>
                                     <!-- Submit button -->
-                                    <button @click="goToNext" type="submit" class="btn btn-success btn-block mb-4">
-                                        Next
-                                    </button>
+                                    <div class="col-md-12 mb-4">
+                                            <div class="d-flex justify-content-between">
+                                                <button @click="goToNext" type="submit" class="btn btn-success w-100">Next</button>
+                                            </div>
+                                    </div>
+                                    
                                     <p style="text-align: center;">Already have an account? Click <router-link :to="{ name: 'Login' }">here</router-link> to log in</p>
-
+                                    
                                     <!-- Register buttons -->
                                     <!-- <div class="text-center">
                                         <p>or sign up with:</p>
