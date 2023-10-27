@@ -1,4 +1,69 @@
-<style>
+<style scoped>
+
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+div {
+    font-family: 'Merriweather', serif;
+}
+
+.coolbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* height: 100vh; */
+}
+.box {
+    flex: 1;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.type, .type1 {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: .15em solid black;
+    max-width: 100%;
+    width: 0ch;
+    animation-name: typing, blink-caret;
+    animation-duration: 3.5s, 3.5s;
+    animation-fill-mode: forwards;
+}
+.type[data-text="Welcome to SurplusHero!"] {
+    animation-duration: 3s, 3s;
+}
+.type1[data-text="Your go-to for cheap groceries"] {
+    animation-duration: 4s, 4s;
+}
+
+/* The typing effect */
+@keyframes typing {
+    from { width: 0ch; }
+    to { width: 27ch; }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+    0%, 100% {
+        border-color: transparent;
+    }
+    50% {
+        border-color: black;
+    }
+    100% {
+        border-width: 0;
+    }
+}
+
+
+
+#homeImg{
+    max-width: 100%; /* This makes the image responsive */
+    align-self: center; /* This centers the image in the div */
+}
+
 
 .carousel-item .card {
     height: 100%;
@@ -24,15 +89,12 @@ button.carousel-control-next {
     width:fit-content;
 }
 
-.navbar-nav{
+/* .navbar-nav{
     margin-left: auto;
 
-}
-
-/* .nav-link{
-    height: 10%;
-    width: 10%
 } */
+
+
 
 
 
@@ -69,15 +131,33 @@ button.carousel-control-next {
             </div>
         </nav> -->
 
+
+        <!-- <div class="container">
+            <div class="col-md-6">
+                <img src="../assets/appLogo.png" alt="Description of Image" id="homeImg"/>
+            </div>
+            <div class="typewriter col-md-6">
+                <h1 class="type">Welcome to SurplusHero!</h1>
+                <h1 class="type1"> Your go-to for <span class="text-success">cheap groceries</span></h1>
+            </div>
+        </div> -->
+
+
+        <div class="container coolbox">
+    <div class="box">
+        <img src="../assets/appLogo.png" alt="Logo of SurplusHero" id="homeImg"/>
+    </div>
+    <div class="box typewriter">
+        <h2 class="type" data-text="Welcome to SurplusHero!">Welcome to SurplusHero!</h2>
+        <h2 class="type1" data-text="Your go-to for cheap groceries"> Your go-to for <span class="text-success">cheap groceries</span></h2>
+    </div>
+</div>
+
         <div class="container">
             <div class="row row-cols-1 row-cols-md-3 g-4">
-
-
-
-
-                <div class="col">
+                <div class="col mt-5">
                     <div class="card h-100">
-                    <img src="..." class="card-img-top" alt="...">
+                    <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Money Saved</h5>
                             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -94,19 +174,21 @@ button.carousel-control-next {
                     </div>
                 </div> -->
 
-
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                        <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" class="img-fluid rounded-start" style="">
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card-body">
-                                <h5 class="card-title">Viewed Recipes</h5>
-                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <div class="col mt-5">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                            <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" class="img-fluid rounded-start" style="">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <h5 class="card-title">Viewed Recipes</h5>
+                                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
                 <!-- <div class="col">

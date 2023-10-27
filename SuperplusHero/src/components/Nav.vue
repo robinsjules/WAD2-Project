@@ -1,5 +1,12 @@
+<style scoped>
+.navbar-nav{
+    margin-left: auto;
+
+}
+</style>
+
 <template>
-  <nav v-if="showNavBar" class="navbar navbar-expand-lg navbar-success bg-success">
+  <nav v-if="showNavBar" class="navbar navbar-expand-md navbar-success bg-success">
     <router-link to="/">
       <a class="navbar-brand" href="#"><img src="../assets/appLogo.png" alt="Logo" width="50" height="50"></a>
     </router-link>
