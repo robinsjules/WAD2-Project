@@ -1,31 +1,32 @@
 <template>
     <div>
-        <h2>Users:</h2>
-        <p>{{ users }}</p>
+      <h1>User List</h1>
+      <ul>
+        <li v-for="user in users" :key="user.email">{{ user.User_FName }}</li>
+      </ul>
     </div>
-</template>
-<script>
-// testing to see if user data can be retrieved
-// import { fetchUsers } from '@/services/getUsers';
-// file not in used pls ignore
-import axios from 'axios';
-import { watchEffect } from 'vue';
-
-export default {
-    setup() {
-        const users = ref(null);
-
-        watchEffect(() => {
-            axios
-                .get('http://127.0.0.1:5000/users')
-                .then((response) => (users.value = response.data))
-                .catch((error) => {
-                    console.log('Error fetching users', error);
-                });
-        });
-
-        return {
-            users,
-        };
+  </template>
+  
+  <script>
+  import axios from 'axios';
+  
+  export default {
+    data() {
+      return {
+        users: [],
+      };
     },
-};
+    mounted() {
+      // Make an HTTP GET request to your Flask API
+      axios.get('http://127.0.0.1:5000/users') // Adjust the URL if needed
+        .then((response) => {
+          this.users = response.data;
+          console.log(this.users);
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
+    },
+  };
+  </script>
+  
