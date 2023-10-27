@@ -1,8 +1,16 @@
-<style scoped>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
 .navbar-nav{
     margin-left: auto;
 
 }
+
+
+div {
+    font-family: 'Merriweather', serif;
+}
+
+
 </style>
 
 <template>
@@ -10,9 +18,9 @@
     <router-link to="/">
       <a class="navbar-brand" href="#"><img src="../assets/appLogo.png" alt="Logo" width="50" height="50"></a>
     </router-link>
-    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
-    </button> -->
+    </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">

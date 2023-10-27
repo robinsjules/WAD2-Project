@@ -27,6 +27,7 @@ div {
     border-right: .15em solid black;
     max-width: 100%;
     width: 0ch;
+    font-size: 3vw; /* Responsive text size */
     animation-name: typing, blink-caret;
     animation-duration: 3.5s, 3.5s;
     animation-fill-mode: forwards;
