@@ -30,7 +30,7 @@
         </div>
     
 
-            <h1>Required Ingridients (Serving Size: 4)</h1>
+            <h1>Required Ingredients (Serving Size: 4)</h1>
 
             <div class="row">
                 
