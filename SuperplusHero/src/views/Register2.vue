@@ -43,7 +43,7 @@
                                     <!-- Submit button -->
                                     <div class="col-md-12 mb-4">
                                             <div class="d-flex justify-content-between">
-                                                <button type="submit" class="btn btn-success w-100">Next</button>
+                                                <button @click="goToNext" type="submit" class="btn btn-success w-100">Next</button>
                                             </div>
                                         </div>
 
@@ -73,6 +73,9 @@
                             },
                             deleteItem() {
                                 this.items.pop();
+                            },
+                            goToNext(){
+                                this.$router.push({ name: 'Login' })
                             }
                         }
                     }
