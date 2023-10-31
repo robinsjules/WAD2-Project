@@ -1,5 +1,10 @@
+<style scoped>
+.content{
+    margin-top: 100px;
+}
+</style>
 <template>
-  <div>
+  <div class="content">
     <h2>Edit Profile</h2>
     <form @submit.prevent="updateProfile">
       <label for="Email">Email:</label>
@@ -70,21 +75,6 @@ export default {
           console.error('Error updating data:', error); // Handle error
         });
     }
-    // mounted() {
-    //   // Fetch user's initial profile data (if needed)
-    //   // You may use this block to pre-fill the form with user's current data
-    //   // Make an HTTP GET request to fetch user data to pre-fill the form
-    //   axios.get(`http://127.0.0.1:5000/get_profile/${this.email}`)
-    //     .then(response => {
-    //       // Update the data properties with the received user data
-    //       this.email = response.data.email;
-    //       this.phone = response.data.phone;
-    //       // Update other fields similarly
-    //     })
-    //     .catch(error => {
-    //       console.error('Error fetching data:', error); // Handle error
-    //     });
-    // }
   }
 };
 </script>
