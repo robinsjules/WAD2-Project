@@ -1,9 +1,8 @@
 <style scoped>
-
-@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
 
 div {
-    font-family: 'Merriweather', serif;
+    font-family: 'Montserrat', 'sans-serif'
 }
 
 .coolbox {
@@ -90,14 +89,9 @@ button.carousel-control-next {
     width:fit-content;
 }
 
-/* .navbar-nav{
-    margin-left: auto;
-
-} */
-
-
-
-
+.content{
+    margin-top: 100px;
+}
 
 </style>
 
@@ -144,7 +138,7 @@ button.carousel-control-next {
         </div> -->
 
 
-        <div class="container coolbox">
+        <div class="content container coolbox">
     <div class="box">
         <img src="../assets/appLogo.png" alt="Logo of SurplusHero" id="homeImg"/>
     </div>
