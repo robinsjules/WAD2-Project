@@ -15,23 +15,13 @@ def getAllUsers():
     response = supabase.table('Users').select('*').execute()
     return(response.data)
 
-# code in progress -> Add users for when they register
-@app.route("/add_users", methods=['POST'])
-def addUsers():
-    try:
-        data = request.json  # Assuming the client sends a JSON object with user data
-
-        # Insert data into the Users table
-        response = supabase.table('Users').update(data, ['Email'])  # Assuming 'Email' is the primary key
-
-        if response['status_code'] == 200:
-            return jsonify({"message": "User added successfully"})
-        else:
-            return jsonify({"error": "Failed to add user"})
-
-    except Exception as e:
-        return jsonify({"error": str(e)})
-
+# code works -> add user data to the database after they register
+@app.route("/register_user", methods=['POST'])
+def registerUsers():
+    data = request.json
+    response = supabase.table('Users').insert(data).execute()
+    return (response.data)
+        
 # code works -> get profile of user
 @app.route('/get_profile/<username>', methods=['GET'])
 def get_profile(username):
@@ -42,9 +32,7 @@ def get_profile(username):
 @app.route("/update_profile/<username1>", methods=['POST', 'PUT'])
 def update_user(username1):
     data = request.json
-
     response = supabase.table('Users').update(data).eq('UserName', username1).execute()
-
     return (response.data)
 
 if __name__ == '__main__':
