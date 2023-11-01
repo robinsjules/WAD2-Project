@@ -12,6 +12,7 @@ import Products from '@/views/Products.vue'
 import UserRecipes from '@/views/UserRecipes.vue'
 import Register2 from '@/views/Register2.vue'
 import Community from '@/views/Community.vue'
+import ben_test2 from '@/views/ben_test2.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -55,6 +56,11 @@ const router = createRouter({
       path: '/AllIngredients',
       name: 'AllIngredients',
       component: AllIngredients
+    },
+    {
+      path: '/ben_test2',
+      name: 'ben_test2',
+      component: ben_test2
     },
     {
       path: '/products',
