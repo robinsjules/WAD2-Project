@@ -29,12 +29,12 @@
                                     <h1>Create Account</h1>
                                 </div><br>
 
-                                <form @submit.prevent="submitForm">
+                                <form>
                                     <!-- 2 column grid layout with text inputs for the first and last names -->
                                     <div class="col-md-12 mb-4">
                                         <div class="form-outline">
-                                            <select v-model="form.userType" class="form-control" id="dropdown">
-                                                <option selected>What type of user are you?</option>
+                                            <select class="form-control" id="dropdown">
+                                                <option value = "What type of user are you?" selected>What type of user are you?</option>
                                                 <option value="Consumer">Consumer</option>
                                                 <option value="Business">Business</option>
 
@@ -43,7 +43,7 @@
                                     </div>
                                     <div class="col-md-12 mb-4">
                                         <div class="form-outline">
-                                            <input v-model="form.username" type="text" id="form3Example1"
+                                            <input type="text" id="form3Example1"
                                                 class="form-control" placeholder="Username" />
                                             <!-- <label class="form-label" for="form3Example1">First name</label> -->
                                         </div>
@@ -52,21 +52,21 @@
 
                                     <!-- Email input -->
                                     <div class="form-outline mb-4">
-                                        <input v-model="form.email" type="email" id="form3Example3" class="form-control"
+                                        <input type="email" id="form3Example3" class="form-control"
                                             placeholder="Email Address" />
                                         <!-- <label class="form-label" for="form3Example3">Email address</label> -->
                                     </div>
 
                                     <!-- Phone Number -->
                                     <div class="form-outline mb-4">
-                                        <input v-model="form.phonenum" type="phonenum" id="form3Example3"
+                                        <input type="phonenum" id="form3Example4"
                                             class="form-control" placeholder="Phone Number" />
                                         <!-- <label class="form-label" for="form3Example3">Phone Number</label> -->
                                     </div>
 
                                     <!-- Password input -->
                                     <div class="form-outline mb-4">
-                                        <input v-model="form.password" type="password" id="form3Example4"
+                                        <input type="password" id="form3Example5"
                                             class="form-control" placeholder="Password" />
                                         <!-- <label class="form-label" for="form3Example4">Password</label> -->
                                     </div>
@@ -82,9 +82,9 @@
                                     <!-- Submit button -->
                                     <div class="col-md-12 mb-4">
                                         <div class="d-flex justify-content-between">
-                                            <button @click="goToNext" v-if="form.userType === 'Business'" type="submit"
+                                            <button onclick = "submitdetails()" type="submit"
                                                 class="btn btn-success w-100">Submit</button>
-                                            <button @click="goToNext" v-else type="submit" class="btn btn-success w-100">Next</button>
+                                            <button onclick = "submitdetails()" type="submit" class="btn btn-success w-100">Next</button>
                                         </div>
                                     </div>
 
@@ -103,34 +103,67 @@
     <!-- Section: Design Block -->
 </template>
 <script>
-export default {
-    // Your component data and methods go here
-    data() {
-        return {
-            form: {
-                userType: '',
-                username: '',
-                email: '',
-                phonenum:'',
-                password: ''
-            }
-        }
-    },
-    methods: {
-        goToNext() {
-            if (this.form.userType === 'Consumer') {
-                this.$router.push({ name: 'Register2' });
-            } else if(this.form.userType === 'Business'){
-                this.$router.push({ name: 'Login' });
-            } else{
-                alert('Please select a user type');
-            }
-        },
-        submitForm() {
-                console.log(this.form);
-        },
-    },
+import axios from 'axios';
+
+function submitdetails(){
+    var url = 'http://127.0.0.1:5000/register_user/';
+    var para = {
+        userType: document.getElementById("dropdown").value,
+        username: document.getElementById("form3Example1").value,
+        email: document.getElementById("form3Example3").value,
+        phonenum: document.getElementById("form3Example4").value,
+        password: document.getElementById("form3Example5").value
+        
+    }
+    if(para.userType === 'Business'){
+        axios.post(url, {params:para})
+                        .then(response => {
+                            console.log(response.data)
+                        })
+                        .catch(error => {
+                            console.log(error.message)
+                        });
+    }
+    else{
+
+    }
 }
+// @click="goToNext"
+// v-if="form.userType === 'Business'"
+// v-else
+// v-model="form.password"
+// v-model="form.phonenum"
+// v-model="form.email"
+// v-model="form.username"
+// v-model="form.userType"
+// export default {
+//     // Your component data and methods go here
+//     data() {
+//         return {
+//             form: {
+//                 userType: 'What type of user are you?',
+//                 username: '',
+//                 email: '',
+//                 phonenum:'',
+//                 password: ''
+//             }
+//         }
+//     },
+//     methods: {
+//         goToNext() {
+//             if (this.form.userType === 'Consumer') {
+//                 this.$router.push({ name: 'Register2' });
+//                 console.log(JSON.stringify(this.form));
+//             } else if(this.form.userType === 'Business'){
+//                 this.$emit('goToNext', this.form)
+//                 console.log(JSON.stringify(this.form));
+//                 this.$router.push({ name: 'Login' });
+//             } else{
+//                 alert('Please select a user type');
+//             }
+//         },
+//     },
+// }
 </script>
 <!-- for register, have to make sure all fields are compulsory, and must be filled in properly
 eg. email must have @ sign

@@ -25,13 +25,13 @@
                                         <div class="col-md-12 mb-4">
                                             <div class="form-outline">
                                                 <label for="allergies">Allergies</label>
-                                                <input type="text" class="form-control" id="allergies" placeholder="Eg. Shellfish">
+                                                <input v-model = "allergies" type="text" class="form-control" id="allergies" placeholder="Eg. Shellfish">
                                             </div>
                                         </div>
                                         <div class="col-md-12 mb-4">
                                             <div class="form-outline">
                                                 <label for="fridgeItems">Items in Fridge</label>
-                                                <input type="text" id="form3Example2" class="form-control" placeholder="Eg. Banana" />
+                                                <input v-model = "items" type="text" id="form3Example2" class="form-control" placeholder="Eg. Banana" />
                                             </div><br>
                                         </div>
                                         <div class="col-md-12 mb-4">
@@ -63,7 +63,10 @@
                     export default {
                         data() {
                             return {
-                                items: []
+                                form: {
+                                    allergies: '',
+                                    items: [],
+                                }
                             }
                         },
                         methods: {
@@ -75,7 +78,8 @@
                                 this.items.pop();
                             },
                             goToNext(){
-                                this.$router.push({ name: 'Login' })
+                                this.$router.push({ name: 'Login' });
+                                console.log(JSON.stringify(this.form));
                             }
                         }
                     }
