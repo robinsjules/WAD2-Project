@@ -1,5 +1,5 @@
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 .navbar-nav{
     margin-left: auto;
@@ -38,10 +38,11 @@
             class="nav-link" 
             href="#"
             data-bs-toggle="modal"
-            data-bs-target="#postalCodeModal"
+            data-bs-target="#locationModal"
           >
             <img src="../assets/location.png" alt="Location Pin" width="50" height="50">
           </a>
+
 
         </li>
 
@@ -58,26 +59,6 @@
           <i class="bi bi-bell"></i>
         </button>
 
-            <div 
-              class="modal" 
-              tabindex="-1" 
-              role="dialog" 
-              id="notificationModal" 
-              aria-labelledby="notificationModalLabel" 
-              aria-hidden="true">
-              <div class="modal-dialog">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          <h5 class="modal-title" id="notificationModalLabel">Notifications</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                          You have {{notificationCount}} new notifications.
-                          <!-- REPLACE WITH THE EXPIRING NOTIFICATIONS FROM SUPABASE  -->
-                      </div>
-                  </div>
-              </div>
-          </div>
 
         </li>
 
@@ -111,6 +92,10 @@ export default {
   data() {
     return {
       showNavBar: true, // Default to show the navigation bar
+      notificationCount: 0,
+      newNotifications: false,
+      postalCode: "",
+      location:"",
     };
   },
   methods: {
@@ -126,6 +111,33 @@ export default {
       this.newNotifications = true;
     }, 30000); // simulate notification every 30 seconds
   },
+  // initAutocomplete() {
+  //       let input = document.getElementById("autocomplete");
+  //       let autocomplete = new google.maps.places.Autocomplete(input);
+  //       },
+  //       useCurrentLocation() {
+  //           if (!navigator.geolocation) {
+  //           return;
+  //           }
+
+  //           navigator.geolocation.getCurrentPosition((position) => {
+  //           const lat = position.coords.latitude;
+  //           const lng = position.coords.longitude;
+  //           const radius = '1000';
+  //           const type = encodeURIComponent('NTUC');
+  //           const key = "YOUR_GOOGLE_API_KEY";
+            
+  //           axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${radius}&type=${type}&key=${key}`)
+  //               .then(res => {
+  //               if (res.data.results && res.data.results.length > 0) {
+  //                   this.location = res.data.results[0].name;
+  //               }
+  //               })
+  //               .catch(err => {
+  //               console.error(err);
+  //               });
+  //           });
+// },
   watch: {
     $route(to) {
       // Check the route and conditionally hide the navigation bar on specific routes
@@ -133,30 +145,5 @@ export default {
     },
   },
 };
-
-
-
-
-// JavaScript with Google Maps API integration
-function openModal() {
-  document.getElementById('myModal').style.display = "block";
-  document.body.classList.add('modal-open');
-  document.getElementById('postalInput').focus(); // Auto-focus on input field
-}
-
-function closeModal() {
-  document.getElementById('myModal').style.display = "none";
-  document.body.classList.remove('modal-open');
-  document.getElementById('modalOpenBtn').focus(); // Move focus back to the button
-}
-
-function getFromAPI() {
-  var postalCode = document.getElementById('postalInput').value;
-  // Google Maps Postal code lookup api request here Eg:
-  // var apiRequest = 'http://maps.googleapis.com/maps/api/geocode/json?address='+postalCode+'&sensor=true';
-  closeModal(); // Close modal after API call
-}
-
-
 
 </script>
