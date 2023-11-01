@@ -25,13 +25,13 @@
                                 <form>
                                     <!-- email input -->
                                     <div class="form-outline mb-4">
-                                        <input type="email" id="form3Example3" class="form-control" />
+                                        <input v-model = "form.email" type="email" id="form3Example3" class="form-control" />
                                         <label class="form-label" for="form3Example3">Email address</label>
                                     </div>
 
                                     <!-- Password input -->
                                     <div class="form-outline mb-4">
-                                        <input type="password" id="form3Example4" class="form-control" />
+                                        <input v-model = "form.password" type="password" id="form3Example4" class="form-control" />
                                         <label class="form-label" for="form3Example4">Password</label>
                                     </div>
 
@@ -66,10 +66,19 @@
 <!-- need to firstly store user's email and password when they register, and check if they are correct before they can login -->
 <script>
                     export default {
+                        data() {
+                            return {
+                            form: {
+                            email: '',
+                            password: ''
+                            }   
+                    }
+    },
                         methods: {
                             goToNext(){
                                 this.$router.push({ name: 'Home' })
+                                console.log(JSON.stringify(this.form));
+                                }
                             }
                         }
-                    }
                 </script>

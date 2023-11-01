@@ -63,7 +63,7 @@
         </li>
 
         <li class="nav-item">
-          <router-link to="/"> <!-- Edit to Community Page, also apply to index.js router -->
+          <router-link to="/community"> <!-- Edit to Community Page, also apply to index.js router -->
             <a class="nav-link" href="#"><img src="../assets/communityWhite.png" alt="Community" width="50" height="50"></a>
           </router-link>
         </li>

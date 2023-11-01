@@ -11,6 +11,7 @@ import AllIngredients from '@/views/AllIngredients.vue'
 import Products from '@/views/Products.vue'
 import UserRecipes from '@/views/UserRecipes.vue'
 import Register2 from '@/views/Register2.vue'
+import Community from '@/views/Community.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -69,6 +70,11 @@ const router = createRouter({
       path: '/register2',
       name: 'Register2',
       component: Register2
+    },
+    {
+      path: '/community',
+      name: 'Community',
+      component: Community
     }
   ]
 })
