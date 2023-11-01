@@ -31,11 +31,62 @@
       <a class="navbar-brand" href="#"><img src="../assets/appLogoForNav.png" alt="Logo" height="70"></a>
     </router-link>
       <ul class="navbar-nav">
+
+        <li class="nav-item">
+            <!-- Modal trigger -->
+            <a 
+            class="nav-link" 
+            href="#"
+            data-bs-toggle="modal"
+            data-bs-target="#postalCodeModal"
+          >
+            <img src="../assets/location.png" alt="Location Pin" width="50" height="50">
+          </a>
+
+        </li>
+
+        <li class="nav-item">
+          <button 
+              type="button"
+              class="btn btn-link" 
+              data-bs-toggle="modal" 
+              data-bs-target="#notificationModal"
+              @click="openNoti"
+              aria-label="Show notifications"
+            ><img src="../assets/noti.png" width="50" height="50">
+          <span class="badge bg-danger" v-if="newNotifications" role="alert">{{notificationCount}}</span>
+          <i class="bi bi-bell"></i>
+        </button>
+
+            <div 
+              class="modal" 
+              tabindex="-1" 
+              role="dialog" 
+              id="notificationModal" 
+              aria-labelledby="notificationModalLabel" 
+              aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="notificationModalLabel">Notifications</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          You have {{notificationCount}} new notifications.
+                          <!-- REPLACE WITH THE EXPIRING NOTIFICATIONS FROM SUPABASE  -->
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+        </li>
+
         <li class="nav-item">
           <router-link to="/"> <!-- Edit to Community Page, also apply to index.js router -->
             <a class="nav-link" href="#"><img src="../assets/communityWhite.png" alt="Community" width="50" height="50"></a>
           </router-link>
         </li>
+
         <li class="nav-item">
           <router-link to="/"> <!-- Edit to Cart Page, also apply to index.js router -->
             <a class="nav-link" href="#"><img src="../assets/cartWhite.png" alt="Cart" width="50" height="50"></a>
