@@ -11,3 +11,7 @@ Creative Commons Notification Icon by Kriya Barot
 Creative Commons Notification Alert Icon by Kriya Barot
 Creative Commons Shopping Cart Icon by Alejandro
 Creation Commons Location Pin Icon by Gregor Cresnar
+
+
+Install this for Google Maps API
+npm install @googlemaps/js-api-loader
