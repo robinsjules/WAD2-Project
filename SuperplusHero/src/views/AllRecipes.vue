@@ -1,4 +1,4 @@
-<style>
+<style scoped>
 /* img {
     width: 260px;
     height:200px
