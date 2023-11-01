@@ -113,6 +113,19 @@ export default {
       showNavBar: true, // Default to show the navigation bar
     };
   },
+  methods: {
+    openNoti() {
+      // reset notification count 
+      this.notificationCount = 0;
+      this.newNotifications = false;
+    }
+  },
+  created(){
+    setInterval(() => {
+      this.notificationCount++;
+      this.newNotifications = true;
+    }, 30000); // simulate notification every 30 seconds
+  },
   watch: {
     $route(to) {
       // Check the route and conditionally hide the navigation bar on specific routes
@@ -120,4 +133,30 @@ export default {
     },
   },
 };
+
+
+
+
+// JavaScript with Google Maps API integration
+function openModal() {
+  document.getElementById('myModal').style.display = "block";
+  document.body.classList.add('modal-open');
+  document.getElementById('postalInput').focus(); // Auto-focus on input field
+}
+
+function closeModal() {
+  document.getElementById('myModal').style.display = "none";
+  document.body.classList.remove('modal-open');
+  document.getElementById('modalOpenBtn').focus(); // Move focus back to the button
+}
+
+function getFromAPI() {
+  var postalCode = document.getElementById('postalInput').value;
+  // Google Maps Postal code lookup api request here Eg:
+  // var apiRequest = 'http://maps.googleapis.com/maps/api/geocode/json?address='+postalCode+'&sensor=true';
+  closeModal(); // Close modal after API call
+}
+
+
+
 </script>
