@@ -153,7 +153,7 @@ button.carousel-control-next {
         <h2 class="type1" data-text="Your go-to for cheap groceries"> Your go-to for <span class="text-success">cheap groceries</span></h2>
     </div>
 </div>
-
+<!-- Maybe money saved can be a pie chart or dashboard showing how much money saved so far and what type of good it was spent on -->
         <div class="container">
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <div class="col mt-5">
@@ -212,7 +212,7 @@ button.carousel-control-next {
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-1"></div>
-            <div class="col-md-2"><h2>Produce</h2></div>
+            <div class="col-md-2"><h2>Deals of the day!</h2></div>
             </div>
     </div>
 
@@ -290,7 +290,7 @@ button.carousel-control-next {
                                             <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
                                         </div>
                                 </div>
-                                <!-- <div class="card text-center col-md-2 mb-3" data-bs-toggle="modal" data-bs-target="#myModal1" role="button" tabindex="0" aria-label="Open information in a popup modal">
+                                <!-- <div class="card text-center col-md-2 mb-3" data-bs-toggle="modal" data-bs-target="#repModal1" role="button" tabindex="0" aria-label="Open information in a popup modal">
                                     <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" class="card-img-top" alt="Card image cap">
                                         <div class="card-body">
                                             <h5 class="card-title">Card title</h5>
@@ -383,7 +383,7 @@ button.carousel-control-next {
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-1"></div>
-            <div class="col-md-2"><h2>Recipe</h2></div>
+            <div class="col-md-4"><h2>Check these recipes out!</h2></div>
             </div>
     </div>
 
@@ -404,7 +404,7 @@ button.carousel-control-next {
                                         <p><button type="button" class="btn btn-dark">Make!</button></p>    
                                     </div>
                             </div> -->
-                            <div class="card text-center col-md-2 mb-3" data-bs-toggle="modal" data-bs-target="#myModal" role="button" tabindex="0" aria-label="Open information in a popup modal">
+                            <div class="card text-center col-md-2 mb-3" data-bs-toggle="modal" data-bs-target="#repModal" role="button" tabindex="0" aria-label="Open information in a popup modal">
                                 <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" class="card-img-top" alt="Card image cap">
                                     <div class="card-body">
                                         <h1 class="card-title">Chicken Rice</h1>
@@ -413,7 +413,7 @@ button.carousel-control-next {
                                 <p><button type="button" class="btn btn-dark">Click for more!</button></p>   
                             </div>
 
-                            <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" role="dialog">
+                            <div class="modal fade" id="repModal" tabindex="-1" aria-labelledby="myModalLabel" role="dialog">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -543,7 +543,7 @@ button.carousel-control-next {
     
 
 
-    <!-- <div class="card text-center" data-bs-toggle="modal" data-bs-target="#myModal" role="button" tabindex="0" aria-label="Open information in a popup modal">
+    <!-- <div class="card text-center" data-bs-toggle="modal" data-bs-target="#repModal" role="button" tabindex="0" aria-label="Open information in a popup modal">
         <img src="your_image.jpg" class="card-img-top" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
@@ -569,5 +569,68 @@ button.carousel-control-next {
             </div>
         </div>
     </div> -->
+
+    <div class="modal fade" id="postalCodeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="postalCodeLabel">Enter Postal Code</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <label>Postal Code:</label><br>
+            <input type="text" class="form-control" v-model="postalCode">
+            <p class="text-help mt-2">- OR -</p>
+            <button 
+                class="btn mt-2 btn-primary" 
+                @click="useCurrentLocation"
+            >
+                Use Current Location
+            </button>
+            </div>
+            <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" @click="getFromAPI" data-bs-dismiss="modal">Submit Postal Code</button>
+            </div> -->
+        </div>
+        </div>
+    </div>
 </template>
+
+<script>
+
+export default {
+  data() {
+    return {
+      postalCode: "",
+    };
+  },
+  methods: {
+    getFromAPI() {
+      // Replace with your code to fetch data from API using Postal Code
+    var postalCode = document.getElementById('postalInput').value;
+    // Google Maps Postal code lookup api request here
+    var apiRequest = 'http://maps.googleapis.com/maps/api/geocode/json?address='+postalCode+'&sensor=true';
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    closeModal(); // Close modal after API call
+    },
+    useCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            // Do something with latitude and longitude
+            console.log(longitude);
+            console.log(latitude);
+        }, (error) => {
+            console.error("Error Code = " + error.code + " - " + error.message);
+        });
+        } else {
+        console.log('This browser does not support geolocation!');
+        }
+    },
+  }
+};
+
+</script>
 
