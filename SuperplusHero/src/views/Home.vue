@@ -1,9 +1,4 @@
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
-
-div {
-    font-family: 'Montserrat', 'sans-serif'
-}
 
 .coolbox {
     display: flex;
@@ -535,6 +530,54 @@ button.carousel-control-next {
         </div>
     <!-- BS carousel: end -->
     
+    <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Enter desired NTUC</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <input 
+                    id="autocomplete" 
+                    class="form-control" 
+                    type="text" 
+                    placeholder="Enter a location" 
+                    v-model="location"
+                  >
+                  <p class="text-help mt-2">- OR -</p>
+                  <button 
+                    class="btn mt-2 btn-primary" 
+                    @click="useCurrentLocation"
+                  >
+                    Get the closest NTUC
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+
+        <div 
+            class="modal" 
+            tabindex="-1" 
+            role="dialog" 
+            id="notificationModal" 
+            aria-labelledby="notificationModalLabel" 
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="notificationModalLabel">Notifications</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        You have {{notificationCount}} new notifications.
+                        <!-- REPLACE WITH THE EXPIRING NOTIFICATIONS FROM SUPABASE  -->
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     <!-- <div class="card text-center" data-bs-toggle="modal" data-bs-target="#repModal" role="button" tabindex="0" aria-label="Open information in a popup modal">
@@ -564,7 +607,7 @@ button.carousel-control-next {
         </div>
     </div> -->
 
-    <div class="modal fade" id="postalCodeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="postalCodeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -581,50 +624,85 @@ button.carousel-control-next {
             >
                 Use Current Location
             </button>
-            </div>
+            </div> -->
             <!-- <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" @click="getFromAPI" data-bs-dismiss="modal">Submit Postal Code</button>
             </div> -->
+        <!-- </div>
         </div>
-        </div>
-    </div>
+    </div> -->
+
 </template>
 
 <script>
-
+import axios from 'axios';
 export default {
   data() {
     return {
+      showNavBar: true, // Default to show the navigation bar
+      notificationCount: 0,
+      newNotifications: false,
       postalCode: "",
+      location:"",
     };
   },
-  methods: {
-    getFromAPI() {
-      // Replace with your code to fetch data from API using Postal Code
-    var postalCode = document.getElementById('postalInput').value;
-    // Google Maps Postal code lookup api request here
-    var apiRequest = 'http://maps.googleapis.com/maps/api/geocode/json?address='+postalCode+'&sensor=true';
-    var autocomplete = new google.maps.places.Autocomplete(input);
-    closeModal(); // Close modal after API call
-    },
-    useCurrentLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
-            // Do something with latitude and longitude
-            console.log(longitude);
-            console.log(latitude);
-        }, (error) => {
-            console.error("Error Code = " + error.code + " - " + error.message);
-        });
-        } else {
-        console.log('This browser does not support geolocation!');
-        }
-    },
-  }
-};
+//   methods: {
+    // getFromAPI() {
+    //   // Replace with your code to fetch data from API using Postal Code
+    // var postalCode = document.getElementById('postalInput').value;
+    // // Google Maps Postal code lookup api request here
+    // var apiRequest = 'http://maps.googleapis.com/maps/api/geocode/json?address='+postalCode+'&sensor=true';
+    // var autocomplete = new google.maps.places.Autocomplete(input);
+    // closeModal(); // Close modal after API call
 
+
+
+    // },
+    // useCurrentLocation() {
+    // if (navigator.geolocation) {
+    //     navigator.geolocation.getCurrentPosition((position) => {
+    //         var latitude = position.coords.latitude;
+    //         var longitude = position.coords.longitude;
+    //         // Do something with latitude and longitude
+    //         console.log(longitude);
+    //         console.log(latitude);
+    //     }, (error) => {
+    //         console.error("Error Code = " + error.code + " - " + error.message);
+    //     });
+    //     } else {
+    //     console.log('This browser does not support geolocation!');
+    //     }
+    // },
+    methods: {
+        initAutocomplete() {
+        let input = document.getElementById("autocomplete");
+        let autocomplete = new google.maps.places.Autocomplete(input);
+        },
+        useCurrentLocation() {
+            if (!navigator.geolocation) {
+            return;
+            }
+
+            navigator.geolocation.getCurrentPosition((position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            const radius = '500';
+            const keyword = 'NTUC';
+            const key = "";  
+            
+            // axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${radius}&type=${type}&key=${key}`)
+            axios.get(`/api?location=${lat},${lng}&radius=${radius}&keyword=${keyword}&key=${key}`)
+                .then(res => {
+                if (res.data.results && res.data.results.length > 0) {
+                    this.location = res.data.results[0].name;
+                    }
+                })
+                .catch(err => {
+                console.error(err);
+                });
+            });
+        }, 
+    },
+}
 </script>
-
