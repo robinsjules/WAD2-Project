@@ -21,15 +21,15 @@
             </p>
           </ul>
           <h3>Equipment:</h3>
-          <ul>
-            <li v-for="step in recipe.analyzedInstructions[0]?.steps" :key="step.number">
+          <p>
+            <p v-for="step in recipe.analyzedInstructions[0]?.steps" :key="step.number">
               <ul>
                 <li v-for="equip in step.equipment" :key="equip.id">
                   {{ equip.name }}
                 </li>
               </ul>
-            </li>
-          </ul>
+            </p>
+        </p>
         </p>
       </ul>
     </div>
