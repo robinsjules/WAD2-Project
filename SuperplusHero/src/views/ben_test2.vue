@@ -2,21 +2,35 @@
     <div>
       <h1>Data from JSON</h1>
       <ul>
-        <li v-for="recipe in recipes.results">
-          {{ recipe.title }}
+        <p v-for="recipe in recipes.results">
+          <h2>{{ recipe.title }}</h2>
           <img :src="recipe.image" alt="">
           <ol>
             <li v-for="step in recipe.analyzedInstructions[0]?.steps" :key="step.number">
               {{ step.step }}
-              <h3>Ingredients:</h3>
+            </li>
+          </ol>
+          <h3>Ingredients:</h3>
+          <ul>
+            <p v-for="step in recipe.analyzedInstructions[0]?.steps" :key="step.number">
               <ul>
                 <li v-for="ingredient in step.ingredients" :key="ingredient.id">
                   {{ ingredient.name }}
                 </li>
               </ul>
+            </p>
+          </ul>
+          <h3>Equipment:</h3>
+          <ul>
+            <li v-for="step in recipe.analyzedInstructions[0]?.steps" :key="step.number">
+              <ul>
+                <li v-for="equip in step.equipment" :key="equip.id">
+                  {{ equip.name }}
+                </li>
+              </ul>
             </li>
-          </ol>
-        </li>
+          </ul>
+        </p>
       </ul>
     </div>
   </template>
