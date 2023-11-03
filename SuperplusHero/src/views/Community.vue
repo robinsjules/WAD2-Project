@@ -1,118 +1,32 @@
-<style>
-/*
-Edits to be made:
-1. ensure that the page saves the like counter even after you reload (best if code knows if the logged in user has liked the photo already or not)
-2. show image based off the bucket in Supabase
-3. time stamp, username, title, desc to be taken from Supabase
-4. populate cards based off how many rows there are in Supabase
-5. include a filter by cuisine function (good to have)
-6. include a sorting of most liked
-7. include search function of hashtagging (good to have)
-8. reduce image size of the card, put the image of user beside the name instead
-9. redirect to posting page
-*/
-
-.content {
-    margin-top: 100px;
-}
-
-/* body {
-    background:#eee;
-} */
-
-.posts-content {
-    margin-top: 20px;
-}
-
-.ui-w-40 {
-    width: 40px !important;
-    height: auto;
-}
-
-.default-style .ui-bordered {
-    border: 1px solid rgba(24, 28, 33, 0.06);
-}
-
-.ui-bg-cover {
-    background-color: transparent;
-    background-position: center center;
-    background-size: cover;
-}
-
-.ui-rect {
-    padding-top: 50% !important;
-}
-
-.ui-rect,
-.ui-rect-30,
-.ui-rect-60,
-.ui-rect-67,
-.ui-rect-75 {
-    position: relative !important;
-    display: block !important;
-    padding-top: 100% !important;
-    width: 100% !important;
-}
-
-.d-flex,
-.d-inline-flex,
-.media,
-.media>:not(.media-body),
-.jumbotron,
-.card {
-    -ms-flex-negative: 1;
-    flex-shrink: 1;
-}
-
-.bg-dark {
-    background-color: rgba(24, 28, 33, 0.9) !important;
-}
-
-.card-footer,
-.card hr {
-    border-color: rgba(24, 28, 33, 0.06);
-}
-
-.ui-rect-content {
-    position: absolute !important;
-    top: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    left: 0 !important;
-}
-
-.default-style .ui-bordered {
-    border: 1px solid rgba(24, 28, 33, 0.06);
-}
-</style>
-
 <template>
     <section class="content">
         <div class="container posts-content">
             <div class="row">
-                <div class="col-lg-6">
+                <!-- Use v-for to iterate through the posts fetched from Supabase -->
+                <div v-for="(post, index) in posts" :key="index" class="col-lg-6">
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="media mb-3">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                                    class="d-block ui-w-40 rounded-circle" alt="">
+                                <!-- Display user image fetched from Supabase -->
+                                <!--<img :src="post.userImage" class="d-block ui-w-40 rounded-circle" alt="User Image">-->
                                 <div class="media-body ml-3">
-                                    Kenneth Frazier
-                                    <div class="text-muted small">3 days ago</div>
+                                    <!-- Display username and timestamp from Supabase -->
+                                    {{ post.User }}
+                                    <div class="text-muted small">{{ post.CreatedAt }}</div>
                                 </div>
                             </div>
 
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus finibus commodo bibendum.
-                                Vivamus laoreet blandit odio, vel finibus quam dictum ut.
+                                <!-- Display post content fetched from Supabase -->
+                                {{ post.Caption }}
                             </p>
-                            <a href="" class="ui-rect ui-bg-cover"
-                                style="background-image: url('https://bootdey.com/img/Content/avatar/avatar3.png');"></a>
+                            <img :src="post.imageURL" class="ui-rect ui-bg-cover">
                         </div>
                         <div class="card-footer">
-                            <a href="#" class="d-inline-block text-muted like-button" @click="incrementCount">
+                            <a href="#" class="d-inline-block text-muted like-button" @click="likePost(post.id)">
+                                <!-- Show like count from Supabase -->
                                 <small class="align-middle">
-                                    <strong class="like-count">{{ count + 109 }}</strong> Likes
+                                    <strong class="like-count">{{ post.Likes }}</strong> Likes
                                 </small>
                             </a>
                         </div>
@@ -124,16 +38,41 @@ Edits to be made:
 </template>
 
 <script>
+import { ref, onMounted } from 'vue'; // Import the necessary Vue functionalities
+
 export default {
-  data() {
-    return {
-      count: 0
+    setup() {
+        // Define variables using the Composition API
+        const posts = ref([]); // Store posts fetched from Supabase
+
+        // Fetch posts from Supabase on component mount
+        onMounted(async () => {
+            // Fetch posts from Supabase and set them in the 'posts' variable
+            posts.value = await fetchPostsFromSupabase();
+        });
+
+        // Function to fetch posts from Supabase
+        const fetchPostsFromSupabase = async () => {
+            // Code to fetch posts from Supabase goes here
+            // Use Supabase queries to get data from your database
+            const { data, error } = await supabase.from('Posts').select('*');
+            // Return the fetched data (posts)
+            return data;
+        };
+
+        // Function to like a post
+        const likePost = async (postId) => {
+            // Implement the logic to like a post using Supabase
+            // Example: Update the like count in the database and update the 'likes' field for the post
+            await supabase.from('posts').update({ likes: post.likes + 1 }).eq('id', postId);
+            // After liking, refresh the posts or update the specific post's like count in 'posts'
+            posts.value = await fetchPostsFromSupabase();
+        };
+
+        return {
+            posts,
+            likePost
+        };
     }
-  },
-  methods: {
-    incrementCount() {
-      this.count++;
-    }
-  }
 }
 </script>
