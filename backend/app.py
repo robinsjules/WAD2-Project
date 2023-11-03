@@ -41,6 +41,19 @@ def get_communityposts():
     response = supabase.table('Posts').select('*').execute()
     return (response.data)
 
+@app.route("/likepost", methods=['POST'])
+def like_post():
+        post_id = request.json.get('id')
+        liked = request.json.get('liked')
+
+        # If the post is liked, increment the likes; if unliked, decrement the likes
+        if liked:
+            supabase.table('Posts').update({'Likes': supabase.raw('Likes + 1')}).eq('id', post_id).execute()
+        else:
+            supabase.table('Posts').update({'Likes': supabase.raw('Likes - 1')}).eq('id', post_id).execute()
+
+        return "Success", 200
+
 @app.route("/listings", methods=['GET'])
 def getListings():
     response = supabase.table("SurplusListings").select("*").execute()
