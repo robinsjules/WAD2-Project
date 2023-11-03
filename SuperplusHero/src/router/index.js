@@ -6,6 +6,7 @@ import Login from '@/views/Login.vue'
 import Profile from '@/views/Profile.vue'
 import Register from '@/views/Register.vue'
 import AllRecipes from '@/views/AllRecipes.vue'
+import AllRecipes2 from '@/views/AllRecipes2.vue'
 import readRecipe from '@/views/readRecipe.vue'
 import AllIngredients from '@/views/AllIngredients.vue'
 import Products from '@/views/Products.vue'
@@ -46,6 +47,11 @@ const router = createRouter({
       path: '/allrecipes',
       name: 'AllRecipes',
       component: AllRecipes
+    },
+    {
+      path: '/allrecipes2',
+      name: 'AllRecipes2',
+      component: AllRecipes2
     },
     {
       path: '/readrecipe',
