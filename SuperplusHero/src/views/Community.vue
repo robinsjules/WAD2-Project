@@ -1,3 +1,15 @@
+<style scoped>
+    .content{
+    margin-top: 100px;
+    }
+
+    img {
+        height: 600px;
+        width: 600px;
+        object-fit: cover;
+    }
+</style>
+
 <template>
     <section class="content">
         <div class="container posts-content">
@@ -8,11 +20,11 @@
                         <div class="card-body">
                             <div class="media mb-3">
                                 <!-- Display user image fetched from Supabase -->
-                                <!--<img :src="post.userImage" class="d-block ui-w-40 rounded-circle" alt="User Image">-->
+                                <!-- <img :src="post.userImage" class="d-block ui-w-40 rounded-circle" alt="User Image"> -->
                                 <div class="media-body ml-3">
                                     <!-- Display username and timestamp from Supabase -->
-                                    {{ post.User }}
-                                    <div class="text-muted small">{{ post.CreatedAt }}</div>
+                                    {{ post.PostedBy }}
+                                    <div class="text-muted small">Posted on {{ post.CreatedAt }}</div>
                                 </div>
                             </div>
 
@@ -38,7 +50,10 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'; // Import the necessary Vue functionalities
+import { ref, onMounted } from 'vue'; 
+import { createClient } from '@supabase/supabase-js'; 
+
+const supabase = createClient("https://mpdbdcytohoflyionlyn.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1wZGJkY3l0b2hvZmx5aW9ubHluIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc2MTAyNTIsImV4cCI6MjAxMzE4NjI1Mn0.1tKz3KYVupIppWbWLx3HMKi87CnZlrpqk1Ehht-Rb6c")
 
 export default {
     setup() {
@@ -64,14 +79,14 @@ export default {
         const likePost = async (postId) => {
             // Implement the logic to like a post using Supabase
             // Example: Update the like count in the database and update the 'likes' field for the post
-            await supabase.from('posts').update({ likes: post.likes + 1 }).eq('id', postId);
+            await supabase.from('posts').update({ likes: posts.Likes + 1 }).eq('id', postId);
             // After liking, refresh the posts or update the specific post's like count in 'posts'
             posts.value = await fetchPostsFromSupabase();
         };
 
         return {
             posts,
-            likePost
+            likePost,
         };
     }
 }
