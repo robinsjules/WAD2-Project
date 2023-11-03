@@ -1,52 +1,104 @@
 <template>
-    <!-- All Recipes Page -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-
-    <form>
-        <div class="container-fluid">
-            <h1>
-                <span class="text-primary" >All Recipes</span>
-            </h1>
-
-            <div class="form-group">
-                
-                    <label class="fw-bold"></label>
-                    <div class="form-group">
-                    <!-- <div class="input-group"> -->
-                        <input type="search" class="col-lg-8 form-control m-2" placeholder="Search Recipes..." name="find_recipe">
-
-                        
-                            <!-- Example single danger button --> 
-                            <div class="col-4 btn-group mx-2"> 
-                                <select class="form-select" aria-label="Default select example"> 
-                                <option selected>Filter by cuisine</option> 
-                                <option value="western" name="western">Western</option> 
-                                <option value="chinese" name="chinese">Chinese</option> 
-                                <option value="indian" name="indian">Indian</option>
-                                <option value="malay" name="malay">Malay</option> 
-                                <option value="japanese" name="japanese">Japanese</option>
-                                <option value="korean" name="korean">Korean</option>
-                                <option value="thai" name>Thai</option>
-                                <option value="french">French</option> 
-                            </select>
-                            <!-- </div>  -->
-                            
-                            
-                            
-                        
-                        
-                        <input type="button" class="col-2 input  -group-btn">
-                            <button class="btn btn-outline-primary" type="search" style="width: 100%;" >Search</button>
-                        
-                    </div>
-                    </div>
-                    
-                    
+  <div class="content">
+    <div class="container-fluid mt-3">
+      <!-- Recipe List: Start -->
+      <h2>All Recipes</h2>
+      <div class="row">
+        <div v-for="recipe in recipes.results" :key="recipe.id" class="col-md-4">
+          <div class="card m-2 pt-2" style="width: 18rem">
+            <img :src="recipe.image" class="card-img-top" :alt="recipe.title">
+            <div class="card-body">
+              <h5 class="card-title">{{ recipe.title }}</h5>
+              <p class="card-text">{{ recipe.description }}</p>
+              <button @click="selectRecipe(recipe)" class="btn btn-outline-success">Read more</button>
             </div>
+          </div>
         </div>
-    </form>
-    
+      </div>
+      <!-- Recipe List: End -->
 
+      <!-- Recipe Details: Start -->
+      <div v-if="selectedRecipe" class="mt-4 p-4 bg-light text-black rounded">
+        <div class="row">
+          <div class="col-md-4">
+            <div>
+              <img :src="selectedRecipe.image" style="width: 30vw; height: auto; border-radius: 5%;" :alt="selectedRecipe.title">
+            </div>
+          </div>
+          <div class="col-md-8">
+            <h2>{{ selectedRecipe.title }} Preparation</h2>
+            <ol>
+              <li v-for="step in selectedRecipe.analyzedInstructions[0]?.steps" :key="step.number">{{ step.step }}</li>
+            </ol>
+            <div style="text-align: right;">
+              <button class="btn btn-success">Start Cooking</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Recipe Details: End -->
 
+      <h1>Required Ingredients (Serving Size: 4)</h1>
+      <div v-if="selectedRecipe" class="row">
+        <!-- Green Box -->
+        <div class="col-md-6">
+          <div class="mt-4 p-4 text-black rounded" style="background-color: rgb(226, 246, 244);">
+            <h2>Available Ingredients:</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat..
+            </p>
+            <ul class="list-unstyled">
+              <li class="fw-bold">Laksa Spice Base Paste</li>
+              <li v-for="ingredient in selectedRecipe.ingredients" :key="ingredient.id">{{ ingredient.name }}</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Green Box -->
+
+        <!-- Red Box -->
+        <div class="col-md-6">
+          <div class="mt-4 p-4 text-black rounded" style="background-color: rgb(246, 226, 226);">
+            <h2>Missing Ingredients:</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat..
+            </p>
+            <!-- List missing ingredients here -->
+          </div>
+        </div>
+        <!-- Red Box -->
+      </div>
+    </div>
+  </div>
 </template>
-<script href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootspanstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"></script>
+
+<script>
+import recipeData from '../../../backend/spoonacular/americanCuisine.json'
+
+export default {
+  data() {
+    return {
+      searchQuery: "",
+      selectedCuisine: "",
+      recipes: recipeData,
+      selectedRecipe: null, // Initialize selectedRecipe as null
+    };
+  },
+  methods: {
+    // Select a recipe
+    selectRecipe(recipe) {
+      this.selectedRecipe = recipe;
+    },
+  },
+};
+</script>
+
+<style scoped>
+.content {
+  margin-top: 100px;
+}
+
+.list-unstyled {
+  list-style: none;
+  padding: 0;
+}
+</style>

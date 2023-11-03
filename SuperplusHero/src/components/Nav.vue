@@ -5,8 +5,8 @@
     margin-left: auto;
 }
 
-.navbar-success.navcolor {
-  background-color: black; 
+.navbar-dark.navcolor {
+  /* background-color: black;  */
   position: fixed;
   width: 100%;
   z-index: 1000;
@@ -26,11 +26,15 @@
 </style>
 
 <template>
-  <nav v-if="showNavBar" class="navbar navbar-expand-md navbar-success navcolor">
+<nav v-if="showNavBar" class="navbar navbar-expand-md navbar-dark bg-dark navcolor">
     <router-link to="/">
-      <a class="navbar-brand" href="#"><img src="../assets/appLogoForNav.png" alt="Logo" height="70"></a>
+        <a class="navbar-brand" href="#"><img src="../assets/appLogoForNav.png" alt="Logo" height="70"></a>
     </router-link>
-      <ul class="navbar-nav">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
 
         <li class="nav-item">
             <!-- Modal trigger -->
@@ -46,7 +50,7 @@
 
         </li>
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <button 
               type="button"
               class="btn btn-link" 
@@ -60,7 +64,7 @@
         </button>
 
 
-        </li>
+        </li> -->
 
         <li class="nav-item">
           <router-link to="/community"> <!-- Edit to Community Page, also apply to index.js router -->
@@ -84,6 +88,7 @@
           </router-link>
         </li>
       </ul>
+      </div>
   </nav>
 </template>
 
@@ -92,52 +97,25 @@ export default {
   data() {
     return {
       showNavBar: true, // Default to show the navigation bar
-      notificationCount: 0,
-      newNotifications: false,
+      // notificationCount: 0,
+      // newNotifications: false,
       postalCode: "",
       location:"",
     };
   },
-  methods: {
-    openNoti() {
-      // reset notification count 
-      this.notificationCount = 0;
-      this.newNotifications = false;
-    }
-  },
-  created(){
-    setInterval(() => {
-      this.notificationCount++;
-      this.newNotifications = true;
-    }, 30000); // simulate notification every 30 seconds
-  },
-  // initAutocomplete() {
-  //       let input = document.getElementById("autocomplete");
-  //       let autocomplete = new google.maps.places.Autocomplete(input);
-  //       },
-  //       useCurrentLocation() {
-  //           if (!navigator.geolocation) {
-  //           return;
-  //           }
-
-  //           navigator.geolocation.getCurrentPosition((position) => {
-  //           const lat = position.coords.latitude;
-  //           const lng = position.coords.longitude;
-  //           const radius = '1000';
-  //           const type = encodeURIComponent('NTUC');
-  //           const key = "YOUR_GOOGLE_API_KEY";
-            
-  //           axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${radius}&type=${type}&key=${key}`)
-  //               .then(res => {
-  //               if (res.data.results && res.data.results.length > 0) {
-  //                   this.location = res.data.results[0].name;
-  //               }
-  //               })
-  //               .catch(err => {
-  //               console.error(err);
-  //               });
-  //           });
-// },
+  // methods: {
+  //   openNoti() {
+  //     // reset notification count 
+  //     this.notificationCount = 0;
+  //     this.newNotifications = false;
+  //   }
+  // },
+  // created(){
+  //   setInterval(() => {
+  //     this.notificationCount++;
+  //     this.newNotifications = true;
+  //   }, 30000); // simulate notification every 30 seconds
+  // },
   watch: {
     $route(to) {
       // Check the route and conditionally hide the navigation bar on specific routes
