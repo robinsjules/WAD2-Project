@@ -117,6 +117,15 @@
                                     </button>
                                 </div>
                             </div>
+                            <div >
+                                <input v-model="newIntolerances">
+                                <button v-on:click="intolerances.push(newIntolerances)">Add!</button>
+                            </div>
+                            <ul>
+                                <li v-for="(intolerance, index) in intolerances" >
+                                    {{intolerance}} <button v-on:click="intolerances.splice(index,1)">Remove</button>
+                                </li>
+                            </ul>
                             <br/>
                             <button v-on:click=updateProfile class="btn btn-success btn-block mb-4" type="submit" value="submit"> Save changes </button>&nbsp;
                             <button v-on:click=logoutProfile class="btn btn-success mb-4" type="submit" value= true>Log out</button>
@@ -168,7 +177,8 @@ export default {
             name: 'Keto',
             value: 'ketogenic'
             }],
-        intolerances:'',
+        intolerances:[],
+        newIntolerances:'',
         save:'',
         logout:''
         };
