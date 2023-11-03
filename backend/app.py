@@ -18,6 +18,7 @@ def getAllUsers():
 # code works -> add user data to the database after they register
 @app.route("/register_user", methods=['POST'])
 def registerUsers():
+    data = request.json
     response = supabase.table('Users').insert(data).execute()
     return (response.data)
         
