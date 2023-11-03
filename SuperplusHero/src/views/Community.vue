@@ -8,6 +8,10 @@
         width: 600px;
         object-fit: cover;
     }
+    .heart-icon {
+        height: 20px; /* Set the appropriate height for your heart icons */
+        margin-right: 5px;
+    }
 </style>
 
 <template>
@@ -35,12 +39,13 @@
                             <img :src="post.imageURL" class="ui-rect ui-bg-cover">
                         </div>
                         <div class="card-footer">
-                            <a href="#" class="d-inline-block text-muted like-button" @click="likePost(post.id)">
-                                <!-- Show like count from Supabase -->
-                                <small class="align-middle">
+                            <small class="align-middle">
+                            <a href="#" class="d-inline-block text-muted like-button" @click="likePost(post)">
+                                <img v-if="post.liked" src="../assets/heartFilled.png" alt="Liked" class="heart-icon">
+                                <img v-else src="../assets/heartNoFill.png" alt="Not Liked" class="heart-icon">
                                     <strong class="like-count">{{ post.Likes }}</strong> Likes
-                                </small>
                             </a>
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -50,44 +55,34 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'; 
-import { createClient } from '@supabase/supabase-js'; 
-
-const supabase = createClient("https://mpdbdcytohoflyionlyn.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1wZGJkY3l0b2hvZmx5aW9ubHluIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTc2MTAyNTIsImV4cCI6MjAxMzE4NjI1Mn0.1tKz3KYVupIppWbWLx3HMKi87CnZlrpqk1Ehht-Rb6c")
+import axios from 'axios';
 
 export default {
-    setup() {
-        // Define variables using the Composition API
-        const posts = ref([]); // Store posts fetched from Supabase
-
-        // Fetch posts from Supabase on component mount
-        onMounted(async () => {
-            // Fetch posts from Supabase and set them in the 'posts' variable
-            posts.value = await fetchPostsFromSupabase();
-        });
-
-        // Function to fetch posts from Supabase
-        const fetchPostsFromSupabase = async () => {
-            // Code to fetch posts from Supabase goes here
-            // Use Supabase queries to get data from your database
-            const { data, error } = await supabase.from('Posts').select('*');
-            // Return the fetched data (posts)
-            return data;
-        };
-
-        // Function to like a post
-        const likePost = async (postId) => {
-            // Implement the logic to like a post using Supabase
-            // Example: Update the like count in the database and update the 'likes' field for the post
-            await supabase.from('posts').update({ likes: posts.Likes + 1 }).eq('id', postId);
-            // After liking, refresh the posts or update the specific post's like count in 'posts'
-            posts.value = await fetchPostsFromSupabase();
-        };
-
+    data() {
         return {
-            posts,
-            likePost,
+            posts: []
         };
-    }
-}
+    },
+    mounted() {
+        this.fetchPostsFromServer();
+    },
+    methods: {
+        async fetchPostsFromServer() {
+            try {
+                const response = await axios.get('http://localhost:5000/communityposts'); 
+                this.posts = response.data; 
+            } catch (error) {
+                console.error('Error fetching posts:', error);
+            }
+        },
+
+        async likePost(post) {
+            if (!post.liked) {
+                post.liked = true;
+                post.Likes++; // Increase like count
+                await supabase.from('Posts').update({ Likes: post.Likes }).eq('id', post.id);
+            }
+        },
+    },
+};
 </script>

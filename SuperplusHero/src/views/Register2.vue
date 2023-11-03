@@ -1,5 +1,4 @@
 <template> 
-
     <!-- Section: Design Block -->
     <section class="">
         <!-- Jumbotron -->
@@ -71,11 +70,10 @@
                         },
                         methods: {
                             addItem() {
-                                let item = document.getElementById('fridgeItems').value;
-                                this.items.push(item);
+                                
                             },
                             deleteItem() {
-                                this.items.pop();
+                                
                             },
                             goToNext(){
                                 this.$router.push({ name: 'Login' });
