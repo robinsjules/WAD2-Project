@@ -1,17 +1,27 @@
 <style scoped>
-    .content{
+.content {
     margin-top: 100px;
-    }
+}
 
-    img {
-        height: 600px;
-        width: 600px;
-        object-fit: cover;
-    }
-    .heart-icon {
-        height: 20px; /* Set the appropriate height for your heart icons */
-        margin-right: 5px;
-    }
+img {
+    height: 600px;
+    width: 600px;
+    object-fit: cover;
+}
+
+.heart-icon {
+    height: 30px;
+    /* Adjust size for heart icons */
+    width: 30px;
+    margin-right: 5px;
+    float: left;
+}
+
+.like-count {
+    display: inline-block;
+    margin-left: 5px;
+    margin-top: 3px;
+}
 </style>
 
 <template>
@@ -31,7 +41,6 @@
                                     <div class="text-muted small">Posted on {{ post.CreatedAt }}</div>
                                 </div>
                             </div>
-
                             <p>
                                 <!-- Display post content fetched from Supabase -->
                                 {{ post.Caption }}
@@ -40,11 +49,12 @@
                         </div>
                         <div class="card-footer">
                             <small class="align-middle">
-                            <a href="#" class="d-inline-block text-muted like-button" @click="likePost(post)">
-                                <img v-if="post.liked" src="../assets/heartFilled.png" alt="Liked" class="heart-icon">
-                                <img v-else src="../assets/heartNoFill.png" alt="Not Liked" class="heart-icon">
-                                    <strong class="like-count">{{ post.Likes }}</strong> Likes
-                            </a>
+                                <a href="#" class="d-inline-block text-muted like-button" @click="likePost(post)">
+                                    <img v-if="post.liked" @click="unlikePost(post)" src="../assets/heartFilled.png"
+                                        alt="Liked" class="heart-icon">
+                                    <img v-else src="../assets/heartNoFill.png" alt="Not Liked" class="heart-icon">
+                                    <strong class="like-count">{{ post.Likes }}  Likes</strong>
+                                </a>
                             </small>
                         </div>
                     </div>
@@ -69,20 +79,30 @@ export default {
     methods: {
         async fetchPostsFromServer() {
             try {
-                const response = await axios.get('http://localhost:5000/communityposts'); 
-                this.posts = response.data; 
+                const response = await axios.get('http://localhost:5000/communityposts');
+                this.posts = response.data;
             } catch (error) {
                 console.error('Error fetching posts:', error);
             }
         },
-
         async likePost(post) {
-            if (!post.liked) {
+            try {
                 post.liked = true;
-                post.Likes++; // Increase like count
-                await supabase.from('Posts').update({ Likes: post.Likes }).eq('id', post.id);
+                post.Likes++;
+                await axios.post('http://localhost:5000/likepost', { id: post.id, liked: true });
+            } catch (error) {
+                console.error('Error liking post:', error);
             }
         },
+        async unlikePost(post) {
+            try {
+                post.liked = false;
+                post.Likes--;
+                await axios.post('http://localhost:5000/likepost', { id: post.id, liked: false });
+            } catch (error) {
+                console.error('Error unliking post:', error);
+            }
+        }
     },
 };
 </script>
