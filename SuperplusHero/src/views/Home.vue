@@ -678,6 +678,7 @@ export default {
         initAutocomplete() {
         let input = document.getElementById("autocomplete");
         let autocomplete = new google.maps.places.Autocomplete(input);
+        this.location=autocomplete
         },
         useCurrentLocation() {
             if (!navigator.geolocation) {
@@ -687,19 +688,23 @@ export default {
             navigator.geolocation.getCurrentPosition((position) => {
             const lat = position.coords.latitude;
             const lng = position.coords.longitude;
-            const radius = '500';
-            const keyword = 'NTUC';
-            const key = "";  
-            
+            console.log(lat);
+            console.log(lng);
+            const radius = '2000';
+            const keyword = encodeURIComponent('NTUC');
+            const key = "AIzaSyBiF8eEDh6HtoLGPrLnbNBfZQGbBNzNBN4";  
+            console.log("working")   
             // axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${radius}&type=${type}&key=${key}`)
             axios.get(`/api?location=${lat},${lng}&radius=${radius}&keyword=${keyword}&key=${key}`)
                 .then(res => {
                 if (res.data.results && res.data.results.length > 0) {
-                    this.location = res.data.results[0].name;
+                    this.location = res.data.results[0].vicinity;
+                    
                     }
                 })
                 .catch(err => {
-                console.error(err);
+                    // console.error(err);
+                    console.error(err.message, err.response);
                 });
             });
         }, 

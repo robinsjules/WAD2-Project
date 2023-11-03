@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
 from supabase import create_client
 
@@ -33,6 +33,24 @@ def get_profile(username):
 def update_user(username1):
     data = request.json
     response = supabase.table('Users').update(data).eq('UserName', username1).execute()
+    return (response.data)
+
+# code works -> get posts
+@app.route("/communityposts", methods=['GET'])
+def get_communityposts():
+    response = supabase.table('Posts').select('*').execute()
+    return (response.data)
+
+@app.route("/listings", methods=['GET'])
+def getListings():
+    response = supabase.table("SurplusListings").select("*").execute()
+    return response.data
+
+@app.route("/add_listing", methods=['POST'])
+def addSurplusListing():
+    data = request.json
+    response = supabase.table("SurplusListings").insert(data).execute()
+    # return Response((response.data),mimetype="application/json")
     return (response.data)
 
 if __name__ == '__main__':

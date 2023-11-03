@@ -40,9 +40,9 @@
             data-bs-toggle="modal"
             data-bs-target="#locationModal"
           >
-            <img src="../assets/location.png" alt="Location Pin" width="50" height="50">
+            <img src="../assets/locationWhite.png" alt="Location Pin" width="50" height="50">
           </a>
-
+            
 
         </li>
 
@@ -74,7 +74,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/"> <!-- Edit to Fridge Page, also apply to index.js router -->
+          <router-link to="/fridge"> <!-- Edit to Fridge Page, also apply to index.js router -->
             <a class="nav-link" href="#"><img src="../assets/fridgeWhite.png" alt="Fridge" width="50" height="50"></a>
           </router-link>
         </li>
