@@ -79,7 +79,7 @@ export default {
     },
     methods: {
         goToNext() {
-            var url = 'http://127.0.0.1:5000/register_user';
+            var url = 'http://127.0.0.1:5000//get_profile/<username>';
             var para = {
                 Email: this.form.UserName,
                 Password: this.form.Password,
