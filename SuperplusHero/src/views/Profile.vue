@@ -21,6 +21,9 @@
     .file-input {
     text-align: center;
     }
+    .remove-button {
+    margin-top: 5px;
+    }
 </style>
 <template>
     <div class="content">
@@ -103,32 +106,29 @@
                                     </div>
                                     </form>
                                 </div>
+                            </div>
+                            <div>
+                                <form @submit.prevent="addIntolerance">
+                                    <div class="row">
+                                        <div class="form-group col-sm-8">
+                                            <input type="text" id="newIntolerances" v-model="newIntolerances" class="form-control" />
+                                            <label for="newIntolerances">Intolerance</label>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <button type="submit" class="btn btn-success" style="height:36px; width:100px">Add</button>
+                                        </div>
+                                    </div>
+                                </form>
                                 <br/>
-                            </div>
-                            <div class="row">
-                                <div class="form-outline mb-4 col-sm-8">
-                                        <input type="text" class="form-control" id="intolerances">
-                                        <label for="intolerances">Allergies/Ingredients to avoid</label>
-                                </div>
-                                <div class="col-sm-4">
-                                    <button type="button" class="btn btn-success"
-                                        style="height:36px; width:100px">
-                                        Add
-                                    </button>
-                                </div>
-                            </div>
-                            <div >
-                                <input v-model="newIntolerances">
-                                <button v-on:click="intolerances.push(newIntolerances)">Add!</button>
-                            </div>
-                            <ul>
-                                <li v-for="(intolerance, index) in intolerances" >
-                                    {{intolerance}} <button v-on:click="intolerances.splice(index,1)">Remove</button>
+                                <ul>
+                                <li v-for="(intolerance, index) in intolerances" :key="index">
+                                    {{ intolerance }}
+                                    <button @click="removeIntolerance(index)" class="btn btn-danger remove-button">Remove</button>
                                 </li>
-                            </ul>
-                            <br/>
-                            <button v-on:click=updateProfile class="btn btn-success btn-block mb-4" type="submit" value="submit"> Save changes </button>&nbsp;
-                            <button v-on:click=logoutProfile class="btn btn-success mb-4" type="submit" value= true>Log out</button>
+                                </ul>
+                            </div>
+                            <button v-on:click=updateProfile class="btn btn-success btn-block mt-4" type="submit" value="submit"> Save changes </button>&nbsp;
+                            <button v-on:click=logoutProfile class="btn btn-success mt-4" type="submit" value= true>Log out</button>
                                     
                         </div>
                     </form>
@@ -149,6 +149,8 @@ import axios from 'axios';
 export default {
   data() {
     return {
+        //need to start session to store username since not editable
+        userName: 'test3',
         userPicture:'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
         email: '',
         phoneNum: '',
@@ -183,58 +185,87 @@ export default {
         logout:''
         };
     },
+    // mounted() {
+    // // Make a GET request to retrieve the user data
+    // axios.get(`http://127.0.0.1:5000/get_profile/${this.userName}`)
+    //   .then((response) => {
+    //     const retrievedUserData = response.data;
+
+    //     // Assign the data to the component's data properties and display
+    //     this.userPicture = retrievedUserData.UserPicture;
+    //     this.email = retrievedUserData.Email;
+    //     this.phoneNum = retrievedUserData.Phone;
+    //     this.postalCode = retrievedUserData.PostalCode;
+        
+    //     // Convert JSON strings to lists of objects
+    //     this.foodPreferences = JSON.parse(retrievedUserData.FoodPreferences);
+    //     this.intolerances = JSON.parse(retrievedUserData.Allergies);
+    //   })
+    //   .catch((error) => {
+    //     // Handle errors
+    //     alert('Error in retrieving data')
+    //   })
+    // },
     methods: {
         uploadPicture(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-            this.userPicture = e.target.result;
-            };
-            reader.readAsDataURL(file);
-            }
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                this.userPicture = e.target.result;
+                };
+                reader.readAsDataURL(file);
+                }
         },
         updateProfile() {
         // Check if new passwords match
-        if (this.newPassword && this.newPassword !== this.confirmPassword) {
-            alert('New passwords do not match.');
-            return;
-        }
-        const updatedData = {
-            UserPicture: this.userPicture,
-            Email: this.email,
-            Phone: this.phoneNum,
-            PostalCode: this.postalCode,
-            FoodPreferences: this.foodPreferences,
-            Intolerances: this.intolerances
-        }
-        // Include newPassword in the data if it's not blank
-        updatedData.Password = this.newPassword;
-        // Perform an Axios GET request to your server to check the old password
-        axios.get(`http://127.0.0.1:5000/get_profile/${this.userName}`, {
-          params: {
-            Password: this.oldPassword,
-          },
-        })
-        .then((response) => {
-          // The old password is correct
-          // Perform an Axios POST request to update the password in the database
-          axios.put(`http://127.0.0.1:5000/update_profile/${this.userName}`, updatedData)
+            if (this.newPassword && this.newPassword !== this.confirmPassword) {
+                alert('New passwords do not match.');
+                return;
+            }
+            const updatedData = {
+                UserPicture: this.userPicture,
+                Email: this.email,
+                Phone: this.phoneNum,
+                PostalCode: this.postalCode,
+                FoodPreferences: this.foodPreferences,
+                Allergies: this.intolerances
+            }
+            // Include newPassword in the data if it's not blank
+            updatedData.Password = this.newPassword;
+            // Perform an Axios GET request to your server to check the old password
+            axios.get(`http://127.0.0.1:5000/get_profile/${this.userName}`, {
+            params: {
+                Password: this.oldPassword,
+            },
+            })
             .then((response) => {
-              alert('Profile updated successfully');
+            // The old password is correct
+            // Perform an Axios PUT request to update the password in the database
+            axios.put(`http://127.0.0.1:5000/update_profile/${this.userName}`, updatedData)
+                .then((response) => {
+                alert('Profile updated successfully');
+                })
+                .catch((error) => {
+                alert('Error updating the profile');
+                });
             })
             .catch((error) => {
-              alert('Error updating the profile');
+            alert('Incorrect old password');
             });
-        })
-        .catch((error) => {
-          alert('Incorrect old password');
-        });
-    },
-        logoutProfile() {
-        alert("You have signed out successfully!")
-        this.$router.push({ name: 'Login' });
-    },
+        },
+            logoutProfile() {
+            alert("You have signed out successfully!")
+            this.$router.push({ name: 'Login' });
+        },
+            addIntolerance(event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+            this.intolerances.push(this.newIntolerances);
+            this.newIntolerances = ''; // Clear the input field
+        },
+            removeIntolerance(index) {
+            this.intolerances.splice(index, 1);
+        },
     }
 }
 </script>
