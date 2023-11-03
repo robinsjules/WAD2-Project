@@ -40,7 +40,6 @@ def get_communityposts():
     response = supabase.table('Posts').select('*').execute()
     return (response.data)
 
-
 @app.route("/listings", methods=['GET'])
 def getListings():
     response = supabase.table("SurplusListings").select("*").execute()
@@ -52,7 +51,6 @@ def addSurplusListing():
     response = supabase.table("SurplusListings").insert(data).execute()
     # return Response((response.data),mimetype="application/json")
     return (response.data)
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
