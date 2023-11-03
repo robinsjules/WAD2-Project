@@ -40,9 +40,9 @@
             data-bs-toggle="modal"
             data-bs-target="#locationModal"
           >
-            <img src="../assets/location.png" alt="Location Pin" width="50" height="50">
+            <img src="../assets/locationWhite.png" alt="Location Pin" width="50" height="50">
           </a>
-
+            
 
         </li>
 
