@@ -12,8 +12,8 @@
                             <span class="text-success">Surplus Hero!</span>
                         </h1>
                         <!-- <p style="color: hsl(217, 10%, 50.8%)">
-                          The one stop platform for surplus groceries and recipe generation!
-                      </p> -->
+                        The one stop platform for surplus groceries and recipe generation!
+                    </p> -->
                     </div>
 
                     <div class="col-lg-6 mb-5 mb-lg-0">
@@ -25,14 +25,15 @@
                                 <form>
                                     <!-- email input -->
                                     <div class="form-outline mb-4">
-                                        <input v-model = "form.email" type="email" id="form3Example3" class="form-control" />
-                                        <label class="form-label" for="form3Example3">Email address</label>
+                                        <input v-model="form.UserName" type="username" id="form3Example3" class="form-control" placeholder="Username"/>
+                                        <!-- <label class="form-label" for="form3Example3">Username</label> -->
                                     </div>
 
                                     <!-- Password input -->
                                     <div class="form-outline mb-4">
-                                        <input v-model = "form.password" type="password" id="form3Example4" class="form-control" />
-                                        <label class="form-label" for="form3Example4">Password</label>
+                                        <input v-model="form.Password" type="password" id="form3Example4"
+                                            class="form-control" placeholder="Password"/>
+                                        <!-- <label class="form-label" for="form3Example4">Password</label> -->
                                     </div>
 
                                     <!-- Checkbox -->
@@ -47,7 +48,8 @@
                                     <!-- Submit button -->
                                     <div class="col-md-12 mb-4">
                                         <div class="d-flex justify-content-between">
-                                            <button @click = "goToNext" type="submit" class="btn btn-success w-100">Login</button>
+                                            <button @click="goToNext" type="submit"
+                                                class="btn btn-success w-100">Login</button>
                                         </div>
                                     </div>
                                     <p style="text-align: center;">New here? Click <router-link
@@ -65,20 +67,34 @@
 </template>
 <!-- need to firstly store user's email and password when they register, and check if they are correct before they can login -->
 <script>
-                    export default {
-                        data() {
-                            return {
-                            form: {
-                            email: '',
-                            password: ''
-                            }   
-                    }
+import axios from 'axios';
+export default {
+    data() {
+        return {
+            form: {
+                UserName: '',
+                Password: ''
+            }
+        }
     },
-                        methods: {
-                            goToNext(){
-                                this.$router.push({ name: 'Home' })
-                                console.log(JSON.stringify(this.form));
-                                }
-                            }
-                        }
-                </script>
+    methods: {
+        goToNext() {
+            var url = 'http://127.0.0.1:5000/register_user';
+            var para = {
+                Email: this.form.UserName,
+                Password: this.form.Password,
+            }
+            axios.post(url, para)
+                .then(response => {
+                    console.log(response.data)
+                    this.$router.push({ name: 'Home' });
+                })
+                .catch(error => {
+                    console.log(error.message)
+                    console.error(error.response.data)
+                });
+            // console.log(JSON.stringify(this.form));
+        }
+    }
+}
+</script>
