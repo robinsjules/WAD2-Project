@@ -234,25 +234,41 @@ export default {
             // Include newPassword in the data if it's not blank
             updatedData.Password = this.newPassword;
             // Perform an Axios GET request to your server to check the old password
-            axios.get(`http://127.0.0.1:5000/get_profile/${this.userName}`, {
-            params: {
-                Password: this.oldPassword,
-            },
-            })
-            .then((response) => {
-            // The old password is correct
-            // Perform an Axios PUT request to update the password in the database
-            axios.put(`http://127.0.0.1:5000/update_profile/${this.userName}`, updatedData)
+            // Check if the old password is not blank
+            if (this.oldPassword) {
+                // Perform an Axios GET request to your server to check the old password
+                axios
+                .get(`http://127.0.0.1:5000/get_profile/${this.userName}`, {
+                    params: {
+                    Password: this.oldPassword,
+                    },
+                })
                 .then((response) => {
-                alert('Profile updated successfully');
+                    // The old password is correct
+                    // Perform an Axios PUT request to update the password in the database
+                    axios
+                    .put(`http://127.0.0.1:5000/update_profile/${this.userName}`, updatedData)
+                    .then((response) => {
+                        alert('Profile updated successfully');
+                    })
+                    .catch((error) => {
+                        alert('Error updating the profile');
+                    });
                 })
                 .catch((error) => {
-                alert('Error updating the profile');
+                    alert('Incorrect old password');
                 });
-            })
-            .catch((error) => {
-            alert('Incorrect old password');
-            });
+            } else {
+                // If old password is blank, update the profile data without changing the password
+                axios
+                .put(`http://127.0.0.1:5000/update_profile/${this.userName}`, updatedData)
+                .then((response) => {
+                    alert('Profile updated successfully');
+                })
+                .catch((error) => {
+                    alert('Error updating the profile');
+                });
+            }
         },
             logoutProfile() {
             alert("You have signed out successfully!")
