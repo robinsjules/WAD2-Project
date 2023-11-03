@@ -88,6 +88,13 @@ button.carousel-control-next {
     margin-top: 100px;
 }
 
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+
+
 </style>
 
 
@@ -214,6 +221,17 @@ button.carousel-control-next {
                             <div class="row">
                                 
                                 <div class="col-md-1"></div>
+                                <div class="col-md-2 mb-3" v-for="(item, index) in items" :key="index">
+                                        <div class="card">
+                                            <img :src="item.ImageURL" class="card-img-top" alt="Surplus Listing"  style="width:100%">
+                                            <h1>{{item.IngredientName}}</h1>
+                                            <p class="price"> <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></p>
+                                            <!-- <p>Some text about the product</p> -->
+                                            <p><button type="button" class="btn btn-primary" @click="getListings">Add to Cart</button></p>    
+                                        </div>
+                                </div>
+                                <!-- <div class="ignore">
+                                    
                                 <div class="col-md-2 mb-3">
                                         <div class="card">
                                             <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
@@ -250,15 +268,8 @@ button.carousel-control-next {
                                             <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
                                         </div>
                                 </div>
-                                <div class="col-md-2 mb-3">
-                                        <div class="card">
-                                            <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
-                                            <h1>Lettuce</h1>
-                                            <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
-                                            <p>Some text about the product</p>
-                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
-                                        </div>
-                                </div>
+                                </div> -->
+                                    
                                 <div class="col-md-1"></div>
                             </div>
     
@@ -269,7 +280,19 @@ button.carousel-control-next {
                         <div class="container-fluid">
     
                             <div class="row">
+                                
                                 <div class="col-md-1"></div>
+                                <div class="col-md-2 mb-3" v-for="(item, index) in items" :key="index">
+                                        <div class="card">
+                                            <img :src="item.ImageURL" class="card-img-top" alt="Recipe" style="width:100%">
+                                            <h1>{{item.IngredientName}}</h1>
+                                            <p class="price"> <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></p>
+                                            <!-- <p>Some text about the product</p> -->
+                                            <p><button type="button" class="btn btn-primary" @click="getListings">Add to Cart</button></p>    
+                                        </div>
+                                </div>
+                                <!-- <div class="ignore">
+                                    
                                 <div class="col-md-2 mb-3">
                                         <div class="card">
                                             <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
@@ -279,71 +302,38 @@ button.carousel-control-next {
                                             <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
                                         </div>
                                 </div>
-                                <!-- <div class="card text-center col-md-2 mb-3" data-bs-toggle="modal" data-bs-target="#repModal1" role="button" tabindex="0" aria-label="Open information in a popup modal">
-                                    <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" class="card-img-top" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Card title</h5>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p> 
+                                <div class="col-md-2 mb-3">
+                                        <div class="card">
+                                            <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
+                                            <h1>Lettuce</h1>
+                                            <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
+                                            <p>Some text about the product</p>
+                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
                                         </div>
                                 </div>
-
-                                <div class="modal fade" id="myModal1" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" role="dialog">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="myModalLabel">Modal title</h5>
-                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                                <div class="modal-body">
-                                                    <p>Modal body text goes here.</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                </div>
+                                <div class="col-md-2 mb-3">
+                                        <div class="card">
+                                            <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
+                                            <h1>Lettuce</h1>
+                                            <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
+                                            <p>Some text about the product</p>
+                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
                                         </div>
-                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                        <div class="card">
+                                            <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
+                                            <h1>Lettuce</h1>
+                                            <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
+                                            <p>Some text about the product</p>
+                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
+                                        </div>
+                                </div>
                                 </div> -->
-                                <div class="col-md-2 mb-3">
-                                        <div class="card">
-                                            <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
-                                            <h1>Lettuce</h1>
-                                            <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
-                                            <p>Some text about the product</p>
-                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
-                                        </div>
-                                </div>
-                                <div class="col-md-2 mb-3">
-                                        <div class="card">
-                                            <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
-                                            <h1>Lettuce</h1>
-                                            <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
-                                            <p>Some text about the product</p>
-                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
-                                        </div>
-                                </div>
-                                <div class="col-md-2 mb-3">
-                                        <div class="card">
-                                            <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
-                                            <h1>Lettuce</h1>
-                                            <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
-                                            <p>Some text about the product</p>
-                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p> 
-                                        </div>
-                                </div>
-                                <div class="col-md-2 mb-3">
-                                        <div class="card">
-                                            <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
-                                            <h1>Lettuce</h1>
-                                            <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
-                                            <p>Some text about the product</p>
-                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p> 
-                                        </div>
-                                </div>
+                                    
                                 <div class="col-md-1"></div>
                             </div>
+    
     
                         </div>
                     </div>
@@ -645,36 +635,36 @@ export default {
       newNotifications: false,
       postalCode: "",
       location:"",
+      
+      items: []
+
+
     };
   },
-//   methods: {
-    // getFromAPI() {
-    //   // Replace with your code to fetch data from API using Postal Code
-    // var postalCode = document.getElementById('postalInput').value;
-    // // Google Maps Postal code lookup api request here
-    // var apiRequest = 'http://maps.googleapis.com/maps/api/geocode/json?address='+postalCode+'&sensor=true';
-    // var autocomplete = new google.maps.places.Autocomplete(input);
-    // closeModal(); // Close modal after API call
+  async created() {
+        try {
+            const response = await axios.get(`http://127.0.0.1:5000/listings`);
+            this.items = response.data;    
+        } catch(error) {
+            console.error(error);
+        }
+    },
 
-
-
-    // },
-    // useCurrentLocation() {
-    // if (navigator.geolocation) {
-    //     navigator.geolocation.getCurrentPosition((position) => {
-    //         var latitude = position.coords.latitude;
-    //         var longitude = position.coords.longitude;
-    //         // Do something with latitude and longitude
-    //         console.log(longitude);
-    //         console.log(latitude);
-    //     }, (error) => {
-    //         console.error("Error Code = " + error.code + " - " + error.message);
-    //     });
-    //     } else {
-    //     console.log('This browser does not support geolocation!');
-    //     }
-    // },
     methods: {
+        // getListings(){
+        //     axios.get(`http://127.0.0.1:5000/listings`)
+        //         .then(response => {
+        //             console.log(response.data); // Handle success response
+        //             this.ImageURL = response.data[2].ImageURL
+        //             this.IngredientName = response.data[2].IngredientName
+        //             this.OriginalPrice = response.data[2].OriginalPrice
+        //             this.Quantity = response.data[2].Quantity
+        //             this.SalePrice = response.data[2].SalePrice
+        //         })
+        //         .catch(error => {
+        //             console.error('Error updating data:', error); // Handle error
+        //         });
+        // },
         initAutocomplete() {
         let input = document.getElementById("autocomplete");
         let autocomplete = new google.maps.places.Autocomplete(input);
@@ -690,7 +680,7 @@ export default {
             const lng = position.coords.longitude;
             console.log(lat);
             console.log(lng);
-            const radius = '2000';
+            const radius = '5000';
             const keyword = encodeURIComponent('NTUC');
             const key = "AIzaSyBiF8eEDh6HtoLGPrLnbNBfZQGbBNzNBN4";  
             console.log("working")   

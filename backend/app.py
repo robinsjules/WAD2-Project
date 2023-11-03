@@ -35,6 +35,11 @@ def update_user(username1):
     response = supabase.table('Users').update(data).eq('UserName', username1).execute()
     return (response.data)
 
+# code works -> get posts
+@app.route("/communityposts", methods=['GET'])
+def get_communityposts():
+    response = supabase.table('Posts').select('*').execute()
+    return (response.data)
 
 @app.route("/listings", methods=['GET'])
 def getListings():
@@ -47,7 +52,6 @@ def addSurplusListing():
     response = supabase.table("SurplusListings").insert(data).execute()
     # return Response((response.data),mimetype="application/json")
     return (response.data)
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
