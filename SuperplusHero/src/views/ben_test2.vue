@@ -1,4 +1,23 @@
 <template>
+  <!-- Recipe Cards -->
+  <section>
+          <div class="container-fluid">
+            <div class="row justify-content-center">
+              <div v-for="recipe in filteredRecipes" :key="recipe.id" class="card m-2" style="width: 18rem;">
+                <div class="card-image">
+                  <img :src="recipe.image" class="card-img-top" :alt="recipe.title">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">{{ recipe.title }}</h5>
+                  <p class="card-text">{{ recipe.description }}</p>
+                </div>
+                <div class="card-footer">
+                  <button type="button" class="btn btn-outline-success btn-read-more" @click="readRecipe(recipe)">Read more</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
     <div>
       <h1>Data from JSON</h1>
       <div v-for="recipe in recipes.results" :key="recipe.id" class="recipe-card">
