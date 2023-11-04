@@ -1,73 +1,82 @@
 <template>
-    <div class="content">
-      <div class="container-fluid mt-3">
-        <h1>Required Ingredients (Serving Size: 4)</h1>
-      <div v-if="selectedRecipe" class="row">
-        <!-- Green Box -->
-        <div class="col-md-6">
-          <div class="mt-4 p-4 text-black rounded" style="background-color: rgb(226, 246, 244);">
-            <h2>Available Ingredients:</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat..
-            </p>
-            <ul class="list-unstyled">
-              <li class="fw-bold">Laksa Spice Base Paste</li>
-              <li v-for="ingredient in selectedRecipe.ingredients" :key="ingredient.id">{{ ingredient.name }}</li>
-            </ul>
-          </div>
-        </div>
-        <!-- Green Box -->
-
-        <!-- Red Box -->
-        <div class="col-md-6">
-          <div class="mt-4 p-4 text-black rounded" style="background-color: rgb(246, 226, 226);">
-            <h2>Missing Ingredients:</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat..
-            </p>
-            <!-- List missing ingredients here -->
-          </div>
-        </div>
-        <!-- Red Box -->
-      </div>
-        </div>
+  <div class="recipe-details">
+    <div class="recipe-image">
+      <img :src="recipe.image" alt="Recipe" />
     </div>
-  </template>
-  
-<script>
-import axios from 'axios'
-import recipeData from '../../../backend/spoonacular/americanCuisine.json'
+    <div class="recipe-instructions">
+      <h2>Instructions</h2>
+      <ol>
+        <li v-for="step in recipe.analyzedInstructions[0].steps" :key="step.number">
+          {{ step.step }}
+        </li>
+      </ol>
+    </div>
+  </div>
+</template>
 
+<script>
 export default {
   data() {
     return {
-      searchQuery: "",
-      selectedCuisine: "",
-      recipes: recipeData,
-      selectedRecipe: null, // Initialize selectedRecipe as null
+      recipe: {
+        image: '',
+        analyzedInstructions: [
+          {
+            steps: [],
+          },
+        ],
+      },
     };
   },
+  created() {
+    // Fetch recipe details based on the recipeId parameter passed from the route
+    const recipeId = this.$route.params.recipeId;
+    // You should implement logic to fetch the specific recipe data based on recipeId
+    // and populate the 'recipe' data property.
+    // For this example, let's assume you have a function to fetch the recipe data.
+    this.fetchRecipeDetails(recipeId);
+  },
   methods: {
-    // Select a recipe
-    selectRecipe(recipe) {
-      this.selectedRecipe = recipe;
+    // Implement a method to fetch recipe details based on recipeId
+    fetchRecipeDetails(recipeId) {
+      // Make an API call or fetch data from your data source here and set it to this.recipe
     },
   },
 };
 </script>
 
 <style scoped>
-.content {
-  margin-top: 100px;
+.recipe-details {
+  display: flex;
+  align-items: center;
 }
 
-.list-unstyled {
-  list-style: none;
-  padding: 0;
+.recipe-image {
+  flex: 1;
+  margin: 1rem;
 }
 
+.recipe-image img {
+  max-width: 100%;
+}
 
+.recipe-instructions {
+  flex: 2;
+  margin: 1rem;
+}
 
+.recipe-instructions h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.recipe-instructions ol {
+  list-style-type: decimal;
+  padding-left: 1rem;
+}
+
+.recipe-instructions li {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
 </style>
-
-  

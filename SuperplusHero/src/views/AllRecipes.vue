@@ -1,10 +1,13 @@
 <template>
   <div>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    
+
     <!-- Sidebar -->
     <div class="sidebar" :class="{ collapsed: isCollapsed }">
       <div class="nav" v-if="!isCollapsed">
-        <h2 style="color: rgb(2, 175, 2);">Recipe Book</h2>
+        
         <ul>
           <li @click="selectedCuisine = ''" :class="{ active: selectedCuisine === '' }">
             <a href="#">Show All</a>
@@ -30,6 +33,7 @@
 
     <!-- Main Content -->
     <div class="content" :style="mainContentStyle">
+      <h2 style="color: rgb(10, 160, 10); margin-left:15px;">Recipe Book</h2>
       <!-- Search Bar -->
       <div class="container-fluid">
         <div class="form-group">
@@ -48,10 +52,11 @@
 
       <!-- Recipe Cards -->
       <section>
-        <br><br>
+        <br>
         <div class="container-fluid">
-          <div class="row justify-content-center">
-            <div v-for="recipe in filteredRecipes" :key="recipe.id" class="card mx-2 my-3" style="width: 14rem; height: auto;">
+          <div class="row justify-content-left">
+            <div v-for="recipe in filteredRecipes" :key="recipe.id" class="card mx-2 my-3" style="width: 13rem; height: auto;">
+
               <!-- Your card content here -->
               <div class="card-image">
                 <img :src="recipe.image" class="card-img-top" :alt="recipe.title">
@@ -62,8 +67,10 @@
                 
               </div>
               <div class="card-footer d-flex flex-column">
-                <button type="button" class="btn btn-outline-success mt-auto" @click="readRecipe(recipe)">Read more</button>
-              </div>
+                <router-link :to="{ name: 'readRecipe', params: { recipeId: recipe.id } }">
+                  <button type="button" class="btn btn-outline-success mt-auto w-100">Read more</button>
+                </router-link>
+            </div>
             </div>
           </div>
         </div>
@@ -139,6 +146,10 @@ export default {
     toggleSidebar() {
       this.isCollapsed = !this.isCollapsed;
     },
+    // Navigate to the ReadRecipe component
+    readRecipe(recipe) {
+      this.$router.push({ name: 'readRecipe', params: { id: recipe.id } });
+    },
   },
 };
 </script>
@@ -150,17 +161,20 @@ export default {
   padding: 20px; /* Add some padding to separate content from sidebar */
 }
 
+
 .card {
   border: 1px solid #ccc;
   border-radius: 10px;
   transition: transform 0.2s;
+  background-color: rgb(240, 248, 240)
 }
 
 .card:hover {
   transform: scale(1.1);
-}
+  }
 
 .card-image img {
+  margin-top: 10px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
