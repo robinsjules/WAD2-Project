@@ -99,45 +99,6 @@ button.carousel-control-next {
 
 
 <template>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
-    <!-- <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
-
-        <!-- <h2>Home Page</h2>  -->
-<!-- 
-        <nav class="navbar navbar-expand-lg navbar-success bg-success   ">
-            <a class="navbar-brand" href="#"><img src="../assets/appLogo.png" alt="Logo" width="80" height="30"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><img src="../assets/comm.png" alt="Community" width="50" height="50"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="cartSize" href="#"><img src="../assets/cart.png" alt="Cart" width="50" height="50"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><img src="../assets/fridge.png" alt="Fridge" width="50" height="50"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><img src="../assets/profile.png" alt="Profile" width="50" height="50"></a>
-                    </li>
-                </ul>
-            </div>
-        </nav> -->
-
-
-        <!-- <div class="container">
-            <div class="col-md-6">
-                <img src="../assets/appLogo.png" alt="Description of Image" id="homeImg"/>
-            </div>
-            <div class="typewriter col-md-6">
-                <h1 class="type">Welcome to SurplusHero!</h1>
-                <h1 class="type1"> Your go-to for <span class="text-success">cheap groceries</span></h1>
-            </div>
-        </div> -->
 
 
         <div class="content container coolbox">
@@ -221,15 +182,15 @@ button.carousel-control-next {
                             <div class="row">
                                 
                                 <div class="col-md-1"></div>
-                                <div class="col-md-2 mb-3" v-for="(item, index) in items" :key="index">
-                                        <div class="card">
-                                            <img :src="item.ImageURL" class="card-img-top" alt="Surplus Listing"  style="width:100%">
-                                            <h1>{{item.IngredientName}}</h1>
-                                            <p class="price"> <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></p>
-                                            <!-- <p>Some text about the product</p> -->
-                                            <p><button type="button" class="btn btn-primary" @click="getListings">Add to Cart</button></p>    
-                                        </div>
-                                </div>
+                                    <div class="col-md-2 mb-3" v-for="(item, index) in items" :key="index">
+                                            <div class="card">
+                                                <img :src="item.ImageURL" class="card-img-top" alt="Surplus Listing"  style="width:100%">
+                                                <h1>{{item.IngredientName}}</h1>
+                                                <p class="price"> <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></p>
+                                                <!-- <p>Some text about the product</p> -->
+                                                <p><button type="button" class="btn btn-primary" @click="addtoCart(item)">Add to Cart</button></p>    
+                                            </div>
+                                    </div>
                                 <!-- <div class="ignore">
                                     
                                 <div class="col-md-2 mb-3">
@@ -288,7 +249,7 @@ button.carousel-control-next {
                                             <h1>{{item.IngredientName}}</h1>
                                             <p class="price"> <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></p>
                                             <!-- <p>Some text about the product</p> -->
-                                            <p><button type="button" class="btn btn-primary" @click="getListings">Add to Cart</button></p>    
+                                            <p><button type="button" class="btn btn-primary" @click="addtoCart(item)">Add to Cart</button></p>    
                                         </div>
                                 </div>
                                 <!-- <div class="ignore">
@@ -520,113 +481,12 @@ button.carousel-control-next {
         </div>
     <!-- BS carousel: end -->
     
-    <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Enter desired NTUC</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <input 
-                    id="autocomplete" 
-                    class="form-control" 
-                    type="text" 
-                    placeholder="Enter a location" 
-                    v-model="location"
-                  >
-                  <p class="text-help mt-2">- OR -</p>
-                  <button 
-                    class="btn mt-2 btn-primary" 
-                    @click="useCurrentLocation"
-                  >
-                    Get the closest NTUC
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-    
-
-        <div 
-            class="modal" 
-            tabindex="-1" 
-            role="dialog" 
-            id="notificationModal" 
-            aria-labelledby="notificationModalLabel" 
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="notificationModalLabel">Notifications</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        You have {{notificationCount}} new notifications.
-                        <!-- REPLACE WITH THE EXPIRING NOTIFICATIONS FROM SUPABASE  -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-    <!-- <div class="card text-center" data-bs-toggle="modal" data-bs-target="#repModal" role="button" tabindex="0" aria-label="Open information in a popup modal">
-        <img src="your_image.jpg" class="card-img-top" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-    </div>
-
-    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">Modal title</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-    <!-- <div class="modal fade" id="postalCodeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="postalCodeLabel">Enter Postal Code</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            <label>Postal Code:</label><br>
-            <input type="text" class="form-control" v-model="postalCode">
-            <p class="text-help mt-2">- OR -</p>
-            <button 
-                class="btn mt-2 btn-primary" 
-                @click="useCurrentLocation"
-            >
-                Use Current Location
-            </button>
-            </div> -->
-            <!-- <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" @click="getFromAPI" data-bs-dismiss="modal">Submit Postal Code</button>
-            </div> -->
-        <!-- </div>
-        </div>
-    </div> -->
-
 </template>
 
 <script>
 import axios from 'axios';
+
+import Cookies from 'js-cookie';
 export default {
   data() {
     return {
@@ -636,7 +496,8 @@ export default {
       postalCode: "",
       location:"",
       
-      items: []
+      items: [],
+      cart: []
 
 
     };
@@ -645,12 +506,18 @@ export default {
         try {
             const response = await axios.get(`http://127.0.0.1:5000/listings`);
             this.items = response.data;    
+            // console.log('All cookies:', Cookies.get());
         } catch(error) {
             console.error(error);
         }
     },
 
     methods: {
+        addtoCart(item) {
+            this.cart.push(item);
+            Cookies.set('cart',JSON.stringify(this.cart));
+            console.log(JSON.parse(Cookies.get('cart')));
+        }
         // getListings(){
         //     axios.get(`http://127.0.0.1:5000/listings`)
         //         .then(response => {
@@ -665,39 +532,39 @@ export default {
         //             console.error('Error updating data:', error); // Handle error
         //         });
         // },
-        initAutocomplete() {
-        let input = document.getElementById("autocomplete");
-        let autocomplete = new google.maps.places.Autocomplete(input);
-        this.location=autocomplete
-        },
-        useCurrentLocation() {
-            if (!navigator.geolocation) {
-            return;
-            }
+        // initAutocomplete() {
+        //     let input = document.getElementById("autocomplete");
+        //     let autocomplete = new google.maps.places.Autocomplete(input);
+        //     this.location=autocomplete
+        // },
+        // useCurrentLocation() {
+        //     if (!navigator.geolocation) {
+        //     return;
+        //     }
 
-            navigator.geolocation.getCurrentPosition((position) => {
-            const lat = position.coords.latitude;
-            const lng = position.coords.longitude;
-            console.log(lat);
-            console.log(lng);
-            const radius = '5000';
-            const keyword = encodeURIComponent('NTUC');
-            const key = "AIzaSyBiF8eEDh6HtoLGPrLnbNBfZQGbBNzNBN4";  
-            console.log("working")   
-            // axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${radius}&type=${type}&key=${key}`)
-            axios.get(`/api?location=${lat},${lng}&radius=${radius}&keyword=${keyword}&key=${key}`)
-                .then(res => {
-                if (res.data.results && res.data.results.length > 0) {
-                    this.location = res.data.results[0].vicinity;
+        //     navigator.geolocation.getCurrentPosition((position) => {
+        //     const lat = position.coords.latitude;
+        //     const lng = position.coords.longitude;
+        //     console.log(lat);
+        //     console.log(lng);
+        //     const radius = '5000';
+        //     const keyword = encodeURIComponent('NTUC');
+        //     const key = "AIzaSyBiF8eEDh6HtoLGPrLnbNBfZQGbBNzNBN4";  
+        //     console.log("working")   
+        //     // axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${radius}&type=${type}&key=${key}`)
+        //     axios.get(`/api?location=${lat},${lng}&radius=${radius}&keyword=${keyword}&key=${key}`)
+        //         .then(res => {
+        //         if (res.data.results && res.data.results.length > 0) {
+        //             this.location = res.data.results[0].vicinity;
                     
-                    }
-                })
-                .catch(err => {
-                    // console.error(err);
-                    console.error(err.message, err.response);
-                });
-            });
-        }, 
+        //             }
+        //         })
+        //         .catch(err => {
+        //             // console.error(err);
+        //             console.error(err.message, err.response);
+        //         });
+        //     });
+        // }, 
     },
 }
 </script>
