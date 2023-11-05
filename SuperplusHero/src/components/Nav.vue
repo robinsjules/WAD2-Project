@@ -68,13 +68,25 @@
 
         <li class="nav-item">
           <router-link to="/community"> <!-- Edit to Community Page, also apply to index.js router -->
-            <a class="nav-link" href="#"><img src="../assets/communityWhite.png" alt="Community" width="50" height="50"></a>
+            <a class="nav-link" href="#">
+            
+            <img src="../assets/communityWhite.png" alt="Community" width="50" height="50">
+          
+          </a>
+
           </router-link>
         </li>
 
         <li class="nav-item">
           <router-link to="/"> <!-- Edit to Cart Page, also apply to index.js router -->
-            <a class="nav-link" href="#"><img src="../assets/cartWhite.png" alt="Cart" width="50" height="50"></a>
+            <a class="nav-link" href="#"
+            data-bs-toggle="modal"
+            data-bs-target="#cartModal"
+            >
+            
+            <img src="../assets/cartWhite.png" alt="Cart" width="50" height="50">
+          
+          </a>
           </router-link>
         </li>
         <li class="nav-item">
@@ -90,9 +102,82 @@
       </ul>
       </div>
   </nav>
+  <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Enter desired NTUC</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <input 
+                    id="autocomplete" 
+                    class="form-control" 
+                    type="text" 
+                    placeholder="Enter a location" 
+                    v-model="location"
+                  >
+                  <p class="text-help mt-2">- OR -</p>
+                  <button 
+                    class="btn mt-2 btn-primary" 
+                    @click="useCurrentLocation"
+                  >
+                    Get the closest NTUC
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Shopping Cart</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <span v-if="checkCart() == []">There's nothing in your cart!</span>
+                  <div v-for="(item, idx) in cart" :key="idx">
+                    <img :src="item.ImageURL" class="card-img-top" alt="Surplus Listing"  style="width:100%">
+                    <h1>{{item.IngredientName}}</h1>
+                    <p class="price"> <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+
+        <!-- <div 
+            class="modal" 
+            tabindex="-1" 
+            role="dialog" 
+            id="notificationModal" 
+            aria-labelledby="notificationModalLabel" 
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="notificationModalLabel">Notifications</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        You have {{notificationCount}} new notifications.
+                        
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+
+
 </template>
 
 <script>
+import axios from 'axios';
+import Cookies from 'js-cookie';
 export default {
   data() {
     return {
@@ -101,25 +186,96 @@ export default {
       // newNotifications: false,
       postalCode: "",
       location:"",
+      // items:[],
+      cart:[],
     };
   },
-  // methods: {
-  //   openNoti() {
-  //     // reset notification count 
-  //     this.notificationCount = 0;
-  //     this.newNotifications = false;
-  //   }
-  // },
-  // created(){
-  //   setInterval(() => {
-  //     this.notificationCount++;
-  //     this.newNotifications = true;
-  //   }, 30000); // simulate notification every 30 seconds
-  // },
+  async created() {
+      this.checkCookies();
+      this.checkCart();
+    },
+  methods: {
+    checkCookies(){
+      if (Cookies.get('location')){
+        this.location = Cookies.get("location");
+      }else{
+        this.location = "";
+      }
+    },
+    checkCart(){
+      if (Cookies.get("cart")){
+          this.cart = JSON.parse(Cookies.get("cart"));
+          console.log(this.cart);
+          console.log("working");
+      }else{
+        this.cart = [];
+      }
+    },
+    // haveProducts(){
+    //   return this.cart.length>0;
+    // },
+    setLocationCookie() { 
+      Cookies.set('location', this.location);
+    },
+      useCurrentLocation() {
+          if (!navigator.geolocation) {
+            return;
+          }
+
+          navigator.geolocation.getCurrentPosition((position) => {
+          var lat = position.coords.latitude;
+          var lng = position.coords.longitude;
+          // console.log(lat);
+          // console.log(lng);
+          const radius = '5000';
+          const keyword = encodeURIComponent('NTUC');
+          const key = "AIzaSyBiF8eEDh6HtoLGPrLnbNBfZQGbBNzNBN4";  
+          // console.log("working")   
+          // axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${radius}&type=${type}&key=${key}`)
+          axios.get(`/api?location=${lat},${lng}&radius=${radius}&keyword=${keyword}&key=${key}`)
+              .then(res => {
+              if (res.data.results && res.data.results.length > 0) {
+                  // this.location = res.data.results[0].vicinity;
+                  lat = res.data.results[0].geometry.location.lat
+                  lng = res.data.results[0].geometry.location.lng
+                  // this.setLocationCookie();
+                  Cookies.set('location', this.location);
+                  }
+
+                  axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${key}`)
+                    .then(res => {
+                    if (res.data.results && res.data.results.length > 0) {
+                      for (let i = 0; i < res.data.results[0].address_components.length; i++) {
+                        if (res.data.results[0].address_components[i].types.indexOf('postal_code') !== -1) {
+                          this.location = res.data.results[0].address_components[i].short_name;
+                          break;
+                        }
+                      }
+                      // this.location = postalCode;
+                      Cookies.set('location', this.location);
+                    }
+                    })
+                    .catch(err => {
+                        console.error(err.message, err.response);
+                    });
+
+              })
+              .catch(err => {
+                  // console.error(err);
+                  console.error(err.message, err.response);
+              });
+
+          });
+      }, 
+  },
   watch: {
     $route(to) {
       // Check the route and conditionally hide the navigation bar on specific routes
       this.showNavBar = !['/login', '/register', '/register2'].includes(to.path);
+    },
+    location(newLocation) { 
+      // Set the cookie when location gets updated
+      this.setLocationCookie();
     },
   },
 };
