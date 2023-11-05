@@ -50,13 +50,12 @@
         </div>
       </div>
 
-      <!-- Recipe Cards -->
-      <section>
+<!-- Recipe Cards -->
+<section>
         <br>
         <div class="container-fluid">
           <div class="row justify-content-left">
-            <div v-for="recipe in filteredRecipes" :key="recipe.id" class="card mx-2 my-3" style="width: 13rem; height: auto;">
-
+            <div v-for="recipe in filteredRecipes" :key="recipe.title" class="card mx-2 my-3" style="width: 13rem; height: auto;">
               <!-- Your card content here -->
               <div class="card-image">
                 <img :src="recipe.image" class="card-img-top" :alt="recipe.title">
@@ -64,13 +63,12 @@
               <div class="card-body">
                 <h5 class="card-title">{{ recipe.title }}</h5>
                 <p class="card-text">{{ recipe.description }}</p>
-                
               </div>
               <div class="card-footer d-flex flex-column">
-                <router-link :to="{ name: 'readRecipe', params: { recipeId: recipe.id } }">
+                <router-link :to="{ name: 'readRecipe', params: { recipeId: recipe.title } }">
                   <button type="button" class="btn btn-outline-success mt-auto w-100">Read more</button>
                 </router-link>
-            </div>
+              </div>
             </div>
           </div>
         </div>
@@ -148,7 +146,8 @@ export default {
     },
     // Navigate to the ReadRecipe component
     readRecipe(recipe) {
-      this.$router.push({ name: 'readRecipe', params: { id: recipe.id } });
+      this.recipeTitle = recipe.title; // Set the recipeTitle here
+      this.$router.push({ name: 'readRecipe', params: { id: recipe.title } });
     },
   },
 };
@@ -166,7 +165,7 @@ export default {
   border: 1px solid #ccc;
   border-radius: 10px;
   transition: transform 0.2s;
-  background-color: rgb(240, 248, 240)
+  background-color: rgb(247, 253, 245)
 }
 
 .card:hover {

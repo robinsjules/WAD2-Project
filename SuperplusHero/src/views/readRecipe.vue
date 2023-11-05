@@ -1,5 +1,7 @@
 <template>
-  <div class="recipe-details">
+  <div class="content">
+  <h2>Recipe Title: {{ recipeTitle }}</h2>
+  <!-- <div class="recipe-details">
     <div class="recipe-image">
       <img :src="recipe.image" alt="Recipe" />
     </div>
@@ -11,41 +13,39 @@
         </li>
       </ol>
     </div>
-  </div>
+  </div> -->
+</div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      recipe: {
-        image: '',
-        analyzedInstructions: [
-          {
-            steps: [],
-          },
-        ],
-      },
+      recipeTitle: '', // Initialize the recipe title
+      // recipe: {
+      //   image: '',
+      //   analyzedInstructions: [
+      //     {
+      //       steps: [],
+      //     },
+      //   ],
+      // },
     };
   },
   created() {
+    // Access the route parameter and assign it to the data property
+    this.recipeTitle = this.$route.params.title;
     // Fetch recipe details based on the recipeId parameter passed from the route
-    const recipeId = this.$route.params.recipeId;
-    // You should implement logic to fetch the specific recipe data based on recipeId
-    // and populate the 'recipe' data property.
-    // For this example, let's assume you have a function to fetch the recipe data.
-    this.fetchRecipeDetails(recipeId);
   },
   methods: {
-    // Implement a method to fetch recipe details based on recipeId
-    fetchRecipeDetails(recipeId) {
-      // Make an API call or fetch data from your data source here and set it to this.recipe
-    },
   },
 };
 </script>
 
 <style scoped>
+.content {
+  margin-top: 500px;
+}
 .recipe-details {
   display: flex;
   align-items: center;

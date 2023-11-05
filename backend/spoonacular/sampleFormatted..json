@@ -1,0 +1,349 @@
+{
+    "results": [
+      {
+        "vegetarian": false,
+        "vegan": false,
+        "glutenFree": true,
+        "dairyFree": true,
+        "veryHealthy": true,
+        "cheap": false,
+        "veryPopular": false,
+        "sustainable": false,
+        "lowFodmap": false,
+        "weightWatcherSmartPoints": 6,
+        "gaps": "no",
+        "preparationMinutes": -1,
+        "cookingMinutes": -1,
+        "aggregateLikes": 4,
+        "healthScore": 100,
+        "creditsText": "Foodista.com – The Cooking Encyclopedia Everyone Can Edit",
+        "license": "CC BY 3.0",
+        "sourceName": "Foodista",
+        "pricePerServing": 1050.81,
+        "id": 665379,
+        "title": "Winter Kimchi",
+        "readyInMinutes": 45,
+        "servings": 1,
+        "sourceUrl": "https://www.foodista.com/recipe/DPZ3FLTW/winter-kimchi",
+        "image": "https://spoonacular.com/recipeImages/665379-312x231.jpg",
+        "imageType": "jpg",
+        "summary": "Need a gluten-free, dairy-free, and pescatarian side dish? Winter Kimchi could be a spectacular recipe to try. This recipe makes 1 serving with 365 calories, 23g of protein, and 3g of fat each. For $10.51 per serving, this recipe covers 54% of your daily requirements of vitamins and minerals. Not a lot of people really liked this Korean dish. It will be a hit at your Winter event. If you have fish sauce, brine solution, garlic bulb, and a few other ingredients on hand, you can make it. 4 people found this recipe to be delicious and satisfying. It is brought to you by Foodista. From preparation to the plate, this recipe takes approximately 45 minutes. With a spoonacular score of 92%, this dish is amazing. Winter Kimchi, Kimchi Stew with Pork Belly and Tofu (Kimchi-jjigae), and Red Curry Mussels with Kimchi Puree from 'The Kimchi Cookbook are very similar to this recipe.",
+        "cuisines": ["Korean", "Asian"],
+        "dishTypes": ["side dish"],
+        "diets": ["gluten-free", "dairy-free", "pescatarian"],
+        "occasions": ["winter"],
+        "analyzedInstructions": [
+          {
+            "name": "",
+            "steps": [
+              {
+                "number": 1,
+                "step": "Soak the quartered cabbage in the brine solution for 4 hours, weighing the cabbage down with a heavy plate.",
+                "ingredients": [
+                  {
+                    "id": 11109,
+                    "name": "cabbage",
+                    "localizedName": "cabbage",
+                    "image": "cabbage.jpg"
+                  },
+                  {
+                    "id": 93798,
+                    "name": "brine",
+                    "localizedName": "brine",
+                    "image": ""
+                  }
+                ],
+                "equipment": [],
+                "length": {
+                  "number": 240,
+                  "unit": "minutes"
+                }
+              },
+              {
+                "number": 2,
+                "step": "Remove and drain.",
+                "ingredients": [],
+                "equipment": []
+              },
+              {
+                "number": 3,
+                "step": "Place garlic cloves, rice, fermented shrimp, fish sauce, sugar, chili paste, and chili flakes in a food processor and zap to a smooth paste. Stir in spring onions.",
+                "ingredients": [
+                  {
+                    "id": 10211215,
+                    "name": "whole garlic cloves",
+                    "localizedName": "whole garlic cloves",
+                    "image": "garlic.jpg"
+                  },
+                  {
+                    "id": 11291,
+                    "name": "spring onions",
+                    "localizedName": "spring onions",
+                    "image": "spring-onions.jpg"
+                  },
+                  {
+                    "id": 6179,
+                    "name": "fish sauce",
+                    "localizedName": "fish sauce",
+                    "image": "asian-fish-sauce.jpg"
+                  },
+                  {
+                    "id": 15270,
+                    "name": "shrimp",
+                    "localizedName": "shrimp",
+                    "image": "shrimp.png"
+                  },
+                  {
+                    "id": 19335,
+                    "name": "sugar",
+                    "localizedName": "sugar",
+                    "image": "sugar-in-bowl.png"
+                  },
+                  {
+                    "id": 20444,
+                    "name": "rice",
+                    "localizedName": "rice",
+                    "image": "uncooked-white-rice.png"
+                  }
+                ],
+                "equipment": [
+                  {
+                    "id": 404771,
+                    "name": "food processor",
+                    "localizedName": "food processor",
+                    "image": "food-processor.png"
+                  }
+                ]
+              },
+              {
+                "number": 4,
+                "step": "Stuff the cabbage with the paste, making sure to stuff in between the individual leaves and coating every inch of it.",
+                "ingredients": [
+                  {
+                    "id": 11109,
+                    "name": "cabbage",
+                    "localizedName": "cabbage",
+                    "image": "cabbage.jpg"
+                  }
+                ],
+                "equipment": []
+              },
+              {
+                "number": 5,
+                "step": "Place kimchi into an airtight container and leave at room temperature for a day before leaving it to ferment further in the fridge for at least another week before consuming. I left mine for about 3 weeks.",
+                "ingredients": [
+                  {
+                    "id": 98860,
+                    "name": "kimchi",
+                    "localizedName": "kimchi",
+                    "image": "kimchi.png"
+                  }
+                ],
+                "equipment": []
+              }
+            ]
+          }
+        ],
+        "spoonacularSourceUrl": "https://spoonacular.com/winter-kimchi-665379"
+      },
+      
+      {
+        "vegetarian": true,
+        "vegan": true,
+        "glutenFree": false,
+        "dairyFree": true,
+        "veryHealthy": false,
+        "cheap": false,
+        "veryPopular": false,
+        "sustainable": false,
+        "lowFodmap": false,
+        "weightWatcherSmartPoints": 12,
+        "gaps": "no",
+        "preparationMinutes": -1,
+        "cookingMinutes": -1,
+        "aggregateLikes": 40,
+        "healthScore": 38,
+        "creditsText": "Foodista.com – The Cooking Encyclopedia Everyone Can Edit",
+        "license": "CC BY 3.0",
+        "sourceName": "Foodista",
+        "pricePerServing": 208.61,
+        "id": 637440,
+        "title": "Chapchae (Korean Stir-Fried Noodles)",
+        "readyInMinutes": 45,
+        "servings": 4,
+        "sourceUrl": "https://www.foodista.com/recipe/RSDBG48H/chapchae-korean-stir-fried-noodles",
+        "image": "https://spoonacular.com/recipeImages/637440-312x231.jpg",
+        "imageType": "jpg",
+        "summary": "Chapchae (Korean Stir-Fried Noodles) is a dairy-free, lacto-ovo vegetarian, and vegan recipe with 4 servings. This side dish has 397 calories, 5g of protein, and 15g of fat per serving. For $2.09 per serving, this recipe covers 21% of your daily requirements of vitamins and minerals. 40 people have made this recipe and would make it again. It is brought to you by Foodista. From preparation to the plate, this recipe takes approximately 45 minutes. A few people really liked this Korean dish. A mixture of soy sauce, salt, baby spinach, and a handful of other ingredients are all it takes to make this recipe so scrumptious. All things considered, we decided this recipe deserves a spoonacular score of 91%. This score is spectacular. Similar recipes include Chapchae (Korean Stir-Fried Noodles), Chapchae (Korean Stir-Fried Noodles), and Korean Stir-Fried Noodles (Chapchae).",
+        "cuisines": ["Korean", "Asian"],
+        "dishTypes": ["side dish"],
+        "diets": ["dairy-free", "lacto-ovo vegetarian", "vegan"],
+        "occasions": [],
+        "analyzedInstructions": [
+          {
+            "name": "",
+            "steps": [
+              {
+                "number": 1,
+                "step": "Cook noodles according to package directions",
+                "ingredients": [
+                  {
+                    "id": 20420,
+                    "name": "pasta",
+                    "localizedName": "pasta",
+                    "image": "fusilli.jpg"
+                  }
+                ],
+                "equipment": []
+              },
+              {
+                "number": 2,
+                "step": "In a large pan or wok over medium heat, heat olive oil and 1 Tbsp sesame oil",
+                "ingredients": [
+                  {
+                    "id": 4058,
+                    "name": "sesame oil",
+                    "localizedName": "sesame oil",
+                    "image": "sesame-oil.png"
+                  },
+                  {
+                    "id": 4053,
+                    "name": "olive oil",
+                    "localizedName": "olive oil",
+                    "image": "olive-oil.jpg"
+                  }
+                ],
+                "equipment": [
+                  {
+                    "id": 404645,
+                    "name": "frying pan",
+                    "localizedName": "frying pan",
+                    "image": "pan.png"
+                  },
+                  {
+                    "id": 404666,
+                    "name": "wok",
+                    "localizedName": "wok",
+                    "image": "wok.png"
+                  }
+                ]
+              },
+              {
+                "number": 3,
+                "step": "Add onion slices and garlic and sauté for about 1 min",
+                "ingredients": [
+                  {
+                    "id": 11215,
+                    "name": "garlic",
+                    "localizedName": "garlic",
+                    "image": "garlic.png"
+                  },
+                  {
+                    "id": 11282,
+                    "name": "onion",
+                    "localizedName": "onion",
+                    "image": "brown-onion.png"
+                  }
+                ],
+                "equipment": []
+              },
+              {
+                "number": 4,
+                "step": "Add rest of vegetables and cook for 4-5 min, until the vegetables are half-cooked and still a bit crispy",
+                "ingredients": [
+                  {
+                    "id": 11583,
+                    "name": "vegetable",
+                    "localizedName": "vegetable",
+                    "image": "mixed-vegetables.png"
+                  }
+                ],
+                "equipment": [],
+                "length": {
+                  "number": 5,
+                  "unit": "minutes"
+                }
+              },
+              {
+                "number": 5,
+                "step": "Turn heat to low and add cooked noodles, soy sauce, sugar, and the remaining sesame oil",
+                "ingredients": [
+                  {
+                    "id": 20421,
+                    "name": "cooked pasta",
+                    "localizedName": "cooked pasta",
+                    "image": "fusilli.jpg"
+                  },
+                  {
+                    "id": 4058,
+                    "name": "sesame oil",
+                    "localizedName": "sesame oil",
+                    "image": "sesame-oil.png"
+                  },
+                  {
+                    "id": 16124,
+                    "name": "soy sauce",
+                    "localizedName": "soy sauce",
+                    "image": "soy-sauce.jpg"
+                  },
+                  {
+                    "id": 19335,
+                    "name": "sugar",
+                    "localizedName": "sugar",
+                    "image": "sugar-in-bowl.png"
+                  }
+                ],
+                "equipment": []
+              },
+              {
+                "number": 6,
+                "step": "Mix to combine and cook for another 2 min",
+                "ingredients": [],
+                "equipment": []
+              },
+              {
+                "number": 7,
+                "step": "Add salt or more soy sauce if needed (or if you want it a bit sweeter, add a touch more sugar)",
+                "ingredients": [
+                  {
+                    "id": 16124,
+                    "name": "soy sauce",
+                    "localizedName": "soy sauce",
+                    "image": "soy-sauce.jpg"
+                  },
+                  {
+                    "id": 19335,
+                    "name": "sugar",
+                    "localizedName": "sugar",
+                    "image": "sugar-in-bowl.png"
+                  },
+                  {
+                    "id": 2047,
+                    "name": "salt",
+                    "localizedName": "salt",
+                    "image": "salt.jpg"
+                  }
+                ],
+                "equipment": []
+              },
+              {
+                "number": 8,
+                "step": "If using sesame seeds, add them at the finish",
+                "ingredients": [
+                  {
+                    "id": 12023,
+                    "name": "sesame seeds",
+                    "localizedName": "sesame seeds",
+                    "image": "sesame-seeds.png"
+                  }
+                ],
+                "equipment": []
+              }
+            ]
+          }
+        ],
+        "spoonacularSourceUrl": "https://spoonacular.com/chapchae-korean-stir-fried-noodles-637440"
+      }
+    ]
+  }
+  
