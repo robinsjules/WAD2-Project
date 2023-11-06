@@ -1,4 +1,4 @@
-<!-- <template> -->
+<template>
     <!-- Section: Design Block -->
     <!-- <section class=""> -->
         <!-- Jumbotron -->
@@ -71,8 +71,8 @@
         <!-- Jumbotron -->
     <!-- </section> -->
     <!-- Section: Design Block -->
-<!-- </template>
-<script>
+</template>
+<!-- <script>
 import axios from 'axios';
 export default {
     data() {
@@ -105,8 +105,8 @@ export default {
                 }) -->
                 <!-- .catch(error => {
                     console.log(error.message)
-                    console.error(error.response.data)
-                    // document.getElementById("axios").innerText = error.message;
+                    console.error(error.response.data) -->
+                    <!-- // document.getElementById("axios").innerText = error.message;
                 });
             // this.$router.push({ name: 'Login' });
             // console.log(JSON.stringify(this.form));
