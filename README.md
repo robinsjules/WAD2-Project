@@ -18,6 +18,8 @@ Firstly, install the dependencies for the project to run.
 - pip install flask 
 - npm install supabase
 - npm install @googlemaps/js-api-loader
+- npm install js-cookie
+
 
 ## Deployment:
 To run this project locally:
