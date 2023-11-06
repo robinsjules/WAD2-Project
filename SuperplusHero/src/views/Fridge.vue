@@ -10,7 +10,7 @@
     <section class="">
         <!-- Jumbotron -->
         <div class="px-5 py-5 px-md-5 text-center text-lg-start"
-            style="background-color: hsl(0, 0%, 96%);background-size: cover; height: 100vh;">
+            style="background-image: ; background-color: hsl(0, 0%, 96%);background-size: cover; height: 100vh;">
             <div class="container">
                 <div class="row gx-lg-5 align-items-center">
                     <div class="col-lg-6 mb-5 mb-lg-0">

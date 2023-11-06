@@ -9,7 +9,7 @@
     <section class="">
         <!-- Jumbotron -->
         <div class="px-5 py-5 px-md-5 text-center text-lg-start"
-            style="background-color: hsl(0, 0%, 96%);background-size: cover; height: 100vh;">
+            style="background-color: hsl(0, 0%, 96%);background-size: cover; height: 130vh;">
             <div class="container">
                 <div class="row gx-lg-5 align-items-center">
                     <div class="col-lg-6 mb-5 mb-lg-0">
@@ -72,21 +72,42 @@
                                         <!-- <label class="form-label" for="form3Example4">Password</label> -->
                                     </div>
 
-                                    <!-- Checkbox -->
-                                    <!-- <div class="form-check d-flex justify-content-center mb-4">
-                                        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33"
-                                            checked />
-                                        <label class="form-check-label" for="form2Example33">
-                                            Subscribe to our newsletter
-                                        </label>
-                                    </div> -->
+                                    <div v-if="form.UserType === 'Consumer'">
+                                        <div class="col-md-12 mb-4">
+                                        <div class="form-outline">
+                                            <input v-model="form.Allergies" type="text" class="form-control" id="Allergies"
+                                                placeholder="Allergies (Eg. Shellfish)">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-4">
+                                        <div class="form-outline">
+                                            <input v-model="form.item" type="text" id="Fridge" class="form-control"
+                                                placeholder="Items in your fridge (Eg. Banana)" />
+                                            <br><h4>Items:</h4>
+                                            <ul>
+                                                <li v-for="(item) in Fridge">
+                                                    {{ item }}
+                                                </li>
+                                            </ul>
+                                        </div><br>
+                                    </div>
+
+                                    <div class="col-md-12 mb-4">
+                                        <div class="d-flex justify-content-between">
+                                            <button type="button" class="btn btn-primary w-100" @click="addItem">Add
+                                                Item</button>
+                                            <button type="button" class="btn btn-danger w-100" @click="Fridge.splice(-1, 1)">Delete
+                                                Item</button>
+                                        </div>
+                                    </div>
+                                    </div>
                                     <!-- Submit button -->
                                     <div class="col-md-12 mb-4">
                                         <div class="d-flex justify-content-between">
-                                            <button v-if="form.UserType === 'Business'" @click="goToNext" type="submit"
+                                            <button @click="goToNext" type="submit"
                                                 class="btn btn-success w-100">Submit</button>
-                                            <button v-else @click="goToNext" type="submit"
-                                                class="btn btn-success w-100">Next</button>
+                                            <!-- <button v-else @click="goToNext" type="submit"
+                                                class="btn btn-success w-100">Next</button> -->
                                         </div>
                                     </div>
 
@@ -110,26 +131,39 @@ export default {
     // Your component data and methods go here
     data() {
         return {
+            Fridge: [],
             form: {
                 UserType: 'What type of user are you?',
                 UserName: '',
                 Email: '',
                 Phone: '',
                 Password: '',
+                Allergies: '',
+                item: '',
             }
         }
     },
     methods: {
+        addItem() {
+            if (this.form.item != '') {
+                        this.Fridge.push(this.form.item)
+                        this.form.item = ''  // clear the input box
+                    }
+        },
         goToNext() {
-            var url = 'http://127.0.0.1:5000/register_user';
-            var para = {
-                UserType: this.form.UserType,
-                UserName: this.form.UserName,
-                Email: this.form.Email,
-                Phone: this.form.Phone,
-                Password: this.form.Password,
-            }
-            if (this.form.UserType === 'Business') {
+            if(this.form.UserType === 'What type of user are you?'){
+                alert('Please select a user type');
+            }else{
+                var url = 'http://127.0.0.1:5000/register_user';
+                var para = {
+                    UserType: this.form.UserType,
+                    UserName: this.form.UserName,
+                    Email: this.form.Email,
+                    Phone: this.form.Phone,
+                    Password: this.form.Password,
+                    Allergies: JSON.stringify(this.form.Allergies),
+                    Fridge: JSON.stringify(this.Fridge),
+                }
                 axios.post(url, para)
                 .then(response => {
                     console.log(response.data)
@@ -140,17 +174,17 @@ export default {
                     console.error(error.response.data)
                     // document.getElementById("axios").innerText = error.message;
                 });
-            } else if (this.form.UserType === 'Consumer') {
-                // this.$emit('goToNext', this.form)
-                // console.log(JSON.stringify(this.form));
-                this.$router.push({ name: 'Register2' });
-                console.log(JSON.stringify(this.form));
-            } else {
-                alert('Please select a user type');
+            }
+            // if (this.form.UserType === 'Business') {
+            // // } else if (this.form.UserType === 'Consumer') {
+            // //     // this.$emit('goToNext', this.form)
+            // //     // console.log(JSON.stringify(this.form));
+            // //     this.$router.push({ name: 'Register2' });
+            // //     console.log(JSON.stringify(this.form));
+            // } else {
             }
         },
-    },
-}
+    }
 export const errorUtils = {
     getError: (error) => {
         let e = error;
