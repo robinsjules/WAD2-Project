@@ -155,22 +155,21 @@ export default {
     totalPages() {
       return Math.ceil(this.filteredRecipes.length / this.recipesPerPage);
     },
-    watch: {
-    selectedCuisine: 'resetPage',
-    searchQuery: 'resetPage',
-    filterRecipes: 'resetPage'
-    },
     mainContentStyle() {
     return {
       marginLeft: this.isCollapsed ? '50px' : '250px',
       transition: 'margin-left 0.3s ease' // Adjust the duration and easing as needed
     };
   },
-
+  
   },
   mounted() {
     // Load recipe data from the JSON file when the component is mounted
     this.recipes = recipeData;
+    // Automatically close the sidebar for small screens
+    if (window.innerWidth <= 768) {
+      this.isCollapsed = true;
+    }
   },
   methods: {
 
@@ -200,20 +199,34 @@ export default {
     },
     goToPage(page) {
       this.currentPage = page;
+      this.scrollToTop();
     },
     nextPage() {
       if (this.currentPage < this.totalPages) {
         this.currentPage += 1;
+        this.scrollToTop();
       }
     },
     prevPage() {
       if (this.currentPage > 1) {
         this.currentPage -= 1;
+        this.scrollToTop();
       }
     },
     resetPage() {
       this.currentPage = 1;
     },
+    scrollToTop() {
+      // Scroll smoothly to the top of the page
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    },
+  },
+    watch: {
+    searchQuery: 'resetPage', // Reset the page when searchQuery changes
+    selectedCuisine: 'resetPage', // Reset the page when selectedCuisine changes
   },
 };
 </script>
@@ -245,7 +258,7 @@ export default {
 }
 
 .card-title {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: bold;
 }
 
@@ -270,6 +283,7 @@ export default {
   overflow-y: auto;
   margin-top: 85px;
   transition: width 0.3s;
+  font-size: 16px; /* Default font size for large screens */
 }
 
 .toggle-button {
@@ -279,7 +293,7 @@ export default {
   transform: translateY(-50%); /* Adjust for vertical centering */
   background-color: green;
   color: white;
-  width: 50px; /* Adjust the width of the rectangle */
+  width: 30px; /* Adjust the width of the rectangle */
   height: 20%; /* Full height of the sidebar */
   border-top-left-radius: 10px; /* Rounded top-left corner */
   border-bottom-left-radius: 10px; /* Rounded bottom-left corner */

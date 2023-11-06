@@ -26,7 +26,7 @@
               </div>
             </div>
             <div class="col-md-8">
-              <h2>{{ecipe.title }} Preparation</h2>
+              <h2>{{ selectedRecipe.title }} Preparation</h2>
               <ol>
                 <li v-for="step in selectedRecipe.analyzedInstructions[0]?.steps" :key="step.number">{{ step.step }}</li>
               </ol>
