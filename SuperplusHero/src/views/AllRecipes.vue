@@ -50,12 +50,26 @@
         </div>
       </div>
 
+
+      <!-- Number of recipes to display per page -->
+
+    <div class="form-group m-3">
+      <label for="recipesPerPage">Recipes per Page: &nbsp;</label>
+      <select id="recipesPerPage" v-model="recipesPerPage">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="40">40</option>
+        <option value="50">50</option>
+      </select>
+    </div>
+
 <!-- Recipe Cards -->
-<section>
-        <br>
-        <div class="container-fluid">
-          <div class="row justify-content-left">
-            <div v-for="recipe in filteredRecipes" :key="recipe.title" class="card mx-2 my-3" style="width: 13rem; height: auto;">
+    <section>
+      <br>
+      <div class="container-fluid">
+        <div class="row justify-content-left">
+          <div v-for="recipe in paginatedRecipes" :key="recipe.title" class="card mx-2 my-3" style="width: 13rem; height: auto;">
               <!-- Your card content here -->
               <div class="card-image">
                 <img :src="recipe.image" class="card-img-top" :alt="recipe.title">
@@ -73,8 +87,21 @@
           </div>
         </div>
       </section>
+    
+
+      <!-- Pagination Controls -->
+    <div class="pagination">
+      <button @click="goToPage(1)" :disabled="currentPage === 1">First</button>
+      <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
+      <button @click="goToPage(totalPages)" :disabled="currentPage === totalPages">Last</button>
     </div>
+
+    <!-- Total Results -->
+    <div>Total Results: {{ filteredRecipes.length }}</div>
   </div>
+</div>
 </template>
 
 <script>
@@ -90,6 +117,8 @@ export default {
       recipes: { results: [] }, // Initialize with an empty results array
       searchQuery: '',
       isCollapsed: false,
+      recipesPerPage: 20, // Default number of recipes per page
+      currentPage: 1, // Current page number
     };
   },
   computed: {
@@ -117,6 +146,19 @@ export default {
           const searchMatch = this.searchQuery === '' || recipe.title.toLowerCase().includes(this.searchQuery.toLowerCase());
           return cuisineMatch && searchMatch;
         });
+    },
+    paginatedRecipes() {
+      const startIndex = (this.currentPage - 1) * this.recipesPerPage;
+      const endIndex = this.currentPage * this.recipesPerPage;
+      return this.filteredRecipes.slice(startIndex, endIndex);
+    },
+    totalPages() {
+      return Math.ceil(this.filteredRecipes.length / this.recipesPerPage);
+    },
+    watch: {
+    selectedCuisine: 'resetPage',
+    searchQuery: 'resetPage',
+    filterRecipes: 'resetPage'
     },
     mainContentStyle() {
     return {
@@ -156,15 +198,32 @@ export default {
       // Set a cookie with the recipe title
       Cookies.set('recipeTitle', title);
     },
+    goToPage(page) {
+      this.currentPage = page;
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage += 1;
+      }
+    },
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage -= 1;
+      }
+    },
+    resetPage() {
+      this.currentPage = 1;
+    },
   },
 };
 </script>
   
 <style scoped>
 .content {
-  margin-top: 100px;
+  margin-top: 80px;
   margin-left: 250px; /* Adjust the margin to match the sidebar's width */
   padding: 20px; /* Add some padding to separate content from sidebar */
+  background-color: rgb(237, 243, 235);
 }
 
 
@@ -172,7 +231,7 @@ export default {
   border: 1px solid #ccc;
   border-radius: 10px;
   transition: transform 0.2s;
-  background-color: rgb(247, 253, 245)
+  background-color: white
 }
 
 .card:hover {
@@ -269,6 +328,32 @@ export default {
 /* Additional styling for active link */
 .sidebar ul li.active a:hover {
   background-color: #0056b3; /* Highlight the active cuisine on hover */
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.pagination button {
+  margin: 0 5px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination select {
+  margin: 0 10px;
+  padding: 5px;
 }
 
 

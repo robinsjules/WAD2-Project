@@ -53,9 +53,8 @@
           </div>
         </div>
         <!-- Recipe Details: End -->
-              
-            
-          
+        </p>
+        <p v-else>
           
         </p>
       </div>
