@@ -65,7 +65,7 @@
                 <p class="card-text">{{ recipe.description }}</p>
               </div>
               <div class="card-footer d-flex flex-column">
-                <router-link :to="{ name: 'readRecipe', params: { recipeId: recipe.title } }">
+                <router-link @click="setRecipeTitleCookie(recipe.title)" :to="{ name: 'readRecipe', params: { id: recipe.title } }">
                   <button type="button" class="btn btn-outline-success mt-auto w-100">Read more</button>
                 </router-link>
               </div>
@@ -80,6 +80,8 @@
 <script>
 
 import recipeData from '../../../backend/spoonacular/allCuisine.json'
+import Cookies from 'js-cookie';
+
 
 export default {
   data() {
@@ -129,6 +131,7 @@ export default {
     this.recipes = recipeData;
   },
   methods: {
+
     filterRecipes() {
       // Handle filtering recipes based on selected cuisine
     },
@@ -148,6 +151,10 @@ export default {
     readRecipe(recipe) {
       this.recipeTitle = recipe.title; // Set the recipeTitle here
       this.$router.push({ name: 'readRecipe', params: { id: recipe.title } });
+    },
+    setRecipeTitleCookie(title) {
+      // Set a cookie with the recipe title
+      Cookies.set('recipeTitle', title);
     },
   },
 };

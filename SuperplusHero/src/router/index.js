@@ -55,7 +55,7 @@ const router = createRouter({
       component: AllRecipes2
     },
     {
-      path: '/readrecipe',
+      path: '/readrecipe/:id',
       name: 'readRecipe',
       component: readRecipe
     },
