@@ -15,6 +15,7 @@ import Register2 from '@/views/Register2.vue'
 import Community from '@/views/Community.vue'
 import ben_test2 from '@/views/ben_test2.vue'
 import Fridge from '@/views/Fridge.vue'
+import Checkout from "@/views/Checkout.vue"
 
 const router = createRouter({
   history: createWebHistory(),
@@ -93,6 +94,11 @@ const router = createRouter({
       path: '/fridge',
       name: 'Fridge',
       component: Fridge
+    },
+    {
+      path: '/checkout',
+      name: "Checkout",
+      component: Checkout
     }
   ]
 })
