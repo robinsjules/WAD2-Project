@@ -90,7 +90,7 @@ button.carousel-control-next {
 
 .card-img-top {
     width: 100%;
-    height: 15vw;
+    height: 100%;
     object-fit: cover;
 }
 
@@ -111,7 +111,7 @@ button.carousel-control-next {
     </div>
 </div>
 <!-- Maybe money saved can be a pie chart or dashboard showing how much money saved so far and what type of good it was spent on -->
-        <div class="container">
+        <!-- <div class="container">
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <div class="col mt-5">
                     <div class="card h-100">
@@ -121,7 +121,7 @@ button.carousel-control-next {
                             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- <div class="col">
                     <div class="card h-100">
                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
@@ -132,7 +132,7 @@ button.carousel-control-next {
                     </div>
                 </div> -->
 
-                <div class="col mt-5">
+                <!-- <div class="col mt-5">
                     <div class="card mb-3">
                         <div class="row g-0">
                             <div class="col-md-4">
@@ -147,7 +147,7 @@ button.carousel-control-next {
                         </div>
                     </div>
 
-                </div>
+                </div> -->
 
                 <!-- <div class="col">
                     <div class="card h-100">
@@ -158,9 +158,9 @@ button.carousel-control-next {
                         </div>
                     </div>
                 </div> -->
-                
+<!--                 
             </div>
-        </div>
+        </div> -->
 
 
 
@@ -514,9 +514,19 @@ export default {
 
     methods: {
         addtoCart(item) {
-            this.cart.push(item);
-            Cookies.set('cart',JSON.stringify(this.cart));
-            console.log(JSON.parse(Cookies.get('cart')));
+            if (!this.checkDup(item)){
+                this.cart.push(item);
+                Cookies.set('cart',JSON.stringify(this.cart));
+                // console.log(JSON.parse(Cookies.get('cart')));
+            }
+        },
+        checkDup(item){
+            if (this.cart.includes(item,0) ){
+                console.log("Dup check");
+                return true
+            }else{
+                return false;
+            }
         }
         // getListings(){
         //     axios.get(`http://127.0.0.1:5000/listings`)

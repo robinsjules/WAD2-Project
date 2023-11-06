@@ -25,6 +25,32 @@
 
 </style>
 
+<style scoped>
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cartThumbnail {
+  margin-right: 10px;
+  width: 20%;
+  height: 20%;
+}
+
+.cart-item-details {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.checkout {
+  text-align: right;
+}
+
+</style>
+
 <template>
 <nav v-if="showNavBar" class="navbar navbar-expand-md navbar-dark bg-dark navcolor">
     <router-link to="/">
@@ -82,7 +108,10 @@
             <a class="nav-link" href="#"
             data-bs-toggle="modal"
             data-bs-target="#cartModal"
+            @click="checkCart()"
             >
+
+            
             
             <img src="../assets/cartWhite.png" alt="Cart" width="50" height="50">
           
@@ -139,11 +168,22 @@
                 </div>
                 <div class="modal-body">
                   <span v-if="checkCart() == []">There's nothing in your cart!</span>
-                  <div v-for="(item, idx) in cart" :key="idx">
-                    <img :src="item.ImageURL" class="card-img-top" alt="Surplus Listing"  style="width:100%">
-                    <h1>{{item.IngredientName}}</h1>
-                    <p class="price"> <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></p>
-                  </div>
+                  <div v-for="(item, idx) in cart" :key="idx" class="cart-item">
+                    <img :src="item.ImageURL" alt="Surplus Listing" class="cartThumbnail">
+                    <div class="cart-item-details">
+                        <h3 class="cartItemName">{{item.IngredientName}}</h3>
+                        <span class="price"> Price: <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></span>
+                        Quantity: 
+                        <div class="cartItemQuantity">
+                          <button class="btn btn-primary" @click="decreaseQuantity(item)">-</button>
+                          {{desiredQuantity}}
+                          <button class="btn btn-primary" @click="increaseQuantity(item)">+</button>
+                        </div>
+                      </div>
+                    </div>
+                    <router-link to="/checkout">
+                      <button class="btn btn-primary checkout">Checkout</button>
+                    </router-link>
                 </div>
               </div>
             </div>
@@ -163,7 +203,7 @@
                         <h5 class="modal-title" id="notificationModalLabel">Notifications</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-lebody">
                         You have {{notificationCount}} new notifications.
                         
                     </div>
@@ -186,13 +226,19 @@ export default {
       // newNotifications: false,
       postalCode: "",
       location:"",
-      // items:[],
+      desiredQuantity: 1,
+      totalPrice:0.0,
       cart:[],
     };
   },
   async created() {
       this.checkCookies();
       this.checkCart();
+    },
+    computed: {
+      cartLength() {
+        return this.cart.length;
+      }
     },
   methods: {
     checkCookies(){
@@ -205,12 +251,23 @@ export default {
     checkCart(){
       if (Cookies.get("cart")){
           this.cart = JSON.parse(Cookies.get("cart"));
-          console.log(this.cart);
-          console.log("working");
+          // console.log(this.cart);
+          // console.log("working");
       }else{
         this.cart = [];
       }
     },
+    increaseQuantity(item) {
+      if(item.Quantity > this.desiredQuantity){
+        this.desiredQuantity++;
+        console.log("good");
+      }
+  },
+  decreaseQuantity(item) {
+    if(this.desiredQuantity > 1) {
+      this.desiredQuantity--;
+    }
+  },
     // haveProducts(){
     //   return this.cart.length>0;
     // },
