@@ -39,12 +39,10 @@
         <div class="recipe-ingredients">
           <h3>Ingredients:</h3>
           <ul>
-            <li v-for="step in recipe.analyzedInstructions[0]?.steps" :key="step.number">
-              <ul>
-                <li v-for="ingredient in step.ingredients" :key="ingredient.id">
-                  {{ ingredient.name }}
-                </li>
-              </ul>
+            <li v-for="step in recipe.analyzedInstructions[0].steps" :key="step.number">
+              <span v-for="ingredient in step.ingredients" :key="ingredient.id">
+                {{ ingredient.name }}
+              </span>
             </li>
           </ul>
         </div>
