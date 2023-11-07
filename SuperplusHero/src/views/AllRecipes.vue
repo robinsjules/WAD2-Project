@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div style="background-color: rgb(237, 243, 235);">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     
-
+    
     <!-- Sidebar -->
     <div class="sidebar" :class="{ collapsed: isCollapsed }">
       <div class="nav" v-if="!isCollapsed">
@@ -39,7 +39,7 @@
         <div class="form-group">
           <div class="row justify-content-center">
             <div class="col-md">
-              <div class="input-group">
+              <div class="input-group me-8">
                 <input v-model="searchQuery" type="text" class="form-control" placeholder="Search Recipe..">
                 <div class="input-group-append">
                   <button class="btn btn-success" type="button" @click="searchRecipes">Search</button>
@@ -67,25 +67,31 @@
 <!-- Recipe Cards -->
     <section>
       <br>
-      <div class="container-fluid">
-        <div class="row justify-content-left">
-          <div v-for="recipe in paginatedRecipes" :key="recipe.title" class="card mx-2 my-3" style="width: 13rem; height: auto;">
+      <div class="container">
+        <div class="row">
+          <div v-for="recipe in paginatedRecipes" :key="recipe.title" class="card mx-2 my-2" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
               <!-- Your card content here -->
               <div class="card-image">
-                <img :src="recipe.image" class="card-img-top" :alt="recipe.title">
+                <img :src="recipe.image" class="card-img" :alt="recipe.title">
+                <div class="card-overlay">
+                  <button class="read-more-button" @click="readRecipe(recipe)" v-show="isHovered">Read More</button>
+                </div>
               </div>
               <div class="card-body">
-                <h5 class="card-title">{{ recipe.title }}</h5>
+                <span style="color: green; font-size: smaller;">RECIPE</span><br>
+                <span class="card-title">{{ recipe.title }}</span>
                 <p class="card-text">{{ recipe.description }}</p>
-              </div>
-              <div class="card-footer d-flex flex-column">
+                <p style="position: absolute; bottom: 0px; left: 15px; font-size: smaller;">Ready In {{ recipe.readyInMinutes }} Minutes </p>
+                <i class="fas fa-heart" style="position: absolute; bottom: 20px; right: 30px; color: red;"><span style="color: grey;">&nbsp;{{ recipe.aggregateLikes }}</span></i>
+                </div>
+              <!-- <div class="card-footer d-flex flex-column">
                 <router-link @click="setRecipeTitleCookie(recipe.title)" :to="{ name: 'readRecipe', params: { id: recipe.title } }">
                   <button type="button" class="btn btn-outline-success mt-auto w-100">Read more</button>
                 </router-link>
-              </div>
+              </div> -->
             </div>
           </div>
-        </div>
+      </div>
       </section>
     
 
@@ -119,6 +125,7 @@ export default {
       isCollapsed: false,
       recipesPerPage: 20, // Default number of recipes per page
       currentPage: 1, // Current page number
+      isHovered: false,
     };
   },
   computed: {
@@ -157,7 +164,7 @@ export default {
     },
     mainContentStyle() {
     return {
-      marginLeft: this.isCollapsed ? '50px' : '250px',
+      marginLeft: this.isCollapsed ? '100px' : '300px',
       transition: 'margin-left 0.3s ease' // Adjust the duration and easing as needed
     };
   },
@@ -234,27 +241,81 @@ export default {
 <style scoped>
 .content {
   margin-top: 80px;
-  margin-left: 250px; /* Adjust the margin to match the sidebar's width */
+  margin-left: 300px; /* Adjust the margin to match the sidebar's width */
   padding: 20px; /* Add some padding to separate content from sidebar */
-  background-color: rgb(237, 243, 235);
+  margin-right: 50px;
 }
 
-
 .card {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  transition: transform 0.2s;
-  background-color: white
+  position: relative;
+  background-color: white;
+  height: 350px;
+  width: 300px;
+  padding: 0;
+  border-radius: 0;
+  overflow: hidden;
+  transition: opacity 0.2s;
+}
+
+.read-more-button {
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 0; /* Remove border radius */
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-top: 100px; /* Add margin of 50px */
+  width: 150px;
+  height: 50px;
+}
+
+.card:hover::before {
+  content: ''; /* Create a pseudo-element */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 5px solid transparent; /* Initially transparent border */
+  box-sizing: border-box; /* Include border in the element's dimensions */
+  transition: border-color 0.2s; /* Transition for border-color only */
 }
 
 .card:hover {
-  transform: scale(1.1);
+  z-index: 1;
+  transition: opacity 0.2s;
+  opacity: 100%;
+ 
   }
 
+  .card:hover::before {
+  border-color: rgb(0, 220, 0); /* Border color on hover (adjust to your preference) */
+}
+
+.card:hover .card-overlay {
+  opacity: 1; /* Make the overlay visible on hover */
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items to the top */;
+}
+
+
+
 .card-image img {
-  margin-top: 10px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  width: 300px;
+  height: 200px;
+  border-radius: 0;
 }
 
 .card-title {
@@ -266,9 +327,6 @@ export default {
   color: #666;
 }
 
-.btn-read-more {
-  align-self: flex-end;
-}
 
 .sidebar {
   position: fixed; /* Fix the sidebar in place */

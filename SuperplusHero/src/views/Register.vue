@@ -2,7 +2,6 @@
 .btn {
     text-align: center;
 };
-@import url(../);
 </style>
 <template>
     <!-- Section: Design Block -->
