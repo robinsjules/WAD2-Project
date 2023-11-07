@@ -1,15 +1,15 @@
 <style scoped>
 .btn {
     text-align: center;
-}
+};
+@import url(../);
 </style>
 <template>
-    <!-- <h2>Register Page</h2> -->
     <!-- Section: Design Block -->
     <section class="">
         <!-- Jumbotron -->
         <div class="px-5 py-5 px-md-5 text-center text-lg-start"
-            style="background-color: hsl(0, 0%, 96%);background-size: cover; height: 130vh;">
+            style="background-color: hsl(0, 0%, 96%);background-size: cover; height: 115vh; background-image: url('https://www.europenowjournal.org/wp-content/uploads/2019/04/shutterstock_321864554.jpg');">
             <div class="container">
                 <div class="row gx-lg-5 align-items-center">
                     <div class="col-lg-6 mb-5 mb-lg-0">
@@ -26,7 +26,7 @@
                         <div class="card">
                             <div class="card-body py-5 px-md-5">
                                 <div class=" fw-bolder ls-tight">
-                                    <h1>Create Account</h1>
+                                    <h1 style="text-align: center;">Sign Up</h1>
                                 </div><br>
 
                                 <form @submit.prevent = "goToNext">
@@ -81,24 +81,9 @@
                                     </div>
                                     <div class="col-md-12 mb-4">
                                         <div class="form-outline">
-                                            <input v-model="form.item" type="text" id="Fridge" class="form-control"
+                                            <textarea  cols="4" rows="5" v-model="form.Fridge" type="text" id="Fridge" class="form-control"
                                                 placeholder="Items in your fridge (Eg. Banana)" />
-                                            <br><h4>Items:</h4>
-                                            <ul>
-                                                <li v-for="(item) in Fridge">
-                                                    {{ item }}
-                                                </li>
-                                            </ul>
                                         </div><br>
-                                    </div>
-
-                                    <div class="col-md-12 mb-4">
-                                        <div class="d-flex justify-content-between">
-                                            <button type="button" class="btn btn-primary w-100" @click="addItem">Add
-                                                Item</button>
-                                            <button type="button" class="btn btn-danger w-100" @click="Fridge.splice(-1, 1)">Delete
-                                                Item</button>
-                                        </div>
                                     </div>
                                     </div>
                                     <!-- Submit button -->
@@ -106,8 +91,6 @@
                                         <div class="d-flex justify-content-between">
                                             <button @click="goToNext" type="submit"
                                                 class="btn btn-success w-100">Submit</button>
-                                            <!-- <button v-else @click="goToNext" type="submit"
-                                                class="btn btn-success w-100">Next</button> -->
                                         </div>
                                     </div>
 
@@ -132,7 +115,6 @@ export default {
     // Your component data and methods go here
     data() {
         return {
-            Fridge: [],
             form: {
                 UserType: 'What type of user are you?',
                 UserName: '',
@@ -140,17 +122,11 @@ export default {
                 Phone: '',
                 Password: '',
                 Allergies: '',
-                item: '',
+                Fridge: '',
             }
         }
     },
     methods: {
-        addItem() {
-            if (this.form.item != '') {
-                        this.Fridge.push(this.form.item)
-                        this.form.item = ''  // clear the input box
-                    }
-        },
         goToNext() {
             if(this.form.UserType === 'What type of user are you?'){
                 alert('Please select a user type');
@@ -163,7 +139,7 @@ export default {
                     Phone: this.form.Phone,
                     Password: this.form.Password,
                     Allergies: JSON.stringify(this.form.Allergies),
-                    Fridge: JSON.stringify(this.Fridge),
+                    Fridge: JSON.stringify(this.form.Fridge),
                 }
                 axios.post(url, para)
                 .then(response => {
@@ -173,70 +149,10 @@ export default {
                 .catch(error => {
                     console.log(error.message)
                     console.error(error.response.data)
-                    // document.getElementById("axios").innerText = error.message;
                 });
             }
-            // if (this.form.UserType === 'Business') {
-            // // } else if (this.form.UserType === 'Consumer') {
-            // //     // this.$emit('goToNext', this.form)
-            // //     // console.log(JSON.stringify(this.form));
-            // //     this.$router.push({ name: 'Register2' });
-            // //     console.log(JSON.stringify(this.form));
-            // } else {
             }
         },
     }
-export const errorUtils = {
-    getError: (error) => {
-        let e = error;
-        if (error.response) {
-            e = error.response.data;                   // data, status, headers
-            if (error.response.data && error.response.data.error) {
-                e = error.response.data.error;           // my app specific keys override
-            }
-        } else if (error.message) {
-            e = error.message;
-        } else {
-            e = "Unknown error occured";
-        }
-        return e;
-    },
-};
 </script>
-<!-- for register, have to make sure all fields are compulsory, and must be filled in properly
-    eg. email must have @ sign
-    Password must be 8-10 characters long
-    phone number cannot have any letters
-    // export function submitdetails(){
-    //     var url = 'http://127.0.0.1:5000/register_user';
-    //     var para = {
-    //         userType: document.getElementById("dropdown").value,
-    //         username: document.getElementById("form3Example1").value,
-    //         email: document.getElementById("form3Example3").value,
-    //         phonenum: document.getElementById("form3Example4").value,
-    //         password: document.getElementById("form3Example5").value
-    
-    //     }
-    //     if(para.userType === 'Business'){
-    //         axios.post(url, {params:para})
-    //                         .then(response => {
-    //                             console.log(response.data)
-    //                         })
-    //                         .catch(error => {
-    //                             console.log(error.message)
-    //                         });
-    //     }
-    //     else{
-    
-    //     }
-    // }
-    // @click="goToNext"
-    // v-if="form.userType === 'Business'"
-    // v-else
-    // v-model="form.password"
-    // v-model="form.phonenum"
-    // v-model="form.email"
-    // v-model="form.username"
-    // v-model="form.userType"
-    name and last name cannot have any numbers -->
     

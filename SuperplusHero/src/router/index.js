@@ -100,7 +100,7 @@ const router = createRouter({
       path: '/checkout',
       name: "Checkout",
       component: Checkout
-    }
+    },
   ]
 })
 
