@@ -4,24 +4,25 @@
 }
 
 .card {
-  width: 800px;
-  height: 600px;
-  max-width: 100%;
-  overflow: hidden;
-  margin: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 615px;
+    height: 600px;
+    max-width: 100%;
+    overflow: hidden;
+    margin: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .card-body {
-  position: relative;
-  height: 200px;
-  overflow: hidden;
+    position: relative;
+    height: 200px;
+    overflow: hidden;
 }
 
 .post-image {
     width: 100%;
     object-fit: cover;
 }
+
 .heart-icon {
     height: 30px;
     width: 30px;
@@ -39,40 +40,58 @@
 <template>
     <section class="content">
         <div class="container posts-content">
-            <div class="row">
-                <!-- Use v-for to iterate through the posts fetched from Supabase -->
-                <div v-for="(post, index) in posts" :key="index" class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="media mb-3">
-                                <!-- Display user image fetched from Supabase -->
-                                <!-- <img :src="post.userImage" class="d-block ui-w-40 rounded-circle" alt="User Image"> -->
-                                <div class="media-body ml-3">
-                                    <!-- Display username and timestamp from Supabase -->
-                                    {{ post.PostedBy }}
-                                    <div class="text-muted small">Posted on {{ post.CreatedAt }}</div>
-                                </div>
-                            </div>
-                            <p>
-                                <!-- Display post content fetched from Supabase -->
-                                {{ post.Caption }}
-                            </p>
-                            <img :src="post.imageURL" class="post-image"> <!-- Need to make this responsive-->
-                        </div>
-                        <div class="card-footer">
-                            <small class="align-middle">
-                                <a href="#" class="d-inline-block text-muted like-button">
-                                    <img v-if="post.liked" @click="unlikePost(post)" src="../assets/heartFilled.png"
-                                        alt="Liked" class="heart-icon" />
-                                    <img v-else @click="likePost(post)" src="../assets/heartNoFill.png" alt="Not Liked"
-                                        class="heart-icon" />
-                                    <strong class="like-count">{{ post.Likes }} Likes</strong>
-                                </a>
-                            </small>
+            <!-- Search Bar -->
+            <div class="container-fluid">
+                <div class="form-group">
+                    <div class="row justify-content-center">
+                        <div class="input-group">
+                            <input v-model="searchQuery" type="text" class="form-control" placeholder="Search for post"> <!--Edit to be responsive-->
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div v-if="posts.length > 0">
+                <div class="row">
+                    <!-- Use v-for to iterate through the posts fetched from Supabase -->
+                    <div v-for="(post, index) in posts" :key="index" class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="media mb-3">
+                                    <!-- Display user image fetched from Supabase -->
+                                    <!-- <img :src="post.userImage" class="d-block ui-w-40 rounded-circle" alt="User Image"> -->
+                                    <div class="media-body ml-3">
+                                        <!-- Display username and timestamp from Supabase -->
+                                        {{ post.PostedBy }}
+                                        <div class="text-muted small">Posted on {{ post.CreatedAt }}</div>
+                                    </div>
+                                </div>
+                                <p>
+                                    <!-- Display post content fetched from Supabase -->
+                                    {{ post.Caption }}
+                                </p>
+                                <img :src="post.imageURL" class="post-image"> <!-- Need to make this responsive-->
+                            </div>
+                            <div class="card-footer">
+                                <small class="align-middle">
+                                    <a href="#" class="d-inline-block text-muted like-button">
+                                        <img v-if="post.liked" @click="unlikePost(post)" src="../assets/heartFilled.png"
+                                            alt="Liked" class="heart-icon" />
+                                        <img v-else @click="likePost(post)" src="../assets/heartNoFill.png" alt="Not Liked"
+                                            class="heart-icon" />
+                                        <strong class="like-count">{{ post.Likes }} Likes</strong>
+                                    </a>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div v-else-if="postsNotFound">
+                <p>Post not found! Please check your spelling.</p> <!-- Edit to have space above -->
+            </div>
+
         </div>
     </section>
 </template>
@@ -85,25 +104,60 @@ export default {
         return {
             posts: [],
             showFullText: [],
-            sortOptions: ['Newest', 'Oldest', 'Most Liked', 'Least Liked'],
-            selectedSortOption: 'Newest'
+            sortOptions: ['Newest', 'Oldest', 'Most Liked', 'Least Liked'], // add in frontend
+            selectedSortOption: 'Newest',
+            searchQuery: ''
         };
     },
     mounted() {
         this.fetchPostsFromServer();
+    },
+    watch: {
+        searchQuery(newSearch) {
+            if (newSearch === '') {
+                this.fetchPostsFromServer();
+            } else {
+                this.searchPosts();
+            }
+        }
     },
     methods: {
         async fetchPostsFromServer() {
             try {
                 const response = await axios.get('http://localhost:5000/communityposts');
                 const sortedPosts = response.data.sort((a, b) => {
-                    // Sorting in descending order based on the 'CreatedAt' date
                     return new Date(b.CreatedAt) - new Date(a.CreatedAt);
                 });
                 this.posts = sortedPosts;
-                this.showFullText = new Array(this.posts.length).fill(false);
+                this.filterPosts();
             } catch (error) {
                 console.error('Error fetching posts:', error);
+            }
+        },
+
+        filterPosts() {
+            if (this.searchQuery.trim() !== '') {
+                this.posts = this.posts.filter(post =>
+                    post.Caption.toLowerCase().includes(this.searchQuery.trim().toLowerCase())
+                );
+            }
+        },
+
+        async searchPosts() {
+            try {
+                const response = await axios.get('http://localhost:5000/communityposts');
+                let posts = response.data;
+                this.posts = posts;
+                this.filterPosts();
+
+                if (this.posts.length === 0) {
+                    this.postsNotFound = true;
+                } else {
+                    this.postsNotFound = false;
+                }
+
+            } catch (error) {
+                console.error('Error searching posts:', error);
             }
         },
 
@@ -146,7 +200,7 @@ export default {
                 console.error('Error unliking post:', error);
             }
         },
-        
+
         async updateLikes(postId, updatedLikes, post) {
             try {
                 const response = await axios.put('http://localhost:5000/likepost', {
