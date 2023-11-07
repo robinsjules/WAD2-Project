@@ -26,7 +26,7 @@ const router = createRouter({
       component: TestingPage
     },
     {
-      path: '/',
+      path: '/home',
       name: 'Home',
       component: Home
     },
@@ -41,7 +41,7 @@ const router = createRouter({
       component: Profile
     },
     {
-      path: '/register',
+      path: '/',
       name: 'Register',
       component: Register
     },
@@ -76,7 +76,7 @@ const router = createRouter({
       component: Products
     },
     {
-      path: '/user/recipes', // once backend is clearer, make the user a variable/key
+      path: '/user/recipes',
       name: 'UserRecipes',
       component: UserRecipes
     },

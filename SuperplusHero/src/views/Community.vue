@@ -45,15 +45,16 @@ img {
                                 <!-- Display post content fetched from Supabase -->
                                 {{ post.Caption }}
                             </p>
-                            <img :src="post.imageURL" class="ui-rect ui-bg-cover">
+                            <img :src="post.imageURL" class="ui-rect ui-bg-cover"> <!-- Need to make this responsive-->
                         </div>
                         <div class="card-footer">
                             <small class="align-middle">
-                                <a href="#" class="d-inline-block text-muted like-button" @click="likePost(post)">
+                                <a href="#" class="d-inline-block text-muted like-button">
                                     <img v-if="post.liked" @click="unlikePost(post)" src="../assets/heartFilled.png"
-                                        alt="Liked" class="heart-icon">
-                                    <img v-else src="../assets/heartNoFill.png" alt="Not Liked" class="heart-icon">
-                                    <strong class="like-count">{{ post.Likes }}  Likes</strong>
+                                        alt="Liked" class="heart-icon" />
+                                    <img v-else @click="likePost(post)" src="../assets/heartNoFill.png" alt="Not Liked"
+                                        class="heart-icon" />
+                                    <strong class="like-count">{{ post.Likes }} Likes</strong>
                                 </a>
                             </small>
                         </div>
@@ -88,8 +89,9 @@ export default {
         async likePost(post) {
             try {
                 post.liked = true;
-                post.Likes++;
-                await axios.post('http://localhost:5000/likepost', { id: post.id, liked: true });
+                post.Likes++; // Update the local count
+                const updatedLikes = post.Likes; // Store the updated count
+                await this.updateLikes(post.id, updatedLikes, post);
             } catch (error) {
                 console.error('Error liking post:', error);
             }
@@ -97,10 +99,35 @@ export default {
         async unlikePost(post) {
             try {
                 post.liked = false;
-                post.Likes--;
-                await axios.post('http://localhost:5000/likepost', { id: post.id, liked: false });
+                post.Likes--; // Update the local count
+                const updatedLikes = post.Likes; // Store the updated count
+                await this.updateLikes(post.id, updatedLikes, post);
             } catch (error) {
                 console.error('Error unliking post:', error);
+            }
+        },
+        async updateLikes(postId, updatedLikes, post) {
+            try {
+                const response = await axios.put('http://localhost:5000/likepost', {
+                    id: postId,
+                    likes: updatedLikes
+                });
+
+                // if (response.data) {
+                //     // Update the post with the updated data from the server
+                //     const updatedPost = response.data;
+                //     const index = this.posts.findIndex(p => p.id === updatedPost.id);
+                //     if (index !== -1) {
+                //         this.posts[index] = updatedPost;
+                //     }
+                // }
+            } catch (error) {
+                console.error('Error updating likes:', error);
+                // // Revert local changes on failure, if necessary
+                // if (post) {
+                //     post.Likes = updatedLikes;
+                //     post.liked = !post.liked;
+                // }
             }
         }
     },

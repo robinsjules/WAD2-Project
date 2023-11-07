@@ -328,7 +328,7 @@ export default {
   watch: {
     $route(to) {
       // Check the route and conditionally hide the navigation bar on specific routes
-      this.showNavBar = !['/login', '/register', '/register2'].includes(to.path);
+      this.showNavBar = !['/login', '/', '/register2'].includes(to.path);
     },
     location(newLocation) { 
       // Set the cookie when location gets updated
