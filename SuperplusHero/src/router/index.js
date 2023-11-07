@@ -16,6 +16,7 @@ import Community from '@/views/Community.vue'
 import ben_test2 from '@/views/ben_test2.vue'
 import Fridge from '@/views/Fridge.vue'
 import Checkout from "@/views/Checkout.vue"
+import { retrieveSession } from "@/router/retrievesession";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -102,6 +103,25 @@ const router = createRouter({
     }
   ]
 })
+
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  if (requiresAuth) {
+    try {
+      const userSession = await retrieveSession();
+      if (!userSession) {
+        next('/login'); // Redirect to login if not authenticated
+      } else {
+        next();
+      }
+    } catch (error) {
+      console.error('Error retrieving session:', error);
+      next('/login'); // Redirect to login on error
+    }
+  } else {
+    next(); // Continue for routes that don't require authentication
+  }
+});
 
 export default router
 
