@@ -11,7 +11,6 @@ img {
 
 .heart-icon {
     height: 30px;
-    /* Adjust size for heart icons */
     width: 30px;
     margin-right: 5px;
     float: left;

@@ -58,15 +58,24 @@ def refresh_session():
 @app.route("/auth_sign_in", methods=['POST'])
 def sign_in():
     auth_header = request.headers.get('Authorization')
-    if auth_header is None:
-        return jsonify({'message': 'Authorization header is missing'}), 401
-    if not auth_header.startswith('Basic'):
-        return jsonify({'message': 'Invalid Authorization header format'}), 401
+
+    if auth_header is None or not auth_header.startswith('Basic'):
+        return jsonify({'message': 'Invalid or missing Authorization header'}), 401
+
     credentials = auth_header[len('Basic '):]
     decoded_credentials = base64.b64decode(credentials).decode('utf-8')
     email, password = decoded_credentials.split(':')
-    session = supabase.auth.sign_in_with_password({"email": email, "password": password})
-    return jsonify({'email': session.user.email, "access_token": session.session.access_token, "refresh_token": session.session.refresh_token})
+
+    try:
+        session = supabase.auth.sign_in_with_password({"email": email, "password": password})
+        return jsonify({
+            'email': session.user.email,
+            'access_token': session.session.access_token,
+            'refresh_token': session.session.refresh_token
+        }), 200
+    except Exception as e:
+        return jsonify({'message': 'Authentication failed', 'error': str(e)}), 401
+
 
 @app.route("/auth_sign_out")
 def sign_out():

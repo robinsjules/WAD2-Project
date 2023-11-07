@@ -112,7 +112,7 @@ router.beforeEach(async (to, from, next) => {
       if (!userSession) {
         next('/login'); // Redirect to login if not authenticated
       } else {
-        next();
+        next('/home');
       }
     } catch (error) {
       console.error('Error retrieving session:', error);

@@ -22,7 +22,7 @@
                                 <div class=" fw-bolder ls-tight">
                                     <h1>Login</h1>
                                 </div><br>
-                                <form>
+                                <form @submit.prevent="login">
                                     <!-- email input -->
                                     <div class="form-outline mb-4">
                                         <input v-model="Email" type="email" id="form3Example3" class="form-control"
@@ -49,7 +49,7 @@
                                     <!-- Submit button -->
                                     <div class="col-md-12 mb-4">
                                         <div class="d-flex justify-content-between">
-                                            <button @click="login" type="submit"
+                                            <button type="submit"
                                                 class="btn btn-success w-100">Login</button>
                                         </div>
                                     </div>
@@ -81,9 +81,10 @@ export default {
         async login() {
             try {
                 const response = await signIn(this.Email, this.Password);
+                console.log('Response:', response); 
                 if (response.status === 200) {
                     // Successful authentication
-                    this.$router.push({ name: 'Home' }); // Redirect to Home upon successful sign-in
+                    this.$router.push({ path: '/home' });
                 } else {
                     console.error('Authentication failed');
                     // Handle authentication failure
