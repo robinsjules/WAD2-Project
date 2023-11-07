@@ -22,17 +22,18 @@
                                 <div class=" fw-bolder ls-tight">
                                     <h1>Login</h1>
                                 </div><br>
-                                <form>
+                                <form @submit.prevent="login">
                                     <!-- email input -->
                                     <div class="form-outline mb-4">
-                                        <input v-model="form.UserName" type="username" id="form3Example3" class="form-control" placeholder="Username"/>
+                                        <input v-model="Email" type="email" id="form3Example3" class="form-control"
+                                            placeholder="Email" />
                                         <!-- <label class="form-label" for="form3Example3">Username</label> -->
                                     </div>
 
                                     <!-- Password input -->
                                     <div class="form-outline mb-4">
-                                        <input v-model="form.Password" type="password" id="form3Example4"
-                                            class="form-control" placeholder="Password"/>
+                                        <input v-model="Password" type="password" id="form3Example4" class="form-control"
+                                            placeholder="Password" />
                                         <!-- <label class="form-label" for="form3Example4">Password</label> -->
                                     </div>
 
@@ -48,7 +49,7 @@
                                     <!-- Submit button -->
                                     <div class="col-md-12 mb-4">
                                         <div class="d-flex justify-content-between">
-                                            <button @click="goToNext" type="submit"
+                                            <button type="submit"
                                                 class="btn btn-success w-100">Login</button>
                                         </div>
                                     </div>
@@ -67,34 +68,32 @@
 </template>
 <!-- need to firstly store user's email and password when they register, and check if they are correct before they can login -->
 <script>
-import axios from 'axios';
+import { signIn } from "@/router/signIn";
+
 export default {
     data() {
         return {
-            form: {
-                UserName: '',
-                Password: ''
-            }
+            Email: '',
+            Password: ''
         }
     },
     methods: {
-        goToNext() {
-            var url = 'http://127.0.0.1:5000//get_profile/<username>';
-            var para = {
-                Email: this.form.UserName,
-                Password: this.form.Password,
+        async login() {
+            try {
+                const response = await signIn(this.Email, this.Password);
+                console.log('Response:', response); 
+                if (response.status === 200) {
+                    // Successful authentication
+                    this.$router.push({ path: '/home' });
+                } else {
+                    console.error('Authentication failed');
+                    // Handle authentication failure
+                }
+            } catch (error) {
+                console.error('Error signing in:', error);
+                // Handle sign-in error
             }
-            axios.post(url, para)
-                .then(response => {
-                    console.log(response.data)
-                    this.$router.push({ name: 'Home' });
-                })
-                .catch(error => {
-                    console.log(error.message)
-                    console.error(error.response.data)
-                });
-            // console.log(JSON.stringify(this.form));
         }
-    }
-}
+    },
+};
 </script>

@@ -3,15 +3,27 @@
     margin-top: 100px;
 }
 
-img {
-    height: 600px;
-    width: 600px;
-    object-fit: cover;
+.card {
+  width: 800px;
+  height: 600px;
+  max-width: 100%;
+  overflow: hidden;
+  margin: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+.card-body {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.post-image {
+    width: 100%;
+    object-fit: cover;
+}
 .heart-icon {
     height: 30px;
-    /* Adjust size for heart icons */
     width: 30px;
     margin-right: 5px;
     float: left;
@@ -30,7 +42,7 @@ img {
             <div class="row">
                 <!-- Use v-for to iterate through the posts fetched from Supabase -->
                 <div v-for="(post, index) in posts" :key="index" class="col-lg-6">
-                    <div class="card mb-4">
+                    <div class="card">
                         <div class="card-body">
                             <div class="media mb-3">
                                 <!-- Display user image fetched from Supabase -->
@@ -45,15 +57,16 @@ img {
                                 <!-- Display post content fetched from Supabase -->
                                 {{ post.Caption }}
                             </p>
-                            <img :src="post.imageURL" class="ui-rect ui-bg-cover">
+                            <img :src="post.imageURL" class="post-image"> <!-- Need to make this responsive-->
                         </div>
                         <div class="card-footer">
                             <small class="align-middle">
-                                <a href="#" class="d-inline-block text-muted like-button" @click="likePost(post)">
+                                <a href="#" class="d-inline-block text-muted like-button">
                                     <img v-if="post.liked" @click="unlikePost(post)" src="../assets/heartFilled.png"
-                                        alt="Liked" class="heart-icon">
-                                    <img v-else src="../assets/heartNoFill.png" alt="Not Liked" class="heart-icon">
-                                    <strong class="like-count">{{ post.Likes }}  Likes</strong>
+                                        alt="Liked" class="heart-icon" />
+                                    <img v-else @click="likePost(post)" src="../assets/heartNoFill.png" alt="Not Liked"
+                                        class="heart-icon" />
+                                    <strong class="like-count">{{ post.Likes }} Likes</strong>
                                 </a>
                             </small>
                         </div>
@@ -70,7 +83,10 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            posts: []
+            posts: [],
+            showFullText: [],
+            sortOptions: ['Newest', 'Oldest', 'Most Liked', 'Least Liked'],
+            selectedSortOption: 'Newest'
         };
     },
     mounted() {
@@ -80,27 +96,79 @@ export default {
         async fetchPostsFromServer() {
             try {
                 const response = await axios.get('http://localhost:5000/communityposts');
-                this.posts = response.data;
+                const sortedPosts = response.data.sort((a, b) => {
+                    // Sorting in descending order based on the 'CreatedAt' date
+                    return new Date(b.CreatedAt) - new Date(a.CreatedAt);
+                });
+                this.posts = sortedPosts;
+                this.showFullText = new Array(this.posts.length).fill(false);
             } catch (error) {
                 console.error('Error fetching posts:', error);
             }
         },
+
+        sortByCreatedAt(option) {
+            if (option === 'Newest') {
+                this.posts.sort((a, b) => new Date(b.CreatedAt) - new Date(a.CreatedAt));
+            } else if (option === 'Oldest') {
+                this.posts.sort((a, b) => new Date(a.CreatedAt) - new Date(b.CreatedAt));
+            }
+        },
+
+        sortByLikes(option) {
+            if (option === 'Most Liked') {
+                this.posts.sort((a, b) => b.Likes - a.Likes);
+            } else if (option === 'Least Liked') {
+                this.posts.sort((a, b) => a.Likes - b.Likes);
+            }
+        },
+
         async likePost(post) {
             try {
+                event.preventDefault();
                 post.liked = true;
-                post.Likes++;
-                await axios.post('http://localhost:5000/likepost', { id: post.id, liked: true });
+                post.Likes++; // Update the local count
+                const updatedLikes = post.Likes; // Store the updated count
+                await this.updateLikes(post.id, updatedLikes, post);
             } catch (error) {
                 console.error('Error liking post:', error);
             }
         },
+
         async unlikePost(post) {
             try {
+                event.preventDefault();
                 post.liked = false;
-                post.Likes--;
-                await axios.post('http://localhost:5000/likepost', { id: post.id, liked: false });
+                post.Likes--; // Update the local count
+                const updatedLikes = post.Likes; // Store the updated count
+                await this.updateLikes(post.id, updatedLikes, post);
             } catch (error) {
                 console.error('Error unliking post:', error);
+            }
+        },
+        
+        async updateLikes(postId, updatedLikes, post) {
+            try {
+                const response = await axios.put('http://localhost:5000/likepost', {
+                    id: postId,
+                    likes: updatedLikes
+                });
+
+                // if (response.data) {
+                //     // Update the post with the updated data from the server
+                //     const updatedPost = response.data;
+                //     const index = this.posts.findIndex(p => p.id === updatedPost.id);
+                //     if (index !== -1) {
+                //         this.posts[index] = updatedPost;
+                //     }
+                // }
+            } catch (error) {
+                console.error('Error updating likes:', error);
+                // // Revert local changes on failure, if necessary
+                // if (post) {
+                //     post.Likes = updatedLikes;
+                //     post.liked = !post.liked;
+                // }
             }
         }
     },
