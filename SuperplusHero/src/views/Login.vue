@@ -69,7 +69,6 @@
 <script>
 import axios from 'axios';
 import { ref } from 'vue';
-import { supabase } from "../backend/app.py"
 
 
 let Email = ref("");
@@ -85,14 +84,14 @@ export default {
     methods: {
         login() {
             var url = 'http://127.0.0.1:5000/auth_sign_in';
-            var para = {
-                Email: this.Email,
-                Password: this.Password,
-            }
-            axios.post(url, para)
+            // var para = {
+            //     Email: this.Email,
+            //     Password: this.Password,
+            // }
+            axios.post(url)
                 .then(response => {
                     console.log(response.data)
-                    this.$router.push({ name: 'Home' });
+                    // this.$router.push({ name: 'Home' });
                 })
                 .catch(error => {
                     console.log(error.message)
