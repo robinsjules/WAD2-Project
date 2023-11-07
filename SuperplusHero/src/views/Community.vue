@@ -35,42 +35,6 @@
     margin-left: 5px;
     margin-top: 3px;
 }
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-toggle {
-    background-color: #f8f9fa;
-    border: 1px solid #ced4da;
-    padding: 8px 12px;
-    cursor: pointer;
-}
-
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    background-color: #fff;
-    min-width: 160px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.dropdown-menu a {
-    display: block;
-    padding: 8px 12px;
-    text-decoration: none;
-    color: #333;
-}
-
-.dropdown-menu a:hover {
-    background-color: #f5f5f5;
-}
-
-.dropdown-menu a:focus {
-    outline: none;
-}
 </style>
 
 <template>
@@ -210,10 +174,6 @@ export default {
             } catch (error) {
                 console.error('Error searching posts:', error);
             }
-        },
-
-        toggleDropdown() {
-            this.isDropdownOpen = !this.isDropdownOpen;
         },
 
         sortPosts() {
