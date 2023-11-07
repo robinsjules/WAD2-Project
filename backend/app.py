@@ -22,6 +22,16 @@ def registerUsers():
     response = supabase.table('Users').insert(data).execute()
     return (response.data)
         
+@app.route("/auth_sign_in", methods=['POST'])
+def sign_in():
+    random_email = 'abc123mokkie.com'
+    random_password = 'mokkie'
+    res = supabase.auth.sign_in_with_password({
+    "email": random_email,
+    "password": random_password
+})
+    return(res)
+
 # code works -> get profile of user
 @app.route('/get_profile/<username>', methods=['GET'])
 def get_profile(username):

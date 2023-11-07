@@ -25,13 +25,13 @@
                                 <form>
                                     <!-- email input -->
                                     <div class="form-outline mb-4">
-                                        <input v-model="form.UserName" type="username" id="form3Example3" class="form-control" placeholder="Username"/>
+                                        <input v-model="Email" type="email" id="form3Example3" class="form-control" placeholder="Email"/>
                                         <!-- <label class="form-label" for="form3Example3">Username</label> -->
                                     </div>
 
                                     <!-- Password input -->
                                     <div class="form-outline mb-4">
-                                        <input v-model="form.Password" type="password" id="form3Example4"
+                                        <input v-model="Password" type="password" id="form3Example4"
                                             class="form-control" placeholder="Password"/>
                                         <!-- <label class="form-label" for="form3Example4">Password</label> -->
                                     </div>
@@ -48,7 +48,7 @@
                                     <!-- Submit button -->
                                     <div class="col-md-12 mb-4">
                                         <div class="d-flex justify-content-between">
-                                            <button @click="goToNext" type="submit"
+                                            <button @click="login" type="submit"
                                                 class="btn btn-success w-100">Login</button>
                                         </div>
                                     </div>
@@ -68,21 +68,26 @@
 <!-- need to firstly store user's email and password when they register, and check if they are correct before they can login -->
 <script>
 import axios from 'axios';
+import { ref } from 'vue';
+import { supabase } from "../backend/app.py"
+
+
+let Email = ref("");
+let Password = ref("");
+
 export default {
     data() {
         return {
-            form: {
-                UserName: '',
+                Email: '',
                 Password: ''
-            }
         }
     },
     methods: {
-        goToNext() {
-            var url = 'http://127.0.0.1:5000//get_profile/<username>';
+        login() {
+            var url = 'http://127.0.0.1:5000/auth_sign_in';
             var para = {
-                Email: this.form.UserName,
-                Password: this.form.Password,
+                Email: this.Email,
+                Password: this.Password,
             }
             axios.post(url, para)
                 .then(response => {
