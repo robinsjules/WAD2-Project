@@ -54,7 +54,8 @@ def refresh_session():
     session = supabase.auth.get_session()
     if session is not None:
         return jsonify({'email': session.user.email, "access_token": session.access_token, "refresh_token": session.refresh_token})
-        
+
+# code works -> hooooooray can only log in if u are an authorised user on supabase     
 @app.route("/auth_sign_in", methods=['POST'])
 def sign_in():
     auth_header = request.headers.get('Authorization')
