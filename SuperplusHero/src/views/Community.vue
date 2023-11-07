@@ -3,10 +3,31 @@
     margin-top: 100px;
 }
 
-img {
+.card {
     height: 600px;
-    width: 600px;
+    /* Set a fixed height for the card */
+    overflow: hidden;
+    /* Ensure any content exceeding the card's height is hidden */
+    display: flex;
+    /* Use flexbox for aligning elements within the card */
+    flex-direction: column;
+    /* Make sure child elements stack vertically */
+}
+
+.card-body {
+    flex: 1;
+    /* Allow the card body to expand within the card height */
+    padding: 15px;
+    /* Optional padding for content within the card body */
+    overflow: hidden;
+    /* Hide overflowing content */
+}
+
+img {
+    width: 100%;
+    /* Make the image responsive within its container */
     object-fit: cover;
+    /* Maintain aspect ratio and cover the container */
 }
 
 .heart-icon {
@@ -70,7 +91,9 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            posts: []
+            posts: [],
+            sortOptions: ['Newest', 'Oldest', 'Most Liked', 'Least Liked'],
+            selectedSortOption: 'Newest'
         };
     },
     mounted() {
@@ -80,13 +103,35 @@ export default {
         async fetchPostsFromServer() {
             try {
                 const response = await axios.get('http://localhost:5000/communityposts');
-                this.posts = response.data;
+                const sortedPosts = response.data.sort((a, b) => {
+                    // Sorting in descending order based on the 'CreatedAt' date
+                    return new Date(b.CreatedAt) - new Date(a.CreatedAt);
+                });
+                this.posts = sortedPosts;
             } catch (error) {
                 console.error('Error fetching posts:', error);
             }
         },
+
+        sortByCreatedAt(option) {
+            if (option === 'Newest') {
+                this.posts.sort((a, b) => new Date(b.CreatedAt) - new Date(a.CreatedAt));
+            } else if (option === 'Oldest') {
+                this.posts.sort((a, b) => new Date(a.CreatedAt) - new Date(b.CreatedAt));
+            }
+        },
+
+        sortByLikes(option) {
+            if (option === 'Most Liked') {
+                this.posts.sort((a, b) => b.Likes - a.Likes);
+            } else if (option === 'Least Liked') {
+                this.posts.sort((a, b) => a.Likes - b.Likes);
+            }
+        },
+
         async likePost(post) {
             try {
+                event.preventDefault();
                 post.liked = true;
                 post.Likes++; // Update the local count
                 const updatedLikes = post.Likes; // Store the updated count
@@ -95,8 +140,10 @@ export default {
                 console.error('Error liking post:', error);
             }
         },
+
         async unlikePost(post) {
             try {
+                event.preventDefault();
                 post.liked = false;
                 post.Likes--; // Update the local count
                 const updatedLikes = post.Likes; // Store the updated count
@@ -105,6 +152,7 @@ export default {
                 console.error('Error unliking post:', error);
             }
         },
+        
         async updateLikes(postId, updatedLikes, post) {
             try {
                 const response = await axios.put('http://localhost:5000/likepost', {

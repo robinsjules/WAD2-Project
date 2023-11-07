@@ -53,7 +53,7 @@
 
 <template>
 <nav v-if="showNavBar" class="navbar navbar-expand-md navbar-dark bg-dark navcolor">
-    <router-link to="/">
+    <router-link to="/home">
         <a class="navbar-brand" href="#"><img src="../assets/appLogoForNav.png" alt="Logo" height="70"></a>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
