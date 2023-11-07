@@ -23,18 +23,18 @@ def registerUsers():
     response = supabase.table('Users').insert(data).execute()
     return (response.data)
 
-# @app.route("/sign_up", methods=['POST'])
-# def sign_up():
-#     auth_header = request.headers.get('Authorization')
-#     if auth_header is None:
-#         return jsonify({'message': 'Authorization header is missing'}), 401
-#     if not auth_header.startswith('Basic'):
-#         return jsonify({'message': 'Invalid Authorization header format'}), 401
-#     credentials = auth_header[len('Basic '):]
-#     decoded_credentials = base64.b64decode(credentials).decode('utf-8')
-#     email, password = decoded_credentials.split(':')
-#     signUp = supabase.auth.sign_up(email, password)
-#     return jsonify({'userId': signUp.user.id, "access_token": signUp.session.access_token, "refresh_token": signUp.session.refresh_token})
+@app.route("/sign_up", methods=['POST'])
+def sign_up():
+    auth_header = request.headers.get('Authorization')
+    if auth_header is None:
+        return jsonify({'message': 'Authorization header is missing'}), 401
+    if not auth_header.startswith('Basic'):
+        return jsonify({'message': 'Invalid Authorization header format'}), 401
+    credentials = auth_header[len('Basic '):]
+    decoded_credentials = base64.b64decode(credentials).decode('utf-8')
+    email, password = decoded_credentials.split(':')
+    signUp = supabase.auth.sign_up(email, password)
+    return jsonify({'userId': signUp.user.id, "access_token": signUp.session.access_token, "refresh_token": signUp.session.refresh_token})
 
 @app.route("/retrieve_session")
 def retrieve_session():
@@ -48,31 +48,30 @@ def retrieve_session():
     
     return jsonify({'error': 'No session found'})
 
-# @app.route("/refresh_session", methods=['GET'])
-# def refresh_session(url=os.environ.get("SUPABASE_URL"), key=os.environ.get("SUPABASE_KEY")):
-#     supabase = create_client(url, key)
-#     session = supabase.auth.get_session()
-#     if session is not None:
-#         return jsonify({'email': session.user.email, "access_token": session.access_token, "refresh_token": session.refresh_token})
+@app.route("/refresh_session", methods=['GET'])
+def refresh_session():
+    supabase = create_client(url, key)
+    session = supabase.auth.get_session()
+    if session is not None:
+        return jsonify({'email': session.user.email, "access_token": session.access_token, "refresh_token": session.refresh_token})
         
-# @app.route("/auth_sign_in", methods=['POST'])
-# def sign_in():
-#     auth_header = request.headers.get('Authorization')
-#     if auth_header is None:
-#         return jsonify({'message': 'Authorization header is missing'}), 401
-#     if not auth_header.startswith('Basic'):
-#         return jsonify({'message': 'Invalid Authorization header format'}), 401
-#     credentials = auth_header[len('Basic '):]
-#     decoded_credentials = base64.b64decode(credentials).decode('utf-8')
-#     email, password = decoded_credentials.split(':')
-#     session = supabase.auth.sign_in_with_password(
-#         {"email": email, "password": password})
-#     return jsonify({'email': session.user.email, "access_token": session.session.access_token, "refresh_token": session.session.refresh_token})
+@app.route("/auth_sign_in", methods=['POST'])
+def sign_in():
+    auth_header = request.headers.get('Authorization')
+    if auth_header is None:
+        return jsonify({'message': 'Authorization header is missing'}), 401
+    if not auth_header.startswith('Basic'):
+        return jsonify({'message': 'Invalid Authorization header format'}), 401
+    credentials = auth_header[len('Basic '):]
+    decoded_credentials = base64.b64decode(credentials).decode('utf-8')
+    email, password = decoded_credentials.split(':')
+    session = supabase.auth.sign_in_with_password({"email": email, "password": password})
+    return jsonify({'email': session.user.email, "access_token": session.session.access_token, "refresh_token": session.session.refresh_token})
 
-# @app.route("/auth_sign_out")
-# def sign_out():
-#     res = supabase.auth.sign_out()
-#     return jsonify({'message': 'Signed out'}), 200
+@app.route("/auth_sign_out")
+def sign_out():
+    res = supabase.auth.sign_out()
+    return jsonify({'message': 'Signed out'}), 200
 
 # code works -> get profile of user
 @app.route('/get_profile/<username>', methods=['GET'])
