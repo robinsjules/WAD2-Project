@@ -25,14 +25,15 @@
                                 <form>
                                     <!-- email input -->
                                     <div class="form-outline mb-4">
-                                        <input v-model="Email" type="email" id="form3Example3" class="form-control" placeholder="Email"/>
+                                        <input v-model="Email" type="email" id="form3Example3" class="form-control"
+                                            placeholder="Email" />
                                         <!-- <label class="form-label" for="form3Example3">Username</label> -->
                                     </div>
 
                                     <!-- Password input -->
                                     <div class="form-outline mb-4">
-                                        <input v-model="Password" type="password" id="form3Example4"
-                                            class="form-control" placeholder="Password"/>
+                                        <input v-model="Password" type="password" id="form3Example4" class="form-control"
+                                            placeholder="Password" />
                                         <!-- <label class="form-label" for="form3Example4">Password</label> -->
                                     </div>
 
@@ -67,38 +68,31 @@
 </template>
 <!-- need to firstly store user's email and password when they register, and check if they are correct before they can login -->
 <script>
-import axios from 'axios';
-import { ref } from 'vue';
-
-
-let Email = ref("");
-let Password = ref("");
+import { signIn } from "@/router/signIn";
 
 export default {
     data() {
         return {
-                Email: '',
-                Password: ''
+            Email: '',
+            Password: ''
         }
     },
     methods: {
-        login() {
-            var url = 'http://127.0.0.1:5000/auth_sign_in';
-            // var para = {
-            //     Email: this.Email,
-            //     Password: this.Password,
-            // }
-            axios.post(url)
-                .then(response => {
-                    console.log(response.data)
-                    // this.$router.push({ name: 'Home' });
-                })
-                .catch(error => {
-                    console.log(error.message)
-                    console.error(error.response.data)
-                });
-            // console.log(JSON.stringify(this.form));
+        async login() {
+            try {
+                const response = await signIn(this.Email, this.Password);
+                if (response.status === 200) {
+                    // Successful authentication
+                    this.$router.push({ name: 'Home' }); // Redirect to Home upon successful sign-in
+                } else {
+                    console.error('Authentication failed');
+                    // Handle authentication failure
+                }
+            } catch (error) {
+                console.error('Error signing in:', error);
+                // Handle sign-in error
+            }
         }
-    }
-}
+    },
+};
 </script>
