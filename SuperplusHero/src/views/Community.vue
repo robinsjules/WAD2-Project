@@ -4,32 +4,24 @@
 }
 
 .card {
-    height: 600px;
-    /* Set a fixed height for the card */
-    overflow: hidden;
-    /* Ensure any content exceeding the card's height is hidden */
-    display: flex;
-    /* Use flexbox for aligning elements within the card */
-    flex-direction: column;
-    /* Make sure child elements stack vertically */
+  width: 800px;
+  height: 600px;
+  max-width: 100%;
+  overflow: hidden;
+  margin: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .card-body {
-    flex: 1;
-    /* Allow the card body to expand within the card height */
-    padding: 15px;
-    /* Optional padding for content within the card body */
-    overflow: hidden;
-    /* Hide overflowing content */
+  position: relative;
+  height: 200px;
+  overflow: hidden;
 }
 
-img {
+.post-image {
     width: 100%;
-    /* Make the image responsive within its container */
     object-fit: cover;
-    /* Maintain aspect ratio and cover the container */
 }
-
 .heart-icon {
     height: 30px;
     width: 30px;
@@ -50,7 +42,7 @@ img {
             <div class="row">
                 <!-- Use v-for to iterate through the posts fetched from Supabase -->
                 <div v-for="(post, index) in posts" :key="index" class="col-lg-6">
-                    <div class="card mb-4">
+                    <div class="card">
                         <div class="card-body">
                             <div class="media mb-3">
                                 <!-- Display user image fetched from Supabase -->
@@ -65,7 +57,7 @@ img {
                                 <!-- Display post content fetched from Supabase -->
                                 {{ post.Caption }}
                             </p>
-                            <img :src="post.imageURL" class="ui-rect ui-bg-cover"> <!-- Need to make this responsive-->
+                            <img :src="post.imageURL" class="post-image"> <!-- Need to make this responsive-->
                         </div>
                         <div class="card-footer">
                             <small class="align-middle">
@@ -92,6 +84,7 @@ export default {
     data() {
         return {
             posts: [],
+            showFullText: [],
             sortOptions: ['Newest', 'Oldest', 'Most Liked', 'Least Liked'],
             selectedSortOption: 'Newest'
         };
@@ -108,6 +101,7 @@ export default {
                     return new Date(b.CreatedAt) - new Date(a.CreatedAt);
                 });
                 this.posts = sortedPosts;
+                this.showFullText = new Array(this.posts.length).fill(false);
             } catch (error) {
                 console.error('Error fetching posts:', error);
             }
