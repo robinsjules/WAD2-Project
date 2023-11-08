@@ -9,9 +9,14 @@
     margin-top: 80px;
 }
 
+.custom-width {
+    width: 150px;
+    transform: translateY(25%);
+}
+
 .card {
     width: 615px;
-    height: 600px;
+    height: 630px;
     max-width: 100%;
     overflow: hidden;
     margin: 10px;
@@ -49,39 +54,59 @@
 
 button {
     float: right;
-    background-color: transparent;
-    color: black;
-    border-color: black;
+    background-color: rgb(10, 160, 10);
+    color: white;
+    /* border-color: black; */
 }
 
-button:hover {
-    background-color: green;
-    color: white;
+.dropdown-item:hover {
+    background-color: lightgreen;
+    color: black;
 }
 </style>
 
 <template>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <section class="content">
         <div class="container posts-content">
             <h2 style="color: rgb(10, 160, 10); margin-left:15px; margin-top:100px;">SuperCommunity</h2>
-            <!-- Search Bar -->
             <div class="container-fluid">
                 <div class="form-group">
                     <div class="row justify-content-center">
                         <div class="input-group">
-                            <input v-model="searchQuery" type="text" class="form-control" placeholder="Search for post">
-                            <!--Edit to be responsive-->
+                            <!-- Search Input -->
+                            <div class="form-floating mb-3 search-input">
+                                <input v-model="searchQuery" type="text" class="form-control" id="floatingInput"
+                                    placeholder="Search for post">
+                                <label for="floatingInput">Search for post</label>
+                            </div>
+
+                            <!-- Dropdown for Sorting -->
                         </div>
+                        <div class="dropdown-center">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    {{ selectedSortOption }}
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li v-for="option in sortOptions" :key="option">
+                                        <a class="dropdown-item" href="#" @click="selectSortOption(option)">{{ option }}</a>
+                                    </li>
+                                </ul>
+                            </div>
                     </div>
+                    
                 </div>
+                
             </div>
 
-            <div class="form-group m-3">
+            <!-- <div class="form-group m-3">
                 <label for="sortOptions">Sort by: &nbsp;</label>
                 <select id="sortOptions" v-model="selectedSortOption" @change="sortPosts">
                     <option v-for="option in sortOptions" :key="option">{{ option }}</option>
                 </select>
-            </div>
+            </div> -->
 
             <div v-if="posts.length > 0">
                 <div class="row">
@@ -138,7 +163,7 @@ export default {
             sortOptions: ['Newest', 'Oldest', 'Most Liked'],
             selectedSortOption: 'Newest',
             searchQuery: ''
-        };
+        }
     },
 
     mounted() {
@@ -192,6 +217,11 @@ export default {
             } catch (error) {
                 console.error('Error searching posts:', error);
             }
+        },
+
+        selectSortOption(option) {
+            this.selectedSortOption = option;
+            this.sortPosts();
         },
 
         sortPosts() {
