@@ -1,5 +1,5 @@
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 .navbar-nav{
     margin-left: auto;
@@ -7,10 +7,9 @@
 }
 
 
-div {
-    font-family: 'Merriweather', serif;
+.template{
+    font-family: 'Montserrat', sans-serif;
 }
-
 </style>
 
 <template>

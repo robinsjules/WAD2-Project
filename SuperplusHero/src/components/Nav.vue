@@ -62,6 +62,10 @@
   margin-left: auto;
 }
 
+.itemCost{
+  margin-left:auto;
+}
+
 
 
 .cartItemActions {
@@ -208,7 +212,10 @@
                               
                               <div class="cartItemStock">
                                 Stock Available: {{ item.Quantity }}
+                                Item Cost: {{ itemTotalPrice[item.id] }}
                               </div>
+                              
+
                           </div>
 
                           
@@ -217,6 +224,9 @@
                         <button class="btn btn-primary remove" @click="removeFromCart(item)">X</button>
 
                       <hr>
+                    </div>
+                    <div class="totalPrice">
+                      Total Cost: {{ totalPrice }}
                     </div>
                     <router-link to="/checkout">
                       <button class="btn btn-primary checkout" data-bs-dismiss="modal">Checkout</button>
@@ -264,6 +274,7 @@ export default {
       postalCode: "",
       location:"",
       desiredQuantity: {},
+      itemTotalPrice: {},
       totalPrice:0.0,
       cart:[],
       newCartItem: false,
@@ -281,13 +292,23 @@ export default {
       this.cartLength = setInterval(() => {
         this.checkCartLength();
       }, 500);
+      // this.totalPrice = this.desiredQuantity.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+      this.totalPrice = this.calcTotal(this.itemTotalPrice);
+
+
     },
+
+
     computed: { 
       // cartLength() {
       //   return this.cart.length;
       // }
     },
   methods: {
+    calcTotal(obj){
+      let sum = Object.values(obj).reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
+      return parseFloat(sum.toFixed(2)); 
+    },
     removeFromCart(item) {
       const index = this.cart.findIndex(cartItem => cartItem.id === item.id); // Calls the findIndex method on every item (we call cartItem) Check if the item in cart matches the item being sent from remove item
       if (index !== -1) {
@@ -301,7 +322,7 @@ export default {
   },
     checkCartLength(){
       if (Cookies.get("cartLength")){
-        console.log(Cookies.get('cartLength'));
+        // console.log(Cookies.get('cartLength'));
         this.cartLength = Cookies.get('cartLength');
       }else{
         this.cartLength=0;
@@ -326,6 +347,7 @@ export default {
             if(this.desiredQuantity[item.id] === undefined){
               this.desiredQuantity[item.id] = 1;
             }
+            this.calculateItemTotal(item);
           }
           
       }else{
@@ -341,18 +363,25 @@ export default {
         }
       }
       Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
+      this.calculateItemTotal(item);
+      this.totalPrice = this.calcTotal(this.itemTotalPrice);
     },
     decreaseQuantity(item) {
       if (!this.desiredQuantity[item.id] || this.desiredQuantity[item.id] <= 1) {
-        delete this.desiredQuantity[item.id];
+        this.desiredQuantity[item.id] = 1;
       } else {
         this.desiredQuantity[item.id]--;
       }
       Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
+      this.calculateItemTotal(item);
+      this.totalPrice = this.calcTotal(this.itemTotalPrice);
+
+      
     },
-    // haveProducts(){
-    //   return this.cart.length>0;
-    // },
+    calculateItemTotal(item){
+      let calc = this.desiredQuantity[item.id] * item.SalePrice
+      this.itemTotalPrice[item.id] = parseFloat(calc.toFixed(2)); 
+    },
     setLocationCookie() { 
       Cookies.set('location', this.location);
     },
