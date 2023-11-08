@@ -5,14 +5,24 @@
     font-family: "Montserrat";
 }
 
+.background {
+    background-color: rgb(237, 243, 235);
+}
+
+.page-title{
+    color: rgb(10, 160, 10);
+    margin-left:15px;
+    margin-top:100px;
+    font-weight: bold;
+}
+
 .content {
     margin-top: 80px;
 }
 
 .card {
-    /* width: 615px; */
-    width: 100%;
-    height: 640px;
+    width: 615px;
+    height: 620px;
     max-width: 100%;
     overflow: hidden;
     margin: 10px;
@@ -36,14 +46,14 @@
 }
 
 .recipe-button {
-  background-color: rgb(10, 160, 10);
-  color: white;
-  border-color: black;
+    background-color: rgb(10, 160, 10);
+    color: white;
+    border-color: black;
 }
 
 .right {
-  margin-left: 5px;
-  float: right;
+    margin-left: 5px;
+    float: right;
 }
 
 .heart-icon {
@@ -58,15 +68,18 @@
     margin-left: 5px;
     margin-top: 3px;
 }
-.dropdown {
-  text-align: center;
+
+.sort {
+    padding: 10px;
 }
 
+.form-floating{
+    margin-bottom: 10px;
+}
 .custom-dropdown {
     width: 150px;
-    transform: translateY(25%);
+    /* transform: translateY(25%); */
     background-color: rgb(10, 160, 10);
-    margin: 0;
     position: relative;
     color: white;
 }
@@ -82,11 +95,11 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <section class="content">
         <div class="container posts-content">
-            <h2 style="color: rgb(10, 160, 10); margin-left:15px; margin-top:100px;">SuperCommunity</h2>
+            <h2 class="page-title">CommunityHero</h2>
             <div class="container-fluid">
                 <div class="form-group">
                     <div class="row justify-content-center">
-                        <div class="col-10">
+                        <div class="col-12">
                             <!-- Search Input -->
                             <div class="form-floating">
                                 <input v-model="searchQuery" type="text" class="form-control" id="floatingInput"
@@ -96,10 +109,12 @@
 
                             <!-- Dropdown for Sorting -->
                         </div>
-                        <div class="col">
-                        <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle custom-dropdown" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
+
+                        <div class="col-lg-3 align-items-center">
+                            <div class="dropdown">
+                                <span class="mr-auto sort">Sort by:</span>
+                                <button class="btn btn-secondary dropdown-toggle custom-dropdown" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ selectedSortOption }}
                                 </button>
                                 <ul class="dropdown-menu">
@@ -109,23 +124,32 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                    
-                </div>
-                
-            </div>
 
-            <!-- <div class="form-group m-3">
-                <label for="sortOptions">Sort by: &nbsp;</label>
-                <select id="sortOptions" v-model="selectedSortOption" @change="sortPosts">
-                    <option v-for="option in sortOptions" :key="option">{{ option }}</option>
-                </select>
-            </div> -->
+                        <div class="col-lg-3 align-items-center">
+                            <div class="dropdown">
+                                <span class="mr-2 sort">Cuisine:</span>
+                                <button class="btn btn-secondary dropdown-toggle custom-dropdown" type="button"
+                                    data-bs-toggle="dropdown">
+                                    {{ selectedCuisineOption || 'All' }} <!-- Set the default text to 'All' -->
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li v-for="cuisine in cuisines" :key="cuisine">
+                                        <a class="dropdown-item" href="#" @click="selectCuisineOption(cuisine)">{{ cuisine
+                                        }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
 
             <div v-if="posts.length > 0">
                 <div class="row">
                     <!-- Use v-for to iterate through the posts fetched from Supabase -->
-                    <div v-for="(post, index) in posts" :key="index" class="col-lg-4 col-md-12">
+                    <div v-for="(post, index) in posts" :key="index" class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="media mb-3">
@@ -152,8 +176,8 @@
                                             class="heart-icon" />
                                         <strong class="like-count">{{ post.Likes }} likes</strong>
                                     </a>
-                                    <button @click="navigateToRecipe(post)" class="recipe-button btn btn-sm ml-auto right">See
-                                        Recipe</button>
+                                    <button @click="navigateToRecipe(post)"
+                                        class="recipe-button btn btn-sm ml-auto right">See Recipe</button>
                                 </small>
                             </div>
                         </div>
@@ -176,12 +200,15 @@ export default {
             posts: [],
             sortOptions: ['Newest', 'Oldest', 'Most Liked'],
             selectedSortOption: 'Newest',
+            cuisines: [],
+            selectedCuisineOption: '',
             searchQuery: ''
         }
     },
 
     mounted() {
         this.fetchPostsFromServer();
+        this.fetchCuisines();
     },
 
     watch: {
@@ -263,6 +290,36 @@ export default {
             // else if (option === 'Least Liked') {
             //     this.posts.sort((a, b) => a.Likes - b.Likes);
             // }
+        },
+
+        async fetchCuisines() {
+            try {
+                const response = await axios.get('http://127.0.0.1:5000/communityposts');
+                const allCuisines = response.data.map(post => post.Cuisine);
+                this.cuisines = ['All', ...new Set(allCuisines)];
+            } catch (error) {
+                console.error('Error fetching cuisines:', error);
+            }
+        },
+
+        async filterRecipesByCuisine(cuisine) {
+            try {
+                const response = await axios.get('http://127.0.0.1:5000/communityposts');
+                let filteredPosts = response.data;
+
+                if (cuisine !== 'All') {
+                    filteredPosts = filteredPosts.filter(post => post.Cuisine === cuisine);
+                }
+
+                this.posts = filteredPosts;
+            } catch (error) {
+                console.error('Error filtering recipes by cuisine:', error);
+            }
+        },
+
+        selectCuisineOption(cuisine) {
+            this.selectedCuisineOption = cuisine;
+            this.filterRecipesByCuisine(cuisine);
         },
 
         async likePost(post) {
