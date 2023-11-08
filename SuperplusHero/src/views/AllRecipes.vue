@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: rgb(237, 243, 235);">
+  <div class="background">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     
@@ -239,6 +239,15 @@ export default {
 </script>
   
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+.background{
+  background-color: rgb(237, 243, 235); 
+  height: 100%;
+  margin: 0px !important
+}
+div {
+  font-family: 'Montserrat'
+}
 .content {
   margin-top: 80px;
   margin-left: 300px; /* Adjust the margin to match the sidebar's width */
