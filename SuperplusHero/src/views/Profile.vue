@@ -13,7 +13,7 @@
     max-height: 200px;
     }
     .image-container {
-    margin-bottom: 10px; /* Add space between the image and the button */
+    margin-bottom: 10px; 
     }
     .file-input input[type="file"] {
     display: none;
@@ -145,7 +145,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
-        //need to start session to store username since not editable
+        //need to add cookies to store username since not editable
         userName: 'test3',
         userPicture:'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
         email: '',
