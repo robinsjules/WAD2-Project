@@ -93,6 +93,7 @@
                                             class="heart-icon" />
                                         <strong class="like-count">{{ post.Likes }} likes</strong>
                                     </a>
+                                    <button @click="navigateToRecipe(post)" class="btn btn-primary btn-sm ml-auto">See Recipe</button>
                                 </small>
                             </div>
                         </div>
@@ -234,6 +235,11 @@ export default {
             } catch (error) {
                 console.error('Error updating likes:', error);
             }
+        },
+
+        navigateToRecipe(post) {
+            // Navigate to the readRecipe page with the recipeURL
+            this.$router.push('/readRecipe/' + post.recipeURL);
         }
     },
 };
