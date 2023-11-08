@@ -5,10 +5,6 @@
     font-family: "Montserrat";
 }
 
-.background {
-    background-color: rgb(237, 243, 235);
-}
-
 .page-title {
     color: rgb(10, 160, 10);
     margin-left: 15px;
@@ -31,7 +27,6 @@
 
 .card-body {
     position: relative;
-    /* height: 200px; */
     overflow: hidden;
 }
 
@@ -46,6 +41,12 @@
 }
 
 .recipe-button {
+    background-color: rgb(10, 160, 10);
+    color: white;
+    border-color: black;
+}
+
+.recipe-button:hover{
     background-color: rgb(10, 160, 10);
     color: white;
     border-color: black;
@@ -79,7 +80,6 @@
 
 .custom-dropdown {
     width: 150px;
-    /* transform: translateY(25%); */
     background-color: rgb(10, 160, 10);
     position: relative;
     color: white;
