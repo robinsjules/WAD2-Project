@@ -112,7 +112,7 @@
 
 <script>
 
-import recipeData from '../../../backend/spoonacular/allCuisineNew.json'
+import recipeData from '../../../backend/spoonacular/allCuisine.json'
 import Cookies from 'js-cookie';
 
 

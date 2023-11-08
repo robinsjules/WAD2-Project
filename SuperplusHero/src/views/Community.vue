@@ -40,17 +40,17 @@
     margin-top: 3px;
 }
 
-.custom-box {
-  appearance: none;
-  border: 1px solid #cccccc;
-  padding: 8px;
-  border-radius: 5px;
-  background-color: #408558;
-  color: #ffffff;
-  font-size: 16px;
-  width: 200px;
+button {
+    float: right;
+    background-color: rgb(10, 160, 10);
+    color: white;
+    /* border-color: black; */
 }
 
+.dropdown-item:hover {
+    background-color: lightgreen;
+    color: black;
+}
 </style>
 
 <template>
@@ -61,20 +61,36 @@
                 <div class="form-group">
                     <div class="row justify-content-center">
                         <div class="input-group">
-                            <input v-model="searchQuery" type="text" class="form-control custom-box" placeholder="Search for post">
-                            <!--Edit to be responsive-->
+                            <!-- Search Input -->
+                            <div class="form-floating mb-3 search-input">
+                                <input v-model="searchQuery" type="text" class="form-control" id="floatingInput"
+                                    placeholder="Search for post">
+                                <label for="floatingInput">Search for post</label>
+                            </div>
+
+                            <!-- Dropdown for Sorting -->
                         </div>
+                        <div class="dropdown-center">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    {{ selectedSortOption }}
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li v-for="option in sortOptions" :key="option">
+                                        <a class="dropdown-item" href="#" @click="selectSortOption(option)">{{ option }}</a>
+                                    </li>
+                                </ul>
+                            </div>
                     </div>
                 </div>
             </div>
 
             <div class="form-group m-3">
-                <label for="sortOptions">Sort by: &nbsp;</label>
-                <select id="sortOptions" v-model="selectedSortOption" @change="sortPosts" class="custom-box">
+                <label for="sortOptions">Sort by: ▼&nbsp;</label>
+                <select id="sortOptions" v-model="selectedSortOption" @change="sortPosts" class="custom-dropdown">
                     <option v-for="option in sortOptions" :key="option">{{ option }}</option>
                 </select>
-                ▼
-            </div>
+            </div> -->
 
             <div v-if="posts.length > 0">
                 <div class="row">
@@ -108,6 +124,8 @@
                                     </a>
                                     &nbsp;
                                     <button @click="navigateToRecipe(post)" class="btn btn-success btn-sm ml-auto">See Recipe</button>
+                                    <button @click="navigateToRecipe(post)" class="btn btn-primary btn-sm ml-auto right">See
+                                        Recipe</button>
                                 </small>
                             </div>
                         </div>

@@ -2,6 +2,35 @@
   
   <div class="background">
   <div class="content">
+    <div>
+    <span class="hero-shot"><img :src="matchingRecipe.image" alt="Recipe Image" style="height: 90vh; width: 50vw;"></span>
+    <h1>{{ matchingRecipe.title }}</h1>
+    <p><strong>Summary:</strong> {{ matchingRecipe.summary }}</p>
+    <p><strong>Cuisines:</strong> {{ matchingRecipe.cuisines.join(', ') }}</p>
+    <p><strong>Dish Types:</strong> {{ matchingRecipe.dishTypes.join(', ') }}</p>
+    <p><strong>Diets:</strong> {{ matchingRecipe.diets.join(', ') }}</p>
+    <p><strong>Occasions:</strong> {{ matchingRecipe.occasions.join(', ') }}</p>
+    <p><strong>Servings:</strong> {{ matchingRecipe.servings }}</p>
+    <p><strong>Ready In:</strong> {{ matchingRecipe.readyInMinutes }} minutes</p>
+    <p><strong>Health Score:</strong> {{ matchingRecipe.healthScore }}</p>
+    <p><strong>Price Per Serving:</strong> ${{ matchingRecipe.pricePerServing }}</p>
+    <p><strong>Source:</strong> <a :href="matchingRecipe.sourceUrl">{{ matchingRecipe.sourceName }}</a></p>
+
+    <h2>Ingredients:</h2>
+    <ul>
+      <li v-for="ingredient in matchingRecipe.extendedIngredients">
+        {{ ingredient.original }}
+      </li>
+    </ul>
+
+    <h2>Instructions:</h2>
+    <ol>
+      <li v-for="step in matchingRecipe.analyzedInstructions[0].steps">
+        {{ step.step }}
+      </li>
+    </ol>
+  </div>
+
     <div class="row">
       <div class="col-md-12">
         <div class="recipe-card" v-if="matchingRecipe">
@@ -104,7 +133,7 @@
 </template>
 
 <script>
-import recipeData from '../../../backend/spoonacular/allCuisineNew.json';
+import recipeData from '../../../backend/spoonacular/allCuisine.json';
 import Cookies from 'js-cookie';
 
 export default {
@@ -136,14 +165,14 @@ export default {
 </script>
 
 <style scoped>
-/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 .background{
   background-color: rgb(237, 243, 235); 
   height: 100%;
 }
 div {
   font-family: 'Montserrat'
-} */
+}
 
 .content {
   margin-top: 80px;
@@ -152,6 +181,10 @@ div {
   height: 100%;
   margin-left: 5%; 
   margin-right: 5%;
+}
+
+.hero-shot{
+  margin-right: 0px !important ;
 }
 
 .ingredients {

@@ -191,46 +191,6 @@ button.carousel-control-next {
                                                 <p><button type="button" class="btn btn-primary" @click="addtoCart(item)">Add to Cart</button></p>    
                                             </div>
                                     </div>
-                                <!-- <div class="ignore">
-                                    
-                                <div class="col-md-2 mb-3">
-                                        <div class="card">
-                                            <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
-                                            <h1>Lettuce</h1>
-                                            <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
-                                            <p>Some text about the product</p>
-                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
-                                        </div>
-                                </div>
-                                <div class="col-md-2 mb-3">
-                                        <div class="card">
-                                            <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
-                                            <h1>Lettuce</h1>
-                                            <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
-                                            <p>Some text about the product</p>
-                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
-                                        </div>
-                                </div>
-                                <div class="col-md-2 mb-3">
-                                        <div class="card">
-                                            <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
-                                            <h1>Lettuce</h1>
-                                            <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
-                                            <p>Some text about the product</p>
-                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
-                                        </div>
-                                </div>
-                                <div class="col-md-2 mb-3">
-                                        <div class="card">
-                                            <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
-                                            <h1>Lettuce</h1>
-                                            <p class="price"> <s>$61.99</s><strong class="ms-2 text-danger">$50.99</strong></p>
-                                            <p>Some text about the product</p>
-                                            <p><button type="button" class="btn btn-primary">Add to Cart</button></p>    
-                                        </div>
-                                </div>
-                                </div> -->
-                                    
                                 <div class="col-md-1"></div>
                             </div>
     
@@ -495,7 +455,7 @@ export default {
       newNotifications: false,
       postalCode: "",
       location:"",
-      
+      desiredQuantity: {},
       items: [],
       cart: [],
       cartLength:0
@@ -508,6 +468,15 @@ export default {
             const response = await axios.get(`http://127.0.0.1:5000/listings`);
             this.items = response.data;    
             // console.log('All cookies:', Cookies.get());
+            if (Cookies.get("cart")){
+                this.cart = JSON.parse(Cookies.get("cart"));
+            }
+
+            if (Cookies.get("cartLength")){
+                this.cartLength = Cookies.get("cartLength");
+            }else{
+                this.cartLength=0;
+            }
         } catch(error) {
             console.error(error);
         }
@@ -515,8 +484,22 @@ export default {
 
     methods: {
         addtoCart(item) {
+             
             if (Cookies.get("cart")){
                 this.cart = JSON.parse(Cookies.get("cart"));
+                this.cartLength = Cookies.get("cartLength");
+                if (!this.checkDup(item)){
+                    
+                    this.cart.push(item);
+                    Cookies.set('cart',JSON.stringify(this.cart));
+                    // console.log(JSON.parse(Cookies.get('cart')));
+                    this.desiredQuantity[item.id] = 1;
+                    Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
+                    this.cartLength++;
+                    Cookies.set('cartLength', this.cartLength);
+                    // console.log("notaddcart");
+                }
+            }else{
                 if (!this.checkDup(item)){
                     this.cart.push(item);
                     Cookies.set('cart',JSON.stringify(this.cart));
@@ -524,16 +507,20 @@ export default {
                     this.desiredQuantity[item.id] = 1;
                     Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
                     this.cartLength++;
+                    Cookies.set('cartLength', this.cartLength);
+                    // console.log("notaddcart");
                 }
             }
 
             
         },
         checkDup(item){
-            if (this.cart.includes(item,0) ){
+  // Check if the `cart` array has an object with the same `id` as `item`
+            if (this.cart.some(cartItem => cartItem.id === item.id)){
                 console.log("Dup check");
                 return true
             }else{
+                console.log("not dup");
                 return false;
             }
         }
