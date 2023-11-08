@@ -33,7 +33,12 @@
 
     <!-- Main Content -->
     <div class="content" :style="mainContentStyle">
-      <h2 style="color: rgb(10, 160, 10); margin-left:15px;">Recipe Book</h2>
+      <h2  style="color: rgb(10, 160, 10); margin-left:15px;">
+        Recipe Book
+          <img class="rotating-image" src="../../src/assets/appLogo.png" style="max-width: 100px; max-height: 100px;">
+          <span><i class="fa-solid fa-kitchen-set" style="float: right; margin-top: 25px; margin-right: 20px; font-size: 1.5em;"></i></span>
+      </h2>
+      
       <!-- Search Bar -->
       <div class="container-fluid">
         <div class="form-group">
@@ -431,5 +436,29 @@ div {
   padding: 5px;
 }
 
+/* rotating image logo */
+.rotating-image {
+            max-width: 500px; /* Set your desired width */
+            max-height: 100px; /* Set your desired height */
+            position: relative;
+            animation: rotate 3s linear forwards, moveHorizontal 6s linear infinite alternate;
+        }
 
+        @keyframes rotate {
+            0% {
+                transform: rotate(90deg);
+            }
+            100% {
+                transform: rotate(270deg);
+            }
+        }
+
+        @keyframes moveHorizontal {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(45vw); 
+            }
+        }
 </style>
