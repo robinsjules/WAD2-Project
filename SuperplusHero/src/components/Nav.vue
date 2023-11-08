@@ -5,6 +5,10 @@
     margin-left: auto;
 }
 
+.template{
+  font-family: 'Montserrat', sans-serif;
+}
+
 .navbar-dark.navcolor {
   /* background-color: black;  */
   position: fixed;
@@ -265,7 +269,7 @@ export default {
     checkCart(){
       if (Cookies.get("cart")){
           this.cart = JSON.parse(Cookies.get("cart"));
-          console.log("not checkcartnav");
+          // console.log("not checkcartnav");
           if(Cookies.get('desiredQuantity')){
             this.desiredQuantity = JSON.parse(Cookies.get('desiredQuantity'));
           }
@@ -364,10 +368,10 @@ export default {
       // Set the cookie when location gets updated
       this.setLocationCookie();
     },
-    // cart: function (newVal, oldVal) {
-    //   this.cartLength = newVal.length;
-    //   Cookies.set('cartLength', JSON.stringify(this.cartLength));
-    // },
+    cart: function (newVal, oldVal) {
+      this.cartLength = newVal.length;
+      Cookies.set('cartLength', JSON.stringify(this.cartLength));
+    },
   },
 };
 
