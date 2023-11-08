@@ -33,7 +33,7 @@
     <div class="container-fluid">
     <div class="row main-content">
       <div class="col-8 " style="border-top: 1px solid; margin-right: 5%; padding-top: 5%;">
-        <h2>{{ matchingRecipe.title }} Preparation</h2><br>
+        <h2>{{ matchingRecipe.title }} (Serving Size: {{ matchingRecipe.servings }})</h2><br>
         <p>{{ matchingRecipe.summary }}</p>
       </div>
 
