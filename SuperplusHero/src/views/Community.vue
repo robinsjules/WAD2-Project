@@ -1,12 +1,14 @@
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
-*{
+* {
     font-family: "Montserrat";
 }
+
 .content {
-    margin-top: 100px;
+    margin-top: 80px;
 }
+
 .card {
     width: 615px;
     height: 600px;
@@ -39,11 +41,24 @@
     margin-left: 5px;
     margin-top: 3px;
 }
+
+button {
+    float: right;
+    background-color: transparent;
+    color: black;
+    border-color: black;
+}
+
+button:hover {
+    background-color: green;
+    color: white;
+}
 </style>
 
 <template>
     <section class="content">
         <div class="container posts-content">
+            <h2 style="color: rgb(10, 160, 10); margin-left:15px; margin-top:100px;">SuperCommunity</h2>
             <!-- Search Bar -->
             <div class="container-fluid">
                 <div class="form-group">
@@ -93,18 +108,17 @@
                                             class="heart-icon" />
                                         <strong class="like-count">{{ post.Likes }} likes</strong>
                                     </a>
-                                    <button @click="navigateToRecipe(post)" class="btn btn-primary btn-sm ml-auto">See Recipe</button>
+                                    <button @click="navigateToRecipe(post)" class="btn btn-primary btn-sm ml-auto right">See
+                                        Recipe</button>
                                 </small>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div v-else-if="postsNotFound">
-                <p>Post not found! Please check your spelling.</p> <!-- Edit to have space above -->
+                <p style="margin-left:15px;">Post not found! Please check your spelling.</p>
             </div>
-
         </div>
     </section>
 </template>
@@ -179,8 +193,8 @@ export default {
             if (this.selectedSortOption === 'Newest' || this.selectedSortOption === 'Oldest') {
                 this.sortByCreatedAt(this.selectedSortOption);
             } else if (this.selectedSortOption === 'Most Liked'
-            // || this.selectedSortOption === 'Least Liked'
-            ){
+                // || this.selectedSortOption === 'Least Liked'
+            ) {
                 this.sortByLikes(this.selectedSortOption);
             }
         },
