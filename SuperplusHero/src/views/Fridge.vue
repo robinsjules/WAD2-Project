@@ -50,15 +50,18 @@
                     </div>
                 </div>
                 <br>
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <h3>Items:</h3>
-                    <ul>
-                        <li v-for="(item, i) in items">
-                        {{item}}
-                        <button @click="items.splice(i, 1)">Remove</button> 
-                        </li>
-                    </ul>
-                </div>
+                <div style="position: relative;" class="col-lg-6 mb-5 mb-lg-0">
+                    <img src="../assets/FridgePicture.png" alt="Fridge background" style="height:500px; width:300px">
+                    <div style="position: absolute; left: 10px; top: 10px;  color: white; background: rgba(108, 108, 108, 0.5); padding: 10px; border-radius: 20px; height: 450px; width:250px;">
+                        <h3>Items:</h3>
+                        <ul>
+                            <li v-for="(item, i) in items">
+                            {{item}}
+                            <button @click="items.splice(i, 1)">Remove</button> 
+                            </li>
+                        </ul>
+                    </div>
+                </div>   
             </div>
         </div>
         <!-- Jumbotron -->
