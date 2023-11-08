@@ -13,7 +13,7 @@
     max-height: 200px;
     }
     .image-container {
-    margin-bottom: 10px; /* Add space between the image and the button */
+    margin-bottom: 10px; 
     }
     .file-input input[type="file"] {
     display: none;
@@ -45,7 +45,7 @@
     <div class="mx-auto col-lg-6 mb-5 mb-lg-0 ">
             <div class="card">
                 <div class="card-body py-5 px-md-6">
-                    <form>
+                    <form id="profileEdit" class="my-4" autocomplete="on" @submit.prevent="updateProfile">
                         <div id="app">
                             <div class="profile-form">
                                 <div class="profile-picture">
@@ -61,16 +61,16 @@
                             <br/>
                             <div class="form-outline mb-4">
                                 <!-- need to include original email in box-->
-                                <input type="email" class="form-control" id="email">
+                                <input type="email" class="form-control" id="email" v-model="email" autocomplete="on">
                                 <label for="email">Email Address</label>
                             </div>
                             <div class="form-outline mb-4">
-                                <input type="number" class="form-control" id="postalCode">
+                                <input type="number" class="form-control" id="postalCode" v-model="postalCode">
                                 <label for="postalCode">Postal Code</label>
                             </div>
                             <div class="form-outline mb-4">
                                 <!-- need to include original phone num in box-->
-                                <input type="name" class="form-control" id="phoneNum">
+                                <input type="name" class="form-control" id="phoneNum" v-model="phoneNum">
                                 <label for="phoneNum">Phone Number</label>
                             </div>
                             <hr/>
@@ -95,41 +95,37 @@
                             <div>
                                 Dietary Preferences:
                                 <div class="container">
-                                    <form class="my-4" action="#" method="put">
                                     <div class="row">
                                         <div v-for="(preference, index) in dPreferences" :key="index" class="col-sm text-white bg-success rounded d-flex justify-content-center align-items-center m-1">
-                                        <div class="form-group form-check">
-                                            <input class="form-check-input" type="checkbox" :value="preference.value" v-model="foodPreferences" />
-                                            <label class="form-check-label">{{ preference.name }}</label>
-                                        </div>
+                                            <div class="form-group form-check">
+                                                <input class="form-check-input" type="checkbox" :value="preference.value" :id="preference.value" v-model="foodPreferences" />
+                                                <label class="form-check-label" :for="preference.value">{{ preference.name }}</label>
+                                            </div>
                                         </div>
                                     </div>
-                                    </form>
                                 </div>
                             </div>
+                            <br/>
                             <div>
-                                <form @submit.prevent="addIntolerance">
-                                    <div class="row">
-                                        <div class="form-group col-sm-8">
-                                            <input type="text" id="newIntolerances" v-model="newIntolerances" class="form-control" />
-                                            <label for="newIntolerances">Intolerance</label>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <button type="submit" class="btn btn-success" style="height:36px; width:100px">Add</button>
-                                        </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-8">
+                                        <input type="text" v-model="newIntolerances" class="form-control" id="intoleranceInput"/>
+                                        <label for="intoleranceInput" >Intolerance</label>
                                     </div>
-                                </form>
+                                    <div class="col-sm-4">
+                                        <button @click="addIntolerance" type="submit" class="btn btn-success" style="height:36px; width:100px">Add</button>
+                                    </div>
+                                </div>
                                 <br/>
                                 <ul>
-                                <li v-for="(intolerance, index) in intolerances" :key="index">
-                                    {{ intolerance }}
-                                    <button @click="removeIntolerance(index)" class="btn btn-danger remove-button">Remove</button>
-                                </li>
+                                    <li v-for="(intolerance, index) in intolerances" :key="index">
+                                        {{ intolerance }}
+                                        <button @click="removeIntolerance(index)" type="button" class="btn btn-danger remove-button">Remove</button>
+                                    </li>
                                 </ul>
                             </div>
-                            <button v-on:click=updateProfile class="btn btn-success btn-block mt-4" type="submit" value="submit"> Save changes </button>&nbsp;
-                            <button v-on:click=logoutProfile class="btn btn-success mt-4" type="submit" value= true>Log out</button>
-                                    
+                            <button @click= "updateProfile" class="btn btn-success btn-block mt-4" type="submit" value="submit"> Save changes </button>&nbsp;
+                            <button @click= "logoutProfile" class="btn btn-success mt-4" type="submit" value= true>Log out</button>        
                         </div>
                     </form>
                 </div>
@@ -149,7 +145,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
-        //need to start session to store username since not editable
+        //need to add cookies to store username since not editable
         userName: 'test3',
         userPicture:'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
         email: '',
@@ -181,8 +177,8 @@ export default {
             }],
         intolerances:[],
         newIntolerances:'',
-        save:'',
-        logout:''
+        updateurl: `/api2/update_profile/${this.userName}`,
+        geturl:`/api2/get_profile/${this.userName}`
         };
     },
     // mounted() {
@@ -235,35 +231,41 @@ export default {
             // Check if the old password is not blank
             if (this.password) {
                 // Perform an Axios GET request to your server to check the old password
-                axios.get(`/api2/get_profile/${this.userName}`, {
+                axios.get(this.geturl, {
                     params: {
                     Password: this.password,
                     },
                 })
                 .then((response) => {
+                    console.log("error1");
                     // Include newPassword in the data if it's not blank
                     updatedData.Password = this.newPassword;
                     // The old password is correct
                     // Perform an Axios PUT request to update the password in the database
-                    axios.put(`/api2/update_profile/${this.userName}`, updatedData)
+                    axios.put(this.updateurl, updatedData)
                     .then((response) => {
+                        console.log("error2");
                         alert('Profile updated successfully');
                     })
                     .catch((error) => {
+                        console.log("error3");
                         alert('Error updating the profile');
                     });
                 })
                 .catch((error) => {
+                    console.log("error4");
                     alert('Incorrect old password');
                 });
             } 
             else {
                 // If old password is blank, update the profile data without changing the password
-                axios.put(`/api2/update_profile/${this.userName}`, updatedData)
+                axios.put(this.updateurl, updatedData)
                 .then((response) => {
+                    console.log("error5");
                     alert('Profile updated successfully');
                 })
                 .catch((error) => {
+                    console.log("error6");
                     alert('Error updating the profile');
                 });
             }
