@@ -178,30 +178,6 @@ body{
     flex-direction: column;
     padding: 0 30px;
     text-align: center;
-<<<<<<< Updated upstream
-}
-</style>
-<template>
-    <!-- Section: Design Block -->
-    <section class="">
-        <!-- Jumbotron -->
-        <div class="px-5 py-5 px-md-5 text-center text-lg-start"
-            style="background-color: hsl(0, 0%, 96%);background-size: cover; height: 115vh; background-image: url('https://www.europenowjournal.org/wp-content/uploads/2019/04/shutterstock_321864554.jpg');">
-            <div class="container">
-                <div class="row gx-lg-5 align-items-center">
-                    <div class="col-lg-6 mb-5 mb-lg-0">
-                        <div class="card bg-success text-white">
-                            <div class="card-body">
-                                <h1 class="my-5 display-3 fw-bold ls-tight mt-0">
-                                Welcome to <br />
-                                <span class="text-dark">Surplus Hero.</span>
-                                </h1>
-                                <p style="color: hsl(101, 100%, 85%)" >
-                                The one-stop platform for surplus groceries and recipe generation!
-                                </p>
-                            </div>
-                        </div>
-=======
     top: 0;
     transform: translateX(0);
     transition: all 0.6s ease-in-out;
@@ -254,7 +230,6 @@ body{
                         <h1>Welcome Back to SurplusHero!</h1>
                         <p>Enter your personal details to use all of site features</p>
                         <button @click= "showContainer" class="hidden">Sign In</button>
->>>>>>> Stashed changes
                     </div>
                     <div class="toggle-panel toggle-right">
                         <h1>Welcome to SurplusHero!</h1>
