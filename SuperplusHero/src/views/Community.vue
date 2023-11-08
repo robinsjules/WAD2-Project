@@ -9,14 +9,10 @@
     margin-top: 80px;
 }
 
-.custom-width {
-    width: 150px;
-    transform: translateY(25%);
-}
-
 .card {
-    width: 615px;
-    height: 630px;
+    /* width: 615px; */
+    width: 100%;
+    height: 640px;
     max-width: 100%;
     overflow: hidden;
     margin: 10px;
@@ -25,7 +21,7 @@
 
 .card-body {
     position: relative;
-    height: 200px;
+    /* height: 200px; */
     overflow: hidden;
 }
 
@@ -37,6 +33,17 @@
 
 .caption {
     margin-top: 10px;
+}
+
+.recipe-button {
+  background-color: rgb(10, 160, 10);
+  color: white;
+  border-color: black;
+}
+
+.right {
+  margin-left: 5px;
+  float: right;
 }
 
 .heart-icon {
@@ -51,12 +58,17 @@
     margin-left: 5px;
     margin-top: 3px;
 }
+.dropdown {
+  text-align: center;
+}
 
-button {
-    float: right;
+.custom-dropdown {
+    width: 150px;
+    transform: translateY(25%);
     background-color: rgb(10, 160, 10);
+    margin: 0;
+    position: relative;
     color: white;
-    /* border-color: black; */
 }
 
 .dropdown-item:hover {
@@ -74,9 +86,9 @@ button {
             <div class="container-fluid">
                 <div class="form-group">
                     <div class="row justify-content-center">
-                        <div class="input-group">
+                        <div class="col-10">
                             <!-- Search Input -->
-                            <div class="form-floating mb-3 search-input">
+                            <div class="form-floating">
                                 <input v-model="searchQuery" type="text" class="form-control" id="floatingInput"
                                     placeholder="Search for post">
                                 <label for="floatingInput">Search for post</label>
@@ -84,8 +96,9 @@ button {
 
                             <!-- Dropdown for Sorting -->
                         </div>
-                        <div class="dropdown-center">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        <div class="col">
+                        <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle custom-dropdown" type="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     {{ selectedSortOption }}
                                 </button>
@@ -95,6 +108,7 @@ button {
                                     </li>
                                 </ul>
                             </div>
+                        </div>
                     </div>
                     
                 </div>
@@ -111,7 +125,7 @@ button {
             <div v-if="posts.length > 0">
                 <div class="row">
                     <!-- Use v-for to iterate through the posts fetched from Supabase -->
-                    <div v-for="(post, index) in posts" :key="index" class="col-lg-6">
+                    <div v-for="(post, index) in posts" :key="index" class="col-lg-4">
                         <div class="card">
                             <div class="card-body">
                                 <div class="media mb-3">
@@ -138,7 +152,7 @@ button {
                                             class="heart-icon" />
                                         <strong class="like-count">{{ post.Likes }} likes</strong>
                                     </a>
-                                    <button @click="navigateToRecipe(post)" class="btn btn-primary btn-sm ml-auto right">See
+                                    <button @click="navigateToRecipe(post)" class="recipe-button btn btn-sm ml-auto right">See
                                         Recipe</button>
                                 </small>
                             </div>
