@@ -1,6 +1,6 @@
 <template>
   
-  <div style="background-color: rgb(237, 243, 235);">
+  <div class="background">
   <div class="content">
     <div class="row">
       <div class="col-md-12">
@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import recipeData from '../../../backend/spoonacular/allCuisine.json';
+import recipeData from '../../../backend/spoonacular/allCuisineNew.json';
 import Cookies from 'js-cookie';
 
 export default {
@@ -115,6 +115,13 @@ export default {
       showRemainingSteps: false, // Track whether to show the remaining steps popup
     };
   },
+  async created() {
+        try {
+            console.log('All cookies:', Cookies.get());
+        } catch(error) {
+            console.error(error);
+        }
+    },
   computed: {
     matchingRecipe() {
       return this.recipes.results.find(recipe => recipe.title === this.recipeTitle);
@@ -123,11 +130,21 @@ export default {
   created() {
     // Retrieve the recipe title from the cookie when the component is created
     this.recipeTitle = Cookies.get('recipeTitle');
+    console.log('Recipe Title:', this.recipeTitle);
   },
 };
 </script>
 
 <style scoped>
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+.background{
+  background-color: rgb(237, 243, 235); 
+  height: 100%;
+}
+div {
+  font-family: 'Montserrat'
+} */
+
 .content {
   margin-top: 80px;
   align-items: center;
