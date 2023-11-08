@@ -177,8 +177,8 @@
                                             class="heart-icon" />
                                         <strong class="like-count">{{ post.Likes }} likes</strong>
                                     </a>
-                                    <button @click="readRecipe(post)"
-                                        class="recipe-button btn btn-sm ml-auto right">See Recipe</button>
+                                    <button @click="readRecipe(post)" class="recipe-button btn btn-sm ml-auto right">See
+                                        Recipe</button>
                                 </small>
                             </div>
                         </div>
@@ -373,9 +373,9 @@ export default {
         //     // Navigate to the readRecipe page with the recipeURL
         //     this.$router.push('/readRecipe/' + post.recipeURL);
         // },
-        
+
         readRecipe(post) {
-            this.recipeTitle = post.recipeTitle; 
+            this.recipeTitle = post.recipeTitle;
             this.$router.push('/readRecipe/' + post.postTitle);
             Cookies.set("recipeTitle", this.recipeTitle);
         }
