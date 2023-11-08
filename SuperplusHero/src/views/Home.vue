@@ -524,6 +524,17 @@ export default {
                     this.desiredQuantity[item.id] = 1;
                     Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
                     this.cartLength++;
+                    console.log("notaddcart");
+                }
+            }else{
+                if (!this.checkDup(item)){
+                    this.cart.push(item);
+                    Cookies.set('cart',JSON.stringify(this.cart));
+                    // console.log(JSON.parse(Cookies.get('cart')));
+                    this.desiredQuantity[item.id] = 1;
+                    Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
+                    this.cartLength++;
+                    console.log("notaddcart");
                 }
             }
 
