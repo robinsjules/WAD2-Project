@@ -215,24 +215,19 @@ body {
                             <option value="Business">Business</option>
                         </select>
                         <input v-model="form.UserName" type="text" placeholder="Username">
-                        <input v-model="form.Email" type="email" id="form3Example3" class="form-control"
-                            placeholder="Email Address" />
-                        <input v-model="form.Phone" type="phonenum" id="form3Example4" class="form-control"
-                            placeholder="Phone Number" />
-                        <input v-model="form.Password" type="password" id="form3Example5" class="form-control"
-                            placeholder="Password" />
-                        <input v-if="form.UserType === 'Consumer'" v-model="form.Allergies" type="text" class="form-control"
-                            id="Allergies" placeholder="Allergies (Eg. Shellfish)">
-                        <textarea v-if="form.UserType === 'Consumer'" cols="4" rows="5" v-model="form.Fridge" type="text"
-                            id="Fridge" class="form-control" placeholder="Items in your fridge (Eg. Banana)" />
+                        <input v-model="form.Email" type="email" id="form3Example3" class="form-control" placeholder="Email Address" />
+                        <input v-model="form.Phone" type="phonenum" id="form3Example4" class="form-control" placeholder="Phone Number" />
+                        <input v-model="form.Password" type="password" id="form3Example5" class="form-control" placeholder="Password" />
+                        <input v-if="form.UserType === 'Consumer'" v-model="form.Allergies" type="text" class="form-control" id="Allergies" placeholder="Allergies (Eg. Shellfish)">
+                        <textarea v-if="form.UserType === 'Consumer'" cols="4" rows="5" v-model="form.Fridge" type="text" id="Fridge" class="form-control" placeholder="Items in your fridge (Eg. Banana)" />
                         <button @click="goToNext" @click.prevent="activate">submit</button>
                     </form>
                 </div>
                 <div class="form-container sign-in">
-                    <form>
+                    <form @submit.prevent="login">
                         <h1 style="font-weight: bolder;">Sign In</h1><br>
-                        <input type="email" placeholder="Email">
-                        <input type="password" placeholder="Password">
+                        <input v-model="Email" type="email" id="form3Example3" class="form-control" placeholder="Email" />
+                        <input v-model="Password" type="password" id="form3Example4" class="form-control" placeholder="Password" />
                         <a href="#">Forgot Your Password?</a>
                         <button>Sign In</button>
                     </form>
@@ -259,11 +254,14 @@ body {
 </template>
 <script>
 import axios from 'axios';
+import { signIn } from "@/router/signIn";
 
 export default {
     // Your component data and methods go here
     data() {
         return {
+            Email: '',
+            Password: '',
             containerClasses: {
                 active: false
             },
@@ -308,6 +306,22 @@ export default {
                         console.log(error.message)
                         console.error(error.response.data)
                     });
+            }
+        },
+        async login() {
+            try {
+                const response = await signIn(this.Email, this.Password);
+                console.log('Response:', response); 
+                if (response.status === 200) {
+                    // Successful authentication
+                    this.$router.push({ path: '/home' });
+                } else {
+                    console.error('Authentication failed');
+                    // Handle authentication failure
+                }
+            } catch (error) {
+                console.error('Error signing in:', error);
+                // Handle sign-in error
             }
         }
     },
