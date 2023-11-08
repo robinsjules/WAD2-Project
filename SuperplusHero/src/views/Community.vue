@@ -85,13 +85,6 @@ button {
                 </div>
             </div>
 
-            <div class="form-group m-3">
-                <label for="sortOptions">Sort by: ▼&nbsp;</label>
-                <select id="sortOptions" v-model="selectedSortOption" @change="sortPosts" class="custom-dropdown">
-                    <option v-for="option in sortOptions" :key="option">{{ option }}</option>
-                </select>
-            </div> -->
-
             <div v-if="posts.length > 0">
                 <div class="row">
                     <!-- Use v-for to iterate through the posts fetched from Supabase -->
