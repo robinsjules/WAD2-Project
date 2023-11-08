@@ -39,6 +39,18 @@
     margin-left: 5px;
     margin-top: 3px;
 }
+
+.custom-box {
+  appearance: none;
+  border: 1px solid #cccccc;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: #408558;
+  color: #ffffff;
+  font-size: 16px;
+  width: 200px;
+}
+
 </style>
 
 <template>
@@ -49,7 +61,7 @@
                 <div class="form-group">
                     <div class="row justify-content-center">
                         <div class="input-group">
-                            <input v-model="searchQuery" type="text" class="form-control" placeholder="Search for post">
+                            <input v-model="searchQuery" type="text" class="form-control custom-box" placeholder="Search for post">
                             <!--Edit to be responsive-->
                         </div>
                     </div>
@@ -58,9 +70,10 @@
 
             <div class="form-group m-3">
                 <label for="sortOptions">Sort by: &nbsp;</label>
-                <select id="sortOptions" v-model="selectedSortOption" @change="sortPosts">
+                <select id="sortOptions" v-model="selectedSortOption" @change="sortPosts" class="custom-box">
                     <option v-for="option in sortOptions" :key="option">{{ option }}</option>
                 </select>
+                ▼
             </div>
 
             <div v-if="posts.length > 0">
@@ -85,7 +98,7 @@
                                 <img :src="post.imageURL" class="post-image"> <!-- Need to make this responsive-->
                             </div>
                             <div class="card-footer">
-                                <small class="align-middle">
+                                <small class="align-middle d-flex">
                                     <a href="#" class="d-inline-block text-muted like-button">
                                         <img v-if="post.liked" @click="unlikePost(post)" src="../assets/heartFilled.png"
                                             alt="Liked" class="heart-icon" />
@@ -93,7 +106,8 @@
                                             class="heart-icon" />
                                         <strong class="like-count">{{ post.Likes }} likes</strong>
                                     </a>
-                                    <button @click="navigateToRecipe(post)" class="btn btn-primary btn-sm ml-auto">See Recipe</button>
+                                    &nbsp;
+                                    <button @click="navigateToRecipe(post)" class="btn btn-success btn-sm ml-auto">See Recipe</button>
                                 </small>
                             </div>
                         </div>
