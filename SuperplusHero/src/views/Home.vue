@@ -471,6 +471,12 @@ export default {
             if (Cookies.get("cart")){
                 this.cart = JSON.parse(Cookies.get("cart"));
             }
+
+            if (Cookies.get("cartLength")){
+                this.cartLength = Cookies.get("cartLength");
+            }else{
+                this.cartLength=0;
+            }
         } catch(error) {
             console.error(error);
         }
@@ -478,16 +484,19 @@ export default {
 
     methods: {
         addtoCart(item) {
+             
             if (Cookies.get("cart")){
                 this.cart = JSON.parse(Cookies.get("cart"));
+                this.cartLength = Cookies.get("cartLength");
                 if (!this.checkDup(item)){
-                    console.log(JSON.stringify(this.cart));
+                    
                     this.cart.push(item);
                     Cookies.set('cart',JSON.stringify(this.cart));
                     // console.log(JSON.parse(Cookies.get('cart')));
                     this.desiredQuantity[item.id] = 1;
                     Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
                     this.cartLength++;
+                    Cookies.set('cartLength', this.cartLength);
                     // console.log("notaddcart");
                 }
             }else{
@@ -498,6 +507,7 @@ export default {
                     this.desiredQuantity[item.id] = 1;
                     Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
                     this.cartLength++;
+                    Cookies.set('cartLength', this.cartLength);
                     // console.log("notaddcart");
                 }
             }
@@ -505,13 +515,13 @@ export default {
             
         },
         checkDup(item){
-            if (this.cart.includes(item,0) ){
+  // Check if the `cart` array has an object with the same `id` as `item`
+            if (this.cart.some(cartItem => cartItem.id === item.id)){
                 console.log("Dup check");
                 return true
             }else{
                 console.log("not dup");
                 return false;
-                
             }
         }
         // getListings(){
