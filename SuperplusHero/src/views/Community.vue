@@ -93,6 +93,7 @@
                                             class="heart-icon" />
                                         <strong class="like-count">{{ post.Likes }} likes</strong>
                                     </a>
+                                    <button @click="navigateToRecipe(post)" class="btn btn-primary btn-sm ml-auto">See Recipe</button>
                                 </small>
                             </div>
                         </div>
@@ -138,7 +139,7 @@ export default {
     methods: {
         async fetchPostsFromServer() {
             try {
-                const response = await axios.get('http://localhost:5000/communityposts');
+                const response = await axios.get('http://127.0.0.1:5000/communityposts');
                 const sortedPosts = response.data.sort((a, b) => {
                     return new Date(b.CreatedAt) - new Date(a.CreatedAt);
                 });
@@ -159,7 +160,7 @@ export default {
 
         async searchPosts() {
             try {
-                const response = await axios.get('http://localhost:5000/communityposts');
+                const response = await axios.get('http://127.0.0.1:5000/communityposts');
                 let posts = response.data;
                 this.posts = posts;
                 this.filterPosts();
@@ -227,13 +228,18 @@ export default {
 
         async updateLikes(postId, updatedLikes, post) {
             try {
-                const response = await axios.put('http://localhost:5000/likepost', {
+                const response = await axios.put('http://127.0.0.1:5000/likepost', {
                     id: postId,
                     likes: updatedLikes
                 });
             } catch (error) {
                 console.error('Error updating likes:', error);
             }
+        },
+
+        navigateToRecipe(post) {
+            // Navigate to the readRecipe page with the recipeURL
+            this.$router.push('/readRecipe/' + post.recipeURL);
         }
     },
 };

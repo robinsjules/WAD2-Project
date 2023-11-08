@@ -141,6 +141,7 @@
 
 <script>
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export default {
   data() {
@@ -181,6 +182,34 @@ export default {
         geturl:`/api2/get_profile/${this.userName}`
         };
     },
+    //get userName from cookies 
+    created() {
+    // Get the 'username' cookie and set it in the component's data
+        const userNameFromCookie = Cookies.get('username');
+        if (userNameFromCookie) {
+        this.userName = userNameFromCookie;
+        }
+        
+        axios.get(this.geturl)
+      .then((response) => {
+        const retrievedUserData = response.data;
+
+        // Assign the data to the component's data properties
+        this.userPicture = retrievedUserData.UserPicture;
+        this.email = retrievedUserData.Email;
+        this.phoneNum = retrievedUserData.Phone;
+        this.postalCode = retrievedUserData.PostalCode;
+
+        // Convert JSON strings to lists of objects
+        this.foodPreferences = JSON.parse(retrievedUserData.FoodPreferences);
+        this.intolerances = JSON.parse(retrievedUserData.Allergies);
+      })
+      .catch((error) => {
+        console.error(error); // Log the error for debugging
+        alert('Error in retrieving data');
+      });
+    },
+
     // mounted() {
     // // Make a GET request to retrieve the user data
     // axios.get(`http://127.0.0.1:5000/get_profile/${this.userName}`)
