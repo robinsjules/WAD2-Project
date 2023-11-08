@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import TestingPage from '@/views/TestingPage.vue'
 import Home from '@/views/Home.vue'
-import Login from '@/views/Login.vue'
 import Profile from '@/views/Profile.vue'
 import Register from '@/views/Register.vue'
 import AllRecipes from '@/views/AllRecipes.vue'
@@ -11,7 +10,6 @@ import readRecipe from '@/views/readRecipe.vue'
 import AllIngredients from '@/views/AllIngredients.vue'
 import Products from '@/views/Products.vue'
 import UserRecipes from '@/views/UserRecipes.vue'
-import Register2 from '@/views/Register2.vue'
 import Community from '@/views/Community.vue'
 import ben_test2 from '@/views/ben_test2.vue'
 import Fridge from '@/views/Fridge.vue'
@@ -30,11 +28,6 @@ const router = createRouter({
       path: '/home',
       name: 'Home',
       component: Home
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
     },
     {
       path: '/profile',
@@ -80,11 +73,6 @@ const router = createRouter({
       path: '/user/recipes',
       name: 'UserRecipes',
       component: UserRecipes
-    },
-    {
-      path: '/register2',
-      name: 'Register2',
-      component: Register2
     },
     {
       path: '/community',
