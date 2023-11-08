@@ -1,8 +1,12 @@
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+*{
+    font-family: "Montserrat";
+}
 .content {
     margin-top: 100px;
 }
-
 .card {
     width: 615px;
     height: 600px;
