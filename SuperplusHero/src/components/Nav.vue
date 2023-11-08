@@ -35,6 +35,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  flex: 1; 
 }
 
 .cartThumbnail {
@@ -43,14 +44,30 @@
   height: 20%;
 }
 
-.cart-item-details {
+/* .cart-item-details {
   display: flex;
   flex-direction: column;
   align-items: start;
-}
+} */
+
+
 
 .checkout {
   text-align: right;
+}
+
+.remove{
+  justify-content: right;
+  align-items: center;
+  margin-left: auto;
+}
+
+
+
+.cartItemActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 </style>
@@ -180,18 +197,26 @@
                     <div class="cart-item-details">
                         <h3 class="cartItemName">{{item.IngredientName}}</h3>
                         <span class="price"> Price: <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></span>
-                        Quantity: 
-                        <div class="cartItemQuantity">
-                          <button class="btn btn-primary" @click="decreaseQuantity(item)">-</button>
-                          {{desiredQuantity[item.id] || 1}} 
-                          <!-- If item id exists in desiered quantity object set value to 1 if not go next -->
-                          <button class="btn btn-primary" @click="increaseQuantity(item)">+</button>
-                        </div>
-                        <div class="cartItemStock">
-                          Stock Available: {{ item.Quantity }}
-                        </div>
+    
+                          <div class="cartItemQuantity">
+                            Quantity: 
+                              <button class="btn btn-primary" @click="decreaseQuantity(item)">-</button>
+                              {{desiredQuantity[item.id] || 1}} 
+                              <!-- If item id exists in desiered quantity object set value to 1 if not go next -->
+                              <button class="btn btn-primary" @click="increaseQuantity(item)">+</button>
+                              
+                              
+                              <div class="cartItemStock">
+                                Stock Available: {{ item.Quantity }}
+                              </div>
+                          </div>
 
-                      </div>
+                          
+                          
+                        </div>
+                        <button class="btn btn-primary remove" @click="removeFromCart(item)">X</button>
+
+                      <hr>
                     </div>
                     <router-link to="/checkout">
                       <button class="btn btn-primary checkout" data-bs-dismiss="modal">Checkout</button>
@@ -263,6 +288,17 @@ export default {
       // }
     },
   methods: {
+    removeFromCart(item) {
+      const index = this.cart.findIndex(cartItem => cartItem.id === item.id); // Calls the findIndex method on every item (we call cartItem) Check if the item in cart matches the item being sent from remove item
+      if (index !== -1) {
+        this.cart.splice(index, 1);
+        Cookies.set('cart', JSON.stringify(this.cart));
+        if (this.desiredQuantity[item.id]) {
+          delete this.desiredQuantity[item.id];
+          Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity)); // Update cookies
+      }
+    }
+  },
     checkCartLength(){
       if (Cookies.get("cartLength")){
         console.log(Cookies.get('cartLength'));
