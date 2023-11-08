@@ -234,7 +234,7 @@ body{
                     <div class="toggle-panel toggle-right">
                         <h1>Welcome to SurplusHero!</h1>
                         <p>Register with your personal details to use all of site features</p>
-                        <button @click="hideContainer" class="hidden" >Sign Up</button>
+                        <button @click="hideContainer" class="hidden {active: isActive}" >Sign Up</button>
                     </div>
                 </div>
             </div>
