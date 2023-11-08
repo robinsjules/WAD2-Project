@@ -205,7 +205,7 @@ body {
 <template>
     <body>
         <div>
-            <div class="container" :class="{active: isActive}">
+            <div class="container" :class="{active:isActive}">
                 <div class="form-container sign-up">
                     <form>
                         <h1>Create Account</h1>
@@ -216,29 +216,29 @@ body {
                         <button @click.prevent="activate">Sign Up</button>
                     </form>
                 </div>
-                    <div class="form-container sign-in">
-                        <form>
-                            <h1>Sign In</h1>
-                            <input type="email" placeholder="Email">
-                            <input type="password" placeholder="Password">
-                            <a href="#">Forget Your Password?</a>
-                            <button>Sign In</button>
-                        </form>
-                    </div>
-                    <div class="toggle-container">
-                        <div class="toggle">
-                                <div class="toggle-panel toggle-left">
-                                    <h1>Welcome Back to SurplusHero!</h1>
-                                    <p>Enter your personal details to use all of site features</p>
-                                    <button @click.prevent="activate" class="hidden">Sign In</button>
-                                </div>
-                                <div class="toggle-panel toggle-right">
-                                    <h1>Welcome to SurplusHero!</h1>
-                                    <p>Register with your personal details to use all of site features</p>
-                                    <button @click.prevent='deactivate' class= "hidden">Sign Up</button>
-                                </div>
+                <div class="form-container sign-in">
+                    <form>
+                        <h1>Sign In</h1>
+                        <input type="email" placeholder="Email">
+                        <input type="password" placeholder="Password">
+                        <a href="#">Forgot Your Password?</a>
+                        <button>Sign In</button>
+                    </form>
+                </div>
+                <div class="toggle-container">
+                    <div class="toggle active">
+                        <div class="toggle-panel toggle-left">
+                            <h1>Welcome Back to SurplusHero!</h1>
+                            <p>Enter your personal details to use all of site features</p>
+                            <button @click.prevent="activate" class="hidden">Sign In</button>
+                        </div>
+                        <div class="toggle-panel toggle-right">
+                            <h1>Welcome to SurplusHero!</h1>
+                            <p>Register with your personal details to use all of site features</p>
+                            <button @click.prevent='deactivate' class="hidden">Sign Up</button>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </body>
@@ -252,7 +252,7 @@ export default {
     // Your component data and methods go here
     data() {
         return {
-            isActive: false,
+            isActive: '',
             form: {
                 UserType: 'What type of user are you?',
                 UserName: '',
@@ -266,11 +266,11 @@ export default {
     },
     methods: {
         activate() {
-            this.isActive = true;
+            this.isActive = 'active';
         },
 
         deactivate() {
-            this.isActive = false;
+            this.isActive = '';
         },
         goToNext() {
             if (this.form.UserType === 'What type of user are you?') {
