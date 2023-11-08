@@ -5,6 +5,10 @@
     margin-left: auto;
 }
 
+.template{
+  font-family: 'Montserrat', sans-serif;
+}
+
 .navbar-dark.navcolor {
   /* background-color: black;  */
   position: fixed;
@@ -178,10 +182,10 @@
                         <span class="price"> Price: <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></span>
                         Quantity: 
                         <div class="cartItemQuantity">
-                          <button class="btn btn-primary" @click="decreaseQuantity(item),checkCart()">-</button>
+                          <button class="btn btn-primary" @click="decreaseQuantity(item)">-</button>
                           {{desiredQuantity[item.id] || 1}} 
                           <!-- If item id exists in desiered quantity object set value to 1 if not go next -->
-                          <button class="btn btn-primary" @click="increaseQuantity(item),checkCart()">+</button>
+                          <button class="btn btn-primary" @click="increaseQuantity(item)">+</button>
                         </div>
                         <div class="cartItemStock">
                           Stock Available: {{ item.Quantity }}
@@ -244,17 +248,29 @@ export default {
   async created() {
       this.checkCookies();
       this.checkCart();
+      this.checkCartLength(); 
       if (Cookies.get('desiredQuantity')) {
         this.desiredQuantity = JSON.parse(Cookies.get('desiredQuantity'));
       }
       this.newCartItem = false;
+      this.cartLength = setInterval(() => {
+        this.checkCartLength();
+      }, 500);
     },
-    computed: {
+    computed: { 
       // cartLength() {
       //   return this.cart.length;
       // }
     },
   methods: {
+    checkCartLength(){
+      if (Cookies.get("cartLength")){
+        console.log(Cookies.get('cartLength'));
+        this.cartLength = Cookies.get('cartLength');
+      }else{
+        this.cartLength=0;
+      }
+    },
     checkCookies(){
       if (Cookies.get('location')){
         this.location = Cookies.get("location");
@@ -265,6 +281,7 @@ export default {
     checkCart(){
       if (Cookies.get("cart")){
           this.cart = JSON.parse(Cookies.get("cart"));
+          // console.log("not checkcartnav");
           if(Cookies.get('desiredQuantity')){
             this.desiredQuantity = JSON.parse(Cookies.get('desiredQuantity'));
           }
