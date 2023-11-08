@@ -230,6 +230,14 @@ export default {
                 const sortedPosts = response.data.sort((a, b) => {
                     return new Date(b.CreatedAt) - new Date(a.CreatedAt);
                 });
+                sortedPosts.forEach(post => {
+                    const liked = Cookies.get(`liked_${post.id}`);
+                    if (liked === 'true') {
+                        post.liked = true;
+                    } else {
+                        post.liked = false;
+                    }
+                });
                 this.posts = sortedPosts;
                 this.filterPosts();
             } catch (error) {
@@ -327,6 +335,7 @@ export default {
         async likePost(post) {
             try {
                 event.preventDefault();
+                Cookies.set(`liked_${post.id}`, 'true');
                 post.liked = true;
                 post.Likes++; // Update the local count
                 const updatedLikes = post.Likes; // Store the updated count
@@ -338,6 +347,7 @@ export default {
 
         async unlikePost(post) {
             try {
+                Cookies.remove(`liked_${post.id}`);
                 event.preventDefault();
                 post.liked = false;
                 post.Likes--; // Update the local count
