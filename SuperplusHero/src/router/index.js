@@ -15,6 +15,8 @@ import Register2 from '@/views/Register2.vue'
 import Community from '@/views/Community.vue'
 import ben_test2 from '@/views/ben_test2.vue'
 import Fridge from '@/views/Fridge.vue'
+import Checkout from "@/views/Checkout.vue"
+import { retrieveSession } from "@/router/retrievesession";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -25,7 +27,7 @@ const router = createRouter({
       component: TestingPage
     },
     {
-      path: '/',
+      path: '/home',
       name: 'Home',
       component: Home
     },
@@ -40,7 +42,7 @@ const router = createRouter({
       component: Profile
     },
     {
-      path: '/register',
+      path: '/',
       name: 'Register',
       component: Register
     },
@@ -55,7 +57,7 @@ const router = createRouter({
       component: AllRecipes2
     },
     {
-      path: '/readrecipe',
+      path: '/readrecipe/:id',
       name: 'readRecipe',
       component: readRecipe
     },
@@ -75,7 +77,7 @@ const router = createRouter({
       component: Products
     },
     {
-      path: '/user/recipes', // once backend is clearer, make the user a variable/key
+      path: '/user/recipes',
       name: 'UserRecipes',
       component: UserRecipes
     },
@@ -93,9 +95,33 @@ const router = createRouter({
       path: '/fridge',
       name: 'Fridge',
       component: Fridge
-    }
+    },
+    {
+      path: '/checkout',
+      name: "Checkout",
+      component: Checkout
+    },
   ]
 })
+
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  if (requiresAuth) {
+    try {
+      const userSession = await retrieveSession();
+      if (!userSession) {
+        next('/login'); // Redirect to login if not authenticated
+      } else {
+        next('/home');
+      }
+    } catch (error) {
+      console.error('Error retrieving session:', error);
+      next('/login'); // Redirect to login on error
+    }
+  } else {
+    next(); // Continue for routes that don't require authentication
+  }
+});
 
 export default router
 

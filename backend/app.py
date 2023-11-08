@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
 from supabase import create_client
+import base64
 
 app = Flask(__name__)
 CORS(app)
@@ -21,7 +22,67 @@ def registerUsers():
     data = request.json
     response = supabase.table('Users').insert(data).execute()
     return (response.data)
-        
+
+@app.route("/sign_up", methods=['POST'])
+def sign_up():
+    auth_header = request.headers.get('Authorization')
+    if auth_header is None:
+        return jsonify({'message': 'Authorization header is missing'}), 401
+    if not auth_header.startswith('Basic'):
+        return jsonify({'message': 'Invalid Authorization header format'}), 401
+    credentials = auth_header[len('Basic '):]
+    decoded_credentials = base64.b64decode(credentials).decode('utf-8')
+    email, password = decoded_credentials.split(':')
+    signUp = supabase.auth.sign_up(email, password)
+    return jsonify({'userId': signUp.user.id, "access_token": signUp.session.access_token, "refresh_token": signUp.session.refresh_token})
+
+@app.route("/retrieve_session")
+def retrieve_session():
+    session = supabase.auth.get_session()
+    email = session.user.email if session else None
+    if email:
+        user = supabase.table('Users').select("*").eq('Email', email).execute()
+        if user.get('data'):
+            user_data = user.get('data')[0]
+            return jsonify({'username': user_data['UserName'], 'email': email})
+    
+    return jsonify({'error': 'No session found'})
+
+@app.route("/refresh_session", methods=['GET'])
+def refresh_session():
+    supabase = create_client(url, key)
+    session = supabase.auth.get_session()
+    if session is not None:
+        return jsonify({'email': session.user.email, "access_token": session.access_token, "refresh_token": session.refresh_token})
+
+# code works -> hooooooray can only log in if u are an authorised user on supabase     
+@app.route("/auth_sign_in", methods=['POST'])
+def sign_in():
+    auth_header = request.headers.get('Authorization')
+
+    if auth_header is None or not auth_header.startswith('Basic'):
+        return jsonify({'message': 'Invalid or missing Authorization header'}), 401
+
+    credentials = auth_header[len('Basic '):]
+    decoded_credentials = base64.b64decode(credentials).decode('utf-8')
+    email, password = decoded_credentials.split(':')
+
+    try:
+        session = supabase.auth.sign_in_with_password({"email": email, "password": password})
+        return jsonify({
+            'email': session.user.email,
+            'access_token': session.session.access_token,
+            'refresh_token': session.session.refresh_token
+        }), 200
+    except Exception as e:
+        return jsonify({'message': 'Authentication failed', 'error': str(e)}), 401
+
+
+@app.route("/auth_sign_out")
+def sign_out():
+    res = supabase.auth.sign_out()
+    return jsonify({'message': 'Signed out'}), 200
+
 # code works -> get profile of user
 @app.route('/get_profile/<username>', methods=['GET'])
 def get_profile(username):
@@ -41,18 +102,17 @@ def get_communityposts():
     response = supabase.table('Posts').select('*').execute()
     return (response.data)
 
-@app.route("/likepost", methods=['POST'])
+# code works -> like post
+@app.route("/likepost", methods=['PUT'])
 def like_post():
-        post_id = request.json.get('id')
-        liked = request.json.get('liked')
+    data = request.json
+    postid = data.get('id')
+    likes = data.get('likes')
 
-        # If the post is liked, increment the likes; if unliked, decrement the likes
-        if liked:
-            supabase.table('Posts').update({'Likes': supabase.raw('Likes + 1')}).eq('id', post_id).execute()
-        else:
-            supabase.table('Posts').update({'Likes': supabase.raw('Likes - 1')}).eq('id', post_id).execute()
+    if postid is not None and likes is not None:
+        response = supabase.table('Posts').update({'Likes': likes}).eq('id', postid).execute()
 
-        return "Success", 200
+    return (response.data)
 
 @app.route("/listings", methods=['GET'])
 def getListings():
