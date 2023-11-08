@@ -9,10 +9,10 @@
     background-color: rgb(237, 243, 235);
 }
 
-.page-title{
+.page-title {
     color: rgb(10, 160, 10);
-    margin-left:15px;
-    margin-top:100px;
+    margin-left: 15px;
+    margin-top: 100px;
     font-weight: bold;
 }
 
@@ -73,9 +73,10 @@
     padding: 10px;
 }
 
-.form-floating{
+.form-floating {
     margin-bottom: 10px;
 }
+
 .custom-dropdown {
     width: 150px;
     /* transform: translateY(25%); */
@@ -176,7 +177,7 @@
                                             class="heart-icon" />
                                         <strong class="like-count">{{ post.Likes }} likes</strong>
                                     </a>
-                                    <button @click="navigateToRecipe(post)"
+                                    <button @click="readRecipe(post)"
                                         class="recipe-button btn btn-sm ml-auto right">See Recipe</button>
                                 </small>
                             </div>
@@ -193,6 +194,7 @@
 
 <script>
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export default {
     data() {
@@ -357,9 +359,15 @@ export default {
             }
         },
 
-        navigateToRecipe(post) {
-            // Navigate to the readRecipe page with the recipeURL
-            this.$router.push('/readRecipe/' + post.recipeURL);
+        // navigateToRecipe(post) {
+        //     // Navigate to the readRecipe page with the recipeURL
+        //     this.$router.push('/readRecipe/' + post.recipeURL);
+        // },
+        
+        readRecipe(post) {
+            this.recipeTitle = post.recipeTitle; 
+            this.$router.push('/readRecipe/' + post.postTitle);
+            Cookies.set("recipeTitle", this.recipeTitle);
         }
     },
 };
