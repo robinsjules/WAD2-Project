@@ -1,9 +1,11 @@
 <style scoped>
-#div {
+#child {
     position: absolute;
     top: 50%;
-    left: 75%;
-    transform: translate(-50%, -50%);
+    left: 50%;
+    transform: translate(-50%, -45%);
+    width: 80%;
+    height: 80%;
 }
 .fridge-container {
   display: flex;
@@ -13,9 +15,12 @@
   max-width: 100%;
 }
 
-.fridge-img {
-  max-width: 100%;
-  cursor: pointer;
+.fridge-img-closed {
+    display: block;
+  }
+
+.fridge-img-open {
+display: none;
 }
 
 .item-list {
@@ -34,55 +39,19 @@
         <div class="px-5 py-5 px-md-5 text-center text-lg-start"
             style="background-color: hsl(0, 0%, 96%);background-size: cover; height: 100vh;">
             <div class="container">
-                <div class="row gx-lg-5 align-items-center">
+                <div class="row gx-lg-5">
                     <div class="col-lg-6 mb-5 mb-lg-0">
                         <br><br><br><br>
                         <h1 class="my-2 display-4 fw-bold" style="color:#408558">
                             Open me to see <span style="color:black">your ingredients!</span>
                         </h1>
                         <br/>
-                    </div>
-                    <!-- <img src="../assets/FridgeOpen.png"> -->
-                    <div class="fridge-container col-lg-6 mb-5 mb-lg-0 mt-5 align-items-center">
-                        <img
-                            @click="toggleFridge()"
-                            id="fridge-image"
-                            class="fridge-img"
-                            :src="test"
-                            alt= "Fridge picture"
-                            style="height:500px; width:300px"
-                        />
-                        <ul id="item-list" class="item-list" :class="{ hidden: !isFridgeOpen }">
-                            <li v-for="(item, i) in items">
-                            {{item}}
-                            <button @click="items.splice(i, 1)">Remove</button> 
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- <div class="col-lg-6 mb-5 mb-lg-0 ">
-                        <div style="position: relative;" class="col-lg-6 mb-5 mb-lg-0">
-                            <img src="../assets/FridgeClosed.png" alt="Fridge Closed" style="height:500px; width:300px">
-                            <div style="position: absolute; left: 10px; top: 10px;  color: white; background: rgba(108, 108, 108, 0.5); padding: 10px; border-radius: 20px; height: 450px; width:250px;">
-                                <h3>Items:</h3>
-                                <ul>
-                                    <li v-for="(item, i) in items">
-                                    {{item}}
-                                    <button @click="items.splice(i, 1)">Remove</button> 
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>   
-                    </div> -->
-                </div>
-
-                <div class="card col-4">
+                        <div class="card">
                             <div class="card-body py-3 px-md-3">
                                 <form>
-                                    <!-- 2 column grid layout with text inputs for the first and last names -->
                                     <div class="col-12 mb-2">
                                         <div class="form-outline">
                                             <label for="fridgeItems">Enter Item</label>
-                                            
                                             <input @keyup.enter="add" v-model="newItem" type="text" id="form3Example2" class="form-control"
                                                 placeholder="Eg. Banana" />
                                         </div>
@@ -100,8 +69,45 @@
                                     </p>
                                 </form>
                             </div>
+                        </div>
                     </div>
-                
+
+                    <div class="fridge-container col-lg-6 mb-5 mb-lg-0 mt-5 align-items-center">
+                        <img
+                            @click="toggleFridge()"
+                            id="fridge-image"                           
+                            class="fridge-img-closed"
+                            src="../assets/FridgeClosed.png"
+                            alt= "Fridge closed picture"
+                            style="height:700px; width:420px"
+                        />
+                        <div style="position:relative;">
+                            <img
+                                @click="toggleFridge()"
+                                id="fridge-open"
+                                :class="{ hidden: !isFridgeOpen }"
+                                src="../assets/FridgeOpen.png"
+                                alt= "Fridge open picture" 
+                                style="height:700px; width:420px"
+                            />
+                            <div id="child">
+                                <div class="card" style="height:560px; overflow:auto;" :class="{ hidden: !isFridgeOpen }">
+                                    <div class="card-body rounded" style="background-color:#408c5b; color:white">
+                                        <ul id="item-list" class="item-list" :class="{ hidden: !isFridgeOpen }">
+                                            <li v-for="(item, i) in items">
+                                                <div class="d-flex justify-content-between">
+                                                    <span class="text-start">{{item}}</span>
+                                                    <button @click="items.splice(i, 1)" class="btn btn-dark text-end" >Remove</button>
+                                                </div>
+                                                &nbsp;
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
             </div>
         </div>
         <!-- Jumbotron -->
@@ -118,11 +124,11 @@ export default {
 
         }
     },
-    async created(){ 
-        console.log(this.isFridgeOpen);
-        this.test='../SuperplusHero/src/assets/FridgeClosed.png';
-        console.log(this.test);
-    },
+    // async created(){ 
+    //     // console.log(this.isFridgeOpen);
+    //     this.test='../assets/FridgeClosed.png';
+    //     // console.log(this.test);
+    // },
     methods: {
         add() {
             if (this.newItem != '') {
@@ -136,12 +142,16 @@ export default {
         },
         toggleFridge() {
             this.isFridgeOpen = !this.isFridgeOpen;
-            const itemList = document.getElementById("item-list");
-            itemList.classList.toggle("hidden", !this.isFridgeOpen);
-            var fridgeImage = document.getElementById("fridge-image");
-            this.test = this.isFridgeOpen ? "../assets/FridgeOpen.png" : "../assets/FridgeClosed.png";
-            console.log(this.isFridgeOpen);
-            console.log(this.test);
+
+            // Get the fridge image element
+            const fridgeImage = document.getElementById("fridge-image");
+            if (this.isFridgeOpen) {
+            fridgeImage.classList.remove("fridge-img-closed");
+            fridgeImage.classList.add("fridge-img-open");
+            } else {
+            fridgeImage.classList.remove("fridge-img-open");
+            fridgeImage.classList.add("fridge-img-closed");
+            }
         },
     }
 }
