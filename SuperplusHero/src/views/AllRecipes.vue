@@ -112,7 +112,7 @@
 
 <script>
 
-import recipeData from '../../../backend/spoonacular/allCuisine.json'
+import recipeData from '../../../backend/spoonacular/allCuisineNew.json'
 import Cookies from 'js-cookie';
 
 
@@ -173,10 +173,6 @@ export default {
   mounted() {
     // Load recipe data from the JSON file when the component is mounted
     this.recipes = recipeData;
-    // Automatically close the sidebar for small screens
-    if (window.innerWidth <= 768) {
-      this.isCollapsed = true;
-    }
   },
   methods: {
 
@@ -199,11 +195,12 @@ export default {
     readRecipe(recipe) {
       this.recipeTitle = recipe.title; // Set the recipeTitle here
       this.$router.push({ name: 'readRecipe', params: { id: recipe.title } });
+      Cookies.set("recipeTitle", this.recipeTitle);
     },
-    setRecipeTitleCookie(title) {
-      // Set a cookie with the recipe title
-      Cookies.set('recipeTitle', title);
-    },
+    // setRecipeTitleCookie(title) {
+    //   // Set a cookie with the recipe title
+    //   Cookies.set('recipeTitle', title);
+    // },
     goToPage(page) {
       this.currentPage = page;
       this.scrollToTop();
@@ -239,11 +236,11 @@ export default {
 </script>
   
 <style scoped>
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 .background{
   background-color: rgb(237, 243, 235); 
   height: 100%;
-  margin: 0px !important
 }
 div {
   font-family: 'Montserrat'
