@@ -11,24 +11,59 @@
 
           <p style="font-weight: bold;">______________________</p>
 
+            <h6>Made for {{ matchingRecipe.servings }} pax</h6>
           <button class="btn" @click="showRemainingSteps = true">
-            <h5 class="hover-effect">Ready In {{ matchingRecipe.readyInMinutes }} minutes</h5>
+            <h6 class="hover-effect" style="margin-bottom: 0px;">Ready In {{ matchingRecipe.readyInMinutes }} minutes</h6>
           </button>
+          <div>
+            
+            <i class="click-me fa-solid fa-sort-up fa-flip-vertical" style="height: 20px;"></i>
+
+            
+
+          </div>
         </div>
+
         <div class="col-md-6 col-12 d-flex justify-content-center justify-content-md-end">
           <img :src="matchingRecipe.image" alt="Recipe Image" style="width: 100%; height: 100%;">
         </div>
       </div>
     <!-- End of Hero Image -->
     <!-- </div> -->
+    <div class="container-fluid">
+    <div class="row main-content">
+      <div class="col-8 " style="border-top: 1px solid; margin-right: 5%; padding-top: 5%;">
+        <h2>{{ matchingRecipe.title }} Preparation</h2><br>
+        <p>{{ matchingRecipe.summary }}</p>
+      </div>
 
-    <div class="col-8 main-content" style="border-top: 1px solid;">
-      <h2>{{ matchingRecipe.title }} Preparation</h2>
-      <p><strong>Summary:</strong> {{ matchingRecipe.summary }}</p>
-    </div>
+      
+        <div class="col-3" style="border-top: 3px solid; border-bottom:3px solid; padding-top: 5%; padding-bottom: 5%;">
+          <h3>Things you need need to get started:</h3><br>
+          <ul>
+            <li v-for="ingredient in matchingRecipe.extendedIngredients">
+              {{ ingredient.original }}
+            </li>
+          </ul>
+
+          <div style="text-align: right;">
+            <button class="btn moving-item hover-effect" @click="showRemainingSteps = true">
+              Let's Get Started <i class="fa-solid fa-angle-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- <div class="col-8" style="background-color: green;">
+            box
+        </div> -->
+      </div>
+    </div> 
+
+  </div>
+    
     
 
-    <div class="content">
+    <div class="reference">
     <div>
     
     <h1>{{ matchingRecipe.title }}</h1>
@@ -43,12 +78,8 @@
     <p><strong>Price Per Serving:</strong> ${{ matchingRecipe.pricePerServing }}</p>
     <p><strong>Source:</strong> <a :href="matchingRecipe.sourceUrl">{{ matchingRecipe.sourceName }}</a></p>
 
-    <h2>Ingredients:</h2>
-    <ul>
-      <li v-for="ingredient in matchingRecipe.extendedIngredients">
-        {{ ingredient.original }}
-      </li>
-    </ul>
+
+    
 
     <h2>Instructions:</h2>
     <ol>
@@ -116,7 +147,7 @@
               </div>
             </div>
           </div>
-        </div>
+        
 
       <!-- Red Box -->
       <div class="col-md-6">
@@ -209,6 +240,10 @@ div {
   overflow: hidden
 }
 
+.reference{
+  margin-top: 1000px
+}
+
 
 .col-12 {
   max-width: 100%;
@@ -225,8 +260,7 @@ div {
 
 .main-content {
   padding-top: 20px;
-  margin-left: 10%; 
-  margin-top: 5%;
+  margin: 5% 5% 0 5%;
 }
 
 
@@ -329,7 +363,7 @@ div {
 .popup-content {
   /* Add or modify these styles */
   background-color: #f7f7f7;
-  padding: 20px;
+  padding: 30px;
   border: 1px solid #888;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   width: 80%; /* Increase the width if necessary */
@@ -376,5 +410,46 @@ div {
 
 .popup-content h3 {
   margin-top: 0;
+}
+
+/* Click Me */
+.click-me {
+  font-size: 36px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  color: black;
+  border: none;
+  /* cursor: pointer; */
+  transition: background-color 0.3s;
+  animation: moveUpDown 2s linear infinite; /* Add this line */
+}
+
+.moving-item {
+            width: 200px;
+            height: 100px;
+            position: relative;
+            animation: moveLeftRight 2s linear infinite;
+        }
+
+/* Define the animation */
+@keyframes moveUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes moveLeftRight {
+  0% {
+                left: 0;
+            }
+            50% {
+                left: 25px; /* Move to the right */
+            }
+            100% {
+                left: 0; /* Move back to the left */
+            }
 }
 </style>
