@@ -45,7 +45,7 @@
     <div class="mx-auto col-lg-6 mb-5 mb-lg-0 ">
             <div class="card">
                 <div class="card-body py-5 px-md-6">
-                    <form id="profileEdit" class="my-4" autocomplete="on" @submit.prevent="updateProfile">
+                    <form id="profileEdit" class="my-4" autocomplete="on" @submit.prevent="">
                         <div id="app">
                             <div class="profile-form">
                                 <div class="profile-picture">
@@ -125,7 +125,7 @@
                                 </ul>
                             </div>
                             <button @click= "updateProfile" class="btn btn-success btn-block mt-4" type="submit" value="submit"> Save changes </button>&nbsp;
-                            <button @click= "logoutProfile" class="btn btn-success mt-4" type="submit" value= true>Log out</button>        
+                            <button @click= "logoutProfile" class="btn btn-success mt-4" type="button" value= true>Log out</button>        
                         </div>
                     </form>
                 </div>
@@ -178,37 +178,37 @@ export default {
             }],
         intolerances:[],
         newIntolerances:'',
-        updateurl: `/api2/update_profile/${this.userName}`,
-        geturl:`/api2/get_profile/${this.userName}`
+        updateurl: `http://127.0.0.1:5000/update_profile/${this.userName}`,
+        geturl:`http://127.0.0.1:5000/get_profile/${this.userName}`
         };
     },
     //get userName from cookies 
-    created() {
-    // Get the 'username' cookie and set it in the component's data
-        const userNameFromCookie = Cookies.get('username');
-        if (userNameFromCookie) {
-        this.userName = userNameFromCookie;
-        }
+    // created() {
+    // // Get the 'username' cookie and set it in the component's data
+    //     const userNameFromCookie = Cookies.get('username');
+    //     if (userNameFromCookie) {
+    //     this.userName = userNameFromCookie;
+    //     }
         
-        axios.get(this.geturl)
-      .then((response) => {
-        const retrievedUserData = response.data;
+    //     axios.get(this.geturl)
+    //   .then((response) => {
+    //     const retrievedUserData = response.data;
 
-        // Assign the data to the component's data properties
-        this.userPicture = retrievedUserData.UserPicture;
-        this.email = retrievedUserData.Email;
-        this.phoneNum = retrievedUserData.Phone;
-        this.postalCode = retrievedUserData.PostalCode;
+    //     // Assign the data to the component's data properties
+    //     this.userPicture = retrievedUserData.UserPicture;
+    //     this.email = retrievedUserData.Email;
+    //     this.phoneNum = retrievedUserData.Phone;
+    //     this.postalCode = retrievedUserData.PostalCode;
 
-        // Convert JSON strings to lists of objects
-        this.foodPreferences = JSON.parse(retrievedUserData.FoodPreferences);
-        this.intolerances = JSON.parse(retrievedUserData.Allergies);
-      })
-      .catch((error) => {
-        console.error(error); // Log the error for debugging
-        alert('Error in retrieving data');
-      });
-    },
+    //     // Convert JSON strings to lists of objects
+    //     this.foodPreferences = JSON.parse(retrievedUserData.FoodPreferences);
+    //     this.intolerances = JSON.parse(retrievedUserData.Allergies);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error); // Log the error for debugging
+    //     alert('Error in retrieving data');
+    //   });
+    // },
 
     // mounted() {
     // // Make a GET request to retrieve the user data
