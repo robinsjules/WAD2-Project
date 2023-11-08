@@ -1,7 +1,7 @@
 <style scoped>
 .btn {
     text-align: center;
-};
+}
 </style>
 <template>
     <!-- Section: Design Block -->
@@ -12,13 +12,17 @@
             <div class="container">
                 <div class="row gx-lg-5 align-items-center">
                     <div class="col-lg-6 mb-5 mb-lg-0">
-                        <h1 class="my-5 display-3 fw-bold ls-tight">
-                            Welcome to <br />
-                            <span class="text-success">Surplus Hero.</span>
-                        </h1>
-                        <p style="color: hsl(217, 10%, 50.8%)">
-                            The one stop platform for surplus groceries and recipe generation!
-                        </p>
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <h1 class="my-5 display-3 fw-bold ls-tight mt-0">
+                                Welcome to <br />
+                                <span class="text-dark">Surplus Hero.</span>
+                                </h1>
+                                <p style="color: hsl(101, 100%, 85%)" >
+                                The one-stop platform for surplus groceries and recipe generation!
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="col-lg-6 mb-5 mb-lg-0">
