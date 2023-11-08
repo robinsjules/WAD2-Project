@@ -106,7 +106,6 @@
 
 <script>
 import axios from 'axios';
-import dropdown from 'vue-dropdowns';
 
 export default {
     data() {
@@ -114,8 +113,7 @@ export default {
             posts: [],
             sortOptions: ['Newest', 'Oldest', 'Most Liked'],
             selectedSortOption: 'Newest',
-            searchQuery: '',
-            isDropdownOpen: false
+            searchQuery: ''
         };
     },
 
@@ -131,10 +129,6 @@ export default {
                 this.searchPosts();
             }
         }
-    },
-
-    components: {
-        'dropdown': dropdown,
     },
 
     methods: {
