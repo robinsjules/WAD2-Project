@@ -29,7 +29,7 @@ body {
     overflow: hidden;
     width: 768px;
     max-width: 100%;
-    min-height: 480px;
+    min-height: 620px;
 }
 
 .container p {
@@ -205,20 +205,32 @@ body {
 <template>
     <body>
         <div>
-            <div class="container" :class="{active:isActive}">
+            <div class="container" :class="containerClasses">
                 <div class="form-container sign-up">
-                    <form>
-                        <h1>Create Account</h1>
-                        <span>or use your email for registeration</span>
-                        <input type="text" placeholder="Name">
-                        <input type="email" placeholder="Email">
-                        <input type="password" placeholder="Password">
-                        <button @click.prevent="activate">Sign Up</button>
+                    <form @submit.prevent="goToNext">
+                        <h1 style="font-weight: bolder;">Sign Up</h1><br>
+                        <select v-model="form.UserType" class="form-control" id="dropdown">
+                            <option value="What type of user are you?" selected>What type of user are you?</option>
+                            <option value="Consumer">Consumer</option>
+                            <option value="Business">Business</option>
+                        </select>
+                        <input v-model="form.UserName" type="text" placeholder="Username">
+                        <input v-model="form.Email" type="email" id="form3Example3" class="form-control"
+                            placeholder="Email Address" />
+                        <input v-model="form.Phone" type="phonenum" id="form3Example4" class="form-control"
+                            placeholder="Phone Number" />
+                        <input v-model="form.Password" type="password" id="form3Example5" class="form-control"
+                            placeholder="Password" />
+                        <input v-if="form.UserType === 'Consumer'" v-model="form.Allergies" type="text" class="form-control"
+                            id="Allergies" placeholder="Allergies (Eg. Shellfish)">
+                        <textarea v-if="form.UserType === 'Consumer'" cols="4" rows="5" v-model="form.Fridge" type="text"
+                            id="Fridge" class="form-control" placeholder="Items in your fridge (Eg. Banana)" />
+                        <button @click="goToNext" @click.prevent="activate">submit</button>
                     </form>
                 </div>
                 <div class="form-container sign-in">
                     <form>
-                        <h1>Sign In</h1>
+                        <h1 style="font-weight: bolder;">Sign In</h1><br>
                         <input type="email" placeholder="Email">
                         <input type="password" placeholder="Password">
                         <a href="#">Forgot Your Password?</a>
@@ -228,14 +240,14 @@ body {
                 <div class="toggle-container">
                     <div class="toggle active">
                         <div class="toggle-panel toggle-left">
-                            <h1>Welcome Back to SurplusHero!</h1>
-                            <p>Enter your personal details to use all of site features</p>
-                            <button @click.prevent="activate" class="hidden">Sign In</button>
+                            <h1 style="font-weight: bolder;">Welcome to SurplusHero!</h1>
+                            <p>Already have an account? Sign in here.</p>
+                            <button @click.prevent="deactivate" class="hidden">Sign In</button>
                         </div>
                         <div class="toggle-panel toggle-right">
-                            <h1>Welcome to SurplusHero!</h1>
-                            <p>Register with your personal details to use all of site features</p>
-                            <button @click.prevent='deactivate' class="hidden">Sign Up</button>
+                            <h1 style="font-weight: bolder;">Welcome Back to SurplusHero!</h1>
+                            <p>Don't have an account? Sign up now!</p>
+                            <button @click.prevent='activate' class="hidden">Sign Up</button>
                         </div>
                     </div>
                 </div>
@@ -252,7 +264,9 @@ export default {
     // Your component data and methods go here
     data() {
         return {
-            isActive: '',
+            containerClasses: {
+                active: false
+            },
             form: {
                 UserType: 'What type of user are you?',
                 UserName: '',
@@ -266,11 +280,10 @@ export default {
     },
     methods: {
         activate() {
-            this.isActive = 'active';
+            this.containerClasses.active = true;
         },
-
         deactivate() {
-            this.isActive = '';
+            this.containerClasses.active = false;
         },
         goToNext() {
             if (this.form.UserType === 'What type of user are you?') {

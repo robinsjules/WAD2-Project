@@ -85,7 +85,7 @@
                                                 placeholder="Items in your fridge (Eg. Banana)" />
                                         </div><br>
                                     </div>
-                                    </div>
+                                </div>
                                     <!-- Submit button -->
                                     <div class="col-md-12 mb-4">
                                         <div class="d-flex justify-content-between">
