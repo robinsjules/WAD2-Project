@@ -2,14 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
 }
 
-body{
+body {
     background-color: #c9d6ff;
     background: linear-gradient(to right, #e2e2e2, #c9d6ff);
     display: flex;
@@ -21,7 +21,7 @@ body{
     background-size: cover;
 }
 
-.container{
+.container {
     background-color: #fff;
     border-radius: 30px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
@@ -32,25 +32,25 @@ body{
     min-height: 480px;
 }
 
-.container p{
+.container p {
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.3px;
     margin: 20px 0;
 }
 
-.container span{
+.container span {
     font-size: 12px;
 }
 
-.container a{
+.container a {
     color: #333;
     font-size: 13px;
     text-decoration: none;
     margin: 15px 0 10px;
 }
 
-.container button{
+.container button {
     background-color: #436a43;
     color: #fff;
     font-size: 12px;
@@ -64,12 +64,12 @@ body{
     cursor: pointer;
 }
 
-.container button.hidden{
+.container button.hidden {
     background-color: transparent;
     border-color: #fff;
 }
 
-.container form{
+.container form {
     background-color: #fff;
     display: flex;
     align-items: center;
@@ -79,7 +79,7 @@ body{
     height: 100%;
 }
 
-.container input{
+.container input {
     background-color: #eee;
     border: none;
     margin: 8px 0;
@@ -90,51 +90,53 @@ body{
     outline: none;
 }
 
-.form-container{
+.form-container {
     position: absolute;
     top: 0;
     height: 100%;
     transition: all 0.6s ease-in-out;
 }
 
-.sign-in{
+.sign-in {
     left: 0;
     width: 50%;
     z-index: 2;
 }
 
-.container.active .sign-in{
+.container.active .sign-in {
     transform: translateX(100%);
 }
 
-.sign-up{
+.sign-up {
     left: 0;
     width: 50%;
     opacity: 0;
     z-index: 1;
 }
 
-.container.active .sign-up{
+.container.active .sign-up {
     transform: translateX(100%);
     opacity: 1;
     z-index: 5;
     animation: move 0.6s;
 }
 
-@keyframes move{
-    0%, 49.99%{
+@keyframes move {
+
+    0%,
+    49.99% {
         opacity: 0;
         z-index: 1;
     }
-    50%, 100%{
+
+    50%,
+    100% {
         opacity: 1;
         z-index: 5;
     }
 }
 
-
-
-.toggle-container{
+.toggle-container {
     position: absolute;
     top: 0;
     left: 50%;
@@ -146,12 +148,12 @@ body{
     z-index: 1000;
 }
 
-.container.active .toggle-container{
+.container.active .toggle-container {
     transform: translateX(-100%);
     border-radius: 0 150px 100px 0;
 }
 
-.toggle{
+.toggle {
     background-color: #512da8;
     height: 100%;
     background: linear-gradient(to right, #5eab69, #445043);
@@ -164,11 +166,11 @@ body{
     transition: all 0.6s ease-in-out;
 }
 
-.container.active .toggle{
+.container.active .toggle {
     transform: translateX(50%);
 }
 
-.toggle-panel{
+.toggle-panel {
     position: absolute;
     width: 50%;
     height: 100%;
@@ -183,60 +185,60 @@ body{
     transition: all 0.6s ease-in-out;
 }
 
-.toggle-left{
+.toggle-left {
     transform: translateX(-200%);
 }
 
-.container.active .toggle-left{
+.container.active .toggle-left {
     transform: translateX(0);
 }
 
-.toggle-right{
+.toggle-right {
     right: 0;
     transform: translateX(0);
 }
 
-.container.active .toggle-right{
+.container.active .toggle-right {
     transform: translateX(200%);
 }
-
 </style>
 <template>
     <body>
-
-        <div class="container">
-            <div class="form-container sign-up">
-                <form>
-                    <h1>Create Account</h1>
-                    <span>or use your email for registeration</span>
-                    <input type="text" placeholder="Name">
-                    <input type="email" placeholder="Email">
-                    <input type="password" placeholder="Password">
-                    <button>Sign Up</button>
-                </form>
-            </div>
-            <div class="form-container sign-in">
-                <form>
-                    <h1>Sign In</h1>
-                    <input type="email" placeholder="Email">
-                    <input type="password" placeholder="Password">
-                    <a href="#">Forget Your Password?</a>
-                    <button>Sign In</button>
-                </form>
-            </div>
-            <div class="toggle-container {active: isActive}">
-                <div class="toggle">
-                    <div class="toggle-panel toggle-left">
-                        <h1>Welcome Back to SurplusHero!</h1>
-                        <p>Enter your personal details to use all of site features</p>
-                        <button @click= "showContainer" class="hidden">Sign In</button>
-                    </div>
-                    <div class="toggle-panel toggle-right">
-                        <h1>Welcome to SurplusHero!</h1>
-                        <p>Register with your personal details to use all of site features</p>
-                        <button @click="hideContainer" class="hidden {active: isActive}" >Sign Up</button>
-                    </div>
+        <div>
+            <div class="container" :class="{active: isActive}">
+                <div class="form-container sign-up">
+                    <form>
+                        <h1>Create Account</h1>
+                        <span>or use your email for registeration</span>
+                        <input type="text" placeholder="Name">
+                        <input type="email" placeholder="Email">
+                        <input type="password" placeholder="Password">
+                        <button @click.prevent="activate">Sign Up</button>
+                    </form>
                 </div>
+                    <div class="form-container sign-in">
+                        <form>
+                            <h1>Sign In</h1>
+                            <input type="email" placeholder="Email">
+                            <input type="password" placeholder="Password">
+                            <a href="#">Forget Your Password?</a>
+                            <button>Sign In</button>
+                        </form>
+                    </div>
+                    <div class="toggle-container">
+                        <div class="toggle">
+                                <div class="toggle-panel toggle-left">
+                                    <h1>Welcome Back to SurplusHero!</h1>
+                                    <p>Enter your personal details to use all of site features</p>
+                                    <button @click.prevent="activate" class="hidden">Sign In</button>
+                                </div>
+                                <div class="toggle-panel toggle-right">
+                                    <h1>Welcome to SurplusHero!</h1>
+                                    <p>Register with your personal details to use all of site features</p>
+                                    <button @click.prevent='deactivate' class= "hidden">Sign Up</button>
+                                </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </body>
@@ -245,7 +247,6 @@ body{
 </template>
 <script>
 import axios from 'axios';
-
 
 export default {
     // Your component data and methods go here
@@ -264,16 +265,17 @@ export default {
         }
     },
     methods: {
-        showContainer() {
-            this.active = true
+        activate() {
+            this.isActive = true;
         },
-        hideContainer(){
-            this.active = false
+
+        deactivate() {
+            this.isActive = false;
         },
         goToNext() {
-            if(this.form.UserType === 'What type of user are you?'){
+            if (this.form.UserType === 'What type of user are you?') {
                 alert('Please select a user type');
-            }else{
+            } else {
                 var url = 'http://127.0.0.1:5000/register_user';
                 var para = {
                     UserType: this.form.UserType,
@@ -285,17 +287,17 @@ export default {
                     Fridge: JSON.stringify(this.form.Fridge),
                 }
                 axios.post(url, para)
-                .then(response => {
-                    console.log(response.data)
-                    this.$router.push({ name: 'Login' });
-                })
-                .catch(error => {
-                    console.log(error.message)
-                    console.error(error.response.data)
-                });
+                    .then(response => {
+                        console.log(response.data)
+                        this.$router.push({ name: 'Login' });
+                    })
+                    .catch(error => {
+                        console.log(error.message)
+                        console.error(error.response.data)
+                    });
             }
-            }
-        },
-    }
+        }
+    },
+}
 </script>
     
