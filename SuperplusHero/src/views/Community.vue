@@ -27,6 +27,11 @@
 .post-image {
     width: 100%;
     object-fit: cover;
+    height: 350px;
+}
+
+.caption {
+    margin-top: 10px;
 }
 
 .heart-icon {
@@ -93,11 +98,11 @@ button:hover {
                                         <div class="text-muted small">Posted on {{ post.CreatedAt }}</div>
                                     </div>
                                 </div>
-                                <p>
+                                <img :src="post.imageURL" class="post-image"> <!-- Need to make this responsive-->
+                                <p class="caption">
                                     <!-- Display post content fetched from Supabase -->
                                     {{ post.Caption }}
                                 </p>
-                                <img :src="post.imageURL" class="post-image"> <!-- Need to make this responsive-->
                             </div>
                             <div class="card-footer">
                                 <small class="align-middle">
