@@ -1,7 +1,36 @@
 <template>
   
-  <div style="background-color: rgb(237, 243, 235);">
+  <div class="background">
   <div class="content">
+    <div>
+    <span class="hero-shot"><img :src="matchingRecipe.image" alt="Recipe Image" style="height: 90vh; width: 50vw;"></span>
+    <h1>{{ matchingRecipe.title }}</h1>
+    <p><strong>Summary:</strong> {{ matchingRecipe.summary }}</p>
+    <p><strong>Cuisines:</strong> {{ matchingRecipe.cuisines.join(', ') }}</p>
+    <p><strong>Dish Types:</strong> {{ matchingRecipe.dishTypes.join(', ') }}</p>
+    <p><strong>Diets:</strong> {{ matchingRecipe.diets.join(', ') }}</p>
+    <p><strong>Occasions:</strong> {{ matchingRecipe.occasions.join(', ') }}</p>
+    <p><strong>Servings:</strong> {{ matchingRecipe.servings }}</p>
+    <p><strong>Ready In:</strong> {{ matchingRecipe.readyInMinutes }} minutes</p>
+    <p><strong>Health Score:</strong> {{ matchingRecipe.healthScore }}</p>
+    <p><strong>Price Per Serving:</strong> ${{ matchingRecipe.pricePerServing }}</p>
+    <p><strong>Source:</strong> <a :href="matchingRecipe.sourceUrl">{{ matchingRecipe.sourceName }}</a></p>
+
+    <h2>Ingredients:</h2>
+    <ul>
+      <li v-for="ingredient in matchingRecipe.extendedIngredients">
+        {{ ingredient.original }}
+      </li>
+    </ul>
+
+    <h2>Instructions:</h2>
+    <ol>
+      <li v-for="step in matchingRecipe.analyzedInstructions[0].steps">
+        {{ step.step }}
+      </li>
+    </ol>
+  </div>
+
     <div class="row">
       <div class="col-md-12">
         <div class="recipe-card" v-if="matchingRecipe">
@@ -115,6 +144,13 @@ export default {
       showRemainingSteps: false, // Track whether to show the remaining steps popup
     };
   },
+  async created() {
+        try {
+            console.log('All cookies:', Cookies.get());
+        } catch(error) {
+            console.error(error);
+        }
+    },
   computed: {
     matchingRecipe() {
       return this.recipes.results.find(recipe => recipe.title === this.recipeTitle);
@@ -123,11 +159,21 @@ export default {
   created() {
     // Retrieve the recipe title from the cookie when the component is created
     this.recipeTitle = Cookies.get('recipeTitle');
+    console.log('Recipe Title:', this.recipeTitle);
   },
 };
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+.background{
+  background-color: rgb(237, 243, 235); 
+  height: 100%;
+}
+div {
+  font-family: 'Montserrat'
+}
+
 .content {
   margin-top: 80px;
   align-items: center;
@@ -135,6 +181,10 @@ export default {
   height: 100%;
   margin-left: 5%; 
   margin-right: 5%;
+}
+
+.hero-shot{
+  margin-right: 0px !important ;
 }
 
 .ingredients {
