@@ -41,9 +41,6 @@
             <div class="col-md">
               <div class="input-group me-8">
                 <input v-model="searchQuery" type="text" class="form-control" placeholder="Search Recipe..">
-                <div class="input-group-append">
-                  <button class="btn btn-success" type="button" @click="searchRecipes">Search</button>
-                </div>
               </div>
             </div>
           </div>

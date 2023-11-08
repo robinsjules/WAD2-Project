@@ -1,9 +1,36 @@
 <template>
   
   <div class="background">
-  <div class="content">
+    <!-- <div class="container-fluid"> -->
+      <!-- Start of Hero Image -->
+      <div class="row" style="margin-top: 85px; border-bottom: 1px solid; background-color: white; ">
+        <div class="col-md-6 col-12 centered-content">
+          <p class="surplus-hero">SurplusHero</p>
+          <h1 class="recipe-title">{{ matchingRecipe.title }}</h1>
+          <p style="font-size: 1rem;">Suitable for {{ matchingRecipe.diets.join(', ') }}</p>
+
+          <p style="font-weight: bold;">______________________</p>
+
+          <button class="btn" @click="showRemainingSteps = true">
+            <h5 class="hover-effect">Ready In {{ matchingRecipe.readyInMinutes }} minutes</h5>
+          </button>
+        </div>
+        <div class="col-md-6 col-12 d-flex justify-content-center justify-content-md-end">
+          <img :src="matchingRecipe.image" alt="Recipe Image" style="width: 100%; height: 100%;">
+        </div>
+      </div>
+    <!-- End of Hero Image -->
+    <!-- </div> -->
+
+    <div class="col-8 main-content" style="border-top: 1px solid;">
+      <h2>{{ matchingRecipe.title }} Preparation</h2>
+      <p><strong>Summary:</strong> {{ matchingRecipe.summary }}</p>
+    </div>
+    
+
+    <div class="content">
     <div>
-    <span class="hero-shot"><img :src="matchingRecipe.image" alt="Recipe Image" style="height: 90vh; width: 50vw;"></span>
+    
     <h1>{{ matchingRecipe.title }}</h1>
     <p><strong>Summary:</strong> {{ matchingRecipe.summary }}</p>
     <p><strong>Cuisines:</strong> {{ matchingRecipe.cuisines.join(', ') }}</p>
@@ -155,6 +182,13 @@ export default {
     matchingRecipe() {
       return this.recipes.results.find(recipe => recipe.title === this.recipeTitle);
     },
+    beforeRouteLeave(to, from, next) {
+    // Scroll to the top before leaving the current route
+    window.scrollTo(0, 0);
+
+    // Continue with the route navigation
+    next();
+  },
   },
   created() {
     // Retrieve the recipe title from the cookie when the component is created
@@ -171,25 +205,67 @@ export default {
   height: 100%;
 }
 div {
-  font-family: 'Montserrat'
+  font-family: 'Montserrat';
+  overflow: hidden
 }
 
-.content {
-  margin-top: 80px;
+
+.col-12 {
+  max-width: 100%;
+  overflow: hidden;
+  /* height: 400px !important; */
+}
+
+
+.col-md-6 {
+  max-width: 100%;
+  overflow: hidden;
+  height: 90vh !important; 
+}
+
+.main-content {
+  padding-top: 20px;
+  margin-left: 10%; 
+  margin-top: 5%;
+}
+
+
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  background-color: rgb(237, 243, 235);
-  height: 100%;
-  margin-left: 5%; 
-  margin-right: 5%;
+  text-align: center;
+  padding: 5%;
 }
 
-.hero-shot{
-  margin-right: 0px !important ;
-}
-
-.ingredients {
-  margin-top: 20px;
+.surplus-hero {
+  background-color: green;
+  color: white;
+  width: fit-content;
   padding: 10px;
+}
+
+.recipe-title {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.section-divider {
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+.hover-effect {
+  transition: color 0.3s, text-decoration 0.3s;
+}
+
+.hover-effect:hover {
+  color: green;
+  text-decoration: underline;
 }
 
 /* Style for the checkbox input */
