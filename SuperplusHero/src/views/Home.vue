@@ -497,7 +497,8 @@ export default {
       location:"",
       
       items: [],
-      cart: []
+      cart: [],
+      cartLength:0
 
 
     };
@@ -514,11 +515,19 @@ export default {
 
     methods: {
         addtoCart(item) {
-            if (!this.checkDup(item)){
-                this.cart.push(item);
-                Cookies.set('cart',JSON.stringify(this.cart));
-                // console.log(JSON.parse(Cookies.get('cart')));
+            if (Cookies.get("cart")){
+                this.cart = JSON.parse(Cookies.get("cart"));
+                if (!this.checkDup(item)){
+                    this.cart.push(item);
+                    Cookies.set('cart',JSON.stringify(this.cart));
+                    // console.log(JSON.parse(Cookies.get('cart')));
+                    this.desiredQuantity[item.id] = 1;
+                    Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
+                    this.cartLength++;
+                }
             }
+
+            
         },
         checkDup(item){
             if (this.cart.includes(item,0) ){

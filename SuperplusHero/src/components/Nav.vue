@@ -111,9 +111,12 @@
             @click="checkCart()"
             >
 
+
             
             
             <img src="../assets/cartWhite.png" alt="Cart" width="50" height="50">
+            <span class="badge bg-danger" v-if="cartLength > 0 " role="alert">{{ cartLength }}</span>
+            <i class="bi bi-bell"></i>
           
           </a>
           </router-link>
@@ -175,14 +178,19 @@
                         <span class="price"> Price: <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></span>
                         Quantity: 
                         <div class="cartItemQuantity">
-                          <button class="btn btn-primary" @click="decreaseQuantity(item)">-</button>
-                          {{desiredQuantity}}
-                          <button class="btn btn-primary" @click="increaseQuantity(item)">+</button>
+                          <button class="btn btn-primary" @click="decreaseQuantity(item),checkCart()">-</button>
+                          {{desiredQuantity[item.id] || 1}} 
+                          <!-- If item id exists in desiered quantity object set value to 1 if not go next -->
+                          <button class="btn btn-primary" @click="increaseQuantity(item),checkCart()">+</button>
                         </div>
+                        <div class="cartItemStock">
+                          Stock Available: {{ item.Quantity }}
+                        </div>
+
                       </div>
                     </div>
                     <router-link to="/checkout">
-                      <button class="btn btn-primary checkout">Checkout</button>
+                      <button class="btn btn-primary checkout" data-bs-dismiss="modal">Checkout</button>
                     </router-link>
                 </div>
               </div>
@@ -226,19 +234,25 @@ export default {
       // newNotifications: false,
       postalCode: "",
       location:"",
-      desiredQuantity: 1,
+      desiredQuantity: {},
       totalPrice:0.0,
       cart:[],
+      newCartItem: false,
+      cartLength: 0,
     };
   },
   async created() {
       this.checkCookies();
       this.checkCart();
+      if (Cookies.get('desiredQuantity')) {
+        this.desiredQuantity = JSON.parse(Cookies.get('desiredQuantity'));
+      }
+      this.newCartItem = false;
     },
     computed: {
-      cartLength() {
-        return this.cart.length;
-      }
+      // cartLength() {
+      //   return this.cart.length;
+      // }
     },
   methods: {
     checkCookies(){
@@ -251,23 +265,38 @@ export default {
     checkCart(){
       if (Cookies.get("cart")){
           this.cart = JSON.parse(Cookies.get("cart"));
-          // console.log(this.cart);
-          // console.log("working");
+          if(Cookies.get('desiredQuantity')){
+            this.desiredQuantity = JSON.parse(Cookies.get('desiredQuantity'));
+          }
+
+          for (let item of this.cart) {
+            if(this.desiredQuantity[item.id] === undefined){
+              this.desiredQuantity[item.id] = 1;
+            }
+          }
+          
       }else{
         this.cart = [];
       }
     },
     increaseQuantity(item) {
-      if(item.Quantity > this.desiredQuantity){
-        this.desiredQuantity++;
-        console.log("good");
+      if (!this.desiredQuantity[item.id]) {
+        this.desiredQuantity[item.id] = 1;
+      } else {
+        if(item.Quantity > this.desiredQuantity[item.id]){
+          this.desiredQuantity[item.id]++;
+        }
       }
-  },
-  decreaseQuantity(item) {
-    if(this.desiredQuantity > 1) {
-      this.desiredQuantity--;
-    }
-  },
+      Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
+    },
+    decreaseQuantity(item) {
+      if (!this.desiredQuantity[item.id] || this.desiredQuantity[item.id] <= 1) {
+        delete this.desiredQuantity[item.id];
+      } else {
+        this.desiredQuantity[item.id]--;
+      }
+      Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
+    },
     // haveProducts(){
     //   return this.cart.length>0;
     // },
@@ -333,6 +362,10 @@ export default {
     location(newLocation) { 
       // Set the cookie when location gets updated
       this.setLocationCookie();
+    },
+    cart: function (newVal, oldVal) {
+      this.cartLength = newVal.length;
+      Cookies.set('cartLength', JSON.stringify(this.cartLength));
     },
   },
 };
