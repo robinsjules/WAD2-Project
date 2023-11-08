@@ -200,6 +200,7 @@ export default {
     data() {
         return {
             posts: [],
+            originalPosts: [],
             sortOptions: ['Newest', 'Oldest', 'Most Liked'],
             selectedSortOption: 'Newest',
             cuisines: [],
@@ -238,7 +239,9 @@ export default {
                         post.liked = false;
                     }
                 });
+
                 this.posts = sortedPosts;
+                this.originalPosts = sortedPosts; // Store a reference to the original posts
                 this.filterPosts();
             } catch (error) {
                 console.error('Error fetching posts:', error);
@@ -314,14 +317,22 @@ export default {
 
         async filterRecipesByCuisine(cuisine) {
             try {
-                const response = await axios.get('http://127.0.0.1:5000/communityposts');
-                let filteredPosts = response.data;
+                if (cuisine === 'All') {
+                    this.posts = this.originalPosts; // Restore original posts when All is selected
+                } else {
+                    // Filter the posts based on the chosen cuisine
+                    const filteredPosts = this.originalPosts.filter(post => post.Cuisine === cuisine);
 
-                if (cuisine !== 'All') {
-                    filteredPosts = filteredPosts.filter(post => post.Cuisine === cuisine);
+                    // Update the liked status for the filtered posts
+                    filteredPosts.forEach(post => {
+                        const originalPost = this.posts.find(p => p.id === post.id);
+                        if (originalPost) {
+                            post.liked = originalPost.liked;
+                        }
+                    });
+
+                    this.posts = filteredPosts; // Set the filtered posts
                 }
-
-                this.posts = filteredPosts;
             } catch (error) {
                 console.error('Error filtering recipes by cuisine:', error);
             }
