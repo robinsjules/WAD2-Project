@@ -29,7 +29,7 @@ body {
     overflow: hidden;
     width: 768px;
     max-width: 100%;
-    min-height: 620px;
+    min-height: 690px;
 }
 
 .container p {
@@ -208,6 +208,7 @@ body {
             <div class="container" :class="containerClasses">
                 <div class="form-container sign-up">
                     <form @submit.prevent="goToNext">
+                        <img src="../../src/assets/appLogo.png" style="max-width: 80px; max-height: 80px;">
                         <h1 style="font-weight: bolder;">Sign Up</h1><br>
                         <select v-model="form.UserType" class="form-control" id="dropdown">
                             <option value="What type of user are you?" selected>What type of user are you?</option>
@@ -225,6 +226,7 @@ body {
                 </div>
                 <div class="form-container sign-in">
                     <form @submit.prevent="login">
+                        <img src="../../src/assets/appLogo.png" style="max-width: 80px; max-height: 80px;">
                         <h1 style="font-weight: bolder;">Sign In</h1><br>
                         <input v-model="Email" type="email" id="form3Example3" class="form-control" placeholder="Email" />
                         <input v-model="Password" type="password" id="form3Example4" class="form-control" placeholder="Password" />
