@@ -113,6 +113,9 @@
                                 </form>
                             </div>
                         </div>
+                        <p class="py-3">
+                            <button @click=sendFridgeToServer class="btn btn-success">Save items</button>
+                        </p>
                     </div>
 
                     <div class="fridge-container col-lg-6 mb-5 mb-lg-0 mt-5 align-items-center">
@@ -130,14 +133,12 @@
                                         style="background-color:#86cbc99d; border: 3px solid #FF6F61;">
                                         <ul id="item-list" class="item-list" :class="{ hidden: !isFridgeOpen }">
                                             <li v-for="(item, i) in items">
-                                                <li v-for="(ingredients, i) in item.Fridge">
-                                                    <div class="d-flex justify-content-between ingredient-card">
-                                                    <span class="text-start">{{ ingredients }}</span>
-                                                    <button @click="(ingredients).splice(i, 1)"
+                                                <div class="d-flex justify-content-between ingredient-card">
+                                                    <span class="text-start">{{ item }}</span>
+                                                    <button @click="(item).splice(i, 1)"
                                                         class="text-end btn-custom">Remove</button>
                                                 </div>
                                                 &nbsp;
-                                                </li>
                                             </li>
                                         </ul>
                                     </div>
@@ -161,10 +162,12 @@ export default {
             newItem: '',
             isFridgeOpen: false,
             test: '',
+            data:[],
         }
     },
     mounted() {
         this.fetchFridgeFromServer();
+        this.sendFridgeToServer();
     },
     methods: {
         async fetchFridgeFromServer() {
@@ -172,12 +175,25 @@ export default {
                 const fridgeuser = 'julesrobins'; 
                 const response = await axios.get(`http://127.0.0.1:5000/fridge/${fridgeuser}`);
                 console.log('Fetched Fridge Data:', response.data); // Log the fetched data
-                this.items = response.data;
+                this.data = response.data;
+                this.items=this.data[0].Fridge;
+
             } catch (error) {
                 console.error('Error fetching items:', error);
             }
         },
-
+        async sendFridgeToServer() {
+            try {
+                const fridgeuser = 'julesrobins'; 
+                const updatedData = {
+                    'Fridge': this.items,
+                }
+                const response = await axios.put(`http://127.0.0.1:5000/update_fridge/${fridgeuser}`, updatedData);
+                console.log('Sending Fridge Data:', updatedData);
+            } catch (error) {
+                console.error('Error sending items:', error);
+            }
+        },
         add() {
             if (this.newItem != '') {
                 this.items.push(this.newItem)
