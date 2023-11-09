@@ -1,5 +1,6 @@
 <template>
-  <div class="background">
+<body>
+  <div>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     
@@ -80,7 +81,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <span style="color: green; font-size: smaller;">RECIPE</span><br>
+                <span style="color: rgb(10, 160, 10); font-size: smaller;">RECIPE</span><br>
                 <span class="card-title">{{ recipe.title }}</span>
                 <p class="card-text">{{ recipe.description }}</p>
                 <p style="position: absolute; bottom: 0px; left: 15px; font-size: smaller;">Ready In {{ recipe.readyInMinutes }} Minutes </p>
@@ -110,6 +111,7 @@
     <div>Total Results: {{ filteredRecipes.length }}</div>
   </div>
 </div>
+</body>
 </template>
 
 <script>
@@ -196,6 +198,7 @@ export default {
     // Navigate to the ReadRecipe component
     readRecipe(recipe) {
       this.recipeTitle = recipe.title; // Set the recipeTitle here
+      window.scroll(0,0)
       this.$router.push({ name: 'readRecipe', params: { id: recipe.title } });
       Cookies.set("recipeTitle", this.recipeTitle);
     },
@@ -240,13 +243,14 @@ export default {
 <style scoped>
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
-.background{
+body {
   background-color: rgb(237, 243, 235); 
-  height: 100%;
-}
-div {
   font-family: 'Montserrat';
+  height: 100;
+  min-height: 100vh;
+  margin-top: 0px !important
 }
+
 .content {
   margin-top: 80px;
   margin-left: 300px; /* Adjust the margin to match the sidebar's width */
@@ -266,7 +270,7 @@ div {
 }
 
 .read-more-button {
-  background-color: green;
+  background-color: rgb(10, 160, 10);
   color: white;
   border: none;
   border-radius: 0; /* Remove border radius */
@@ -357,7 +361,7 @@ div {
   right: 0; /* Position the button on the right side */
   top: 50%; /* Center the button vertically */
   transform: translateY(-50%); /* Adjust for vertical centering */
-  background-color: green;
+  background-color: rgb(10, 160, 10);
   color: white;
   width: 30px; /* Adjust the width of the rectangle */
   height: 20%; /* Full height of the sidebar */
@@ -402,7 +406,7 @@ div {
 }
 
 .sidebar ul li.active a {
-  background-color: green; /* Highlight the active cuisine */
+  background-color: rgb(10, 160, 10); /* Highlight the active cuisine */
 }
 
 /* Additional styling for active link */
@@ -418,7 +422,7 @@ div {
 
 .pagination button {
   margin: 0 5px;
-  background-color: #4CAF50;
+  background-color: rgb(10, 160, 10);
   color: white;
   border: none;
   border-radius: 4px;

@@ -201,6 +201,42 @@ body {
 .container.active .toggle-right {
     transform: translateX(200%);
 }
+
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        border-radius: 0;
+    }
+
+    .form-container {
+        position: relative;
+        height: auto;
+        transition: none;
+    }
+
+    .sign-up,
+    .sign-in {
+        width: 100%;
+        opacity: 1;
+        transform: none;
+        z-index: 5;
+        animation: none;
+    }
+
+    .toggle-container {
+        display: none;
+    }
+
+    .toggle {
+        width: 100%;
+        transform: none;
+    }
+
+    .toggle-panel {
+        width: 100%;
+        transform: none;
+    }
+}
 </style>
 <template>
     <body>
@@ -216,11 +252,16 @@ body {
                             <option value="Business">Business</option>
                         </select>
                         <input v-model="form.UserName" type="text" placeholder="Username">
-                        <input v-model="form.Email" type="email" id="form3Example3" class="form-control" placeholder="Email Address" />
-                        <input v-model="form.Phone" type="phonenum" id="form3Example4" class="form-control" placeholder="Phone Number" />
-                        <input v-model="form.Password" type="password" id="form3Example5" class="form-control" placeholder="Password" />
-                        <input v-if="form.UserType === 'Consumer'" v-model="form.Allergies" type="text" class="form-control" id="Allergies" placeholder="Allergies (Eg. Shellfish)">
-                        <textarea v-if="form.UserType === 'Consumer'" cols="4" rows="5" v-model="form.Fridge" type="text" id="Fridge" class="form-control" placeholder="Items in your fridge (Eg. Banana)" />
+                        <input v-model="form.Email" type="email" id="form3Example3" class="form-control"
+                            placeholder="Email Address" />
+                        <input v-model="form.Phone" type="phonenum" id="form3Example4" class="form-control"
+                            placeholder="Phone Number" />
+                        <input v-model="form.Password" type="password" id="form3Example5" class="form-control"
+                            placeholder="Password" />
+                        <input v-if="form.UserType === 'Consumer'" v-model="form.Allergies" type="text" class="form-control"
+                            id="Allergies" placeholder="Allergies (Eg. Shellfish)">
+                        <textarea v-if="form.UserType === 'Consumer'" cols="4" rows="5" v-model="form.Fridge" type="text"
+                            id="Fridge" class="form-control" placeholder="Items in your fridge (Eg. Banana)" />
                         <button @click="goToNext" @click.prevent="activate">submit</button>
                     </form>
                 </div>
@@ -229,7 +270,8 @@ body {
                         <img src="../../src/assets/appLogo.png" style="max-width: 80px; max-height: 80px;">
                         <h1 style="font-weight: bolder;">Sign In</h1><br>
                         <input v-model="Email" type="email" id="form3Example3" class="form-control" placeholder="Email" />
-                        <input v-model="Password" type="password" id="form3Example4" class="form-control" placeholder="Password" />
+                        <input v-model="Password" type="password" id="form3Example4" class="form-control"
+                            placeholder="Password" />
                         <a href="#">Forgot Your Password?</a>
                         <button>Sign In</button>
                     </form>
@@ -311,19 +353,19 @@ export default {
             }
         },
         async login() {
-            if(this.Password === '' && this.Email === ''){
+            if (this.Password === '' && this.Email === '') {
                 alert('Please enter your email and password!')
             }
-            else if(this.Email === ''){
+            else if (this.Email === '') {
                 alert('Please enter your email!')
             }
-            else if(this.Password === ''){
+            else if (this.Password === '') {
                 alert('Please enter your password!')
             }
-            else{
+            else {
                 try {
                     const response = await signIn(this.Email, this.Password);
-                    console.log('Response:', response); 
+                    console.log('Response:', response);
                     if (response.status === 200) {
                         // Successful authentication
                         this.$router.push({ path: '/home' });

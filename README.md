@@ -13,7 +13,7 @@ In line with the United Nation's SDGs, our group is committed to this mission of
 ## App Features
 
 
-## Installation:
+## Installation
 Firstly, install the dependencies for the project to run.
 - pip install flask
 - pip install flask-cors
@@ -22,7 +22,7 @@ Firstly, install the dependencies for the project to run.
 - npm install js-cookie
 
 
-## Deployment:
+## Deployment
 To run this project locally:
 1. Open the project folder.
 2. In your terminal, navigate to the backend folder through `cd backend`
@@ -30,7 +30,12 @@ To run this project locally:
 4. In another terminal window, navigate to the frontend folder through `cd SuperplusHero`
 5. In your terminal, run `npm run dev` to run the development. By default, the app will run on port 5173.
 7. Open `localhost:5173` on your browser to see the application running.
+
+## Beyond the Labs
+- GitHub for collaborative software development
+- PostgreSQL database through Supabase
+- Postman for testing
   
-## Icon Source Credits:
+## Icon Source Credits
 - Hand-drawn Logo by Team SurplusHero
 - Icons from Canva and Creative Commons
