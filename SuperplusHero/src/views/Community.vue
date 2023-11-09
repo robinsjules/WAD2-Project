@@ -213,6 +213,16 @@
                                     </div>
                                     <textarea class="form-control" id="createCaption" rows="5"
                                         placeholder="Write a caption for your tasty dish!"></textarea>
+
+                                    <div class="input-group input-recipe">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="recipeCuisine">
+                                                Enter cusine</span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="" aria-label="recipeCuisine"
+                                            aria-describedby="recipeCuisine">
+                                    </div>
+
                                     <div class="input-group input-recipe">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="recipePostTitle">
@@ -221,6 +231,8 @@
                                         <input type="text" class="form-control" placeholder="" aria-label="Username"
                                             aria-describedby="recipePostTitle">
                                     </div>
+
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -420,19 +432,22 @@ export default {
         async createPost() {
             try {
                 const caption = document.getElementById('createCaption').value; // Get the caption from the input field
+                const recipeCuisine = document.getElementById('recipeCuisine').value; // Get the cuisine from the input field
                 const recipeTitle = document.getElementById('recipePostTitle').value; // Get the recipe title from the input field
 
                 const data = {
                     CreatedAt: new Date().toISOString(), // Add the current date timestamp
                     Caption: caption,
                     imageURL: this.imageUrl, // The image URL set in the Vue data
-                    recipeTitle: recipeTitle
+                    recipeTitle: recipeTitle,
+                    Cusine: recipeCuisine
                 };
 
                 const response = await axios.post('http://127.0.0.1:5000/post_to_community', data);
 
                 // Optionally, you can reset the input fields and image preview after successful posting
                 document.getElementById('createCaption').value = ''; // Clear the caption input
+                document.getElementById('recipeCuisine').value = ''; // Clear the recipe title input
                 document.getElementById('recipePostTitle').value = ''; // Clear the recipe title input
                 this.imageUrl = ''; // Clear the image URL
                 document.getElementById('file-upload').value = ''; // Reset the file input
