@@ -30,7 +30,9 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        width: 30%; 
     }
+    
     .cartItemDetails {
         display: flex;
         flex-direction: row;
@@ -40,9 +42,15 @@
         width: 100%;
     }
 
+    .cartItemQuantity{
+        text-align: center;
+    }
+
     .card{
         margin-bottom: 20px;
     }
+
+    
     .checkoutBtn {
     position: sticky;
     top: 269px; /* 125px for the navbar + 144px for the size of the list group and margin */
@@ -80,25 +88,27 @@
                                     
                                     <div class="nestedFlex">
                                         <div>
-                                            <p>{{item.IngredientName}}</p>
+                                            {{item.IngredientName}}
                                         </div>
     
                                         <div class="cartItemQuantity">
-                                            Quantity: 
+                                            <b>Stock Available:</b> {{  item.Quantity }}
+                                            <br>
+                                            <b>Quantity:</b> 
                                         </div>
 
                                         <div>
-                                            <button class="btn btn-primary" @click="decreaseQuantity(item)">-</button>
+                                            <button class="btn btn-primary" @click="decreaseQuantity(item)" :disabled="desiredQuantity[item.id] <= 1">-</button>
                                             {{desiredQuantity[item.id] || 1}} 
                                             <!-- If item id exists in desiered quantity object set value to 1 if not go next -->
-                                            <button class="btn btn-primary" @click="increaseQuantity(item)">+</button>
+                                            <button class="btn btn-primary" @click="increaseQuantity(item)" :disabled="desiredQuantity[item.id] >= item.Quantity">+</button>
                                         </div>
 
                                     </div>
                                     
                                     <div class="nestedFlex2">
                                         <button class="btn btn-primary remove" @click="removeFromCart(item)">X</button>
-                                        <p class="price"> <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></p>
+                                        <p class="price"> <s>${{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">${{ item.SalePrice }}</strong></p>
                                     </div>
                                     
                                 </li>

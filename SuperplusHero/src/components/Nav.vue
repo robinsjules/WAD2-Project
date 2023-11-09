@@ -189,10 +189,10 @@
     
                           <div class="cartItemQuantity">
                             Quantity: 
-                              <button class="btn btn-primary" @click="decreaseQuantity(item)">-</button>
+                              <button class="btn btn-primary" @click="decreaseQuantity(item)"  :disabled="desiredQuantity[item.id] <= 1" >-</button>
                               {{desiredQuantity[item.id] || 1}} 
                               <!-- If item id exists in desiered quantity object set value to 1 if not go next -->
-                              <button class="btn btn-primary" @click="increaseQuantity(item)">+</button>
+                              <button class="btn btn-primary" @click="increaseQuantity(item)" :disabled="desiredQuantity[item.id] >= item.Quantity">+</button>
                               
                               
                               <div class="cartItemStock">
