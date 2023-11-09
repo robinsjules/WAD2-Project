@@ -32,6 +32,15 @@ display: none;
   display: none;
 }
 
+.ingredient-card {
+  border: 1px solid #ccc; /* Add a border around the card */
+  padding: 10px;
+  display: flex;
+  justify-content: space-between; /* Align label and checkbox to opposite ends */
+  align-items: center; /* Vertically center the content */
+  margin-bottom: 5px; /* Add some space between cards */
+}
+
 </style>
 <template>
     <section>
@@ -95,7 +104,7 @@ display: none;
                                     <div class="card-body rounded" style="background-color:#408c5b; color:white">
                                         <ul id="item-list" class="item-list" :class="{ hidden: !isFridgeOpen }">
                                             <li v-for="(item, i) in items">
-                                                <div class="d-flex justify-content-between">
+                                                <div class="d-flex justify-content-between ingredient-card">
                                                     <span class="text-start">{{item}}</span>
                                                     <button @click="items.splice(i, 1)" class="btn btn-dark text-end" >Remove</button>
                                                 </div>

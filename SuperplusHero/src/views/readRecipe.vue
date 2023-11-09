@@ -4,7 +4,7 @@
     <!-- <div class="container-fluid"> -->
       <!-- Start of Hero Image -->
       <div class="row" style="margin-top: 85px; border-bottom: 1px solid; background-color: white; ">
-        <div class="col-md-6 col-12 centered-content">
+        <div class="col-lg-6 col-12 centered-content" >
           <p class="surplus-hero">SurplusHero</p>
           <h1 class="recipe-title">{{ matchingRecipe.title }}</h1>
           <p style="font-size: 1rem;">Suitable for {{ matchingRecipe.diets.join(', ') }}</p>
@@ -24,8 +24,8 @@
           </div>
         </div>
 
-        <div class="col-md-6 col-12 d-flex justify-content-center justify-content-md-end">
-          <img :src="matchingRecipe.image" alt="Recipe Image" style="width: 100%; height: 100%;">
+        <div class="col-lg-6 col-12 d-flex justify-content-center justify-content-md-end">
+          <img :src="matchingRecipe.image" alt="Recipe Image" style="width: 100%; height: 100%;" class="img-fluid custom-image" >
         </div>
       </div>
     <!-- End of Hero Image -->
@@ -123,54 +123,52 @@
         </div>
       </div>
     </div>
-
-    <div class="row">
-      <!-- Green Box -->
-      <div class="col-md-6">
+    <div class="container">
+      <div class="row">
+        <!-- Green Box -->
+        <div class="col-md-6">
           <div class="common-box green-box">
             <h3>Available Ingredients</h3>
             <div v-if="matchingRecipe">
               <div class="recipe-ingredients">
-                
-                  <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
-                    <ul>
-                      <li v-for="ingredient in step.ingredients" :key="ingredient.id">
-                        <!-- Check if ingredient name is not empty before rendering -->
-                        <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
-                          <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
-                          <input type="checkbox" id="ingredient-{{ ingredient.id }}" />
-                        </div>
-                      </li>
-                    </ul>
-                  </p>
-                
-              </div>
-            </div>
-          </div>
-        
-
-      <!-- Red Box -->
-      <div class="col-md-6">
-          <div class="common-box red-box">
-            <h3>Missing Ingredients</h3>
-            <div v-if="matchingRecipe" class="recipe-ingredients">
-              
                 <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
                   <ul>
                     <li v-for="ingredient in step.ingredients" :key="ingredient.id">
                       <!-- Check if ingredient name is not empty before rendering -->
                       <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
                         <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
-                        <input type="checkbox" id="ingredient-{{ ingredient.id }}" checked/>
+                        <input type="checkbox" id="ingredient-{{ ingredient.id }}" />
                       </div>
                     </li>
                   </ul>
                 </p>
-              
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Red Box -->
+        <div class="col-md-6">
+          <div class="common-box red-box">
+            <h3>Missing Ingredients</h3>
+            <div v-if="matchingRecipe" class="recipe-ingredients">
+              <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
+                <ul>
+                  <li v-for="ingredient in step.ingredients" :key="ingredient.id">
+                    <!-- Check if ingredient name is not empty before rendering -->
+                    <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
+                      <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
+                      <input type="checkbox" id="ingredient-{{ ingredient.id }}" checked/>
+                    </div>
+                  </li>
+                </ul>
+              </p>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
     <!-- Popup for Remaining Steps: Start -->
     <div class="popup" v-if="showRemainingSteps">
@@ -186,8 +184,6 @@
       </div>
     </div>
     <!-- Popup for Remaining Steps: End -->
-  </div>
-</div>
 </template>
 
 <script>
@@ -244,26 +240,21 @@ div {
   margin-top: 1000px
 }
 
-
-.col-12 {
+.custom-image {
   max-width: 100%;
-  overflow: hidden;
-  /* height: 400px !important; */
+  max-height: 80vh;
 }
 
-
-.col-md-6 {
-  max-width: 100%;
-  overflow: hidden;
-  height: 90vh !important; 
+@media (max-width: 992px) {
+  .custom-image {
+    max-height: 60vh;
+  }
 }
 
 .main-content {
   padding-top: 20px;
   margin: 5% 5% 0 5%;
 }
-
-
 
 .centered-content {
   display: flex;
@@ -330,20 +321,17 @@ div {
 }
 
 .common-box {
-  margin: 24px;
-  color: black;
+  color: rgb(0, 0, 0);
   padding: 10px;
   border-radius: 5px;
 }
 
 .green-box {
   background-color: rgb(226, 246, 244);
-  margin-right: 12px;
 }
 
 .red-box {
   background-color: rgb(246, 226, 226);
-  margin-left: 12px;
 }
 
 .popup {
