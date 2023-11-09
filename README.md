@@ -15,7 +15,8 @@ In line with the United Nation's SDGs, our group is committed to this mission of
 
 ## Installation:
 Firstly, install the dependencies for the project to run.
-- pip install flask 
+- pip install flask
+- pip install flask-cors
 - npm install supabase
 - npm install @googlemaps/js-api-loader
 - npm install js-cookie
@@ -25,12 +26,11 @@ Firstly, install the dependencies for the project to run.
 To run this project locally:
 1. Open the project folder.
 2. In your terminal, navigate to the backend folder through `cd backend`
-3. In your terminal, run `flask run` for the backend code to run.
+3. In your terminal, run `flask run` for the backend code to run. The backend runs on port 5000.
 4. In another terminal window, navigate to the frontend folder through `cd SuperplusHero`
-5. In your terminal, run `npm run dev` to run the development.
-6. By default, the app will run on port 5173
+5. In your terminal, run `npm run dev` to run the development. By default, the app will run on port 5173.
 7. Open `localhost:5173` on your browser to see the application running.
   
-## Source Credits:
+## Icon Source Credits:
 - Hand-drawn Logo by Team SurplusHero
 - Icons from Canva and Creative Commons
