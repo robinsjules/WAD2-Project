@@ -8,7 +8,6 @@ import readRecipe from '@/views/readRecipe.vue'
 import AllIngredients from '@/views/AllIngredients.vue'
 import Products from '@/views/Products.vue'
 import Community from '@/views/Community.vue'
-import createPost from '@/views/createPost.vue'
 import ben_test2 from '@/views/ben_test2.vue'
 import Fridge from '@/views/Fridge.vue'
 import Checkout from "@/views/Checkout.vue"
@@ -62,9 +61,6 @@ const router = createRouter({
       name: 'Community',
       component: Community
     },
-    { path:'/createpost',
-    name: 'createPost',
-    component: createPost},
     {
       path: '/fridge',
       name: 'Fridge',
