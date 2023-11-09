@@ -126,5 +126,11 @@ def addSurplusListing():
     # return Response((response.data),mimetype="application/json")
     return (response.data)
 
+@app.route("/add_recipe", methods=['POST'])
+def addSurplusListing():
+    data = request.json
+    response = supabase.table("Tes3").insert(data).execute()
+    return (response.data)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
