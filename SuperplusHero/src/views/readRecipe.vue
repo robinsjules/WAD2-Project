@@ -58,7 +58,7 @@
       <div class="col-md-12">
 
           <!-- Recipe Details: Start -->
-          <div class="bg-light text-black rounded-3">
+          <div class="bg-light text-black rounded-3" style="margin-top: 5%;">
             <div class="row main-content">
               <div class="col-md-4">
                 <div>
@@ -106,7 +106,7 @@
 
       
       <div class="container">
-      <div class="row">
+      <div class="row" style="margin-bottom: 5%;">
         <!-- Green Box -->
         <div class="col-md-6">
           <div class="common-box green-box">
@@ -160,9 +160,112 @@
     
     
 
+    <div class="reference">
+    <div>
+    
+    <h1>{{ matchingRecipe.title }}</h1>
+    <p><strong>Summary:</strong> {{ matchingRecipe.summary }}</p>
+    <p><strong>Cuisines:</strong> {{ matchingRecipe.cuisines.join(', ') }}</p>
+    <p><strong>Dish Types:</strong> {{ matchingRecipe.dishTypes.join(', ') }}</p>
+    <p><strong>Diets:</strong> {{ matchingRecipe.diets.join(', ') }}</p>
+    <p><strong>Occasions:</strong> {{ matchingRecipe.occasions.join(', ') }}</p>
+    <p><strong>Servings:</strong> {{ matchingRecipe.servings }}</p>
+    <p><strong>Ready In:</strong> {{ matchingRecipe.readyInMinutes }} minutes</p>
+    <p><strong>Health Score:</strong> {{ matchingRecipe.healthScore }}</p>
+    <p><strong>Price Per Serving:</strong> ${{ matchingRecipe.pricePerServing }}</p>
+    <p><strong>Source:</strong> <a :href="matchingRecipe.sourceUrl">{{ matchingRecipe.sourceName }}</a></p>
+
+
     
 
+    <h2>Instructions:</h2>
+    <ol>
+      <li v-for="step in matchingRecipe.analyzedInstructions[0].steps">
+        {{ step.step }}
+      </li>
+    </ol>
+  </div>
 
+    <div class="row">
+      <div class="col-md-12">
+        <div class="recipe-card" v-if="matchingRecipe">
+          <!-- Recipe Details: Start -->
+          <div class="m-4 p-4 bg-light text-black rounded-3">
+            <div class="row">
+              <div class="col-md-4">
+                <div>
+                  <img :src="matchingRecipe.image" style="width: 100%;" :alt="matchingRecipe.title">
+                </div>
+              </div>
+
+              <div class="col-md-8">
+                <h2>{{ matchingRecipe.title }} Preparation</h2>
+                <ol>
+                  <li v-for="(step, index) in matchingRecipe.analyzedInstructions[0]?.steps.slice(0, 4)" :key="index">{{ step.step }}</li>
+                  <p v-if="matchingRecipe.analyzedInstructions[0]?.steps.length > 4">. . . . .</p>
+                </ol>
+                <div>
+                  <span style="color: green; font-weight: bold;">Cooking Time:</span> {{matchingRecipe.readyInMinutes }} Minutes <br>
+                  <span style="color: green; font-weight: bold;">Serving Size:</span> {{matchingRecipe.servings }} Pax
+                </div>  
+                <div style="text-align: right;">
+                  <button class="btn btn-success" @click="showRemainingSteps = true">Start Cooking</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Recipe Details: End -->
+
+
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <!-- Green Box -->
+        <div class="col-md-6">
+          <div class="common-box green-box">
+            <h3>Available Ingredients</h3>
+            <div v-if="matchingRecipe">
+              <div class="recipe-ingredients">
+                <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
+                  <ul>
+                    <li v-for="ingredient in step.ingredients" :key="ingredient.id">
+                      <!-- Check if ingredient name is not empty before rendering -->
+                      <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
+                        <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
+                        <input type="checkbox" id="ingredient-{{ ingredient.id }}" />
+                      </div>
+                    </li>
+                  </ul>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Red Box -->
+        <div class="col-md-6">
+          <div class="common-box red-box">
+            <h3>Missing Ingredients</h3>
+            <div v-if="matchingRecipe" class="recipe-ingredients">
+              <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
+                <ul>
+                  <li v-for="ingredient in step.ingredients" :key="ingredient.id">
+                    <!-- Check if ingredient name is not empty before rendering -->
+                    <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
+                      <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
+                      <input type="checkbox" id="ingredient-{{ ingredient.id }}" checked/>
+                    </div>
+                  </li>
+                </ul>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <!-- Popup for Remaining Steps: Start -->
     <div class="popup" v-if="showRemainingSteps">
@@ -205,7 +308,13 @@ export default {
     matchingRecipe() {
       return this.recipes.results.find(recipe => recipe.title === this.recipeTitle);
     },
+    beforeRouteLeave(to, from, next) {
+    // Scroll to the top before leaving the current route
+    window.scrollTo(0, 0);
 
+    // Continue with the route navigation
+    next();
+  },
   },
   methods: {
     toggleContent() {
