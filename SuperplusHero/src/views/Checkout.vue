@@ -203,6 +203,8 @@ export default {
             Cookies.remove('itemNormalTotal');
             Cookies.remove('cart');
             Cookies.remove("cartLength");
+
+            axios.post('http://127.0.0.1:5000/send_email/robinsjules2019@gmail.com')
         },
         calcTotal(obj){
             let sum = Object.values(obj).reduce((a, b) => parseFloat(a) + parseFloat(b), 0);

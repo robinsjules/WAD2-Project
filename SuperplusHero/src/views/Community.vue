@@ -307,7 +307,7 @@
                                 <div class="card-body">
                                     <div class="media mb-3">
                                         <!-- Display user image fetched from Supabase -->
-                                        <!-- <img :src="post.userImage" class="d-block ui-w-40 rounded-circle" alt="User Image"> -->
+                                        <!-- <img :src="post.UserPicture" class="d-block ui-w-40 rounded-circle" alt="User Image"> -->
                                         <div class="media-body ml-3">
                                             <!-- Display username and timestamp from Supabase -->
                                             {{ post.PostedBy }}
