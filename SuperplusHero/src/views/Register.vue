@@ -311,19 +311,31 @@ export default {
             }
         },
         async login() {
-            try {
-                const response = await signIn(this.Email, this.Password);
-                console.log('Response:', response); 
-                if (response.status === 200) {
-                    // Successful authentication
-                    this.$router.push({ path: '/home' });
-                } else {
-                    console.error('Authentication failed');
-                    // Handle authentication failure
+            if(this.Password === '' && this.Email === ''){
+                alert('Please enter your email and password!')
+            }
+            else if(this.Email === ''){
+                alert('Please enter your email!')
+            }
+            else if(this.Password === ''){
+                alert('Please enter your password!')
+            }
+            else{
+                try {
+                    const response = await signIn(this.Email, this.Password);
+                    console.log('Response:', response); 
+                    if (response.status === 200) {
+                        // Successful authentication
+                        this.$router.push({ path: '/home' });
+                    } else {
+                        console.error('Authentication failed');
+                        // Handle authentication failure
+                    }
+                } catch (error) {
+                    console.error('Error signing in:', error);
+                    alert('Wrong Email/Password! Please try again.')
+                    // Handle sign-in error
                 }
-            } catch (error) {
-                console.error('Error signing in:', error);
-                // Handle sign-in error
             }
         }
     },

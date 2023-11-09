@@ -210,12 +210,16 @@
                         
                       <hr>
                     </div>
-                    <div class="totalPrice">
-                      Total Cost: ${{ totalPrice }}
+                    <div class="test" v-if="totalPrice > 0">
+
+                      <div class="totalPrice" >
+                        Total Cost: ${{ totalPrice }}
+                      </div>
+                      <router-link to="/checkout">
+                        <button class="btn btn-primary checkout" data-bs-dismiss="modal">Checkout</button>
+                      </router-link>
+
                     </div>
-                    <router-link to="/checkout">
-                      <button class="btn btn-primary checkout" data-bs-dismiss="modal">Checkout</button>
-                    </router-link>
                 </div>
               </div>
             </div>
