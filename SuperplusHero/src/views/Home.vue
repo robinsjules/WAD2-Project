@@ -1,5 +1,8 @@
 <style scoped>
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+.text-custom {
+    font-family: "Montserrat";
+    }
 .coolbox {
     display: flex;
     align-items: center;
@@ -72,12 +75,26 @@ button.carousel-control-next {
 .card button {
     outline: 0;
     padding: 12px;
-    /* color: white; */
-    /* background-color: #000000; */
     text-align: center;
     cursor: pointer;
     width: 100%;
     font-size: 18px;
+    background-color: rgb(10, 160, 10);
+    border: 0;
+    border-radius: 56px;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 500;
+    outline: 0;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
 .repBtn{
@@ -92,8 +109,46 @@ button.carousel-control-next {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 20px;
+    padding: 10px;
 }
 
+.card button:before {
+  background-color: initial;
+  background-image: linear-gradient(#fff 0, rgba(255, 255, 255, 0) 100%);
+  border-radius: 125px;
+  content: "";
+  height: 50%;
+  left: 4%;
+  opacity: .5;
+  position: absolute;
+  top: 0;
+  transition: all .3s;
+  width: 92%;
+}
+
+@media (min-width: 768px) {
+    .btn-edit {
+    padding: 16px 48px;
+  }
+}
+
+.card-edit{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #3F8256;
+    background-color: rgb(237, 243, 235);
+}
+
+.light-text{
+    font-size: 25px;
+    color: #e74c3c;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); 
+}
+
+.shadow-text {
+      color: #3498db;
+      text-shadow: 2px 2px 0.5px rgba(0, 0, 0, 0.5);
+}
 
 </style>
 
@@ -169,7 +224,7 @@ button.carousel-control-next {
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-1"></div>
-            <div class="col-md-2"><h2>Deals of the day!</h2></div>
+            <div class="col-md-2"><h3 style="font-family:Montserrat">Deals of the day!</h3></div>
             </div>
     </div>
 
@@ -183,12 +238,12 @@ button.carousel-control-next {
                                 
                                 <div class="col-md-1"></div>
                                     <div class="col-md-2 mb-3" v-for="(item, index) in items.slice(0,5)" :key="index">
-                                            <div class="card">
+                                            <div class="card card-edit">
                                                 <img :src="item.ImageURL" class="card-img-top" alt="Surplus Listing"  style="width:100%">
-                                                <h1>{{item.IngredientName}}</h1>
-                                                <p class="price"> <s>${{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">${{ item.SalePrice }}</strong></p>
+                                                <h3 style="font-family:Montserrat">&nbsp;{{item.IngredientName}}</h3>
+                                                <p class="price">&nbsp; <s>${{ item.OriginalPrice }}</s><strong class="ms-2 text-danger shadow-text" style="font-size: 25px;">${{ item.SalePrice }}</strong></p>
                                                 <!-- <p>Some text about the product</p> -->
-                                                <p><button type="button" class="btn btn-primary" @click="addtoCart(item)">Add to Cart</button></p>    
+                                                <p><button type="button" style="font-family:Montserrat" class="btn btn-success" @click="addtoCart(item)">Add to Cart</button></p>    
                                             </div>
                                     </div>
                                 <div class="col-md-1"></div>
@@ -204,7 +259,7 @@ button.carousel-control-next {
                                 
                                 <div class="col-md-1"></div>
                                 <div class="col-md-2 mb-3" v-for="(item, index) in items.slice(5,10)" :key="index">
-                                        <div class="card">
+                                        <div class="card card-edit">
                                             <img :src="item.ImageURL" class="card-img-top" alt="Recipe" style="width:100%">
                                             <h1>{{item.IngredientName}}</h1>
                                             <p class="price"> <s>${{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">${{ item.SalePrice }}</strong></p>
@@ -301,16 +356,16 @@ button.carousel-control-next {
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button type="button" class="btn btn-dark">Make!</button></p>    
+                                        <p><button type="button" class="btn btn-success">Make!</button></p>    
                                     </div>
                             </div> -->
-                            <div class="card text-center col-md-2 mb-3" data-bs-toggle="modal" data-bs-target="#repModal" role="button" tabindex="0" aria-label="Open information in a popup modal">
+                            <div class="card card-edit text-center col-md-2 mb-3" data-bs-toggle="modal" data-bs-target="#repModal" role="button" tabindex="0" aria-label="Open information in a popup modal">
                                 <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" class="card-img-top" alt="Card image cap">
                                     <div class="card-body">
                                         <h1 class="card-title">Chicken Rice</h1>
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
-                                <p><button type="button" class="btn btn-dark">Click for more!</button></p>   
+                                <p><button type="button" class="btn btn-success">Click for more!</button></p>   
                             </div>
 
                             <div class="modal fade" id="repModal" tabindex="-1" aria-labelledby="myModalLabel" role="dialog">
@@ -332,35 +387,35 @@ button.carousel-control-next {
                             </div>
                             
                             <div class="col-md-2 mb-3">
-                                    <div class="card">
+                                    <div class="card card-edit">
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button type="button" class="btn btn-dark">Make!</button></p>   
+                                        <p><button type="button" class="btn btn-success">Make!</button></p>   
                                     </div>
                             </div>
                             <div class="col-md-2 mb-3">
-                                    <div class="card">
+                                    <div class="card card-edit">
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button type="button" class="btn btn-dark">Make!</button></p>    
+                                        <p><button type="button" class="btn btn-success">Make!</button></p>    
                                     </div>
                             </div>
                             <div class="col-md-2 mb-3">
-                                    <div class="card">
+                                    <div class="card card-edit">
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button type="button" class="btn btn-dark">Make!</button></p>    
+                                        <p><button type="button" class="btn btn-success">Make!</button></p>    
                                     </div>
                             </div>
                             <div class="col-md-2 mb-3">
-                                    <div class="card">
+                                    <div class="card card-edit">
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button type="button" class="btn btn-dark">Make!</button></p>    
+                                        <p><button type="button" class="btn btn-success">Make!</button></p>    
                                     </div>
                             </div>
                             <div class="col-md-1"></div>
@@ -375,43 +430,43 @@ button.carousel-control-next {
                         <div class="row">
                             <div class="col-md-1"></div>
                             <div class="col-md-2 mb-3">
-                                    <div class="card">
+                                    <div class="card card-edit">
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button type="button" class="btn btn-dark">Make!</button></p>    
+                                        <p><button type="button" class="btn btn-success">Make!</button></p>    
                                     </div>
                             </div>
                             <div class="col-md-2 mb-3">
-                                    <div class="card">
+                                    <div class="card card-edit">
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button type="button" class="btn btn-dark">Make!</button></p>    
+                                        <p><button type="button" class="btn btn-success">Make!</button></p>    
                                     </div>
                             </div>
                             <div class="col-md-2 mb-3">
-                                    <div class="card">
+                                    <div class="card card-edit">
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button type="button" class="btn btn-dark">Make!</button></p>    
+                                        <p><button type="button" class="btn btn-success">Make!</button></p>    
                                     </div>
                             </div>
                             <div class="col-md-2 mb-3">
-                                    <div class="card">
+                                    <div class="card card-edit">
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button type="button" class="btn btn-dark">Make!</button></p> 
+                                        <p><button type="button" class="btn btn-success">Make!</button></p> 
                                     </div>
                             </div>
                             <div class="col-md-2 mb-3">
-                                    <div class="card">
+                                    <div class="card card-edit">
                                         <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" alt="Recipe" style="width:100%">
                                         <h1>Chicken Rice</h1>
                                         <p>Some text about the recipe</p>
-                                        <p><button type="button" class="btn btn-dark">Make!</button></p> 
+                                        <p><button type="button" class="btn btn-success">Make!</button></p> 
                                     </div>
                             </div>
                             <div class="col-md-1"></div>
