@@ -245,7 +245,7 @@ export default {
   height: 100%;
 }
 div {
-  font-family: 'Montserrat'
+  font-family: 'Montserrat';
 }
 .content {
   margin-top: 80px;

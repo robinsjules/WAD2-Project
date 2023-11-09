@@ -4,7 +4,7 @@
     <!-- <div class="container-fluid"> -->
       <!-- Start of Hero Image -->
       <div class="row" style="margin-top: 85px; border-bottom: 1px solid; background-color: white; ">
-        <div class="col-md-6 col-12 centered-content">
+        <div class="col-lg-6 col-12 centered-content">
           <p class="surplus-hero">SurplusHero</p>
           <h1 class="recipe-title">{{ matchingRecipe.title }}</h1>
           <p style="font-size: 1rem;">Suitable for {{ matchingRecipe.diets.join(', ') }}</p>
@@ -24,40 +24,76 @@
           </div>
         </div>
 
-        <div class="col-md-6 col-12 d-flex justify-content-center justify-content-md-end">
+        <div class="col-lg-6 col-12 d-flex justify-content-center justify-content-md-end">
           <img :src="matchingRecipe.image" alt="Recipe Image" style="width: 100%; height: 100%;">
         </div>
       </div>
     <!-- End of Hero Image -->
     <!-- </div> -->
-    <div class="container-fluid">
+<div class="container-fluid">
     <div class="row main-content">
-      <div class="col-8 " style="border-top: 1px solid; margin-right: 5%; padding-top: 5%;">
-        <h2>About {{ matchingRecipe.title }} (Serving Size: {{ matchingRecipe.servings }})</h2><br>
-        <p>{{ matchingRecipe.summary }}</p>
-      </div>
+        <div class="col-lg-8 col-12" style=" margin-right: 20px; padding-top: 20px; margin-bottom: 5%;">
+            <h2>About {{ matchingRecipe.title }} (Serving Size: {{ matchingRecipe.servings }})</h2><br>
+            <p>{{ matchingRecipe.summary }}</p>
+        </div>
+        
+        <div class="col-lg-3 col-12 card">
+            <h3>Ingredients:</h3>
+            <ul>
+                <li v-for="ingredient in matchingRecipe.extendedIngredients">
+                    {{ ingredient.original }}
+                </li>
+            </ul>
 
-      
-        <div class="col-3" style="border-top: 3px solid; border-bottom:3px solid; padding-top: 5%; padding-bottom: 5%;">
-          <h3>Things you need need to get started:</h3><br>
-          <ul>
-            <li v-for="ingredient in matchingRecipe.extendedIngredients">
-              {{ ingredient.original }}
-            </li>
-          </ul>
-
-          <div style="text-align: right;">
-            <button class="btn moving-item hover-effect" @click="showRemainingSteps = true">
-              Let's Get Started <i class="fa-solid fa-angle-right"></i>
-            </button>
-          </div>
+            <div style="text-align: right;">
+                <button class="btn moving-item hover-effect" @click="showRemainingSteps = true">
+                    Let's Get Started <i class="fa-solid fa-angle-right"></i>
+                </button>
+            </div>
         </div>
 
-        <!-- <div class="col-8" style="background-color: green;">
-            box
-        </div> -->
+
+
+
+      <div class="col-md-12">
+
+          <!-- Recipe Details: Start -->
+          <div class="bg-light text-black rounded-3">
+            <div class="row main-content">
+              <div class="col-md-4">
+                <div>
+                  <img :src="matchingRecipe.image" style="width: 100%;" :alt="matchingRecipe.title">
+                </div>
+              </div>
+
+              <div class="col-md-8">
+                <h2>{{ matchingRecipe.title }}</h2>
+                <ol>
+                  <li v-for="(step, index) in matchingRecipe.analyzedInstructions[0]?.steps.slice(0, 4)" :key="index">{{ step.step }}</li>
+                  <p v-if="matchingRecipe.analyzedInstructions[0]?.steps.length > 4">. . . . .</p>
+                </ol>
+                <div>
+                  <span style="color: green; font-weight: bold;">Cooking Time:</span> {{matchingRecipe.readyInMinutes }} Minutes <br>
+                  <span style="color: green; font-weight: bold;">Serving Size:</span> {{matchingRecipe.servings }} Pax
+                </div>  
+                <div style="text-align: right;">
+                  <button class="btn btn-success" @click="showRemainingSteps = true">Start Cooking</button>
+                </div>
+              </div>
+          </div>
+          <!-- Recipe Details: End -->
+        </div>
+    </div>
+  </div>
+
+      <div class="content-seperator">
+        <h3 class="surplus-hero">
+          Before We Start
+        </h3>
+        <p style="text-align: center; font-weight: bold;">________</p>
       </div>
-    </div> 
+
+</div>
 
   </div>
     
@@ -123,54 +159,52 @@
         </div>
       </div>
     </div>
-
-    <div class="row">
-      <!-- Green Box -->
-      <div class="col-md-6">
+    <div class="container">
+      <div class="row">
+        <!-- Green Box -->
+        <div class="col-md-6">
           <div class="common-box green-box">
             <h3>Available Ingredients</h3>
             <div v-if="matchingRecipe">
               <div class="recipe-ingredients">
-                
-                  <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
-                    <ul>
-                      <li v-for="ingredient in step.ingredients" :key="ingredient.id">
-                        <!-- Check if ingredient name is not empty before rendering -->
-                        <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
-                          <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
-                          <input type="checkbox" id="ingredient-{{ ingredient.id }}" />
-                        </div>
-                      </li>
-                    </ul>
-                  </p>
-                
-              </div>
-            </div>
-          </div>
-        
-
-      <!-- Red Box -->
-      <div class="col-md-6">
-          <div class="common-box red-box">
-            <h3>Missing Ingredients</h3>
-            <div v-if="matchingRecipe" class="recipe-ingredients">
-              
                 <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
                   <ul>
                     <li v-for="ingredient in step.ingredients" :key="ingredient.id">
                       <!-- Check if ingredient name is not empty before rendering -->
                       <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
                         <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
-                        <input type="checkbox" id="ingredient-{{ ingredient.id }}" checked/>
+                        <input type="checkbox" id="ingredient-{{ ingredient.id }}" />
                       </div>
                     </li>
                   </ul>
                 </p>
-              
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Red Box -->
+        <div class="col-md-6">
+          <div class="common-box red-box">
+            <h3>Missing Ingredients</h3>
+            <div v-if="matchingRecipe" class="recipe-ingredients">
+              <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
+                <ul>
+                  <li v-for="ingredient in step.ingredients" :key="ingredient.id">
+                    <!-- Check if ingredient name is not empty before rendering -->
+                    <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
+                      <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
+                      <input type="checkbox" id="ingredient-{{ ingredient.id }}" checked/>
+                    </div>
+                  </li>
+                </ul>
+              </p>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
     <!-- Popup for Remaining Steps: Start -->
     <div class="popup" v-if="showRemainingSteps">
@@ -186,8 +220,6 @@
       </div>
     </div>
     <!-- Popup for Remaining Steps: End -->
-  </div>
-</div>
 </template>
 
 <script>
@@ -237,13 +269,14 @@ export default {
 }
 div {
   font-family: 'Montserrat';
-  overflow: hidden
+  overflow: hidden;
+  line-height: 1.5;
 }
+
 
 .reference{
   margin-top: 1000px
 }
-
 
 .col-12 {
   max-width: 100%;
@@ -252,18 +285,27 @@ div {
 }
 
 
-.col-md-6 {
+.col-lg-6 {
   max-width: 100%;
   overflow: hidden;
   height: 90vh !important; 
 }
 
 .main-content {
-  padding-top: 20px;
-  margin: 5% 5% 0 5%;
+  margin: 5%;
 }
 
-
+.card{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  max-height: fit-content; 
+  margin: 30px;
+  border-radius: 0px;
+  background-color: transparent;
+  border: 0px;
+  border-top: 3px solid;
+  border-bottom: 3px solid;
+}
 
 .centered-content {
   display: flex;
@@ -279,6 +321,7 @@ div {
   color: white;
   width: fit-content;
   padding: 10px;
+  margin: auto;
 }
 
 .recipe-title {
@@ -288,10 +331,6 @@ div {
   font-size: 3rem;
 }
 
-.section-divider {
-  margin-left: 30%;
-  margin-right: 30%;
-}
 
 .hover-effect {
   transition: color 0.3s, text-decoration 0.3s;
@@ -330,20 +369,17 @@ div {
 }
 
 .common-box {
-  margin: 24px;
-  color: black;
+  color: rgb(0, 0, 0);
   padding: 10px;
   border-radius: 5px;
 }
 
 .green-box {
   background-color: rgb(226, 246, 244);
-  margin-right: 12px;
 }
 
 .red-box {
   background-color: rgb(246, 226, 226);
-  margin-left: 12px;
 }
 
 .popup {
@@ -377,6 +413,13 @@ div {
 
 .image-container {
   text-align: center;
+}
+
+.content-seperator{
+  margin: 5%;
+  /* border-top: 1px solid;
+  border-bottom: 1px solid; */
+  padding: 20px
 }
 
 .professional-image {
@@ -425,8 +468,6 @@ div {
 }
 
 .moving-item {
-            width: 200px;
-            height: 100px;
             position: relative;
             animation: moveLeftRight 2s linear infinite;
         }
@@ -443,13 +484,13 @@ div {
 
 @keyframes moveLeftRight {
   0% {
-                left: 0;
+                right: 0px;
             }
             50% {
-                left: 25px; /* Move to the right */
+                right: 25px; /* Move to the right */
             }
             100% {
-                left: 0; /* Move back to the left */
+                right: 0; /* Move back to the left */
             }
 }
 </style>

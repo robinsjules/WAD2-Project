@@ -5,6 +5,12 @@
     font-family: "Montserrat";
 }
 
+.background {
+  background-color: rgb(237, 243, 235); 
+  font-family: 'Montserrat';
+  min-height: 100vh;
+}
+
 .page-title {
     color: rgb(10, 160, 10);
     margin-left: 15px;
@@ -12,9 +18,74 @@
     font-weight: bold;
 }
 
-.content {
-    margin-top: 80px;
+.other-title {
+    color: rgb(10, 160, 10);
+    margin-top: 60px;
+    font-weight: bold;
 }
+
+.content {
+    padding-top: 20px;
+}
+
+/* create post/modal style */
+.modal-dialog {
+    max-width: 700px;
+}
+
+.file-input {
+    margin-top: 10px;
+}
+
+.post-button {
+    background-color: white;
+    color: gray;
+    border-color: lightgray;
+}
+
+.post-button:hover {
+    background-color: white;
+    color: gray;
+    border-color: lightgray;
+}
+
+.final-post-button {
+    background-color: rgb(10, 160, 10);
+    color: white;
+}
+
+.final-post-button:hover {
+    background-color: rgb(10, 160, 10);
+    color: white;
+}
+
+#file-upload {
+    margin-bottom: 10px;
+}
+
+.uploaded-image-preview {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.btn-remove-image {
+    float: right;
+    margin-bottom: 10px;
+}
+
+.btn-remove-image:hover {
+    background-color: red;
+    color: white;
+    float: right;
+    margin-bottom: 10px;
+}
+
+.input-recipe {
+    margin-top: 10px;
+}
+
+/* end of create post/modal style */
 
 .card {
     width: 615px;
@@ -46,7 +117,7 @@
     border-color: black;
 }
 
-.recipe-button:hover{
+.recipe-button:hover {
     background-color: rgb(10, 160, 10);
     color: white;
     border-color: black;
@@ -94,13 +165,62 @@
 <template>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <div class="background">
     <section class="content">
         <div class="container posts-content">
-            <h2 class="page-title">CommunityHero</h2>
+            <h2 class="page-title">Share with the Community</h2>
             <div class="container-fluid">
                 <div class="form-group">
                     <div class="row justify-content-center">
+
                         <div class="col-12">
+                            <button @click="" class="post-button btn" href="#" data-bs-toggle="modal"
+                                data-bs-target="#createPostModal">
+                                Tell us about your homemade meal!</button>
+
+                            <!-- Modal for creating a post -->
+                            <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostLabel"
+                                aria-hidden="true">
+                                <!-- Modal content -->
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3>Create Post</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="file-input">
+                                                <input id="file-upload" type="file" @change="previewImage"
+                                                    accept="image/*" />
+                                                <!-- Display area for previewing the uploaded image -->
+                                                <img v-if="imageUrl" :src="imageUrl" class="uploaded-image-preview" />
+                                                <div class="image-preview">
+                                                    <button v-if="imageUrl" @click="removeImage"
+                                                        class="btn btn-secondary btn-remove-image">Remove Image</button>
+                                                </div>
+                                            </div>
+                                            <textarea class="form-control" id="createCaption" rows="5"
+                                                placeholder="Write a caption for your tasty dish!"></textarea>
+                                            <div class="input-group input-recipe">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="recipePostTitle">
+                                                        Enter recipe title</span>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="" aria-label="Username"
+                                                    aria-describedby="recipePostTitle">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <input type="submit" class="btn final-post-button" value="Post"
+                                                data-bs-dismiss="modal" @click="createPost" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h2 class="other-title">Be Inspired by Other Heroes</h2>
+
                             <!-- Search Input -->
                             <div class="form-floating">
                                 <input v-model="searchQuery" type="text" class="form-control" id="floatingInput"
@@ -120,7 +240,8 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li v-for="option in sortOptions" :key="option">
-                                        <a class="dropdown-item" href="#" @click="selectSortOption(option)">{{ option }}</a>
+                                        <a class="dropdown-item" href="#" @click="selectSortOption(option)">{{ option
+                                        }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -135,7 +256,8 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li v-for="cuisine in cuisines" :key="cuisine">
-                                        <a class="dropdown-item" href="#" @click="selectCuisineOption(cuisine)">{{ cuisine
+                                        <a class="dropdown-item" href="#" @click="selectCuisineOption(cuisine)">{{
+                                            cuisine
                                         }}</a>
                                     </li>
                                 </ul>
@@ -190,6 +312,7 @@
             </div>
         </div>
     </section>
+</div>
 </template>
 
 <script>
@@ -205,7 +328,8 @@ export default {
             selectedSortOption: 'Newest',
             cuisines: [],
             selectedCuisineOption: '',
-            searchQuery: ''
+            searchQuery: '',
+            imageUrl: ''
         }
     },
 
@@ -253,6 +377,52 @@ export default {
                 this.posts = this.posts.filter(post =>
                     post.Caption.toLowerCase().includes(this.searchQuery.trim().toLowerCase())
                 );
+            }
+        },
+
+        previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = () => {
+                    this.imageUrl = reader.result; // Store the URL of the uploaded image
+                };
+
+                reader.readAsDataURL(file);
+            }
+        },
+
+        removeImage() {
+            this.imageUrl = ''; // Clear the image URL to remove the preview
+            // You may also reset the file input field if needed
+            document.getElementById('file-upload').value = '';
+        },
+
+        async createPost() {
+            try {
+                const caption = document.getElementById('createCaption').value; // Get the caption from the input field
+                const recipeTitle = document.getElementById('recipePostTitle').value; // Get the recipe title from the input field
+
+                const data = {
+                    CreatedAt: new Date().toISOString(), // Add the current date timestamp
+                    Caption: caption,
+                    imageURL: this.imageUrl, // The image URL set in the Vue data
+                    recipeTitle: recipeTitle
+                };
+
+                const response = await axios.post('http://127.0.0.1:5000/post_to_community', data);
+
+                // Optionally, you can reset the input fields and image preview after successful posting
+                document.getElementById('createCaption').value = ''; // Clear the caption input
+                document.getElementById('recipePostTitle').value = ''; // Clear the recipe title input
+                this.imageUrl = ''; // Clear the image URL
+                document.getElementById('file-upload').value = ''; // Reset the file input
+
+                // Fetch the updated posts after posting
+                this.fetchPostsFromServer();
+            } catch (error) {
+                console.error('Error creating post:', error);
             }
         },
 

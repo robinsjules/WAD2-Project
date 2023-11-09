@@ -1,6 +1,12 @@
 <style scoped>
+
+    body{
+        background-color: rgb(237,243,235);
+        font-family: 'Montserrat';
+        min-height: 10vh;
+    }
     .content {
-        margin-top: 125px;
+        padding-top: 125px;
 
     }
 
@@ -8,60 +14,141 @@
         margin:auto;
     }
 
+    .payment {
+        position: relative;
+    }   
 
     .paymentCard{
         position: sticky;
         top:125px;
     }
+    .moneyStuff {
+        font-weight: bold;
+    }
+    .list-group-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .nestedFlex, .nestedFlex2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 30%; 
+    }
+    
+    .cartItemDetails {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .cartItemQuantity{
+        text-align: center;
+    }
+
+    .card{
+        margin-bottom: 20px;
+    }
+
+    
+    .checkoutBtn {
+    position: sticky;
+    top: 269px; /* 125px for the navbar + 144px for the size of the list group and margin */
+    
+}
+
+.checkoutBtn .btn {
+    width: 100%;
+}
+
+.card-img-top {
+    max-width: 100%;
+    /* width: 20%;        
+    height: auto;       */
+        width: 150px;   /* This can be adjusted as per requirement */
+    height: 150px;  /* This can be adjusted as per requirement */
+    object-fit: cover; 
+}
+
 </style>
 
 <template>
     <div class="content">
         <div class="container-fluid row test">
-
-            <div class="cart col-lg-6">
+            <div class="col-lg-1"></div>
+            <div class="cart col-lg-5">
 
                 <div class="order">
                     <div class="card">
                         
                         <ul class="list-group list-group-flush">
-                            <div v-for="(item,index) in items"  :key="index">
+                            <div v-for="(item,index) in cart"  :key="index">
                                 <li class="list-group-item">
-                                    <img :src="item.ImageURL" class="card-img-top" alt="Recipe" style="width:100%">
-                                    <h1>{{item.IngredientName}}</h1>
-                                    <p class="price"> <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></p>
+                                    <img :src="item.ImageURL" class="card-img-top img-fluid" alt="Recipe">
+                                    
+                                    <div class="nestedFlex">
+                                        <div>
+                                            {{item.IngredientName}}
+                                        </div>
+    
+                                        <div class="cartItemQuantity">
+                                            <b>Stock Available:</b> {{  item.Quantity }}
+                                            <br>
+                                            <b>Quantity:</b> 
+                                        </div>
 
+                                        <div>
+                                            <button class="btn btn-primary" @click="decreaseQuantity(item)" :disabled="desiredQuantity[item.id] <= 1">-</button>
+                                            {{desiredQuantity[item.id] || 1}} 
+                                            <!-- If item id exists in desiered quantity object set value to 1 if not go next -->
+                                            <button class="btn btn-primary" @click="increaseQuantity(item)" :disabled="desiredQuantity[item.id] >= item.Quantity">+</button>
+                                        </div>
+
+                                    </div>
+                                    
+                                    <div class="nestedFlex2">
+                                        <button class="btn btn-primary remove" @click="removeFromCart(item)">X</button>
+                                        <p class="price"> <s>${{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">${{ item.SalePrice }}</strong></p>
+                                    </div>
+                                    
                                 </li>
                             </div>
                         </ul>
-                        <!-- <div class="col-md-2 mb-3" v-for="(item, index) in items" :key="index">
-                            <div class="card">
-                                <img :src="item.ImageURL" class="card-img-top" alt="Recipe" style="width:100%">
-                                <h1>{{item.IngredientName}}</h1>
-                                <p class="price"> <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></p>
-                                
-                                <p><button type="button" class="btn btn-primary" @click="addtoCart(item)">Add to Cart</button></p>    
-                            </div>
-                        </div> -->
-                        <img src="https://wallpapercave.com/wp/wp4489833.jpg">
+                        <!-- <img src="https://wallpapercave.com/wp/wp4489833.jpg"> -->
                     </div>
                 </div>
             </div>
 
-            <div class="payment col-lg-6  ">
+            <div class="payment col-lg-5  ">
 
                 <div class="card paymentCard">
 
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Normal Price: ${{ normalTotalPrice }}</li>
-                        <li class="list-group-item">Savings: ${{ savedTotal }}</li>
-                        <li class="list-group-item">Total: ${{ totalPrice }}</li>
+                        <li class="list-group-item">Normal Price: <span class='moneyStuff'>${{ normalTotalPrice }}</span></li>
+                        <li class="list-group-item">Savings: <span class='moneyStuff text-danger'>${{ savedTotal }}</span></li>
+                        <li class="list-group-item">Total: <span class='moneyStuff text-success'>${{ totalPrice }}</span></li>
                     </ul>
 
                 </div>
+                
+                <div class="checkoutBtn">
+                    <router-link to="/home">
+                        <button class="btn btn-primary checkout" @click="checkout">Checkout</button>
+                    </router-link>
+                </div>
+
 
             </div>
         </div>
+
+        <div class="col-lg-1"></div>
+
     </div>
 </template>
 
@@ -84,10 +171,11 @@ export default {
             totalPrice:0.0,
             savedTotal:0.0,
             cart:[],
+            items:[],
             newCartItem: false,
             cartLength: 0,
         };
-        },
+    },
     async created() {
         this.checkCookies();
         this.checkCart();
@@ -102,25 +190,50 @@ export default {
         // this.totalPrice = this.desiredQuantity.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
         this.totalPrice = this.calcTotal(this.itemTotalPrice);
         this.normalTotalPrice = this.calcTotal(this.itemNormalTotal);
-        this.savedTotal = this.normalTotalPrice - this.totalPrice;
+        this.savedTotal = (this.normalTotalPrice - this.totalPrice).toFixed(2);
             
         },
     methods: {
+        checkout() {
+            Cookies.set('showCheckoutAlert', true);
+            this.$router.push('/home');
+
+            Cookies.remove('desiredQuantity');
+            Cookies.remove('itemTotalPrice');
+            Cookies.remove('itemNormalTotal');
+            Cookies.remove('cart');
+            Cookies.remove("cartLength");
+        },
         calcTotal(obj){
             let sum = Object.values(obj).reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
             return parseFloat(sum.toFixed(2)); 
         },
+        reCalcAfterRemoval(){
+            this.cart = Cookies.get("cart");
+
+            this.calculateItemTotal(item);  // Calculate new Total Sale Price
+            this.calculateItemNormalTotal(item) // Calculate new Total Normal Price
+        },
         removeFromCart(item) {
-            const index = this.cart.findIndex(cartItem => cartItem.id === item.id); // Calls the findIndex method on every item (we call cartItem) Check if the item in cart matches the item being sent from remove item
+            const index = this.cart.findIndex(cartItem => cartItem.id === item.id); 
             if (index !== -1) {
                 this.cart.splice(index, 1);
                 Cookies.set('cart', JSON.stringify(this.cart));
+                // Additional section for normal price adjustment
+                if (this.itemNormalTotal[item.id]) {
+                    delete this.itemNormalTotal[item.id];
+                    Cookies.set('itemNormalTotal', JSON.stringify(this.itemNormalTotal)); 
+                }
                 if (this.desiredQuantity[item.id]) {
-                delete this.desiredQuantity[item.id];
-                Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity)); // Update cookies
+                    delete this.desiredQuantity[item.id];
+                    delete this.itemTotalPrice[item.id]; 
+                    Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
+                }
             }
-            }
-        },
+            this.totalPrice = this.calcTotal(this.itemTotalPrice);
+            this.normalTotalPrice = this.calcTotal(this.itemNormalTotal);
+            this.savedTotal = (this.normalTotalPrice - this.totalPrice).toFixed(2);
+            },
         checkCartLength(){
             if (Cookies.get("cartLength")){
                 // console.log(Cookies.get('cartLength'));
@@ -151,6 +264,7 @@ export default {
                     this.calculateItemTotal(item);
                     this.calculateItemNormalTotal(item);
                     
+                    
                 }
                 
             }else{
@@ -166,9 +280,13 @@ export default {
                 }
             }
             Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
-            this.calculateItemTotal(item);
+            this.calculateItemTotal(item);  // Calculate new Total Sale Price
+            this.calculateItemNormalTotal(item) // Calculate new Total Normal Price
             this.totalPrice = this.calcTotal(this.itemTotalPrice);
             this.normalTotalPrice = this.calcTotal(this.itemNormalTotal)
+            this.savedTotal = (this.normalTotalPrice - this.totalPrice).toFixed(2);
+            Cookies.set("itemTotalPrice", this.itemTotalPrice);
+            Cookies.set("totalPrice", this.totalprice);
         },
         decreaseQuantity(item) {
             if (!this.desiredQuantity[item.id] || this.desiredQuantity[item.id] <= 1) {
@@ -177,17 +295,23 @@ export default {
                 this.desiredQuantity[item.id]--;
             }
             Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
-            this.calculateItemTotal(item);
+            this.calculateItemTotal(item);  // Calculate new Total Sale Price
+            this.calculateItemNormalTotal(item) // Calculate new Total Normal Price
             this.totalPrice = this.calcTotal(this.itemTotalPrice);
             this.normalTotalPrice = this.calcTotal(this.itemNormalTotal)
+            this.savedTotal = (this.normalTotalPrice - this.totalPrice).toFixed(2);
+            Cookies.set("itemTotalPrice", this.itemTotalPrice);
+            Cookies.set("totalPrice", this.totalprice);
         },
         calculateItemTotal(item){
-            let calc = this.desiredQuantity[item.id] * item.SalePrice
+            let calc = this.desiredQuantity[item.id] * item.SalePrice;
             this.itemTotalPrice[item.id] = parseFloat(calc.toFixed(2)); 
+            Cookies.set('itemTotalPrice', JSON.stringify(this.itemTotalPrice));
         },
         calculateItemNormalTotal(item){
-            let calc = this.desiredQuantity[item.id] * item.OriginalPrice
+            let calc = this.desiredQuantity[item.id] * item.OriginalPrice;
             this.itemNormalTotal[item.id] = parseFloat(calc.toFixed(2)); 
+            Cookies.set('itemNormalTotal', JSON.stringify(this.itemNormalTotal));
         }
     }
 };

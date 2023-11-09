@@ -2,6 +2,12 @@
     .content{
     margin-top: 80px;
     }
+
+    * {
+    font-family: "Montserrat";
+    color:white
+    }
+    
     .profile-form {
     display: flex;
     justify-content: center;
@@ -24,6 +30,17 @@
     .remove-button {
     margin-top: 5px;
     }
+
+    .fixed-position{
+        margin:auto;
+    }
+
+    @media (min-width: 992px) {        
+        .fixed-position{
+        position: fixed;
+        }
+    }
+
 </style>
 <template>
     <div class="content">
@@ -32,25 +49,27 @@
     
     <section class="">
       <!-- Jumbotron -->
-      <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
-          <div class="container">
-              <div class="row gx-lg-5 justify-content-center">
-                  <div class="col-lg-4 mb-5 mb-lg-0">
-                      <h1 class="my-5 display-3 fw-bold ls-tight">
-                          Profile of our <br />
-                          <span class="text-success">Surplus Hero!</span>
-                      </h1>
-                  </div>
+        <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+            <div class="container">
+                <div class="row gx-lg-5 justify-content-center">
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <div class="fixed-position">
+                            <h1 span class="my-5 display-3 fw-bold ls-tight">
+                                <span class="text-dark">Profile of<br/> our <br/></span>
+                                <span class="text-success">Surplus <br/>Hero!</span>
+                            </h1>
+                        </div>
+                    </div>
     <!-- card -->
     <div class="mx-auto col-lg-6 mb-5 mb-lg-0 ">
             <div class="card">
-                <div class="card-body py-5 px-md-6">
+                <div class="card-body rounded py-5" style="background-color:#3F8256">
                     <form id="profileEdit" class="my-4" autocomplete="on" @submit.prevent="">
                         <div id="app">
                             <div class="profile-form">
                                 <div class="profile-picture">
                                     <div class="image-container">
-                                        <img :src="userPicture" alt="User's Profile Picture" class="rounded-circle p-1 bg-success"/>
+                                        <img :src="userPicture" alt="User's Profile Picture" class="rounded-circle p-1 bg-light"/>
                                     </div>
                                     <div class="file-input">
                                         <label for="file-upload" class="btn btn-success">Choose File</label>
@@ -301,7 +320,7 @@ export default {
         },
             logoutProfile() {
             alert("You have signed out successfully!")
-            this.$router.push({ name: 'Login' });
+            this.$router.push({ name: 'Register' });
         },
             addIntolerance(event) {
             event.preventDefault(); // Prevent the default form submission behavior
