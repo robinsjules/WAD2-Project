@@ -12,8 +12,34 @@
     font-weight: bold;
 }
 
+.file-input {
+    margin-top: 10px;
+}
+
+.other-title {
+    color: rgb(10, 160, 10);
+    margin-top: 60px;
+    font-weight: bold;
+}
+
 .content {
     margin-top: 80px;
+}
+
+.post-button {
+    color: gray;
+    border-color: lightgray;
+    width: 100%;
+}
+
+.post-button:hover {
+    color: gray;
+    border-color: lightgray;
+}
+
+.final-post-button {
+    background-color: rgb(10, 160, 10);
+    color: white;
 }
 
 .card {
@@ -46,7 +72,7 @@
     border-color: black;
 }
 
-.recipe-button:hover{
+.recipe-button:hover {
     background-color: rgb(10, 160, 10);
     color: white;
     border-color: black;
@@ -96,11 +122,48 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <section class="content">
         <div class="container posts-content">
-            <h2 class="page-title">CommunityHero</h2>
+            <h2 class="page-title">Share with the Community</h2>
             <div class="container-fluid">
                 <div class="form-group">
                     <div class="row justify-content-center">
+
                         <div class="col-12">
+                            <button @click="" class="post-button btn" href="#" data-bs-toggle="modal"
+                                data-bs-target="#createPostModal">
+                                Tell us about your homemade meal!</button>
+
+                            <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="createPostLabel">Create Post</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <label for="createCaption">Write a caption for your tasty
+                                                meal!</label>
+                                            <textarea class="form-control" id="createCaption" rows="3"></textarea>
+                                            <div class="file-input">
+                                                <div class="file-input">
+                                                    <input id="file-upload" type="file" @change="uploadPicture"
+                                                        accept="image/*" />
+                                                </div>
+                                            </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <input type="submit" class="btn final-post-button" value="Post"
+                                                data-bs-dismiss="modal" @click="createPost" />
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h2 class="other-title">Be Inspired by Other Heroes</h2>
+
                             <!-- Search Input -->
                             <div class="form-floating">
                                 <input v-model="searchQuery" type="text" class="form-control" id="floatingInput"
@@ -120,7 +183,8 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li v-for="option in sortOptions" :key="option">
-                                        <a class="dropdown-item" href="#" @click="selectSortOption(option)">{{ option }}</a>
+                                        <a class="dropdown-item" href="#" @click="selectSortOption(option)">{{ option
+                                        }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -135,7 +199,8 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li v-for="cuisine in cuisines" :key="cuisine">
-                                        <a class="dropdown-item" href="#" @click="selectCuisineOption(cuisine)">{{ cuisine
+                                        <a class="dropdown-item" href="#" @click="selectCuisineOption(cuisine)">{{
+                                            cuisine
                                         }}</a>
                                     </li>
                                 </ul>
