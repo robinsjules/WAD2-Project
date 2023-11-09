@@ -20,24 +20,24 @@
         font-weight: bold;
     }
     .list-group-item {
+        display: flex;
         justify-content: space-between;
-        display: flex;
-        flex-direction: row
+        align-items: center;
     }
 
-    .nestedFlex{
+    .nestedFlex, .nestedFlex2 {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
-
-    .nestedFlex2{
+    .cartItemDetails {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-between;
         align-items: center;
-        justify-content: center;
-        margin-top: 30px;
+        flex-wrap: wrap;
+        width: 100%;
     }
 
     .card{
@@ -55,9 +55,11 @@
 
 .card-img-top {
     max-width: 100%;
-    width: 20%;        
+    /* width: 20%;        
+    height: auto;       */
+        width: 150px;   /* This can be adjusted as per requirement */
+    height: 150px;  /* This can be adjusted as per requirement */
     object-fit: cover; 
-    height: auto;      
 }
 
 </style>
@@ -84,6 +86,7 @@
                                         <div class="cartItemQuantity">
                                             Quantity: 
                                         </div>
+
                                         <div>
                                             <button class="btn btn-primary" @click="decreaseQuantity(item)">-</button>
                                             {{desiredQuantity[item.id] || 1}} 
