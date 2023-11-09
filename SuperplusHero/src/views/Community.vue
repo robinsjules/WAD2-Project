@@ -27,6 +27,10 @@
 }
 
 /* create post/modal style */
+.modal-dialog {
+    max-width: 700px;
+}
+
 .post-button {
     color: gray;
     border-color: lightgray;
@@ -68,6 +72,10 @@
     color: white;
     float: right;
     margin-bottom: 10px;
+}
+
+.input-recipe {
+    margin-top: 10px;
 }
 
 /* end of create post/modal style */
@@ -169,7 +177,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <!-- Existing modal header -->
+                                            <h3>Create Post</h3>
                                         </div>
                                         <div class="modal-body">
                                             <div class="file-input">
@@ -182,9 +190,15 @@
                                                         class="btn btn-secondary btn-remove-image">Remove Image</button>
                                                 </div>
                                             </div>
-                                            <!-- Create a separate container for the caption -->
-                                            <div class="caption-container">
-                                                <textarea class="form-control" id="createCaption" rows="5" placeholder="Write a caption for your tasty dish!"></textarea>
+                                            <textarea class="form-control" id="createCaption" rows="5"
+                                                placeholder="Write a caption for your tasty dish!"></textarea>
+                                            <div class="input-group input-recipe">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="recipePostTitle">
+                                                        Enter recipe title</span>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="" aria-label="Username"
+                                                    aria-describedby="recipePostTitle">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
