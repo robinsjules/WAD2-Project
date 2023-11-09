@@ -17,6 +17,7 @@
   top: 0;
   left: 0;
   right: 0;
+  height: 85px;
 }
 
 .navbar-brand img {
@@ -79,7 +80,7 @@
 <template>
 <nav v-if="showNavBar" class="navbar navbar-expand-md navbar-dark bg-dark navcolor">
     <router-link to="/home">
-        <a class="navbar-brand" href="#"><img src="../assets/appLogoForNav.png" alt="Logo" height="70"></a>
+        <a class="navbar-brand" href="#"><img src="../assets/appLogoForNav.png" alt="Logo" height="60"></a>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -95,7 +96,7 @@
             data-bs-toggle="modal"
             data-bs-target="#locationModal"
           >
-            <img src="../assets/locationWhite.png" alt="Location Pin" width="50" height="50">
+            <img src="../assets/locationWhite.png" alt="Location Pin" width="40" height="40">
           </a>
             
 
@@ -105,7 +106,7 @@
           <router-link to="/community"> <!-- Edit to Community Page, also apply to index.js router -->
             <a class="nav-link" href="#">
             
-            <img src="../assets/communityWhite.png" alt="Community" width="50" height="50">
+            <img src="../assets/communityWhite.png" alt="Community" width="40" height="40">
           
           </a>
 
@@ -123,7 +124,7 @@
 
             
             
-            <img src="../assets/cartWhite.png" alt="Cart" width="50" height="50">
+            <img src="../assets/cartWhite.png" alt="Cart" width="35" height="35">
             <span class="badge bg-danger" v-if="cartLength > 0 " role="alert">{{ cartLength }}</span>
             <i class="bi bi-bell"></i>
           
@@ -132,12 +133,12 @@
         </li>
         <li class="nav-item">
           <router-link to="/fridge"> <!-- Edit to Fridge Page, also apply to index.js router -->
-            <a class="nav-link" href="#"><img src="../assets/fridgeWhite.png" alt="Fridge" width="50" height="50"></a>
+            <a class="nav-link" href="#"><img src="../assets/fridgeWhite.png" alt="Fridge" width="35" height="35"></a>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/profile">
-            <a class="nav-link" href="#"><img src="../assets/profileWhite.png" alt="Profile" width="50" height="50"></a>
+            <a class="nav-link" href="#"><img src="../assets/profileWhite.png" alt="Profile" width="35" height="35"></a>
           </router-link>
         </li>
       </ul>
@@ -147,7 +148,7 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Enter desired NTUC</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Enter desired NTUC</h5>2
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
