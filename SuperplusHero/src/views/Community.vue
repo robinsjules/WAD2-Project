@@ -12,20 +12,19 @@
 }
 
 .page-title {
-    color: rgb(10, 160, 10);
-    margin-left: 15px;
-    margin-top: 80px;
+    color: white;
+    margin-top: 50px;
     font-weight: bold;
 }
 
 
-.button-container {
+/* .button-container {
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 
-}
+} */
 
 .content {
     padding-top: 20px;
@@ -148,7 +147,7 @@
 }
 
 .form-floating {
-    margin-top: 30px;
+    margin-top: 50px;
     margin-bottom: 10px;
 }
 
@@ -170,12 +169,12 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <div class="background">
         <section class="content">
-            <div class="container posts-content">
-                <div class="button-container">
+                <!-- <div class="button-container"> -->
+                    <header class="bg-dark py-5">
 
-                    <h2 class="page-title text-center">
+                    <h1 class="page-title text-center">
                         Share with the Community
-                    </h2>
+                    </h1>
 
 
                     <div class="container-fluid">
@@ -189,6 +188,8 @@
                                 Click to create post!</button>
                         </div>
                     </div>
+                </header>
+
 
 
                     <!-- Modal for creating a post -->
@@ -229,8 +230,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                <!-- </div> -->
 
+                <div class="container posts-content">
                 <div class="form-group">
                         <div class="container-fluid">
                             <div class="row justify-content-center">
