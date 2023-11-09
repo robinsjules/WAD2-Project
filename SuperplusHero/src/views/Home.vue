@@ -257,7 +257,7 @@ button.carousel-control-next {
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-1"></div>
-            <div class="col-md-2"><h3 style="font-family:Montserrat">Deals of the day!</h3></div>
+            <div class="col-md-4"><h3 style="font-family:Montserrat">Deals of the day!</h3></div>
             </div>
     </div>
 
@@ -279,6 +279,7 @@ button.carousel-control-next {
                                                 <p><button type="button" style="font-family:Montserrat" class="btn btn-success" @click="addtoCart(item)">Add to Cart</button></p>    
                                             </div>
                                     </div>
+                                    <div class="col-md-11"><h5 style="font-family:Montserrat; text-align:right;">Click <router-link :to="{ name: 'products' }">here</router-link> for more deals!</h5></div>
                                 <div class="col-md-1"></div>
                             </div>
     
