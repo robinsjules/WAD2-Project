@@ -1,5 +1,5 @@
 <template>
-  
+<body>
   <div class="background">
     <!-- <div class="container-fluid"> -->
       <!-- Start of Hero Image -->
@@ -73,11 +73,11 @@
                   <p v-if="matchingRecipe.analyzedInstructions[0]?.steps.length > 4">. . . . .</p>
                 </ol>
                 <div>
-                  <span style="color: green; font-weight: bold;">Cooking Time:</span> {{matchingRecipe.readyInMinutes }} Minutes <br>
-                  <span style="color: green; font-weight: bold;">Serving Size:</span> {{matchingRecipe.servings }} Pax
+                  <span style="color: rgb(10, 160, 10); font-weight: bold;">Cooking Time:</span> {{matchingRecipe.readyInMinutes }} Minutes <br>
+                  <span style="color: rgb(10, 160, 10); font-weight: bold;">Serving Size:</span> {{matchingRecipe.servings }} Pax
                 </div>  
                 <div style="text-align: right;">
-                  <button class="btn btn-success" @click="showRemainingSteps = true">Start Cooking</button>
+                  <button class="btn btn-success" style="background-color: rgb(10, 160, 10)" @click="showRemainingSteps = true">Start Cooking</button>
                 </div>
               </div>
           </div>
@@ -87,79 +87,25 @@
   </div>
 
       <div class="content-seperator">
-        <h3 class="surplus-hero">
-          Before We Start
-        </h3>
+        <p style="text-align: center;"><hr>
+          <div>
+            <h3><strong>Before We Begin</strong></h3>
+          <!-- <i class="fa-solid fa-rotate-right" style="font-size: 30px;"></i> -->
+          <!-- <p>Checking your fridge . . .</p> -->
+          <a @click="toggleContent">
+            <p class="btn surplus-hero2">{{ isContentVisible ? "Check your ingredients" : "Click me to check your ingredients!" }}</p>
+          </a>
+
+          </div>
+        </p><hr>
         <p style="text-align: center; font-weight: bold;">________</p>
       </div>
 
-</div>
+      <!-- Hidden Content -->
+      <div v-if="isContentVisible">
 
-  </div>
-    
-    
-
-    <div class="reference">
-    <div>
-    
-    <h1>{{ matchingRecipe.title }}</h1>
-    <p><strong>Summary:</strong> {{ matchingRecipe.summary }}</p>
-    <p><strong>Cuisines:</strong> {{ matchingRecipe.cuisines.join(', ') }}</p>
-    <p><strong>Dish Types:</strong> {{ matchingRecipe.dishTypes.join(', ') }}</p>
-    <p><strong>Diets:</strong> {{ matchingRecipe.diets.join(', ') }}</p>
-    <p><strong>Occasions:</strong> {{ matchingRecipe.occasions.join(', ') }}</p>
-    <p><strong>Servings:</strong> {{ matchingRecipe.servings }}</p>
-    <p><strong>Ready In:</strong> {{ matchingRecipe.readyInMinutes }} minutes</p>
-    <p><strong>Health Score:</strong> {{ matchingRecipe.healthScore }}</p>
-    <p><strong>Price Per Serving:</strong> ${{ matchingRecipe.pricePerServing }}</p>
-    <p><strong>Source:</strong> <a :href="matchingRecipe.sourceUrl">{{ matchingRecipe.sourceName }}</a></p>
-
-
-    
-
-    <h2>Instructions:</h2>
-    <ol>
-      <li v-for="step in matchingRecipe.analyzedInstructions[0].steps">
-        {{ step.step }}
-      </li>
-    </ol>
-  </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <div class="recipe-card" v-if="matchingRecipe">
-          <!-- Recipe Details: Start -->
-          <div class="m-4 p-4 bg-light text-black rounded-3">
-            <div class="row">
-              <div class="col-md-4">
-                <div>
-                  <img :src="matchingRecipe.image" style="width: 100%;" :alt="matchingRecipe.title">
-                </div>
-              </div>
-
-              <div class="col-md-8">
-                <h2>{{ matchingRecipe.title }} Preparation</h2>
-                <ol>
-                  <li v-for="(step, index) in matchingRecipe.analyzedInstructions[0]?.steps.slice(0, 4)" :key="index">{{ step.step }}</li>
-                  <p v-if="matchingRecipe.analyzedInstructions[0]?.steps.length > 4">. . . . .</p>
-                </ol>
-                <div>
-                  <span style="color: green; font-weight: bold;">Cooking Time:</span> {{matchingRecipe.readyInMinutes }} Minutes <br>
-                  <span style="color: green; font-weight: bold;">Serving Size:</span> {{matchingRecipe.servings }} Pax
-                </div>  
-                <div style="text-align: right;">
-                  <button class="btn btn-success" @click="showRemainingSteps = true">Start Cooking</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Recipe Details: End -->
-
-
-        </div>
-      </div>
-    </div>
-    <div class="container">
+      
+      <div class="container">
       <div class="row">
         <!-- Green Box -->
         <div class="col-md-6">
@@ -168,15 +114,15 @@
             <div v-if="matchingRecipe">
               <div class="recipe-ingredients">
                 <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
-                  <ul>
-                    <li v-for="ingredient in step.ingredients" :key="ingredient.id">
+                  <p>
+                    <p v-for="ingredient in step.ingredients" :key="ingredient.id">
                       <!-- Check if ingredient name is not empty before rendering -->
                       <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
                         <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
                         <input type="checkbox" id="ingredient-{{ ingredient.id }}" />
                       </div>
-                    </li>
-                  </ul>
+                    </p>
+                  </p>
                 </p>
               </div>
             </div>
@@ -187,24 +133,36 @@
         <div class="col-md-6">
           <div class="common-box red-box">
             <h3>Missing Ingredients</h3>
-            <div v-if="matchingRecipe" class="recipe-ingredients">
-              <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
-                <ul>
-                  <li v-for="ingredient in step.ingredients" :key="ingredient.id">
-                    <!-- Check if ingredient name is not empty before rendering -->
-                    <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
-                      <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
-                      <input type="checkbox" id="ingredient-{{ ingredient.id }}" checked/>
-                    </div>
-                  </li>
-                </ul>
-              </p>
+            <div v-if="matchingRecipe">
+              <div class="recipe-ingredients">
+                <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
+                  <p>
+                    <p v-for="ingredient in step.ingredients" :key="ingredient.id">
+                      <!-- Check if ingredient name is not empty before rendering -->
+                      <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
+                        <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
+                        <input type="checkbox" id="ingredient-{{ ingredient.id }}" />
+                      </div>
+                    </p>
+                  </p>
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+        <!-- Hidden Content -->
+</div>
+
+  </div>
+    
+    
+
+    
+
+
 
     <!-- Popup for Remaining Steps: Start -->
     <div class="popup" v-if="showRemainingSteps">
@@ -220,6 +178,7 @@
       </div>
     </div>
     <!-- Popup for Remaining Steps: End -->
+  </body>
 </template>
 
 <script>
@@ -232,6 +191,7 @@ export default {
       recipeTitle: '', // Initialize the recipeTitle data property
       recipes: recipeData,
       showRemainingSteps: false, // Track whether to show the remaining steps popup
+      isContentVisible: false,
     };
   },
   async created() {
@@ -245,13 +205,12 @@ export default {
     matchingRecipe() {
       return this.recipes.results.find(recipe => recipe.title === this.recipeTitle);
     },
-    beforeRouteLeave(to, from, next) {
-    // Scroll to the top before leaving the current route
-    window.scrollTo(0, 0);
 
-    // Continue with the route navigation
-    next();
   },
+  methods: {
+    toggleContent() {
+      this.isContentVisible = !this.isContentVisible;
+    },
   },
   created() {
     // Retrieve the recipe title from the cookie when the component is created
@@ -263,9 +222,8 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
-.background{
+body {
   background-color: rgb(237, 243, 235); 
-  height: 100%;
 }
 div {
   font-family: 'Montserrat';
@@ -317,11 +275,29 @@ div {
 }
 
 .surplus-hero {
-  background-color: green;
+  background-color: rgb(10, 160, 10);
   color: white;
   width: fit-content;
   padding: 10px;
   margin: auto;
+}
+
+.surplus-hero2 {
+  border: 2px solid;
+  color: rgb(10, 160, 10);
+  width: fit-content;
+  padding: 5px;
+  margin: auto;
+  font-size: 16px;
+}
+.surplus-hero2:hover {
+  border: 2px solid;
+  background-color: rgb(10, 160, 10);
+  color: white;
+  width: fit-content;
+  padding: 5px;
+  margin: auto;
+  font-size: 16px;
 }
 
 .recipe-title {
@@ -337,7 +313,7 @@ div {
 }
 
 .hover-effect:hover {
-  color: green;
+  color: rgb(10, 160, 10);
   text-decoration: underline;
 }
 
@@ -350,10 +326,10 @@ div {
 .ingredient-card {
   border: 1px solid #ccc; /* Add a border around the card */
   padding: 10px;
+  margin: 0px; 
   display: flex;
   justify-content: space-between; /* Align label and checkbox to opposite ends */
   align-items: center; /* Vertically center the content */
-  margin-bottom: 5px; /* Add some space between cards */
 }
 
 
@@ -466,7 +442,9 @@ div {
   transition: background-color 0.3s;
   animation: moveUpDown 2s linear infinite; /* Add this line */
 }
-
+.click-me-text {
+  animation: moveUpDown2 2s linear alternate;
+}
 .moving-item {
             position: relative;
             animation: moveLeftRight 2s linear infinite;
@@ -478,6 +456,15 @@ div {
     transform: translateY(0);
   }
   50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes moveUpDown2 {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
     transform: translateY(-20px);
   }
 }
