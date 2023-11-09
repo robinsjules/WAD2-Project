@@ -5,14 +5,20 @@
     font-family: "Montserrat";
 }
 
+.page-title {
+    color: rgb(10, 160, 10);
+    margin-left: 15px;
+    margin-top: 100px;
+    font-weight: bold;
+}
+
 .content {
     margin-top: 80px;
 }
 
 .card {
-    /* width: 615px; */
-    width: 100%;
-    height: 640px;
+    width: 615px;
+    height: 620px;
     max-width: 100%;
     overflow: hidden;
     margin: 10px;
@@ -21,7 +27,6 @@
 
 .card-body {
     position: relative;
-    /* height: 200px; */
     overflow: hidden;
 }
 
@@ -36,14 +41,20 @@
 }
 
 .recipe-button {
-  background-color: rgb(10, 160, 10);
-  color: white;
-  border-color: black;
+    background-color: rgb(10, 160, 10);
+    color: white;
+    border-color: black;
+}
+
+.recipe-button:hover{
+    background-color: rgb(10, 160, 10);
+    color: white;
+    border-color: black;
 }
 
 .right {
-  margin-left: 5px;
-  float: right;
+    margin-left: 5px;
+    float: right;
 }
 
 .heart-icon {
@@ -58,15 +69,18 @@
     margin-left: 5px;
     margin-top: 3px;
 }
-.dropdown {
-  text-align: center;
+
+.sort {
+    padding: 10px;
+}
+
+.form-floating {
+    margin-bottom: 10px;
 }
 
 .custom-dropdown {
     width: 150px;
-    transform: translateY(25%);
     background-color: rgb(10, 160, 10);
-    margin: 0;
     position: relative;
     color: white;
 }
@@ -82,11 +96,11 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <section class="content">
         <div class="container posts-content">
-            <h2 style="color: rgb(10, 160, 10); margin-left:15px; margin-top:100px;">SuperCommunity</h2>
+            <h2 class="page-title">CommunityHero</h2>
             <div class="container-fluid">
                 <div class="form-group">
                     <div class="row justify-content-center">
-                        <div class="col-10">
+                        <div class="col-12">
                             <!-- Search Input -->
                             <div class="form-floating">
                                 <input v-model="searchQuery" type="text" class="form-control" id="floatingInput"
@@ -96,10 +110,12 @@
 
                             <!-- Dropdown for Sorting -->
                         </div>
-                        <div class="col">
-                        <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle custom-dropdown" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
+
+                        <div class="col-lg-3 align-items-center">
+                            <div class="dropdown">
+                                <span class="mr-auto sort">Sort by:</span>
+                                <button class="btn btn-secondary dropdown-toggle custom-dropdown" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ selectedSortOption }}
                                 </button>
                                 <ul class="dropdown-menu">
@@ -109,23 +125,32 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                    
-                </div>
-                
-            </div>
 
-            <!-- <div class="form-group m-3">
-                <label for="sortOptions">Sort by: &nbsp;</label>
-                <select id="sortOptions" v-model="selectedSortOption" @change="sortPosts">
-                    <option v-for="option in sortOptions" :key="option">{{ option }}</option>
-                </select>
-            </div> -->
+                        <div class="col-lg-3 align-items-center">
+                            <div class="dropdown">
+                                <span class="mr-2 sort">Cuisine:</span>
+                                <button class="btn btn-secondary dropdown-toggle custom-dropdown" type="button"
+                                    data-bs-toggle="dropdown">
+                                    {{ selectedCuisineOption || 'All' }} <!-- Set the default text to 'All' -->
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li v-for="cuisine in cuisines" :key="cuisine">
+                                        <a class="dropdown-item" href="#" @click="selectCuisineOption(cuisine)">{{ cuisine
+                                        }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
 
             <div v-if="posts.length > 0">
                 <div class="row">
                     <!-- Use v-for to iterate through the posts fetched from Supabase -->
-                    <div v-for="(post, index) in posts" :key="index" class="col-lg-4 col-md-12">
+                    <div v-for="(post, index) in posts" :key="index" class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="media mb-3">
@@ -152,7 +177,7 @@
                                             class="heart-icon" />
                                         <strong class="like-count">{{ post.Likes }} likes</strong>
                                     </a>
-                                    <button @click="navigateToRecipe(post)" class="recipe-button btn btn-sm ml-auto right">See
+                                    <button @click="readRecipe(post)" class="recipe-button btn btn-sm ml-auto right">See
                                         Recipe</button>
                                 </small>
                             </div>
@@ -169,19 +194,24 @@
 
 <script>
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export default {
     data() {
         return {
             posts: [],
+            originalPosts: [],
             sortOptions: ['Newest', 'Oldest', 'Most Liked'],
             selectedSortOption: 'Newest',
+            cuisines: [],
+            selectedCuisineOption: '',
             searchQuery: ''
         }
     },
 
     mounted() {
         this.fetchPostsFromServer();
+        this.fetchCuisines();
     },
 
     watch: {
@@ -201,7 +231,17 @@ export default {
                 const sortedPosts = response.data.sort((a, b) => {
                     return new Date(b.CreatedAt) - new Date(a.CreatedAt);
                 });
+                sortedPosts.forEach(post => {
+                    const liked = Cookies.get(`liked_${post.id}`);
+                    if (liked === 'true') {
+                        post.liked = true;
+                    } else {
+                        post.liked = false;
+                    }
+                });
+
                 this.posts = sortedPosts;
+                this.originalPosts = sortedPosts; // Store a reference to the original posts
                 this.filterPosts();
             } catch (error) {
                 console.error('Error fetching posts:', error);
@@ -265,9 +305,48 @@ export default {
             // }
         },
 
+        async fetchCuisines() {
+            try {
+                const response = await axios.get('http://127.0.0.1:5000/communityposts');
+                const allCuisines = response.data.map(post => post.Cuisine);
+                this.cuisines = ['All', ...new Set(allCuisines)];
+            } catch (error) {
+                console.error('Error fetching cuisines:', error);
+            }
+        },
+
+        async filterRecipesByCuisine(cuisine) {
+            try {
+                if (cuisine === 'All') {
+                    this.posts = this.originalPosts; // Restore original posts when All is selected
+                } else {
+                    // Filter the posts based on the chosen cuisine
+                    const filteredPosts = this.originalPosts.filter(post => post.Cuisine === cuisine);
+
+                    // Update the liked status for the filtered posts
+                    filteredPosts.forEach(post => {
+                        const originalPost = this.posts.find(p => p.id === post.id);
+                        if (originalPost) {
+                            post.liked = originalPost.liked;
+                        }
+                    });
+
+                    this.posts = filteredPosts; // Set the filtered posts
+                }
+            } catch (error) {
+                console.error('Error filtering recipes by cuisine:', error);
+            }
+        },
+
+        selectCuisineOption(cuisine) {
+            this.selectedCuisineOption = cuisine;
+            this.filterRecipesByCuisine(cuisine);
+        },
+
         async likePost(post) {
             try {
                 event.preventDefault();
+                Cookies.set(`liked_${post.id}`, 'true');
                 post.liked = true;
                 post.Likes++; // Update the local count
                 const updatedLikes = post.Likes; // Store the updated count
@@ -279,6 +358,7 @@ export default {
 
         async unlikePost(post) {
             try {
+                Cookies.remove(`liked_${post.id}`);
                 event.preventDefault();
                 post.liked = false;
                 post.Likes--; // Update the local count
@@ -300,9 +380,15 @@ export default {
             }
         },
 
-        navigateToRecipe(post) {
-            // Navigate to the readRecipe page with the recipeURL
-            this.$router.push('/readRecipe/' + post.recipeURL);
+        // navigateToRecipe(post) {
+        //     // Navigate to the readRecipe page with the recipeURL
+        //     this.$router.push('/readRecipe/' + post.recipeURL);
+        // },
+
+        readRecipe(post) {
+            this.recipeTitle = post.recipeTitle;
+            this.$router.push('/readRecipe/' + post.postTitle);
+            Cookies.set("recipeTitle", this.recipeTitle);
         }
     },
 };
