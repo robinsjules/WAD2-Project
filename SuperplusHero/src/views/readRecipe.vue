@@ -4,7 +4,7 @@
     <!-- <div class="container-fluid"> -->
       <!-- Start of Hero Image -->
       <div class="row" style="margin-top: 85px; border-bottom: 1px solid; background-color: white; ">
-        <div class="col-md-6 col-12 centered-content">
+        <div class="col-lg-6 col-12 centered-content" >
           <p class="surplus-hero">SurplusHero</p>
           <h1 class="recipe-title">{{ matchingRecipe.title }}</h1>
           <p style="font-size: 1rem;">Suitable for {{ matchingRecipe.diets.join(', ') }}</p>
@@ -24,40 +24,36 @@
           </div>
         </div>
 
-        <div class="col-md-6 col-12 d-flex justify-content-center justify-content-md-end">
-          <img :src="matchingRecipe.image" alt="Recipe Image" style="width: 100%; height: 100%;">
+        <div class="col-lg-6 col-12 d-flex justify-content-center justify-content-md-end">
+          <img :src="matchingRecipe.image" alt="Recipe Image" style="width: 100%; height: 100%;" class="img-fluid custom-image" >
         </div>
       </div>
     <!-- End of Hero Image -->
     <!-- </div> -->
-    <div class="container-fluid">
+<div class="container-fluid">
     <div class="row main-content">
-      <div class="col-8 " style="border-top: 1px solid; margin-right: 5%; padding-top: 5%;">
-        <h2>About {{ matchingRecipe.title }} (Serving Size: {{ matchingRecipe.servings }})</h2><br>
-        <p>{{ matchingRecipe.summary }}</p>
-      </div>
-
-      
-        <div class="col-3" style="border-top: 3px solid; border-bottom:3px solid; padding-top: 5%; padding-bottom: 5%;">
-          <h3>Things you need need to get started:</h3><br>
-          <ul>
-            <li v-for="ingredient in matchingRecipe.extendedIngredients">
-              {{ ingredient.original }}
-            </li>
-          </ul>
-
-          <div style="text-align: right;">
-            <button class="btn moving-item hover-effect" @click="showRemainingSteps = true">
-              Let's Get Started <i class="fa-solid fa-angle-right"></i>
-            </button>
-          </div>
+        <div class="col-8" style="border-top: 1px solid; margin-right: 5%; padding-top: 5%;">
+            <h2>About {{ matchingRecipe.title }} (Serving Size: {{ matchingRecipe.servings }})</h2><br>
+            <p>{{ matchingRecipe.summary }}</p>
         </div>
+        
+        <div class="col-3 card">
+            <h3>Ingredients:</h3>
+            <p></p>
+            <ul>
+                <li v-for="ingredient in matchingRecipe.extendedIngredients">
+                    {{ ingredient.original }}
+                </li>
+            </ul>
 
-        <!-- <div class="col-8" style="background-color: green;">
-            box
-        </div> -->
-      </div>
-    </div> 
+            <div style="text-align: right;">
+                <button class="btn moving-item hover-effect" @click="showRemainingSteps = true">
+                    Let's Get Started <i class="fa-solid fa-angle-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
   </div>
     
@@ -123,54 +119,52 @@
         </div>
       </div>
     </div>
-
-    <div class="row">
-      <!-- Green Box -->
-      <div class="col-md-6">
+    <div class="container">
+      <div class="row">
+        <!-- Green Box -->
+        <div class="col-md-6">
           <div class="common-box green-box">
             <h3>Available Ingredients</h3>
             <div v-if="matchingRecipe">
               <div class="recipe-ingredients">
-                
-                  <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
-                    <ul>
-                      <li v-for="ingredient in step.ingredients" :key="ingredient.id">
-                        <!-- Check if ingredient name is not empty before rendering -->
-                        <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
-                          <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
-                          <input type="checkbox" id="ingredient-{{ ingredient.id }}" />
-                        </div>
-                      </li>
-                    </ul>
-                  </p>
-                
-              </div>
-            </div>
-          </div>
-        
-
-      <!-- Red Box -->
-      <div class="col-md-6">
-          <div class="common-box red-box">
-            <h3>Missing Ingredients</h3>
-            <div v-if="matchingRecipe" class="recipe-ingredients">
-              
                 <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
                   <ul>
                     <li v-for="ingredient in step.ingredients" :key="ingredient.id">
                       <!-- Check if ingredient name is not empty before rendering -->
                       <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
                         <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
-                        <input type="checkbox" id="ingredient-{{ ingredient.id }}" checked/>
+                        <input type="checkbox" id="ingredient-{{ ingredient.id }}" />
                       </div>
                     </li>
                   </ul>
                 </p>
-              
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Red Box -->
+        <div class="col-md-6">
+          <div class="common-box red-box">
+            <h3>Missing Ingredients</h3>
+            <div v-if="matchingRecipe" class="recipe-ingredients">
+              <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
+                <ul>
+                  <li v-for="ingredient in step.ingredients" :key="ingredient.id">
+                    <!-- Check if ingredient name is not empty before rendering -->
+                    <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
+                      <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
+                      <input type="checkbox" id="ingredient-{{ ingredient.id }}" checked/>
+                    </div>
+                  </li>
+                </ul>
+              </p>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
     <!-- Popup for Remaining Steps: Start -->
     <div class="popup" v-if="showRemainingSteps">
@@ -186,8 +180,6 @@
       </div>
     </div>
     <!-- Popup for Remaining Steps: End -->
-  </div>
-</div>
 </template>
 
 <script>
@@ -240,30 +232,36 @@ div {
   overflow: hidden
 }
 
+
 .reference{
   margin-top: 1000px
 }
 
-
-.col-12 {
+.custom-image {
   max-width: 100%;
-  overflow: hidden;
-  /* height: 400px !important; */
+  max-height: 80vh;
 }
 
-
-.col-md-6 {
-  max-width: 100%;
-  overflow: hidden;
-  height: 90vh !important; 
+@media (max-width: 992px) {
+  .custom-image {
+    max-height: 60vh;
+  }
 }
 
 .main-content {
   padding-top: 20px;
-  margin: 5% 5% 0 5%;
+  margin: 5%;
 }
 
-
+.card{
+  max-height: fit-content; 
+  padding: 20px;
+  border-radius: 0px;
+  background-color: transparent;
+  border: 0px;
+  border-top: 3px solid;
+  border-bottom: 3px solid;
+}
 
 .centered-content {
   display: flex;
@@ -330,20 +328,17 @@ div {
 }
 
 .common-box {
-  margin: 24px;
-  color: black;
+  color: rgb(0, 0, 0);
   padding: 10px;
   border-radius: 5px;
 }
 
 .green-box {
   background-color: rgb(226, 246, 244);
-  margin-right: 12px;
 }
 
 .red-box {
   background-color: rgb(246, 226, 226);
-  margin-left: 12px;
 }
 
 .popup {
@@ -425,8 +420,6 @@ div {
 }
 
 .moving-item {
-            width: 200px;
-            height: 100px;
             position: relative;
             animation: moveLeftRight 2s linear infinite;
         }
@@ -443,13 +436,13 @@ div {
 
 @keyframes moveLeftRight {
   0% {
-                left: 0;
+                right: 0px;
             }
             50% {
-                left: 25px; /* Move to the right */
+                right: 25px; /* Move to the right */
             }
             100% {
-                left: 0; /* Move back to the left */
+                right: 0; /* Move back to the left */
             }
 }
 </style>
