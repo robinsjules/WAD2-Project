@@ -1,5 +1,9 @@
 <style scoped>
-
+    body{
+        background-color: rgb(237,243,235);
+        font-family: 'Montserrat';
+        min-height: 10vh;
+    }
 .coolbox {
     display: flex;
     align-items: center;
@@ -25,6 +29,7 @@
     animation-name: typing, blink-caret;
     animation-duration: 3.5s, 3.5s;
     animation-fill-mode: forwards;
+    padding-bottom: 10px;
 }
 .type[data-text="Welcome to SurplusHero!"] {
     animation-duration: 3s, 3s;
@@ -94,22 +99,40 @@ button.carousel-control-next {
     object-fit: cover;
 }
 
+.alert {
+    text-align: center;
+
+}
+
 
 </style>
 
 
 <template>
 
+        <div class="content ">
 
-        <div class="content container coolbox">
-    <div class="box">
-        <img src="../assets/appLogo.png" alt="Logo of SurplusHero" id="homeImg"/>
-    </div>
-    <div class="box typewriter">
-        <h2 class="type" data-text="Welcome to SurplusHero!">Welcome to SurplusHero!</h2>
-        <h2 class="type1" data-text="Your go-to for cheap groceries"> Your go-to for <span class="text-success">cheap groceries</span></h2>
-    </div>
-</div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert" v-if="showCheckoutAlert == 'true'">
+                <strong>You have successfully checked out!</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="reset()"></button>
+            </div>
+
+            <div class="container coolbox">
+
+                <div class="box">
+                    <img src="../assets/appLogo.png" alt="Logo of SurplusHero" id="homeImg"/>
+                </div>
+    
+                <div class="box typewriter">
+                    <h2 class="type" data-text="Welcome to SurplusHero!">Welcome to SurplusHero!</h2>
+                    <h2 class="type1" data-text="Your go-to for cheap groceries"> Your go-to for <span class="text-success">cheap groceries</span></h2>
+                </div>
+
+            </div>
+
+        </div>
+
+
 <!-- Maybe money saved can be a pie chart or dashboard showing how much money saved so far and what type of good it was spent on -->
         <!-- <div class="container">
             <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -283,7 +306,7 @@ button.carousel-control-next {
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-1"></div>
-            <div class="col-md-4"><h2>Check these recipes out!</h2></div>
+                <div class="col-md-4"><h2>Check these recipes out!</h2></div>
             </div>
     </div>
 
@@ -441,6 +464,8 @@ button.carousel-control-next {
         </div>
     <!-- BS carousel: end -->
     
+
+
 </template>
 
 <script>
@@ -450,15 +475,17 @@ import Cookies from 'js-cookie';
 export default {
   data() {
     return {
-      showNavBar: true, // Default to show the navigation bar
-      notificationCount: 0,
-      newNotifications: false,
-      postalCode: "",
-      location:"",
-      desiredQuantity: {},
-      items: [],
-      cart: [],
-      cartLength:0
+        showNavBar: true, // Default to show the navigation bar
+        notificationCount: 0,
+        newNotifications: false,
+        postalCode: "",
+        location:"",
+        desiredQuantity: {},
+        items: [],
+        cart: [],
+        cartLength:0,
+        showCheckoutAlert: false,
+        modal: null
 
 
     };
@@ -468,6 +495,14 @@ export default {
             const response = await axios.get(`http://127.0.0.1:5000/listings`);
             this.items = response.data;    
             // console.log('All cookies:', Cookies.get());
+            if (Cookies.get("showCheckoutAlert")){
+                this.showCheckoutAlert = Cookies.get('showCheckoutAlert');
+                console.log(this.showCheckoutAlert);
+                if (this.showCheckoutAlert) {
+                    Cookies.set('showCheckoutAlert', false);
+                }
+            }
+
             if (Cookies.get("cart")){
                 this.cart = JSON.parse(Cookies.get("cart"));
             }
@@ -483,8 +518,11 @@ export default {
     },
 
     methods: {
+        reset() {
+            this.showCheckoutAlert = false;
+            console.log(this.showCheckoutAlert);
+        },
         addtoCart(item) {
-             
             if (Cookies.get("cart")){
                 this.cart = JSON.parse(Cookies.get("cart"));
                 this.cartLength = Cookies.get("cartLength");
@@ -524,53 +562,12 @@ export default {
                 return false;
             }
         }
-        // getListings(){
-        //     axios.get(`http://127.0.0.1:5000/listings`)
-        //         .then(response => {
-        //             console.log(response.data); // Handle success response
-        //             this.ImageURL = response.data[2].ImageURL
-        //             this.IngredientName = response.data[2].IngredientName
-        //             this.OriginalPrice = response.data[2].OriginalPrice
-        //             this.Quantity = response.data[2].Quantity
-        //             this.SalePrice = response.data[2].SalePrice
-        //         })
-        //         .catch(error => {
-        //             console.error('Error updating data:', error); // Handle error
-        //         });
-        // },
-        // initAutocomplete() {
-        //     let input = document.getElementById("autocomplete");
-        //     let autocomplete = new google.maps.places.Autocomplete(input);
-        //     this.location=autocomplete
-        // },
-        // useCurrentLocation() {
-        //     if (!navigator.geolocation) {
-        //     return;
-        //     }
-
-        //     navigator.geolocation.getCurrentPosition((position) => {
-        //     const lat = position.coords.latitude;
-        //     const lng = position.coords.longitude;
-        //     console.log(lat);
-        //     console.log(lng);
-        //     const radius = '5000';
-        //     const keyword = encodeURIComponent('NTUC');
-        //     const key = "AIzaSyBiF8eEDh6HtoLGPrLnbNBfZQGbBNzNBN4";  
-        //     console.log("working")   
-        //     // axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=${radius}&type=${type}&key=${key}`)
-        //     axios.get(`/api?location=${lat},${lng}&radius=${radius}&keyword=${keyword}&key=${key}`)
-        //         .then(res => {
-        //         if (res.data.results && res.data.results.length > 0) {
-        //             this.location = res.data.results[0].vicinity;
-                    
-        //             }
-        //         })
-        //         .catch(err => {
-        //             // console.error(err);
-        //             console.error(err.message, err.response);
-        //         });
-        //     });
-        // }, 
     },
+
 }
+
+
+
+
+
 </script>

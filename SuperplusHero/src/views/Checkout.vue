@@ -1,6 +1,12 @@
 <style scoped>
+
+    body{
+        background-color: rgb(237,243,235);
+        font-family: 'Montserrat';
+        min-height: 10vh;
+    }
     .content {
-        margin-top: 125px;
+        padding-top: 125px;
 
     }
 
@@ -132,8 +138,11 @@
                 </div>
                 
                 <div class="checkoutBtn">
-                    <button class="btn btn-primary">Checkout</button>
+                    <router-link to="/home">
+                        <button class="btn btn-primary checkout" @click="checkout">Checkout</button>
+                    </router-link>
                 </div>
+
 
             </div>
         </div>
@@ -166,7 +175,7 @@ export default {
             newCartItem: false,
             cartLength: 0,
         };
-        },
+    },
     async created() {
         this.checkCookies();
         this.checkCart();
@@ -185,6 +194,16 @@ export default {
             
         },
     methods: {
+        checkout() {
+            Cookies.set('showCheckoutAlert', true);
+            this.$router.push('/home');
+
+            Cookies.remove('desiredQuantity');
+            Cookies.remove('itemTotalPrice');
+            Cookies.remove('itemNormalTotal');
+            Cookies.remove('cart');
+            Cookies.remove("cartLength");
+        },
         calcTotal(obj){
             let sum = Object.values(obj).reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
             return parseFloat(sum.toFixed(2)); 
