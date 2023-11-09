@@ -102,7 +102,7 @@ def get_communityposts():
     response = supabase.table('Posts').select('*').execute()
     return (response.data)
 
-@app.route("/post", methods=['POST'])
+@app.route("/post_to_community", methods=['POST'])
 def post_to_community():
     data = request.json
     response = supabase.table('Posts').insert(data).execute()

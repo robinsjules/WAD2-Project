@@ -12,10 +12,6 @@
     font-weight: bold;
 }
 
-.file-input {
-    margin-top: 10px;
-}
-
 .other-title {
     color: rgb(10, 160, 10);
     margin-top: 60px;
@@ -29,6 +25,10 @@
 /* create post/modal style */
 .modal-dialog {
     max-width: 700px;
+}
+
+.file-input {
+    margin-top: 10px;
 }
 
 .post-button {
@@ -388,6 +388,33 @@ export default {
             this.imageUrl = ''; // Clear the image URL to remove the preview
             // You may also reset the file input field if needed
             document.getElementById('file-upload').value = '';
+        },
+
+        async createPost() {
+            try {
+                const caption = document.getElementById('createCaption').value; // Get the caption from the input field
+                const recipeTitle = document.getElementById('recipePostTitle').value; // Get the recipe title from the input field
+
+                const data = {
+                    CreatedAt: new Date().toISOString(), // Add the current date timestamp
+                    Caption: caption,
+                    imageURL: this.imageUrl, // The image URL set in the Vue data
+                    recipeTitle: recipeTitle
+                };
+
+                const response = await axios.post('http://127.0.0.1:5000/post_to_community', data);
+
+                // Optionally, you can reset the input fields and image preview after successful posting
+                document.getElementById('createCaption').value = ''; // Clear the caption input
+                document.getElementById('recipePostTitle').value = ''; // Clear the recipe title input
+                this.imageUrl = ''; // Clear the image URL
+                document.getElementById('file-upload').value = ''; // Reset the file input
+
+                // Fetch the updated posts after posting
+                this.fetchPostsFromServer();
+            } catch (error) {
+                console.error('Error creating post:', error);
+            }
         },
 
         async searchPosts() {
