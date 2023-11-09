@@ -20,29 +20,37 @@
         font-weight: bold;
     }
     .list-group-item {
+        display: flex;
         justify-content: space-between;
-        display: flex;
-        flex-direction: row
+        align-items: center;
     }
 
-    .nestedFlex{
+    .nestedFlex, .nestedFlex2 {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        width: 30%; 
+    }
+    
+    .cartItemDetails {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
     }
 
-    .nestedFlex2{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin-top: 30px;
+    .cartItemQuantity{
+        text-align: center;
     }
 
     .card{
         margin-bottom: 20px;
     }
+
+    
     .checkoutBtn {
     position: sticky;
     top: 269px; /* 125px for the navbar + 144px for the size of the list group and margin */
@@ -55,9 +63,11 @@
 
 .card-img-top {
     max-width: 100%;
-    width: 20%;        
+    /* width: 20%;        
+    height: auto;       */
+        width: 150px;   /* This can be adjusted as per requirement */
+    height: 150px;  /* This can be adjusted as per requirement */
     object-fit: cover; 
-    height: auto;      
 }
 
 </style>
@@ -78,22 +88,27 @@
                                     
                                     <div class="nestedFlex">
                                         <div>
-                                            <p>{{item.IngredientName}}</p>
+                                            {{item.IngredientName}}
                                         </div>
     
                                         <div class="cartItemQuantity">
-                                            Quantity: 
-                                            <button class="btn btn-primary" @click="decreaseQuantity(item)">-</button>
+                                            <b>Stock Available:</b> {{  item.Quantity }}
+                                            <br>
+                                            <b>Quantity:</b> 
+                                        </div>
+
+                                        <div>
+                                            <button class="btn btn-primary" @click="decreaseQuantity(item)" :disabled="desiredQuantity[item.id] <= 1">-</button>
                                             {{desiredQuantity[item.id] || 1}} 
                                             <!-- If item id exists in desiered quantity object set value to 1 if not go next -->
-                                            <button class="btn btn-primary" @click="increaseQuantity(item)">+</button>
+                                            <button class="btn btn-primary" @click="increaseQuantity(item)" :disabled="desiredQuantity[item.id] >= item.Quantity">+</button>
                                         </div>
 
                                     </div>
                                     
                                     <div class="nestedFlex2">
                                         <button class="btn btn-primary remove" @click="removeFromCart(item)">X</button>
-                                        <p class="price"> <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></p>
+                                        <p class="price"> <s>${{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">${{ item.SalePrice }}</strong></p>
                                     </div>
                                     
                                 </li>
@@ -174,17 +189,32 @@ export default {
             let sum = Object.values(obj).reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
             return parseFloat(sum.toFixed(2)); 
         },
+        reCalcAfterRemoval(){
+            this.cart = Cookies.get("cart");
+
+            this.calculateItemTotal(item);  // Calculate new Total Sale Price
+            this.calculateItemNormalTotal(item) // Calculate new Total Normal Price
+        },
         removeFromCart(item) {
-            const index = this.cart.findIndex(cartItem => cartItem.id === item.id); // Calls the findIndex method on every item (we call cartItem) Check if the item in cart matches the item being sent from remove item
+            const index = this.cart.findIndex(cartItem => cartItem.id === item.id); 
             if (index !== -1) {
                 this.cart.splice(index, 1);
                 Cookies.set('cart', JSON.stringify(this.cart));
+                // Additional section for normal price adjustment
+                if (this.itemNormalTotal[item.id]) {
+                    delete this.itemNormalTotal[item.id];
+                    Cookies.set('itemNormalTotal', JSON.stringify(this.itemNormalTotal)); 
+                }
                 if (this.desiredQuantity[item.id]) {
-                delete this.desiredQuantity[item.id];
-                Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity)); // Update cookies
+                    delete this.desiredQuantity[item.id];
+                    delete this.itemTotalPrice[item.id]; 
+                    Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
+                }
             }
-            }
-        },
+            this.totalPrice = this.calcTotal(this.itemTotalPrice);
+            this.normalTotalPrice = this.calcTotal(this.itemNormalTotal);
+            this.savedTotal = (this.normalTotalPrice - this.totalPrice).toFixed(2);
+            },
         checkCartLength(){
             if (Cookies.get("cartLength")){
                 // console.log(Cookies.get('cartLength'));
@@ -215,6 +245,7 @@ export default {
                     this.calculateItemTotal(item);
                     this.calculateItemNormalTotal(item);
                     
+                    
                 }
                 
             }else{
@@ -230,9 +261,13 @@ export default {
                 }
             }
             Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
-            this.calculateItemTotal(item);
+            this.calculateItemTotal(item);  // Calculate new Total Sale Price
+            this.calculateItemNormalTotal(item) // Calculate new Total Normal Price
             this.totalPrice = this.calcTotal(this.itemTotalPrice);
             this.normalTotalPrice = this.calcTotal(this.itemNormalTotal)
+            this.savedTotal = (this.normalTotalPrice - this.totalPrice).toFixed(2);
+            Cookies.set("itemTotalPrice", this.itemTotalPrice);
+            Cookies.set("totalPrice", this.totalprice);
         },
         decreaseQuantity(item) {
             if (!this.desiredQuantity[item.id] || this.desiredQuantity[item.id] <= 1) {
@@ -241,17 +276,23 @@ export default {
                 this.desiredQuantity[item.id]--;
             }
             Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
-            this.calculateItemTotal(item);
+            this.calculateItemTotal(item);  // Calculate new Total Sale Price
+            this.calculateItemNormalTotal(item) // Calculate new Total Normal Price
             this.totalPrice = this.calcTotal(this.itemTotalPrice);
             this.normalTotalPrice = this.calcTotal(this.itemNormalTotal)
+            this.savedTotal = (this.normalTotalPrice - this.totalPrice).toFixed(2);
+            Cookies.set("itemTotalPrice", this.itemTotalPrice);
+            Cookies.set("totalPrice", this.totalprice);
         },
         calculateItemTotal(item){
-            let calc = this.desiredQuantity[item.id] * item.SalePrice
+            let calc = this.desiredQuantity[item.id] * item.SalePrice;
             this.itemTotalPrice[item.id] = parseFloat(calc.toFixed(2)); 
+            Cookies.set('itemTotalPrice', JSON.stringify(this.itemTotalPrice));
         },
         calculateItemNormalTotal(item){
-            let calc = this.desiredQuantity[item.id] * item.OriginalPrice
+            let calc = this.desiredQuantity[item.id] * item.OriginalPrice;
             this.itemNormalTotal[item.id] = parseFloat(calc.toFixed(2)); 
+            Cookies.set('itemNormalTotal', JSON.stringify(this.itemNormalTotal));
         }
     }
 };

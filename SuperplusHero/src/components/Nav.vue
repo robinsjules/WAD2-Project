@@ -17,6 +17,7 @@
   top: 0;
   left: 0;
   right: 0;
+  height: 85px;
 }
 
 .navbar-brand img {
@@ -79,7 +80,7 @@
 <template>
 <nav v-if="showNavBar" class="navbar navbar-expand-md navbar-dark bg-dark navcolor">
     <router-link to="/home">
-        <a class="navbar-brand" href="#"><img src="../assets/appLogoForNav.png" alt="Logo" height="70"></a>
+        <a class="navbar-brand" href="#"><img src="../assets/appLogoForNav.png" alt="Logo" height="60"></a>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -95,33 +96,17 @@
             data-bs-toggle="modal"
             data-bs-target="#locationModal"
           >
-            <img src="../assets/locationWhite.png" alt="Location Pin" width="50" height="50">
+            <img src="../assets/locationWhite.png" alt="Location Pin" width="40" height="40">
           </a>
             
 
         </li>
 
-        <!-- <li class="nav-item">
-          <button 
-              type="button"
-              class="btn btn-link" 
-              data-bs-toggle="modal" 
-              data-bs-target="#notificationModal"
-              @click="openNoti"
-              aria-label="Show notifications"
-            ><img src="../assets/noti.png" width="50" height="50">
-          <span class="badge bg-danger" v-if="newNotifications" role="alert">{{notificationCount}}</span>
-          <i class="bi bi-bell"></i>
-        </button>
-
-
-        </li> -->
-
         <li class="nav-item">
           <router-link to="/community"> <!-- Edit to Community Page, also apply to index.js router -->
             <a class="nav-link" href="#">
             
-            <img src="../assets/communityWhite.png" alt="Community" width="50" height="50">
+            <img src="../assets/communityWhite.png" alt="Community" width="40" height="40">
           
           </a>
 
@@ -139,7 +124,7 @@
 
             
             
-            <img src="../assets/cartWhite.png" alt="Cart" width="50" height="50">
+            <img src="../assets/cartWhite.png" alt="Cart" width="35" height="35">
             <span class="badge bg-danger" v-if="cartLength > 0 " role="alert">{{ cartLength }}</span>
             <i class="bi bi-bell"></i>
           
@@ -148,12 +133,12 @@
         </li>
         <li class="nav-item">
           <router-link to="/fridge"> <!-- Edit to Fridge Page, also apply to index.js router -->
-            <a class="nav-link" href="#"><img src="../assets/fridgeWhite.png" alt="Fridge" width="50" height="50"></a>
+            <a class="nav-link" href="#"><img src="../assets/fridgeWhite.png" alt="Fridge" width="35" height="35"></a>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/profile">
-            <a class="nav-link" href="#"><img src="../assets/profileWhite.png" alt="Profile" width="50" height="50"></a>
+            <a class="nav-link" href="#"><img src="../assets/profileWhite.png" alt="Profile" width="35" height="35"></a>
           </router-link>
         </li>
       </ul>
@@ -200,19 +185,19 @@
                     <img :src="item.ImageURL" alt="Surplus Listing" class="cartThumbnail">
                     <div class="cart-item-details">
                         <h3 class="cartItemName">{{item.IngredientName}}</h3>
-                        <span class="price"> Price: <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></span>
+                        <span class="price"> Price: $<s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></span>
     
                           <div class="cartItemQuantity">
                             Quantity: 
-                              <button class="btn btn-primary" @click="decreaseQuantity(item)">-</button>
+                              <button class="btn btn-primary" @click="decreaseQuantity(item)"  :disabled="desiredQuantity[item.id] <= 1" >-</button>
                               {{desiredQuantity[item.id] || 1}} 
                               <!-- If item id exists in desiered quantity object set value to 1 if not go next -->
-                              <button class="btn btn-primary" @click="increaseQuantity(item)">+</button>
+                              <button class="btn btn-primary" @click="increaseQuantity(item)" :disabled="desiredQuantity[item.id] >= item.Quantity">+</button>
                               
                               
                               <div class="cartItemStock">
                                 Stock Available: {{ item.Quantity }}
-                                Item Cost: {{ itemTotalPrice[item.id] }}
+                                Item Cost: ${{ itemTotalPrice[item.id] }}
                               </div>
                               
 
@@ -226,7 +211,7 @@
                       <hr>
                     </div>
                     <div class="totalPrice">
-                      Total Cost: {{ totalPrice }}
+                      Total Cost: ${{ totalPrice }}
                     </div>
                     <router-link to="/checkout">
                       <button class="btn btn-primary checkout" data-bs-dismiss="modal">Checkout</button>
@@ -235,28 +220,7 @@
               </div>
             </div>
           </div>
-    
-
-        <!-- <div 
-            class="modal" 
-            tabindex="-1" 
-            role="dialog" 
-            id="notificationModal" 
-            aria-labelledby="notificationModalLabel" 
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="notificationModalLabel">Notifications</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-lebody">
-                        You have {{notificationCount}} new notifications.
-                        
-                    </div>
-                </div>
-            </div>
-        </div> -->
+  
 
 
 
@@ -294,10 +258,7 @@ export default {
       }, 500);
       // this.totalPrice = this.desiredQuantity.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
       this.totalPrice = this.calcTotal(this.itemTotalPrice);
-
-
     },
-
 
     computed: { 
       // cartLength() {
@@ -310,14 +271,26 @@ export default {
       return parseFloat(sum.toFixed(2)); 
     },
     removeFromCart(item) {
+      
       const index = this.cart.findIndex(cartItem => cartItem.id === item.id); // Calls the findIndex method on every item (we call cartItem) Check if the item in cart matches the item being sent from remove item
       if (index !== -1) {
         this.cart.splice(index, 1);
         Cookies.set('cart', JSON.stringify(this.cart));
         if (this.desiredQuantity[item.id]) {
           delete this.desiredQuantity[item.id];
+          delete this.itemTotalPrice[item.id];  
           Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity)); // Update cookies
       }
+
+      if (Cookies.get("itemTotalPrice")){
+        // this.calcTotal(Cookies.get("itemTotalPrice"));
+        this.totalPrice = this.calcTotal(Cookies.get("itemTotalPrice"));
+        console.log(this.totalPrice);
+      }else{
+        this.totalPrice = 0.0;
+      }
+      
+      
     }
   },
     checkCartLength(){
@@ -334,6 +307,11 @@ export default {
       }else{
         this.location = "";
       }
+      if (Cookies.get("totalPrice")){
+        this.totalPrice=Cookies.get("totalPrice");
+      }else{
+
+      }
     },
     checkCart(){
       if (Cookies.get("cart")){
@@ -349,7 +327,9 @@ export default {
             }
             this.calculateItemTotal(item);
           }
-          
+          this.totalPrice = this.calcTotal(this.itemTotalPrice);  
+          Cookies.set("totalPrice", this.totalPrice);
+
       }else{
         this.cart = [];
       }
@@ -365,6 +345,8 @@ export default {
       Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
       this.calculateItemTotal(item);
       this.totalPrice = this.calcTotal(this.itemTotalPrice);
+      Cookies.set("itemTotalPrice", this.itemTotalPrice);
+      Cookies.set("totalPrice", this.totalprice);
     },
     decreaseQuantity(item) {
       if (!this.desiredQuantity[item.id] || this.desiredQuantity[item.id] <= 1) {
@@ -375,6 +357,8 @@ export default {
       Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
       this.calculateItemTotal(item);
       this.totalPrice = this.calcTotal(this.itemTotalPrice);
+      Cookies.set("itemTotalPrice", this.itemTotalPrice);
+      Cookies.set("totalPrice", this.totalprice);
 
       
     },
