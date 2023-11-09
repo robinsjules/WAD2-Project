@@ -26,6 +26,7 @@
     margin-top: 80px;
 }
 
+/* create post/modal style */
 .post-button {
     color: gray;
     border-color: lightgray;
@@ -41,6 +42,35 @@
     background-color: rgb(10, 160, 10);
     color: white;
 }
+
+.final-post-button:hover {
+    background-color: rgb(10, 160, 10);
+    color: white;
+}
+
+#file-upload {
+    margin-bottom: 10px;
+}
+
+.uploaded-image-preview {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.btn-remove-image {
+    float: right;
+    margin-bottom: 10px;
+}
+
+.btn-remove-image:hover {
+    background-color: red;
+    color: white;
+    float: right;
+    margin-bottom: 10px;
+}
+
+/* end of create post/modal style */
 
 .card {
     width: 615px;
@@ -132,31 +162,36 @@
                                 data-bs-target="#createPostModal">
                                 Tell us about your homemade meal!</button>
 
+                            <!-- Modal for creating a post -->
                             <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostLabel"
                                 aria-hidden="true">
+                                <!-- Modal content -->
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="createPostLabel">Create Post</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+                                            <!-- Existing modal header -->
                                         </div>
                                         <div class="modal-body">
-                                            <label for="createCaption">Write a caption for your tasty
-                                                meal!</label>
-                                            <textarea class="form-control" id="createCaption" rows="3"></textarea>
                                             <div class="file-input">
-                                                <div class="file-input">
-                                                    <input id="file-upload" type="file" @change="uploadPicture"
-                                                        accept="image/*" />
+                                                <input id="file-upload" type="file" @change="previewImage"
+                                                    accept="image/*" />
+                                                <!-- Display area for previewing the uploaded image -->
+                                                <img v-if="imageUrl" :src="imageUrl" class="uploaded-image-preview" />
+                                                <div class="image-preview">
+                                                    <button v-if="imageUrl" @click="removeImage"
+                                                        class="btn btn-secondary btn-remove-image">Remove Image</button>
                                                 </div>
                                             </div>
+                                            <!-- Create a separate container for the caption -->
+                                            <div class="caption-container">
+                                                <textarea class="form-control" id="createCaption" rows="5" placeholder="Write a caption for your tasty dish!"></textarea>
+                                            </div>
+                                        </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Close</button>
                                             <input type="submit" class="btn final-post-button" value="Post"
                                                 data-bs-dismiss="modal" @click="createPost" />
-                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -270,7 +305,8 @@ export default {
             selectedSortOption: 'Newest',
             cuisines: [],
             selectedCuisineOption: '',
-            searchQuery: ''
+            searchQuery: '',
+            imageUrl: ''
         }
     },
 
@@ -319,6 +355,25 @@ export default {
                     post.Caption.toLowerCase().includes(this.searchQuery.trim().toLowerCase())
                 );
             }
+        },
+
+        previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = () => {
+                    this.imageUrl = reader.result; // Store the URL of the uploaded image
+                };
+
+                reader.readAsDataURL(file);
+            }
+        },
+
+        removeImage() {
+            this.imageUrl = ''; // Clear the image URL to remove the preview
+            // You may also reset the file input field if needed
+            document.getElementById('file-upload').value = '';
         },
 
         async searchPosts() {
