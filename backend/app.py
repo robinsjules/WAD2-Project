@@ -114,10 +114,10 @@ def get_fridge(fridgeuser):
     response = supabase.table('Users').select('*').eq('UserName', fridgeuser).execute()
     return (response.data)
 
-@app.route("/update_fridge", methods=['PUT'])
+@app.route("/update_fridge/<updateforfridgeuser>", methods=['PUT'])
 def update_fridge(updateforfridgeuser):
     data = request.json
-    response = supabase.table('Users').upsert(data).eq('UserName', updateforfridgeuser).execute()
+    response = supabase.table('Users').update(data).eq('UserName', updateforfridgeuser).execute()
     return (response.data)
 
 # code works -> like post
