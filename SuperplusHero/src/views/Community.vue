@@ -5,15 +5,17 @@
     font-family: "Montserrat";
 }
 
+.background {
+  background-color: rgb(237, 243, 235); 
+  font-family: 'Montserrat';
+  min-height: 100vh;
+}
+
 .page-title {
     color: rgb(10, 160, 10);
     margin-left: 15px;
     margin-top: 100px;
     font-weight: bold;
-}
-
-.file-input {
-    margin-top: 10px;
 }
 
 .other-title {
@@ -23,7 +25,7 @@
 }
 
 .content {
-    margin-top: 80px;
+    padding-top: 20px;
 }
 
 /* create post/modal style */
@@ -31,13 +33,18 @@
     max-width: 700px;
 }
 
+.file-input {
+    margin-top: 10px;
+}
+
 .post-button {
+    background-color: white;
     color: gray;
     border-color: lightgray;
-    width: 100%;
 }
 
 .post-button:hover {
+    background-color: white;
     color: gray;
     border-color: lightgray;
 }
@@ -158,6 +165,7 @@
 <template>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <div class="background">
     <section class="content">
         <div class="container posts-content">
             <h2 class="page-title">Share with the Community</h2>
@@ -304,6 +312,7 @@
             </div>
         </div>
     </section>
+</div>
 </template>
 
 <script>
@@ -388,6 +397,33 @@ export default {
             this.imageUrl = ''; // Clear the image URL to remove the preview
             // You may also reset the file input field if needed
             document.getElementById('file-upload').value = '';
+        },
+
+        async createPost() {
+            try {
+                const caption = document.getElementById('createCaption').value; // Get the caption from the input field
+                const recipeTitle = document.getElementById('recipePostTitle').value; // Get the recipe title from the input field
+
+                const data = {
+                    CreatedAt: new Date().toISOString(), // Add the current date timestamp
+                    Caption: caption,
+                    imageURL: this.imageUrl, // The image URL set in the Vue data
+                    recipeTitle: recipeTitle
+                };
+
+                const response = await axios.post('http://127.0.0.1:5000/post_to_community', data);
+
+                // Optionally, you can reset the input fields and image preview after successful posting
+                document.getElementById('createCaption').value = ''; // Clear the caption input
+                document.getElementById('recipePostTitle').value = ''; // Clear the recipe title input
+                this.imageUrl = ''; // Clear the image URL
+                document.getElementById('file-upload').value = ''; // Reset the file input
+
+                // Fetch the updated posts after posting
+                this.fetchPostsFromServer();
+            } catch (error) {
+                console.error('Error creating post:', error);
+            }
         },
 
         async searchPosts() {
