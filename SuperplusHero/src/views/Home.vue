@@ -182,11 +182,11 @@ button.carousel-control-next {
                             <div class="row">
                                 
                                 <div class="col-md-1"></div>
-                                    <div class="col-md-2 mb-3" v-for="(item, index) in items" :key="index">
+                                    <div class="col-md-2 mb-3" v-for="(item, index) in items.slice(0,5)" :key="index">
                                             <div class="card">
                                                 <img :src="item.ImageURL" class="card-img-top" alt="Surplus Listing"  style="width:100%">
                                                 <h1>{{item.IngredientName}}</h1>
-                                                <p class="price"> <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></p>
+                                                <p class="price"> <s>${{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">${{ item.SalePrice }}</strong></p>
                                                 <!-- <p>Some text about the product</p> -->
                                                 <p><button type="button" class="btn btn-primary" @click="addtoCart(item)">Add to Cart</button></p>    
                                             </div>
@@ -203,11 +203,11 @@ button.carousel-control-next {
                             <div class="row">
                                 
                                 <div class="col-md-1"></div>
-                                <div class="col-md-2 mb-3" v-for="(item, index) in items" :key="index">
+                                <div class="col-md-2 mb-3" v-for="(item, index) in items.slice(5,10)" :key="index">
                                         <div class="card">
                                             <img :src="item.ImageURL" class="card-img-top" alt="Recipe" style="width:100%">
                                             <h1>{{item.IngredientName}}</h1>
-                                            <p class="price"> <s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></p>
+                                            <p class="price"> <s>${{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">${{ item.SalePrice }}</strong></p>
                                             <!-- <p>Some text about the product</p> -->
                                             <p><button type="button" class="btn btn-primary" @click="addtoCart(item)">Add to Cart</button></p>    
                                         </div>
