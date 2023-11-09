@@ -102,10 +102,22 @@ def get_communityposts():
     response = supabase.table('Posts').select('*').execute()
     return (response.data)
 
+# code works -> post to community
 @app.route("/post_to_community", methods=['POST'])
 def post_to_community():
     data = request.json
     response = supabase.table('Posts').insert(data).execute()
+    return (response.data)
+
+@app.route("/fridge", methods=['GET'])
+def get_fridge():
+    response = supabase.table('Users').select('*').execute()
+    return (response.data)
+
+@app.route("/update__fridge", methods=['PUT'])
+def update_fridge():
+    data = request.json
+    response = supabase.table('Users').upsert(data).execute()
     return (response.data)
 
 # code works -> like post
