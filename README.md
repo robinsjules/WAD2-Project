@@ -35,6 +35,7 @@ To run this project locally:
 - GitHub for collaborative software development
 - PostgreSQL database through Supabase
 - Postman for testing
+- JavaScript Cookies
   
 ## Icon Source Credits
 - Hand-drawn Logo by Team SurplusHero
