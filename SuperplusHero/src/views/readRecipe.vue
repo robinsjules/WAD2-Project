@@ -30,34 +30,30 @@
       </div>
     <!-- End of Hero Image -->
     <!-- </div> -->
-    <div class="container-fluid">
+<div class="container-fluid">
     <div class="row main-content">
-      <div class="col-8 " style="border-top: 1px solid; margin-right: 5%; padding-top: 5%;">
-        <h2>About {{ matchingRecipe.title }} (Serving Size: {{ matchingRecipe.servings }})</h2><br>
-        <p>{{ matchingRecipe.summary }}</p>
-      </div>
-
-      
-        <div class="col-3" style="border-top: 3px solid; border-bottom:3px solid; padding-top: 5%; padding-bottom: 5%;">
-          <h3>Things you need need to get started:</h3><br>
-          <ul>
-            <li v-for="ingredient in matchingRecipe.extendedIngredients">
-              {{ ingredient.original }}
-            </li>
-          </ul>
-
-          <div style="text-align: right;">
-            <button class="btn moving-item hover-effect" @click="showRemainingSteps = true">
-              Let's Get Started <i class="fa-solid fa-angle-right"></i>
-            </button>
-          </div>
+        <div class="col-8" style="border-top: 1px solid; margin-right: 5%; padding-top: 5%;">
+            <h2>About {{ matchingRecipe.title }} (Serving Size: {{ matchingRecipe.servings }})</h2><br>
+            <p>{{ matchingRecipe.summary }}</p>
         </div>
+        
+        <div class="col-3 card">
+            <h3>Ingredients:</h3>
+            <p></p>
+            <ul>
+                <li v-for="ingredient in matchingRecipe.extendedIngredients">
+                    {{ ingredient.original }}
+                </li>
+            </ul>
 
-        <!-- <div class="col-8" style="background-color: green;">
-            box
-        </div> -->
-      </div>
-    </div> 
+            <div style="text-align: right;">
+                <button class="btn moving-item hover-effect" @click="showRemainingSteps = true">
+                    Let's Get Started <i class="fa-solid fa-angle-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
   </div>
     
@@ -236,6 +232,7 @@ div {
   overflow: hidden
 }
 
+
 .reference{
   margin-top: 1000px
 }
@@ -253,7 +250,17 @@ div {
 
 .main-content {
   padding-top: 20px;
-  margin: 5% 5% 0 5%;
+  margin: 5%;
+}
+
+.card{
+  max-height: fit-content; 
+  padding: 20px;
+  border-radius: 0px;
+  background-color: transparent;
+  border: 0px;
+  border-top: 3px solid;
+  border-bottom: 3px solid;
 }
 
 .centered-content {
@@ -413,8 +420,6 @@ div {
 }
 
 .moving-item {
-            width: 200px;
-            height: 100px;
             position: relative;
             animation: moveLeftRight 2s linear infinite;
         }
@@ -431,13 +436,13 @@ div {
 
 @keyframes moveLeftRight {
   0% {
-                left: 0;
+                right: 0px;
             }
             50% {
-                left: 25px; /* Move to the right */
+                right: 25px; /* Move to the right */
             }
             100% {
-                left: 0; /* Move back to the left */
+                right: 0; /* Move back to the left */
             }
 }
 </style>

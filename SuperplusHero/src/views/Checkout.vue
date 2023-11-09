@@ -83,6 +83,8 @@
     
                                         <div class="cartItemQuantity">
                                             Quantity: 
+                                        </div>
+                                        <div>
                                             <button class="btn btn-primary" @click="decreaseQuantity(item)">-</button>
                                             {{desiredQuantity[item.id] || 1}} 
                                             <!-- If item id exists in desiered quantity object set value to 1 if not go next -->
@@ -174,17 +176,32 @@ export default {
             let sum = Object.values(obj).reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
             return parseFloat(sum.toFixed(2)); 
         },
+        reCalcAfterRemoval(){
+            this.cart = Cookies.get("cart");
+
+            this.calculateItemTotal(item);  // Calculate new Total Sale Price
+            this.calculateItemNormalTotal(item) // Calculate new Total Normal Price
+        },
         removeFromCart(item) {
-            const index = this.cart.findIndex(cartItem => cartItem.id === item.id); // Calls the findIndex method on every item (we call cartItem) Check if the item in cart matches the item being sent from remove item
+            const index = this.cart.findIndex(cartItem => cartItem.id === item.id); 
             if (index !== -1) {
                 this.cart.splice(index, 1);
                 Cookies.set('cart', JSON.stringify(this.cart));
+                // Additional section for normal price adjustment
+                if (this.itemNormalTotal[item.id]) {
+                    delete this.itemNormalTotal[item.id];
+                    Cookies.set('itemNormalTotal', JSON.stringify(this.itemNormalTotal)); 
+                }
                 if (this.desiredQuantity[item.id]) {
-                delete this.desiredQuantity[item.id];
-                Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity)); // Update cookies
+                    delete this.desiredQuantity[item.id];
+                    delete this.itemTotalPrice[item.id]; 
+                    Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
+                }
             }
-            }
-        },
+            this.totalPrice = this.calcTotal(this.itemTotalPrice);
+            this.normalTotalPrice = this.calcTotal(this.itemNormalTotal);
+            this.savedTotal = (this.normalTotalPrice - this.totalPrice).toFixed(2);
+            },
         checkCartLength(){
             if (Cookies.get("cartLength")){
                 // console.log(Cookies.get('cartLength'));
@@ -215,6 +232,7 @@ export default {
                     this.calculateItemTotal(item);
                     this.calculateItemNormalTotal(item);
                     
+                    
                 }
                 
             }else{
@@ -230,9 +248,13 @@ export default {
                 }
             }
             Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
-            this.calculateItemTotal(item);
+            this.calculateItemTotal(item);  // Calculate new Total Sale Price
+            this.calculateItemNormalTotal(item) // Calculate new Total Normal Price
             this.totalPrice = this.calcTotal(this.itemTotalPrice);
             this.normalTotalPrice = this.calcTotal(this.itemNormalTotal)
+            this.savedTotal = (this.normalTotalPrice - this.totalPrice).toFixed(2);
+            Cookies.set("itemTotalPrice", this.itemTotalPrice);
+            Cookies.set("totalPrice", this.totalprice);
         },
         decreaseQuantity(item) {
             if (!this.desiredQuantity[item.id] || this.desiredQuantity[item.id] <= 1) {
@@ -241,17 +263,23 @@ export default {
                 this.desiredQuantity[item.id]--;
             }
             Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity));
-            this.calculateItemTotal(item);
+            this.calculateItemTotal(item);  // Calculate new Total Sale Price
+            this.calculateItemNormalTotal(item) // Calculate new Total Normal Price
             this.totalPrice = this.calcTotal(this.itemTotalPrice);
             this.normalTotalPrice = this.calcTotal(this.itemNormalTotal)
+            this.savedTotal = (this.normalTotalPrice - this.totalPrice).toFixed(2);
+            Cookies.set("itemTotalPrice", this.itemTotalPrice);
+            Cookies.set("totalPrice", this.totalprice);
         },
         calculateItemTotal(item){
-            let calc = this.desiredQuantity[item.id] * item.SalePrice
+            let calc = this.desiredQuantity[item.id] * item.SalePrice;
             this.itemTotalPrice[item.id] = parseFloat(calc.toFixed(2)); 
+            Cookies.set('itemTotalPrice', JSON.stringify(this.itemTotalPrice));
         },
         calculateItemNormalTotal(item){
-            let calc = this.desiredQuantity[item.id] * item.OriginalPrice
+            let calc = this.desiredQuantity[item.id] * item.OriginalPrice;
             this.itemNormalTotal[item.id] = parseFloat(calc.toFixed(2)); 
+            Cookies.set('itemNormalTotal', JSON.stringify(this.itemNormalTotal));
         }
     }
 };
