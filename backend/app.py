@@ -127,7 +127,7 @@ def addSurplusListing():
     return (response.data)
 
 @app.route("/add_recipe", methods=['POST'])
-def addSurplusListing():
+def testAdd():
     data = request.json
     response = supabase.table("Tes3").insert(data).execute()
     return (response.data)
