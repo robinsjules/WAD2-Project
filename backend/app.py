@@ -145,12 +145,13 @@ def addSurplusListing():
     # return Response((response.data),mimetype="application/json")
     return (response.data)
 
-@app.route("/add_recipe", methods=['POST'])
+@app.route("/add_recipe", methods=['GET', 'POST'])
 def testAdd():
     data = request.json
-    response = supabase.table("Tes3").insert(data).execute()
+    response = supabase.table("Test3").insert(data).execute()
     return (response.data)
 
+# code works -> send email
 @app.route('/send_email/<email>', methods=['POST'])
 def sendEmail(email):
     client = Courier(auth_token="dk_prod_CJHDC3SX1F4JZ1KWWFGMVBSMWA4M")
