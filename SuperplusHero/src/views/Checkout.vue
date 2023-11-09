@@ -130,8 +130,8 @@
                 <div class="card paymentCard">
 
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Normal Price: <span class='moneyStuff'>${{ normalTotalPrice }}</span></li>
-                        <li class="list-group-item">Savings: <span class='moneyStuff text-danger'>${{ savedTotal }}</span></li>
+                        <li class="list-group-item">Normal Price: <span class='moneyStuff text-danger'>${{ normalTotalPrice }}</span></li>
+                        <li class="list-group-item">Savings: <span class='moneyStuff'>${{ savedTotal }}</span></li>
                         <li class="list-group-item">Total: <span class='moneyStuff text-success'>${{ totalPrice }}</span></li>
                     </ul>
 
