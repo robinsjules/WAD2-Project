@@ -36,24 +36,24 @@ def sign_up():
     signUp = supabase.auth.sign_up(email, password)
     return jsonify({'userId': signUp.user.id, "access_token": signUp.session.access_token, "refresh_token": signUp.session.refresh_token})
 
-@app.route("/retrieve_session")
-def retrieve_session():
-    session = supabase.auth.get_session()
-    email = session.user.email if session else None
-    if email:
-        user = supabase.table('Users').select("*").eq('Email', email).execute()
-        if user.get('data'):
-            user_data = user.get('data')[0]
-            return jsonify({'username': user_data['UserName'], 'email': email})
+# @app.route("/retrieve_session")
+# def retrieve_session():
+#     session = supabase.auth.get_session()
+#     email = session.user.email if session else None
+#     if email:
+#         user = supabase.table('Users').select("*").eq('Email', email).execute()
+#         if user.get('data'):
+#             user_data = user.get('data')[0]
+#             return jsonify({'username': user_data['UserName'], 'email': email})
     
-    return jsonify({'error': 'No session found'})
+#     return jsonify({'error': 'No session found'})
 
-@app.route("/refresh_session", methods=['GET'])
-def refresh_session():
-    supabase = create_client(url, key)
-    session = supabase.auth.get_session()
-    if session is not None:
-        return jsonify({'email': session.user.email, "access_token": session.access_token, "refresh_token": session.refresh_token})
+# @app.route("/refresh_session", methods=['GET'])
+# def refresh_session():
+#     supabase = create_client(url, key)
+#     session = supabase.auth.get_session()
+#     if session is not None:
+#         return jsonify({'email': session.user.email, "access_token": session.access_token, "refresh_token": session.refresh_token})
 
 # code works -> hooooooray can only log in if u are an authorised user on supabase     
 @app.route("/auth_sign_in", methods=['POST'])
@@ -100,6 +100,24 @@ def update_user(username1):
 @app.route("/communityposts", methods=['GET'])
 def get_communityposts():
     response = supabase.table('Posts').select('*').execute()
+    return (response.data)
+
+# code works -> post to community
+@app.route("/post_to_community", methods=['POST'])
+def post_to_community():
+    data = request.json
+    response = supabase.table('Posts').insert(data).execute()
+    return (response.data)
+
+@app.route("/fridge/<fridgeuser>", methods=['GET', 'PUT'])
+def get_fridge(fridgeuser):
+    response = supabase.table('Users').select('*').eq('UserName', fridgeuser).execute()
+    return (response.data)
+
+@app.route("/update_fridge/<updateforfridgeuser>", methods=['PUT'])
+def update_fridge(updateforfridgeuser):
+    data = request.json
+    response = supabase.table('Users').update(data).eq('UserName', updateforfridgeuser).execute()
     return (response.data)
 
 # code works -> like post

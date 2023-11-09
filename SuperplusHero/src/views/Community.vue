@@ -5,6 +5,12 @@
     font-family: "Montserrat";
 }
 
+.background {
+    background-color: rgb(237, 243, 235);
+    font-family: 'Montserrat';
+    min-height: 100vh;
+}
+
 .page-title {
     color: rgb(10, 160, 10);
     margin-left: 15px;
@@ -12,27 +18,37 @@
     font-weight: bold;
 }
 
+h2 {
+    align-items: center;
+}
+
+/* .other-title {
+    color: rgb(10, 160, 10);
+    margin-top: 30px;
+    font-weight: bold;
+} */
+
+.content {
+    padding-top: 20px;
+}
+
+/* create post/modal style */
+.modal-dialog {
+    max-width: 700px;
+}
+
 .file-input {
     margin-top: 10px;
 }
 
-.other-title {
-    color: rgb(10, 160, 10);
-    margin-top: 60px;
-    font-weight: bold;
-}
-
-.content {
-    margin-top: 80px;
-}
-
 .post-button {
+    background-color: white;
     color: gray;
     border-color: lightgray;
-    width: 100%;
 }
 
 .post-button:hover {
+    background-color: white;
     color: gray;
     border-color: lightgray;
 }
@@ -41,6 +57,39 @@
     background-color: rgb(10, 160, 10);
     color: white;
 }
+
+.final-post-button:hover {
+    background-color: rgb(10, 160, 10);
+    color: white;
+}
+
+#file-upload {
+    margin-bottom: 10px;
+}
+
+.uploaded-image-preview {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.btn-remove-image {
+    float: right;
+    margin-bottom: 10px;
+}
+
+.btn-remove-image:hover {
+    background-color: red;
+    color: white;
+    float: right;
+    margin-bottom: 10px;
+}
+
+.input-recipe {
+    margin-top: 10px;
+}
+
+/* end of create post/modal style */
 
 .card {
     width: 615px;
@@ -120,141 +169,161 @@
 <template>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <section class="content">
-        <div class="container posts-content">
-            <h2 class="page-title">Share with the Community</h2>
-            <div class="container-fluid">
-                <div class="form-group">
-                    <div class="row justify-content-center">
+    <div class="background">
+        <section class="content">
+            <div class="container posts-content">
+                <div class="text-center">
+                    <h2 class="page-title">
+                        <img @click="" src="../assets/writingIconGreen.png" data-bs-toggle="modal"
+                            data-bs-target="#createPostModal" style="cursor:pointer; height:40px;">
+                            Share with the Community
+                            <br>or
+                    </h2>
+                </div>
+                <div class="container-fluid">
+                    <div class="form-group">
+                        <div class="row justify-content-center">
 
-                        <div class="col-12">
-                            <button @click="" class="post-button btn" href="#" data-bs-toggle="modal"
+                            <div class="col-12">
+                                <!-- <button @click="" class="post-button btn" href="#" data-bs-toggle="modal"
                                 data-bs-target="#createPostModal">
-                                Tell us about your homemade meal!</button>
+                                Tell us about your homemade meal!</button> -->
 
-                            <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="createPostLabel">Create Post</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <label for="createCaption">Write a caption for your tasty
-                                                meal!</label>
-                                            <textarea class="form-control" id="createCaption" rows="3"></textarea>
-                                            <div class="file-input">
+                                <!-- Modal for creating a post -->
+                                <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostLabel"
+                                    aria-hidden="true">
+                                    <!-- Modal content -->
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3>Create Post</h3>
+                                            </div>
+                                            <div class="modal-body">
                                                 <div class="file-input">
-                                                    <input id="file-upload" type="file" @change="uploadPicture"
+                                                    <input id="file-upload" type="file" @change="previewImage"
                                                         accept="image/*" />
+                                                    <!-- Display area for previewing the uploaded image -->
+                                                    <img v-if="imageUrl" :src="imageUrl" class="uploaded-image-preview" />
+                                                    <div class="image-preview">
+                                                        <button v-if="imageUrl" @click="removeImage"
+                                                            class="btn btn-secondary btn-remove-image">Remove Image</button>
+                                                    </div>
+                                                </div>
+                                                <textarea class="form-control" id="createCaption" rows="5"
+                                                    placeholder="Write a caption for your tasty dish!"></textarea>
+                                                <div class="input-group input-recipe">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="recipePostTitle">
+                                                            Enter recipe title</span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder=""
+                                                        aria-label="Username" aria-describedby="recipePostTitle">
                                                 </div>
                                             </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <input type="submit" class="btn final-post-button" value="Post"
-                                                data-bs-dismiss="modal" @click="createPost" />
-                                        </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <input type="submit" class="btn final-post-button" value="Post"
+                                                    data-bs-dismiss="modal" @click="createPost" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- <h2 class="other-title">Be Inspired by Other Heroes</h2> -->
+
+                                <!-- Search Input -->
+                                <div class="form-floating">
+                                    <input v-model="searchQuery" type="text" class="form-control" id="floatingInput"
+                                        placeholder="Search for post">
+                                    <label for="floatingInput">Search for post</label>
+                                </div>
+
+                                <!-- Dropdown for Sorting -->
                             </div>
 
-                            <h2 class="other-title">Be Inspired by Other Heroes</h2>
-
-                            <!-- Search Input -->
-                            <div class="form-floating">
-                                <input v-model="searchQuery" type="text" class="form-control" id="floatingInput"
-                                    placeholder="Search for post">
-                                <label for="floatingInput">Search for post</label>
+                            <div class="col-lg-3 align-items-center">
+                                <div class="dropdown">
+                                    <span class="mr-auto sort">Sort by:</span>
+                                    <button class="btn btn-secondary dropdown-toggle custom-dropdown" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{ selectedSortOption }}
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li v-for="option in sortOptions" :key="option">
+                                            <a class="dropdown-item" href="#" @click="selectSortOption(option)">{{ option
+                                            }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
 
-                            <!-- Dropdown for Sorting -->
+                            <div class="col-lg-3 align-items-center">
+                                <div class="dropdown">
+                                    <span class="mr-2 sort">Cuisine:</span>
+                                    <button class="btn btn-secondary dropdown-toggle custom-dropdown" type="button"
+                                        data-bs-toggle="dropdown">
+                                        {{ selectedCuisineOption || 'All' }} <!-- Set the default text to 'All' -->
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li v-for="cuisine in cuisines" :key="cuisine">
+                                            <a class="dropdown-item" href="#" @click="selectCuisineOption(cuisine)">{{
+                                                cuisine
+                                            }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="col-lg-3 align-items-center">
-                            <div class="dropdown">
-                                <span class="mr-auto sort">Sort by:</span>
-                                <button class="btn btn-secondary dropdown-toggle custom-dropdown" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{ selectedSortOption }}
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li v-for="option in sortOptions" :key="option">
-                                        <a class="dropdown-item" href="#" @click="selectSortOption(option)">{{ option
-                                        }}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 align-items-center">
-                            <div class="dropdown">
-                                <span class="mr-2 sort">Cuisine:</span>
-                                <button class="btn btn-secondary dropdown-toggle custom-dropdown" type="button"
-                                    data-bs-toggle="dropdown">
-                                    {{ selectedCuisineOption || 'All' }} <!-- Set the default text to 'All' -->
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li v-for="cuisine in cuisines" :key="cuisine">
-                                        <a class="dropdown-item" href="#" @click="selectCuisineOption(cuisine)">{{
-                                            cuisine
-                                        }}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
 
-            </div>
-
-            <div v-if="posts.length > 0">
-                <div class="row">
-                    <!-- Use v-for to iterate through the posts fetched from Supabase -->
-                    <div v-for="(post, index) in posts" :key="index" class="col-lg-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="media mb-3">
-                                    <!-- Display user image fetched from Supabase -->
-                                    <!-- <img :src="post.userImage" class="d-block ui-w-40 rounded-circle" alt="User Image"> -->
-                                    <div class="media-body ml-3">
-                                        <!-- Display username and timestamp from Supabase -->
-                                        {{ post.PostedBy }}
-                                        <div class="text-muted small">Posted on {{ post.CreatedAt }}</div>
+                <div v-if="posts.length > 0">
+                    <div class="row">
+                        <!-- Use v-for to iterate through the posts fetched from Supabase -->
+                        <div v-for="(post, index) in posts" :key="index" class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="media mb-3">
+                                        <!-- Display user image fetched from Supabase -->
+                                        <!-- <img :src="post.userImage" class="d-block ui-w-40 rounded-circle" alt="User Image"> -->
+                                        <div class="media-body ml-3">
+                                            <!-- Display username and timestamp from Supabase -->
+                                            {{ post.PostedBy }}
+                                            <div class="text-muted small">Posted on {{ post.CreatedAt }}</div>
+                                        </div>
                                     </div>
+                                    <img :src="post.imageURL" class="post-image"> <!-- Need to make this responsive-->
+                                    <p class="caption">
+                                        <!-- Display post content fetched from Supabase -->
+                                        {{ post.Caption }}
+                                    </p>
                                 </div>
-                                <img :src="post.imageURL" class="post-image"> <!-- Need to make this responsive-->
-                                <p class="caption">
-                                    <!-- Display post content fetched from Supabase -->
-                                    {{ post.Caption }}
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="align-middle">
-                                    <a href="#" class="d-inline-block text-muted like-button">
-                                        <img v-if="post.liked" @click="unlikePost(post)" src="../assets/heartFilled.png"
-                                            alt="Liked" class="heart-icon" />
-                                        <img v-else @click="likePost(post)" src="../assets/heartNoFill.png" alt="Not Liked"
-                                            class="heart-icon" />
-                                        <strong class="like-count">{{ post.Likes }} likes</strong>
-                                    </a>
-                                    <button @click="readRecipe(post)" class="recipe-button btn btn-sm ml-auto right">See
-                                        Recipe</button>
-                                </small>
+                                <div class="card-footer">
+                                    <small class="align-middle">
+                                        <a href="#" class="d-inline-block text-muted like-button">
+                                            <img v-if="post.liked" @click="unlikePost(post)" src="../assets/heartFilled.png"
+                                                alt="Liked" class="heart-icon" />
+                                            <img v-else @click="likePost(post)" src="../assets/heartNoFill.png"
+                                                alt="Not Liked" class="heart-icon" />
+                                            <strong class="like-count">{{ post.Likes }} likes</strong>
+                                        </a>
+                                        <button @click="readRecipe(post)" class="recipe-button btn btn-sm ml-auto right">See
+                                            Recipe</button>
+                                    </small>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div v-else-if="postsNotFound">
+                    <p style="margin-left:15px;">Post not found! Please check your spelling.</p>
+                </div>
             </div>
-            <div v-else-if="postsNotFound">
-                <p style="margin-left:15px;">Post not found! Please check your spelling.</p>
-            </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </template>
 
 <script>
@@ -270,7 +339,8 @@ export default {
             selectedSortOption: 'Newest',
             cuisines: [],
             selectedCuisineOption: '',
-            searchQuery: ''
+            searchQuery: '',
+            imageUrl: ''
         }
     },
 
@@ -318,6 +388,52 @@ export default {
                 this.posts = this.posts.filter(post =>
                     post.Caption.toLowerCase().includes(this.searchQuery.trim().toLowerCase())
                 );
+            }
+        },
+
+        previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = () => {
+                    this.imageUrl = reader.result; // Store the URL of the uploaded image
+                };
+
+                reader.readAsDataURL(file);
+            }
+        },
+
+        removeImage() {
+            this.imageUrl = ''; // Clear the image URL to remove the preview
+            // You may also reset the file input field if needed
+            document.getElementById('file-upload').value = '';
+        },
+
+        async createPost() {
+            try {
+                const caption = document.getElementById('createCaption').value; // Get the caption from the input field
+                const recipeTitle = document.getElementById('recipePostTitle').value; // Get the recipe title from the input field
+
+                const data = {
+                    CreatedAt: new Date().toISOString(), // Add the current date timestamp
+                    Caption: caption,
+                    imageURL: this.imageUrl, // The image URL set in the Vue data
+                    recipeTitle: recipeTitle
+                };
+
+                const response = await axios.post('http://127.0.0.1:5000/post_to_community', data);
+
+                // Optionally, you can reset the input fields and image preview after successful posting
+                document.getElementById('createCaption').value = ''; // Clear the caption input
+                document.getElementById('recipePostTitle').value = ''; // Clear the recipe title input
+                this.imageUrl = ''; // Clear the image URL
+                document.getElementById('file-upload').value = ''; // Reset the file input
+
+                // Fetch the updated posts after posting
+                this.fetchPostsFromServer();
+            } catch (error) {
+                console.error('Error creating post:', error);
             }
         },
 
