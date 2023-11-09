@@ -222,7 +222,7 @@
                           
                         </div>
                         <button class="btn btn-primary remove" @click="removeFromCart(item)">X</button>
-
+                        
                       <hr>
                     </div>
                     <div class="totalPrice">
