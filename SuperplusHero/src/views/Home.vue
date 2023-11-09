@@ -151,10 +151,10 @@ button.carousel-control-next {
 }
 
 .shadow-text {
-      color: #3498db;
-      text-shadow: 2px 2px 0.5px rgba(0, 0, 0, 0.5);
+    color: #3498db;
+    text-shadow: 2px 2px 0.5px rgba(0, 0, 0, 0.5);
 }
-}
+
 
 .alert {
     text-align: center;
