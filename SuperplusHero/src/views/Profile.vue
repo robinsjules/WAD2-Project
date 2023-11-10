@@ -46,7 +46,6 @@
 <template>
     <div class="content">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <!-- <h2>Profile Page</h2> -->
     
     <section class="">
       <!-- Jumbotron -->
@@ -192,53 +191,6 @@ export default {
         data:[],
         checkPassword:''};
   },
-    //get userName from cookies 
-    // created() {
-    // // Get the 'username' cookie and set it in the component's data
-    //     const userNameFromCookie = Cookies.get('username');
-    //     if (userNameFromCookie) {
-    //     this.userName = userNameFromCookie;
-    //     }
-        
-    //     axios.get(this.geturl)
-    //   .then((response) => {
-    //     const retrievedUserData = response.data;
-
-    //     // Assign the data to the component's data properties
-    //     this.userPicture = retrievedUserData.UserPicture;
-    //     this.email = retrievedUserData.Email;
-    //     this.phoneNum = retrievedUserData.Phone;
-
-    //     // Convert JSON strings to lists of objects
-    //     this.foodPreferences = JSON.parse(retrievedUserData.FoodPreferences);
-    //     this.intolerances = JSON.parse(retrievedUserData.Allergies);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error); // Log the error for debugging
-    //     alert('Error in retrieving data');
-    //   });
-    // },
-
-    // mounted() {
-    // // Make a GET request to retrieve the user data
-    // axios.get(`http://127.0.0.1:5000/get_profile/${this.userName}`)
-    //   .then((response) => {
-    //     const retrievedUserData = response.data;
-
-    //     // Assign the data to the component's data properties and display
-    //     this.userPicture = retrievedUserData.UserPicture;
-    //     this.email = retrievedUserData.Email;
-    //     this.phoneNum = retrievedUserData.Phone;
-        
-    //     // Convert JSON strings to lists of objects
-    //     this.foodPreferences = JSON.parse(retrievedUserData.FoodPreferences);
-    //     this.intolerances = JSON.parse(retrievedUserData.Allergies);
-    //   })
-    //   .catch((error) => {
-    //     // Handle errors
-    //     alert('Error in retrieving data')
-    //   })
-    // },
     mounted() {
         this.getProfile();
     },
@@ -253,91 +205,47 @@ export default {
                 reader.readAsDataURL(file);
                 }
         },
-        // updateProfile() {
-        // // Check if new passwords is filled and if they match
-        //     if (this.newPassword && this.newPassword !== this.confirmPassword) {
-        //         alert('New passwords do not match.');
-        //         return;
-        //     }
-        //     const updatedData = {
-        //         UserPicture: this.userPicture,
-        //         Email: this.email,
-        //         Phone: this.phoneNum,
-        //         FoodPreferences: this.foodPreferences,
-        //         Allergies: this.intolerances
-        //     }
-        //     // Perform an Axios GET request to your server to check the old password
-        //     // Check if the old password is not blank
-        //     if (this.password) {
-        //         // Perform an Axios GET request to your server to check the old password
-        //         axios.get(this.geturl, {
-        //             params: {
-        //             Password: this.password,
-        //             },
-        //         })
-        //         .then((response) => {
-        //             console.log("error1");
-        //             // Include newPassword in the data if it's not blank
-        //             updatedData.Password = this.newPassword;
-        //             // The old password is correct
-        //             // Perform an Axios PUT request to update the password in the database
-        //             axios.put(this.updateurl, updatedData)
-        //             .then((response) => {
-        //                 console.log("error2");
-        //                 alert('Profile updated successfully');
-        //             })
-        //             .catch((error) => {
-        //                 console.log("error3");
-        //                 alert('Error updating the profile');
-        //             });
-        //         })
-        //         .catch((error) => {
-        //             console.log("error4");
-        //             alert('Incorrect old password');
-        //         });
-        //     } 
-        //     else {
-        //         // If old password is blank, update the profile data without changing the password
-        //         axios.put(this.updateurl, updatedData)
-        //         .then((response) => {
-        //             console.log("error5");
-        //             alert('Profile updated successfully');
-        //         })
-        //         .catch((error) => {
-        //             console.log("error6");
-        //             alert('Error updating the profile');
-        //         });
-        //     }
-        // },
         async getProfile(){
             try {
             const userName = 'julesrobins';
             const response = await axios.get(`http://127.0.0.1:5000/get_profile/${userName}`);
-            console.log('Fetched User Data:', response.data); // Log the fetched data
+            console.log('Fetched User Data:', response.data);
             this.data = response.data[0];
             this.userPicture=this.data.UserPicture;
             this.email=this.data.Email;
             this.phoneNum=this.data.Phone;
-            this.foodPreferences=this.data.Allergies;
-            this.intolerances=this.data.intolerances;
+            this.intolerances=this.data.Allergies;
             this.checkPassword=this.data.Password;
         } catch (error) {
             console.error('Error fetching items:', error);
         }},
         async updateProfile(){
+            console.log(this.checkPassword);
+            if(this.password && this.password!==this.checkPassword){
+                alert('Old password you have keyed in is incorrect.');
+                return;
+            }
+            if (this.newPassword && this.newPassword !== this.confirmPassword) {
+                alert('New passwords do not match.');
+                return;
+            }
             try {
             const userName = 'julesrobins';
             const updatedData = {
                 'UserPicture':this.userPicture,
                 'Email':this.email,
                 'Phone':this.phoneNum,
+                'FoodPreferences':this.foodPreferences,
                 'Allergies':this.intolerances,
                 }
+            if (this.password && this.newPassword){
+                updatedData['Password']=this.newPassword;
+            }
             const response = await axios.put(`http://127.0.0.1:5000/update_profile/${userName}`, updatedData);
-            console.log('Sending User Data:', response.data); // Log the fetched data
+            console.log('Sending User Data:', response.data);
             alert('Profile updated successfully');
         } catch (error) {
-            console.error('Error fetching items:', error);
+            console.error('Error updating profile', error);
         }
         },
             logoutProfile() {
@@ -345,9 +253,9 @@ export default {
             this.$router.push({ name: 'Register' });
         },
             addIntolerance(event) {
-            event.preventDefault(); // Prevent the default form submission behavior
+            event.preventDefault(); 
             this.intolerances.push(this.newIntolerances);
-            this.newIntolerances = ''; // Clear the input field
+            this.newIntolerances = '';
         },
             removeIntolerance(index) {
             this.intolerances.splice(index, 1);
