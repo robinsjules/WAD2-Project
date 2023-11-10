@@ -49,7 +49,7 @@
     align-items: center;
     border-radius: 20px;
     background-color: rgb(237, 243, 235);
-    color: rgb(10, 160, 10);
+    color: black;
 }
 
 .fridge {
@@ -57,11 +57,15 @@
 }
 
 .btn-custom {
-    background-color: rgb(10, 160, 10);
+    background-color: rgb(112, 112, 112);
     color: white;
     border: 1px solid white; 
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 15px;
+}
+
+.btn-custom.hovered{
+    background-color: rgb(161, 0, 0);
 }
 
 
@@ -87,13 +91,13 @@
     <section>
         <!-- Jumbotron -->
         <div class="px-5 py-5 px-md-5 text-center text-lg-start"
-            style="background-color: hsl(0, 0%, 96%); background-size: cover; height: 100vh; overflow:auto">
+            style="background-color: rgb(237, 243, 235); background-size: cover; height: 100vh; overflow:auto">
             <div class="container">
                 <div class="row gx-lg-5">
                     <div class="col-lg-6 mb-5 mb-lg-0">
                         <br><br><br><br>
                         <div>
-                            <h1 class="my-2 display-4 fw-bold" style="color:#408558">
+                            <h1 class="my-2 display-4 fw-bold" style="color:rgb(10, 160, 10)">
                                 Open me to see <span style="color:black">your ingredients!</span>
                             </h1>
                         </div>
@@ -112,7 +116,7 @@
                                     <br />
                                     <div class="col-12 mb-4">
                                         <div class="d-flex">
-                                            <button type="button" class="btn btn-success w-100" @click="add">
+                                            <button type="button" class="btn btn-success w-100" style="background-color:rgb(10, 160, 10)" @click="add">
                                                 Add Item</button>
                                         </div>
                                     </div>
@@ -142,7 +146,7 @@
                                             <li v-for="(item, i) in items">
                                                 <div class="d-flex justify-content-between ingredient-card">
                                                     <span class="text-start" style="font-weight:600;">{{ item }}</span>
-                                                    <button @click="removeItem(item)"
+                                                    <button @click="removeItem(item)" @mouseover="changeButtonColor" @mouseout="restoreButtonColor"
                                                         class="text-end btn-custom">Remove</button>
                                                 </div>
                                                 &nbsp;
@@ -231,6 +235,14 @@ export default {
                 fridgeImage.classList.remove("fridge-img-open");
                 fridgeImage.classList.add("fridge-img-closed");
             }
+        },
+        changeButtonColor() {
+        // Add a class to change the button color on hover
+        document.querySelector('.btn-custom').classList.add('hovered');
+         },
+        restoreButtonColor() {
+        // Remove the added class to restore the original button color
+        document.querySelector('.btn-custom').classList.remove('hovered');
         },
     }
 }

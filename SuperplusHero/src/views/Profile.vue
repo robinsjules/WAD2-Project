@@ -16,6 +16,8 @@
     .profile-picture img {
     max-width: 200px;
     max-height: 200px;
+    width:200px;
+    height:200px;
     }
     .image-container {
     margin-bottom: 10px; 
@@ -48,7 +50,7 @@
     
     <section class="">
       <!-- Jumbotron -->
-        <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+        <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color:rgb(237, 243, 235)">
             <div class="container">
                 <div class="row gx-lg-5 justify-content-center">
                     <div class="col-lg-4 mb-5 mb-lg-0">
@@ -82,10 +84,6 @@
                                 <input type="email" class="form-control" id="email" v-model="email" autocomplete="on" placeholder="robinsjules2019@gmail.com">
                                 <label for="email">Email Address</label>
                             </div>
-                            <!-- <div class="form-outline mb-4">
-                                <input type="number" class="form-control" id="postalCode" v-model="postalCode">
-                                <label for="postalCode">Postal Code</label>
-                            </div> -->
                             <div class="form-outline mb-4">
                                 <!-- need to include original phone num in box-->
                                 <input type="name" class="form-control" id="phoneNum" v-model="phoneNum" placeholder="88889999">
@@ -93,7 +91,7 @@
                             </div>
                             <hr/>
                             <div>
-                                <h4>Change Password</h4>
+                                <p>Change Password</p>
                                 <div class="form-group mb-4">
                                     <input type="password" id="password" v-model="password" class="form-control" />
                                     <label for="password">Old Password</label>
@@ -159,23 +157,17 @@
 
 <script>
 import axios from 'axios';
-import Cookies from 'js-cookie';
 export default {
-    props:['test','phoneNum'],
     data() {
-        console.log(this.test);
         return {
-            //need to add cookies to store username since not editable
-            userName: 'test3',
-        userPicture:'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
-        email: '',
-        phoneNum: '',
-        postalCode: '',
-        password: '', 
-        newPassword: '',
-        confirmPassword: '',
-        foodPreferences: [],
-        dPreferences: [{
+            userPicture:'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+            email: '',
+            phoneNum: '',
+            password: '', 
+            newPassword: '',
+            confirmPassword: '',
+            foodPreferences: [],
+            dPreferences: [{
             name: 'Halal',
             value: 'halal'
             },
@@ -216,7 +208,6 @@ export default {
     //     this.userPicture = retrievedUserData.UserPicture;
     //     this.email = retrievedUserData.Email;
     //     this.phoneNum = retrievedUserData.Phone;
-    //     this.postalCode = retrievedUserData.PostalCode;
 
     //     // Convert JSON strings to lists of objects
     //     this.foodPreferences = JSON.parse(retrievedUserData.FoodPreferences);
@@ -238,7 +229,6 @@ export default {
     //     this.userPicture = retrievedUserData.UserPicture;
     //     this.email = retrievedUserData.Email;
     //     this.phoneNum = retrievedUserData.Phone;
-    //     this.postalCode = retrievedUserData.PostalCode;
         
     //     // Convert JSON strings to lists of objects
     //     this.foodPreferences = JSON.parse(retrievedUserData.FoodPreferences);
@@ -273,7 +263,6 @@ export default {
         //         UserPicture: this.userPicture,
         //         Email: this.email,
         //         Phone: this.phoneNum,
-        //         PostalCode: this.postalCode,
         //         FoodPreferences: this.foodPreferences,
         //         Allergies: this.intolerances
         //     }
@@ -329,7 +318,6 @@ export default {
             this.userPicture=this.data.UserPicture;
             this.email=this.data.Email;
             this.phoneNum=this.data.Phone;
-            // this.postalCode=this.data.PostalCode;
             this.foodPreferences=this.data.Allergies;
             this.intolerances=this.data.intolerances;
             this.checkPassword=this.data.Password;
@@ -343,11 +331,11 @@ export default {
                 'UserPicture':this.userPicture,
                 'Email':this.email,
                 'Phone':this.phoneNum,
-                // 'PostalCode':this.postalCode,
                 'Allergies':this.intolerances,
                 }
             const response = await axios.put(`http://127.0.0.1:5000/update_profile/${userName}`, updatedData);
             console.log('Sending User Data:', response.data); // Log the fetched data
+            alert('Profile updated successfully');
         } catch (error) {
             console.error('Error fetching items:', error);
         }
