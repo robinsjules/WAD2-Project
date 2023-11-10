@@ -283,7 +283,7 @@ export default {
       },500);
 
       this.cartLength = setInterval(() => {
-        this.checkCartLength();console.log(Cookies.get('showCheckoutAlert'));console.log(this.totalPrice);
+        this.checkCartLength();
       }, 500);
 
       this.totalPrice=this.calcTotal(this.itemTotalPrice);
