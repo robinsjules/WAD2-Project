@@ -338,47 +338,56 @@ button.carousel-control-next {
                         <div class="col-md-1"></div>
                         <div class="col-md-2 mb-3">
                             <div class="card card-edit">
-                                <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg"
-                                    alt="Recipe" style="width:100%">
-                                <h1>Chicken Rice</h1>
-                                <p>Some text about the recipe</p>
-                                <p><button type="button" class="btn btn-success">Make!</button></p>
+                                <img src="https://spoonacular.com/recipeImages/1095994-312x231.jpg" alt="Recipe"
+                                    style="width:100%; height:180px;">
+                                <h5>Crock Pot Chicken Pho</h5>
+                                <div class="mt-auto">
+                                    <button type="button" class="btn btn-success" @click="gotoRec()">Read More</button>
+                                </div>
                             </div>
                         </div>
+
                         <div class="col-md-2 mb-3">
                             <div class="card card-edit">
-                                <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg"
-                                    alt="Recipe" style="width:100%">
-                                <h1>Chicken Rice</h1>
-                                <p>Some text about the recipe</p>
-                                <p><button type="button" class="btn btn-success">Make!</button></p>
+                                <img src="https://spoonacular.com/recipeImages/664847-312x231.jpg" alt="Recipe"
+                                    style="width:100%; height:180px;">
+                                <h5>Vietnamese Spring Rolls</h5>
+                                <div class="mt-auto">
+                                    <button type="button" class="btn btn-success" @click="gotoRec()">Read More</button>
+                                </div>
                             </div>
                         </div>
+                        
                         <div class="col-md-2 mb-3">
                             <div class="card card-edit">
-                                <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg"
-                                    alt="Recipe" style="width:100%">
-                                <h1>Chicken Rice</h1>
-                                <p>Some text about the recipe</p>
-                                <p><button type="button" class="btn btn-success">Make!</button></p>
+                                <img src="https://spoonacular.com/recipeImages/648257-312x231.jpg" alt="Recipe"
+                                    style="width:100%; height:180px;">
+                                <h5>Italian Steamed Artichokes</h5>
+                                <div class="mt-auto">
+                                    <button type="button" class="btn btn-success" @click="gotoRec()">Read More</button>
+                                </div>
                             </div>
                         </div>
+
                         <div class="col-md-2 mb-3">
                             <div class="card card-edit">
-                                <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg"
-                                    alt="Recipe" style="width:100%">
-                                <h1>Chicken Rice</h1>
-                                <p>Some text about the recipe</p>
-                                <p><button type="button" class="btn btn-success">Make!</button></p>
+                                <img src="https://spoonacular.com/recipeImages/641111-312x231.jpg" alt="Recipe"
+                                    style="width:100%; height:180px;">
+                                <h5>Curry Beef Over Rice Noodles</h5>
+                                <div class="mt-auto">
+                                    <button type="button" class="btn btn-success" @click="gotoRec()">Read More</button>
+                                </div>
                             </div>
                         </div>
+
                         <div class="col-md-2 mb-3">
                             <div class="card card-edit">
-                                <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg"
-                                    alt="Recipe" style="width:100%">
-                                <h1>Chicken Rice</h1>
-                                <p>Some text about the recipe</p>
-                                <p><button type="button" class="btn btn-success">Make!</button></p>
+                                <img src="https://spoonacular.com/recipeImages/641627-312x231.jpg" alt="Recipe"
+                                    style="width:100%; height:180px;">
+                                <h5>Dr Pepper Pulled Pork</h5>
+                                <div class="mt-auto">
+                                    <button type="button" class="btn btn-success" @click="gotoRec()">Read More</button>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-1"></div>
