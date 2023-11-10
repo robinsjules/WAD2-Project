@@ -221,86 +221,12 @@ button.carousel-control-next {
 
 
 
-    <!-- BS carousel: start -->
-    <!-- Carousel title Produce -->
+            <!-- Carousel title Recipe -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-1"></div>
-            <div class="col-md-4"><h2 style="font-family:Montserrat">Deals of the day!</h2></div>
-            </div>
-    </div>
-
-        <div id="surplusCaro" class="carousel carousel-dark slide" >
-                <div class="carousel-inner">
-    
-                    <div class="carousel-item active">
-                        <div class="container-fluid">
-    
-                            <div class="row">
-                                
-                                <div class="col-md-1"></div>
-                                    <div class="col-md-2 mb-3" v-for="(item, index) in items.slice(0,5)" :key="index">
-                                            <div class="card card-edit">
-                                                <img :src="item.ImageURL" class="card-img-top" alt="Surplus Listing"  style="width:100%">
-                                                <h3 style="font-family:Montserrat">&nbsp;{{item.IngredientName}}</h3>
-                                                <p class="price">&nbsp; 
-                                                    <s>${{ item.OriginalPrice }}</s>
-                                                    <strong class="ms-2 text-danger shadow-text">${{ item.SalePrice }}</strong>
-                                                </p>
-                                                <!-- <p>Some text about the product</p> -->
-                                                <p><button type="button" style="font-family:Montserrat;" class="btn btn-success" @click="addtoCart(item)">Add to Cart</button></p>    
-                                            </div>
-                                    </div>
-                                    <div class="col-md-11"><h5 style="font-family:Montserrat; text-align:right;">Click <router-link :to="{ name: 'products' }" class="custom-link">here</router-link> for more deals!</h5></div>
-                                <div class="col-md-1"></div>
-                            </div>
-    
-                        </div>
-                    </div>
-                    <!-- Next carousel item -->
-                    <div class="carousel-item">
-                        <div class="container-fluid">
-    
-                            <div class="row">
-                                
-                                <div class="col-md-1"></div>
-                                <div class="col-md-2 mb-3" v-for="(item, index) in items.slice(5,10)" :key="index">
-                                        <div class="card card-edit">
-                                            <img :src="item.ImageURL" class="card-img-top" alt="Recipe" style="width:100%">
-                                            <h3 style="font-family:Montserrat">&nbsp;{{item.IngredientName}}</h3>
-                                            <p class="price">&nbsp; 
-                                                    <s>${{ item.OriginalPrice }}</s>
-                                                    <strong class="ms-2 text-danger shadow-text">${{ item.SalePrice }}</strong>
-                                            </p>
-                                            <!-- <p>Some text about the product</p> -->
-                                            <p><button type="button" style="font-family:Montserrat;" class="btn btn-success" @click="addtoCart(item)">Add to Cart</button></p>    
-                                        </div>
-                                </div>
-                                    
-                                <div class="col-md-1"></div>
-                            </div>
-    
-    
-                        </div>
-                    </div>
-                </div>
-    
-                <button class="carousel-control-prev" type="button" data-bs-target="#surplusCaro" data-bs-slide="prev" >
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#surplusCaro" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-        </div>
-
-
-    <!-- Carousel title Recipe -->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-1"></div>
-                <div class="col-md-5"><h2 style="font-family:Montserrat">Check these recipes out!</h2></div>
+                <div class="col-md-4"><h2 style="font-family:Montserrat">Check these recipes out!</h2></div>
+                <div class="col-md-6"><h5 style="font-family:Montserrat; text-align:right;">Click <router-link :to="{ name: 'AllRecipes' }" class="custom-link">here</router-link> for more recipes!</h5></div>
             </div>
     </div>
 
@@ -404,6 +330,7 @@ button.carousel-control-next {
                                                 <button type="button" class="btn btn-success" @click="gotoRec()">Find out More!</button>
                                             </p>    
                                 </div>
+                                
                             </div>
                             <div class="col-md-1"></div>
                         </div>
@@ -481,6 +408,86 @@ button.carousel-control-next {
             </button>
 
         </div>
+
+
+
+    <!-- BS carousel: start -->
+    <!-- Carousel title Produce -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-4"><h2 style="font-family:Montserrat">Deals of the day!</h2></div>
+            <div class="col-md-6"><h5 style="font-family:Montserrat; text-align:right;">Click <router-link :to="{ name: 'products' }" class="custom-link">here</router-link> for more deals!</h5></div>
+            </div>
+    </div>
+
+        <div id="surplusCaro" class="carousel carousel-dark slide" >
+                <div class="carousel-inner">
+    
+                    <div class="carousel-item active">
+                        <div class="container-fluid">
+    
+                            <div class="row">
+                                
+                                <div class="col-md-1"></div>
+                                    <div class="col-md-2 mb-3" v-for="(item, index) in items.slice(0,5)" :key="index">
+                                            <div class="card card-edit">
+                                                <img :src="item.ImageURL" class="card-img-top" alt="Surplus Listing"  style="width:100%">
+                                                <h3 style="font-family:Montserrat">&nbsp;{{item.IngredientName}}</h3>
+                                                <p class="price">&nbsp; 
+                                                    <s class="text-danger">${{ item.OriginalPrice }}</s>
+                                                    <strong class="ms-2 text-dark">${{ item.SalePrice }}</strong>
+                                                </p>
+                                                <!-- <p>Some text about the product</p> -->
+                                                <p><button type="button" style="font-family:Montserrat;" class="btn btn-success" @click="addtoCart(item)">Add to Cart</button></p>    
+                                            </div>
+                                    </div>
+                                    
+                                <div class="col-md-1"></div>
+                            </div>
+    
+                        </div>
+                    </div>
+                    <!-- Next carousel item -->
+                    <div class="carousel-item">
+                        <div class="container-fluid">
+    
+                            <div class="row">
+                                
+                                <div class="col-md-1"></div>
+                                <div class="col-md-2 mb-3" v-for="(item, index) in items.slice(5,10)" :key="index">
+                                        <div class="card card-edit">
+                                            <img :src="item.ImageURL" class="card-img-top" alt="Recipe" style="width:100%">
+                                            <h3 style="font-family:Montserrat">&nbsp;{{item.IngredientName}}</h3>
+                                            <p class="price">&nbsp; 
+                                                    <s class="text-danger">${{ item.OriginalPrice }}</s>
+                                                    <strong class="ms-2 text-dark">${{ item.SalePrice }}</strong>
+                                            </p>
+                                            <!-- <p>Some text about the product</p> -->
+                                            <p><button type="button" style="font-family:Montserrat;" class="btn btn-success" @click="addtoCart(item)">Add to Cart</button></p>    
+                                        </div>
+                                </div>
+                                    
+                                <div class="col-md-1"></div>
+                            </div>
+    
+    
+                        </div>
+                    </div>
+                </div>
+    
+                <button class="carousel-control-prev" type="button" data-bs-target="#surplusCaro" data-bs-slide="prev" >
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#surplusCaro" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+        </div>
+
+
+
     <!-- BS carousel: end -->
     
 
