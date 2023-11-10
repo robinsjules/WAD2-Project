@@ -544,7 +544,7 @@ export default {
             // console.log('All cookies:', Cookies.get());
             if (Cookies.get("showCheckoutAlert")){
                 this.showCheckoutAlert = Cookies.get('showCheckoutAlert');
-                console.log(this.showCheckoutAlert);
+                // console.log(this.showCheckoutAlert);
                 if (this.showCheckoutAlert) {
                     
                     Cookies.remove("totalPrice");
@@ -607,10 +607,10 @@ export default {
         checkDup(item){
   // Check if the `cart` array has an object with the same `id` as `item`
             if (this.cart.some(cartItem => cartItem.id === item.id)){
-                console.log("Dup check");
+                // console.log("Dup check");
                 return true
             }else{
-                console.log("not dup");
+                // console.log("not dup");
                 return false;
             }
         },

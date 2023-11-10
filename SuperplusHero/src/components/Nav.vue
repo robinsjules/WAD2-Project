@@ -284,8 +284,8 @@ export default {
     checkedOut(){
         this.showCheckoutAlert = Cookies.get("showCheckoutAlert")
         if (this.showCheckoutAlert == "true" ){
-          console.log(this.showCheckoutAlert);
-          console.log(this.totalPrice);
+          // console.log(this.showCheckoutAlert);
+          // console.log(this.totalPrice);
           this.totalPrice = 0;
           Cookies.remove("totalPrice");
           Cookies.set("showCheckoutAlert", false);
@@ -310,7 +310,7 @@ export default {
       if (Cookies.get("itemTotalPrice")){
         // this.calcTotal(Cookies.get("itemTotalPrice"));
         this.totalPrice = this.calcTotal(Cookies.get("itemTotalPrice"));
-        console.log(this.totalPrice);
+        // console.log(this.totalPrice);
       }else{
         this.totalPrice = 0.0;
       }
