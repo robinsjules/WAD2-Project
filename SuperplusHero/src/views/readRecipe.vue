@@ -106,20 +106,23 @@
 
       
       <div class="container">
-      <div class="row" style="margin-bottom: 5%;">
+      <div  style="margin-bottom: 5%;">
         <!-- Green Box -->
-        <div class="col-md-6">
-          <div class="common-box green-box">
-            <h3>Available Ingredients</h3>
+        <div>
+          <div class="common-box">
+            <h3>Ingredients for Recipe:</h3>
             <div v-if="matchingRecipe">
               <div class="recipe-ingredients">
                 <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
                   <p>
-                    <p v-for="ingredient in step.ingredients" :key="ingredient.id">
+                    <p v-for="(ingredient, index) in step.ingredients.slice(0, 5)" :key="ingredient.id">
                       <!-- Check if ingredient name is not empty before rendering -->
                       <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
-                        <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
-                        <input type="checkbox" id="ingredient-{{ ingredient.id }}" />
+                        <label :for="`ingredient-${ingredient.id}`">{{ ingredient.name }}</label>
+                        <div>
+                        </div>
+                        <!-- Use a method to determine the checked state dynamically -->
+                        <input type="checkbox" :id="`ingredient-${ingredient.id}`" :checked="isChecked(index)" />
                       </div>
                     </p>
                   </p>
@@ -127,10 +130,12 @@
               </div>
             </div>
           </div>
+          <div>
+          </div>
         </div>
 
         <!-- Red Box -->
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
           <div class="common-box red-box">
             <h3>Missing Ingredients</h3>
             <div v-if="matchingRecipe">
@@ -138,7 +143,7 @@
                 <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
                   <p>
                     <p v-for="ingredient in step.ingredients" :key="ingredient.id">
-                      <!-- Check if ingredient name is not empty before rendering -->
+
                       <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
                         <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
                         <input type="checkbox" id="ingredient-{{ ingredient.id }}" />
@@ -149,7 +154,8 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
+
       </div>
     </div>
   </div>
@@ -160,112 +166,7 @@
     
     
 
-    <div class="reference">
-    <div>
     
-    <h1>{{ matchingRecipe.title }}</h1>
-    <p><strong>Summary:</strong> {{ matchingRecipe.summary }}</p>
-    <p><strong>Cuisines:</strong> {{ matchingRecipe.cuisines.join(', ') }}</p>
-    <p><strong>Dish Types:</strong> {{ matchingRecipe.dishTypes.join(', ') }}</p>
-    <p><strong>Diets:</strong> {{ matchingRecipe.diets.join(', ') }}</p>
-    <p><strong>Occasions:</strong> {{ matchingRecipe.occasions.join(', ') }}</p>
-    <p><strong>Servings:</strong> {{ matchingRecipe.servings }}</p>
-    <p><strong>Ready In:</strong> {{ matchingRecipe.readyInMinutes }} minutes</p>
-    <p><strong>Health Score:</strong> {{ matchingRecipe.healthScore }}</p>
-    <p><strong>Price Per Serving:</strong> ${{ matchingRecipe.pricePerServing }}</p>
-    <p><strong>Source:</strong> <a :href="matchingRecipe.sourceUrl">{{ matchingRecipe.sourceName }}</a></p>
-
-
-    
-
-    <h2>Instructions:</h2>
-    <ol>
-      <li v-for="step in matchingRecipe.analyzedInstructions[0].steps">
-        {{ step.step }}
-      </li>
-    </ol>
-  </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <div class="recipe-card" v-if="matchingRecipe">
-          <!-- Recipe Details: Start -->
-          <div class="m-4 p-4 bg-light text-black rounded-3">
-            <div class="row">
-              <div class="col-md-4">
-                <div>
-                  <img :src="matchingRecipe.image" style="width: 100%;" :alt="matchingRecipe.title">
-                </div>
-              </div>
-
-              <div class="col-md-8">
-                <h2>{{ matchingRecipe.title }} Preparation</h2>
-                <ol>
-                  <li v-for="(step, index) in matchingRecipe.analyzedInstructions[0]?.steps.slice(0, 4)" :key="index">{{ step.step }}</li>
-                  <p v-if="matchingRecipe.analyzedInstructions[0]?.steps.length > 4">. . . . .</p>
-                </ol>
-                <div>
-                  <span style="color: green; font-weight: bold;">Cooking Time:</span> {{matchingRecipe.readyInMinutes }} Minutes <br>
-                  <span style="color: green; font-weight: bold;">Serving Size:</span> {{matchingRecipe.servings }} Pax
-                </div>  
-                <div style="text-align: right;">
-                  <button class="btn btn-success" @click="showRemainingSteps = true">Start Cooking</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Recipe Details: End -->
-
-
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        <!-- Green Box -->
-        <div class="col-md-6">
-          <div class="common-box green-box">
-            <h3>Available Ingredients</h3>
-            <div v-if="matchingRecipe">
-              <div class="recipe-ingredients">
-                <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
-                  <ul>
-                    <li v-for="ingredient in step.ingredients" :key="ingredient.id">
-                      <!-- Check if ingredient name is not empty before rendering -->
-                      <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
-                        <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
-                        <input type="checkbox" id="ingredient-{{ ingredient.id }}" />
-                      </div>
-                    </li>
-                  </ul>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Red Box -->
-        <div class="col-md-6">
-          <div class="common-box red-box">
-            <h3>Missing Ingredients</h3>
-            <div v-if="matchingRecipe" class="recipe-ingredients">
-              <p v-for="step in matchingRecipe.analyzedInstructions[0]?.steps" :key="step.number">
-                <ul>
-                  <li v-for="ingredient in step.ingredients" :key="ingredient.id">
-                    <!-- Check if ingredient name is not empty before rendering -->
-                    <div v-if="ingredient.name.trim() !== ''" class="ingredient-card">
-                      <label for="ingredient-{{ ingredient.id }}">{{ ingredient.name }}</label>
-                      <input type="checkbox" id="ingredient-{{ ingredient.id }}" checked/>
-                    </div>
-                  </li>
-                </ul>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
     <!-- Popup for Remaining Steps: Start -->
     <div class="popup" v-if="showRemainingSteps">
@@ -295,11 +196,17 @@ export default {
       recipes: recipeData,
       showRemainingSteps: false, // Track whether to show the remaining steps popup
       isContentVisible: false,
+      checkedIngredients: [],
+      items: [],
+      checkedIngredients: Array(3).fill(true),
     };
   },
+
   async created() {
         try {
             console.log('All cookies:', Cookies.get());
+            const response = await axios.get(`http://127.0.0.1:5000/listings`);
+            this.items = response.data;
         } catch(error) {
             console.error(error);
         }
@@ -320,6 +227,26 @@ export default {
     toggleContent() {
       this.isContentVisible = !this.isContentVisible;
     },
+    isChecked(index) {
+      // Use the checkedIngredients array to determine the checked state
+      return this.checkedIngredients[index];
+    // to get fridge
+    },
+    async fetchFridgeFromServer() {
+            try {
+                const fridgeuser = 'julesrobins';
+                const response = await axios.get(`http://127.0.0.1:5000/fridge/${fridgeuser}`);
+                console.log('Fetched Fridge Data:', response.data); // Log the fetched data
+                this.data = response.data;
+                this.items = this.data[0].Fridge;
+
+                this.checkedIngredients = serverData.map(item => item.toLowerCase());
+
+            } catch (error) {
+                console.error('Error fetching items:', error);
+            }
+        },
+        
   },
   created() {
     // Retrieve the recipe title from the cookie when the component is created
@@ -436,6 +363,7 @@ div {
   border: 1px solid #ccc; /* Add a border around the card */
   padding: 10px;
   margin: 0px; 
+  width: 100%;
   display: flex;
   justify-content: space-between; /* Align label and checkbox to opposite ends */
   align-items: center; /* Vertically center the content */
@@ -457,6 +385,7 @@ div {
   color: rgb(0, 0, 0);
   padding: 10px;
   border-radius: 5px;
+  width: 100%;
 }
 
 .green-box {
