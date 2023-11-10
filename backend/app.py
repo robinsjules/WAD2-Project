@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
 from supabase import create_client
 import base64
+from trycourier import Courier
 
 app = Flask(__name__)
 CORS(app)
@@ -144,11 +145,28 @@ def addSurplusListing():
     # return Response((response.data),mimetype="application/json")
     return (response.data)
 
-@app.route("/add_recipe", methods=['POST'])
+@app.route("/add_recipe", methods=['GET', 'POST'])
 def testAdd():
     data = request.json
-    response = supabase.table("Tes3").insert(data).execute()
+    response = supabase.table("Test3").insert(data).execute()
     return (response.data)
+
+# code works -> send email
+@app.route('/send_email/<email>', methods=['POST'])
+def sendEmail(email):
+    client = Courier(auth_token="dk_prod_CJHDC3SX1F4JZ1KWWFGMVBSMWA4M")
+
+    client.send_message(
+    message={
+        "to": {
+        "email": email,
+        },
+        "template": "SH3S1HPMW8M1R4JFDW6GDZPVJB5E",
+    }
+    )
+
+    return jsonify({"message": "Email sent successfully"}) 
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

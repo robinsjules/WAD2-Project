@@ -130,8 +130,8 @@
                 <div class="card paymentCard">
 
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Normal Price: <span class='moneyStuff'>${{ normalTotalPrice }}</span></li>
-                        <li class="list-group-item">Savings: <span class='moneyStuff text-danger'>${{ savedTotal }}</span></li>
+                        <li class="list-group-item">Normal Price: <span class='moneyStuff text-danger'>${{ normalTotalPrice }}</span></li>
+                        <li class="list-group-item">Savings: <span class='moneyStuff'>${{ savedTotal }}</span></li>
                         <li class="list-group-item">Total: <span class='moneyStuff text-success'>${{ totalPrice }}</span></li>
                     </ul>
 
@@ -203,6 +203,8 @@ export default {
             Cookies.remove('itemNormalTotal');
             Cookies.remove('cart');
             Cookies.remove("cartLength");
+
+            axios.post('http://127.0.0.1:5000/send_email/robinsjules2019@gmail.com')
         },
         calcTotal(obj){
             let sum = Object.values(obj).reduce((a, b) => parseFloat(a) + parseFloat(b), 0);

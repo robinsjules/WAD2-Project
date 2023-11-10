@@ -114,7 +114,7 @@
                             </div>
                         </div>
                         <p class="py-3">
-                            <button @click=sendFridgeToServer class="btn btn-success">Save items</button>
+                            <button @click=sendFridgeToServer class="btn btn-success">Save Changes</button>
                         </p>
                     </div>
 
@@ -135,7 +135,7 @@
                                             <li v-for="(item, i) in items">
                                                 <div class="d-flex justify-content-between ingredient-card">
                                                     <span class="text-start">{{ item }}</span>
-                                                    <button @click="(item).splice(i, 1)"
+                                                    <button @click="removeItem(item)"
                                                         class="text-end btn-custom">Remove</button>
                                                 </div>
                                                 &nbsp;
@@ -162,21 +162,20 @@ export default {
             newItem: '',
             isFridgeOpen: false,
             test: '',
-            data:[],
+            data: [],
         }
     },
     mounted() {
         this.fetchFridgeFromServer();
-        this.sendFridgeToServer();
     },
     methods: {
         async fetchFridgeFromServer() {
             try {
-                const fridgeuser = 'julesrobins'; 
+                const fridgeuser = 'julesrobins';
                 const response = await axios.get(`http://127.0.0.1:5000/fridge/${fridgeuser}`);
                 console.log('Fetched Fridge Data:', response.data); // Log the fetched data
                 this.data = response.data;
-                this.items=this.data[0].Fridge;
+                this.items = this.data[0].Fridge;
 
             } catch (error) {
                 console.error('Error fetching items:', error);
@@ -184,7 +183,7 @@ export default {
         },
         async sendFridgeToServer() {
             try {
-                const fridgeuser = 'julesrobins'; 
+                const fridgeuser = 'julesrobins';
                 const updatedData = {
                     'Fridge': this.items,
                 }
@@ -199,6 +198,9 @@ export default {
                 this.items.push(this.newItem)
                 this.newItem = ''
             }
+        },
+        removeItem(index) {
+            this.items.splice(index, 1);
         },
         goToNext() {
             this.$router.push({ name: 'Login' });

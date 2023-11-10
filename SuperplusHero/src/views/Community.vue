@@ -12,20 +12,18 @@
 }
 
 .page-title {
-    color: rgb(10, 160, 10);
-    margin-left: 15px;
-    margin-top: 100px;
+    color: white;
+    margin-top: 50px;
     font-weight: bold;
 }
 
-h2 {
-    align-items: center;
-}
 
-/* .other-title {
-    color: rgb(10, 160, 10);
-    margin-top: 30px;
-    font-weight: bold;
+/* .button-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
 } */
 
 .content {
@@ -33,24 +31,24 @@ h2 {
 }
 
 /* create post/modal style */
+.post-button {
+    background-color: white;
+    color: black;
+    border-color: lightgray;
+}
+
+.post-button:hover {
+    background-color: gray;
+    color: white;
+    border-color: lightgray;
+}
+
 .modal-dialog {
     max-width: 700px;
 }
 
 .file-input {
     margin-top: 10px;
-}
-
-.post-button {
-    background-color: white;
-    color: gray;
-    border-color: lightgray;
-}
-
-.post-button:hover {
-    background-color: white;
-    color: gray;
-    border-color: lightgray;
 }
 
 .final-post-button {
@@ -97,7 +95,6 @@ h2 {
     max-width: 100%;
     overflow: hidden;
     margin: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .card-body {
@@ -150,6 +147,7 @@ h2 {
 }
 
 .form-floating {
+    margin-top: 50px;
     margin-bottom: 10px;
 }
 
@@ -171,78 +169,96 @@ h2 {
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <div class="background">
         <section class="content">
-            <div class="container posts-content">
-                <div class="text-center">
-                    <h2 class="page-title">
-                        <img @click="" src="../assets/writingIconGreen.png" data-bs-toggle="modal"
-                            data-bs-target="#createPostModal" style="cursor:pointer; height:40px;">
-                            Share with the Community
-                            <br>or
-                    </h2>
-                </div>
+            <!-- <div class="button-container"> -->
+            <header class="bg-dark py-5">
+
+                <h1 class="page-title text-center">
+                    Share with the Community
+                </h1>
+
+
                 <div class="container-fluid">
-                    <div class="form-group">
+                    <!-- Create a post
+                    <img @click="" src="../assets/writingIconGreen.png" data-bs-toggle="modal"
+                    data-bs-target="#createPostModal" style="cursor:pointer; height:40px;"> -->
+
+                    <div class="d-flex justify-content-center align-items-center">
+                        <button @click="" class="post-button btn" href="#" data-bs-toggle="modal"
+                            data-bs-target="#createPostModal">
+                            Click to create post!</button>
+                    </div>
+                </div>
+            </header>
+
+
+
+            <!-- Modal for creating a post -->
+            <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostLabel" aria-hidden="true">
+                <!-- Modal content -->
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Create Post</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div class="file-input">
+                                <input id="file-upload" type="file" @change="previewImage" accept="image/*" />
+                                <!-- Display area for previewing the uploaded image -->
+                                <img v-if="imageUrl" :src="imageUrl" class="uploaded-image-preview" />
+                                <div class="image-preview">
+                                    <button v-if="imageUrl" @click="removeImage"
+                                        class="btn btn-secondary btn-remove-image">Remove Image</button>
+                                </div>
+                            </div>
+                            <textarea class="form-control" id="createCaption" rows="5"
+                                placeholder="Write a caption for your tasty dish!"></textarea>
+
+                            <div class="input-group input-recipe">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        Enter cuisine</span>
+                                </div>
+                                <input type="text" class="form-control" id="recipeCuisine">
+                            </div>
+
+                            <div class="input-group input-recipe">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        Enter recipe title</span>
+                                </div>
+                                <input type="text" class="form-control" id="recipePostTitle">
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" class="btn final-post-button" value="Post" data-bs-dismiss="modal"
+                                @click="createPost" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- </div> -->
+
+            <div class="container posts-content">
+                <div class="form-group">
+                    <div class="container-fluid">
                         <div class="row justify-content-center">
 
-                            <div class="col-12">
-                                <!-- <button @click="" class="post-button btn" href="#" data-bs-toggle="modal"
-                                data-bs-target="#createPostModal">
-                                Tell us about your homemade meal!</button> -->
-
-                                <!-- Modal for creating a post -->
-                                <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostLabel"
-                                    aria-hidden="true">
-                                    <!-- Modal content -->
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h3>Create Post</h3>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="file-input">
-                                                    <input id="file-upload" type="file" @change="previewImage"
-                                                        accept="image/*" />
-                                                    <!-- Display area for previewing the uploaded image -->
-                                                    <img v-if="imageUrl" :src="imageUrl" class="uploaded-image-preview" />
-                                                    <div class="image-preview">
-                                                        <button v-if="imageUrl" @click="removeImage"
-                                                            class="btn btn-secondary btn-remove-image">Remove Image</button>
-                                                    </div>
-                                                </div>
-                                                <textarea class="form-control" id="createCaption" rows="5"
-                                                    placeholder="Write a caption for your tasty dish!"></textarea>
-                                                <div class="input-group input-recipe">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="recipePostTitle">
-                                                            Enter recipe title</span>
-                                                    </div>
-                                                    <input type="text" class="form-control" placeholder=""
-                                                        aria-label="Username" aria-describedby="recipePostTitle">
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <input type="submit" class="btn final-post-button" value="Post"
-                                                    data-bs-dismiss="modal" @click="createPost" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- <h2 class="other-title">Be Inspired by Other Heroes</h2> -->
-
+                            <div class="col-1g-6">
                                 <!-- Search Input -->
                                 <div class="form-floating">
                                     <input v-model="searchQuery" type="text" class="form-control" id="floatingInput"
                                         placeholder="Search for post">
                                     <label for="floatingInput">Search for post</label>
                                 </div>
-
-                                <!-- Dropdown for Sorting -->
                             </div>
 
-                            <div class="col-lg-3 align-items-center">
+
+                            <!-- Dropdown for Sorting -->
+
+                            <div class="col-lg-3">
                                 <div class="dropdown">
                                     <span class="mr-auto sort">Sort by:</span>
                                     <button class="btn btn-secondary dropdown-toggle custom-dropdown" type="button"
@@ -251,14 +267,15 @@ h2 {
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li v-for="option in sortOptions" :key="option">
-                                            <a class="dropdown-item" href="#" @click="selectSortOption(option)">{{ option
+                                            <a class="dropdown-item" href="#" @click="selectSortOption(option)">{{
+                                                option
                                             }}</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
 
-                            <div class="col-lg-3 align-items-center">
+                            <div class="col-lg-3">
                                 <div class="dropdown">
                                     <span class="mr-2 sort">Cuisine:</span>
                                     <button class="btn btn-secondary dropdown-toggle custom-dropdown" type="button"
@@ -273,11 +290,10 @@ h2 {
                                         </li>
                                     </ul>
                                 </div>
+
                             </div>
                         </div>
-
                     </div>
-
                 </div>
 
                 <div v-if="posts.length > 0">
@@ -288,7 +304,7 @@ h2 {
                                 <div class="card-body">
                                     <div class="media mb-3">
                                         <!-- Display user image fetched from Supabase -->
-                                        <!-- <img :src="post.userImage" class="d-block ui-w-40 rounded-circle" alt="User Image"> -->
+                                        <!-- <img :src="post.UserPicture" class="d-block ui-w-40 rounded-circle" alt="User Image"> -->
                                         <div class="media-body ml-3">
                                             <!-- Display username and timestamp from Supabase -->
                                             {{ post.PostedBy }}
@@ -413,22 +429,25 @@ export default {
         async createPost() {
             try {
                 const caption = document.getElementById('createCaption').value; // Get the caption from the input field
+                const Cuisine = document.getElementById('recipeCuisine').value; // Get the cuisine from the input field
                 const recipeTitle = document.getElementById('recipePostTitle').value; // Get the recipe title from the input field
 
                 const data = {
-                    CreatedAt: new Date().toISOString(), // Add the current date timestamp
+                    CreatedAt: new Date().toISOString(),
                     Caption: caption,
-                    imageURL: this.imageUrl, // The image URL set in the Vue data
-                    recipeTitle: recipeTitle
+                    imageURL: this.imageUrl,
+                    recipeTitle: recipeTitle,
+                    Cuisine: Cuisine // Correcting the key for recipe cuisine
                 };
 
                 const response = await axios.post('http://127.0.0.1:5000/post_to_community', data);
 
                 // Optionally, you can reset the input fields and image preview after successful posting
-                document.getElementById('createCaption').value = ''; // Clear the caption input
-                document.getElementById('recipePostTitle').value = ''; // Clear the recipe title input
-                this.imageUrl = ''; // Clear the image URL
-                document.getElementById('file-upload').value = ''; // Reset the file input
+                document.getElementById('createCaption').value = '';
+                document.getElementById('recipeCuisine').value = '';
+                document.getElementById('recipePostTitle').value = '';
+                this.imageUrl = '';
+                document.getElementById('file-upload').value = '';
 
                 // Fetch the updated posts after posting
                 this.fetchPostsFromServer();
