@@ -160,13 +160,13 @@
 <script>
 import axios from 'axios';
 import Cookies from 'js-cookie';
-
 export default {
-props:[],
-  data() {
-    return {
-        //need to add cookies to store username since not editable
-        userName: 'test3',
+    props:['test','phoneNum'],
+    data() {
+        console.log(this.test);
+        return {
+            //need to add cookies to store username since not editable
+            userName: 'test3',
         userPicture:'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
         email: '',
         phoneNum: '',
