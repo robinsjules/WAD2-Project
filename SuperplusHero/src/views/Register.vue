@@ -359,9 +359,6 @@ export default {
             else if (this.form.Password.length < 8) {
                 alert('Minimum Password length is 8')
             }
-            else if (this.form.Password) {
-                alert('Minimum Password length is 8')
-            }
             else if (this.form.UserName === '') {
                 alert('Please enter a username!')
             }
@@ -384,7 +381,7 @@ export default {
                 axios.post(url, para)
                     .then(response => {
                         console.log(response.data)
-                        this.$router.push({ name: 'Login' });
+                        this.$router.push({ name: 'Profile' });
                     })
                     .catch(error => {
                         console.log(error.message)
