@@ -80,27 +80,12 @@ button.carousel-control-next {
 
 .card button {
     outline: 0;
-    padding: 12px;
+    padding: 5px;
     text-align: center;
-    cursor: pointer;
-    width: 100%;
+    width: 90%;
+    margin: 8px;
     font-size: 18px;
     background-color: rgb(10, 160, 10);
-    border: 0;
-    border-radius: 56px;
-    color: #ffffff;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 18px;
-    font-weight: 500;
-    outline: 0;
-    position: relative;
-    text-align: center;
-    text-decoration: none;
-    transition: all .3s;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
 }
 
 .repBtn{
@@ -119,19 +104,6 @@ button.carousel-control-next {
     padding: 10px;
 }
 
-.card button:before {
-  background-color: initial;
-  background-image: linear-gradient(#fff 0, rgba(255, 255, 255, 0) 100%);
-  border-radius: 125px;
-  content: "";
-  height: 50%;
-  left: 4%;
-  opacity: .5;
-  position: absolute;
-  top: 0;
-  transition: all .3s;
-  width: 92%;
-}
 
 @media (min-width: 768px) {
     .btn-edit {
@@ -145,15 +117,9 @@ button.carousel-control-next {
     background-color: rgb(237, 243, 235);
 }
 
-.light-text{
-    font-size: 25px;
-    color: #e74c3c;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); 
-}
-
 .shadow-text {
     color: #3498db;
-    text-shadow: 2px 2px 0.5px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -170,6 +136,9 @@ button.carousel-control-next {
         display: inline-block;
     }
 
+.custom-link{
+    color:rgb(10, 160, 10);
+}
 </style>
 
 
@@ -257,7 +226,7 @@ button.carousel-control-next {
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-1"></div>
-            <div class="col-md-4"><h3 style="font-family:Montserrat">Deals of the day!</h3></div>
+            <div class="col-md-4"><h2 style="font-family:Montserrat">Deals of the day!</h2></div>
             </div>
     </div>
 
@@ -274,12 +243,15 @@ button.carousel-control-next {
                                             <div class="card card-edit">
                                                 <img :src="item.ImageURL" class="card-img-top" alt="Surplus Listing"  style="width:100%">
                                                 <h3 style="font-family:Montserrat">&nbsp;{{item.IngredientName}}</h3>
-                                                <p class="price">&nbsp; <s>${{ item.OriginalPrice }}</s><strong class="ms-2 text-danger shadow-text" style="font-size: 25px;">${{ item.SalePrice }}</strong></p>
+                                                <p class="price">&nbsp; 
+                                                    <s>${{ item.OriginalPrice }}</s>
+                                                    <strong class="ms-2 text-danger shadow-text">${{ item.SalePrice }}</strong>
+                                                </p>
                                                 <!-- <p>Some text about the product</p> -->
-                                                <p><button type="button" style="font-family:Montserrat" class="btn btn-success" @click="addtoCart(item)">Add to Cart</button></p>    
+                                                <p><button type="button" style="font-family:Montserrat;" class="btn btn-success" @click="addtoCart(item)">Add to Cart</button></p>    
                                             </div>
                                     </div>
-                                    <div class="col-md-11"><h5 style="font-family:Montserrat; text-align:right;">Click <router-link :to="{ name: 'products' }">here</router-link> for more deals!</h5></div>
+                                    <div class="col-md-11"><h5 style="font-family:Montserrat; text-align:right;">Click <router-link :to="{ name: 'products' }" class="custom-link">here</router-link> for more deals!</h5></div>
                                 <div class="col-md-1"></div>
                             </div>
     
@@ -295,10 +267,13 @@ button.carousel-control-next {
                                 <div class="col-md-2 mb-3" v-for="(item, index) in items.slice(5,10)" :key="index">
                                         <div class="card card-edit">
                                             <img :src="item.ImageURL" class="card-img-top" alt="Recipe" style="width:100%">
-                                            <h1>{{item.IngredientName}}</h1>
-                                            <p class="price"> <s>${{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">${{ item.SalePrice }}</strong></p>
+                                            <h3 style="font-family:Montserrat">&nbsp;{{item.IngredientName}}</h3>
+                                            <p class="price">&nbsp; 
+                                                    <s>${{ item.OriginalPrice }}</s>
+                                                    <strong class="ms-2 text-danger shadow-text">${{ item.SalePrice }}</strong>
+                                            </p>
                                             <!-- <p>Some text about the product</p> -->
-                                            <p><button type="button" class="btn btn-primary" @click="addtoCart(item)">Add to Cart</button></p>    
+                                            <p><button type="button" style="font-family:Montserrat;" class="btn btn-success" @click="addtoCart(item)">Add to Cart</button></p>    
                                         </div>
                                 </div>
                                     
@@ -325,7 +300,7 @@ button.carousel-control-next {
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-1"></div>
-                <div class="col-md-4"><h2 style="font-family:Montserrat">Check these recipes out!</h2></div>
+                <div class="col-md-5"><h2 style="font-family:Montserrat">Check these recipes out!</h2></div>
             </div>
     </div>
 
@@ -344,16 +319,13 @@ button.carousel-control-next {
                                         <h1>Salmon Caesar Salad</h1>
                                         <p class="overflow-text">The recipe Salmon Caesar Salad could satisfy your American craving in roughly 45 minutes. One portion of this dish contains around 27g of protein, 29g of fat, and a total of 393 calories. 
                                             For $3.01 per serving, you get a main course that serves 2. It is brought to you by Foodista. 12 people were glad they tried this recipe. Head to the store and pick up parmesan cheese, lemon juice, paprika, and a few other things to make it today. It is a good option if you're following a gluten free, primal, pescatarian, and ketogenic diet.</p>
-                                        <p>
-
-                                            <button type="button" class="btn btn-success" @click="gotoRec()">Find out More!</button>
-                                        </p>    
+                                            <button type="button" class="btn btn-success"  @click="gotoRec()">Find out More!</button>    
                                     </div>
                             </div>
                             <!-- <div class="card card-edit text-center col-md-2 mb-3" data-bs-toggle="modal" data-bs-target="#repModal" role="button" tabindex="0" aria-label="Open information in a popup modal">
                                 <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" class="card-img-top" alt="Card image cap">
                                     <div class="card-body">
-                                        <h1 class="card-title">Chicken Rice</h1>
+                                        <h2 class="card-title">Chicken Rice</h2>
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
                                 <p><button type="button" class="btn btn-success">Click for more!</button></p>   
@@ -395,12 +367,12 @@ button.carousel-control-next {
                             <div class="col-md-2 mb-3">
                                 <div class="card card-edit">
                                         <img src="https://spoonacular.com/recipeImages/715567-312x231.jpg" alt="Recipe" style="width:100%">
-                                        <h1>Beef Fajita Marinade</h1>
+                                        <h2>Beef Fajita Marinade</h2>
                                         <p class="overflow-text">Beef Fajita Marinade takes about 45 minutes from beginning to end. 
                                             This gluten free, dairy free, paleolithic, and primal recipe serves 2 and costs $8.91 per serving. 
                                             One serving contains 677 calories, 75g of protein, and 40g of fat. This recipe from Pink When has 21 fans. 
                                             It works well as a marinade. Head to the store and pick up cilantro, lime zest, lime juice, and a few other things to make it today. </p>
-                                        
+                                        <br/>
                                             <p>
                                                 <button type="button" class="btn btn-success" @click="gotoRec()">Find out More!</button>
                                             </p>    
