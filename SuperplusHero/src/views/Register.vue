@@ -325,9 +325,31 @@ export default {
             this.containerClasses.active = false;
         },
         goToNext() {
-            if (this.form.UserType === 'What type of user are you?') {
-                alert('Please select a user type');
-            } else {
+            if (this.form.UserType === 'What type of user are you?' && this.form.Password === '' && this.form.UserName === '' && this.form.Email === '' && this.form.Phone === '') {
+            alert('Please fill up the form!')
+            }
+            else if (this.form.UserType === 'What type of user are you?') {
+            alert('Please select a user type')
+            }
+            else if(this.form.Password === ''){
+            alert('Please enter a password')
+            }
+            else if(this.form.Password.length < 8){
+                alert('Minimum Password length is 8')
+            }
+            else if( this.form.Password ){
+                alert('Minimum Password length is 8')
+            }
+            else if (this.form.UserName === '') {
+                alert('Please enter a username!')
+            }
+            else if (this.form.Email === '') {
+                alert('Please enter your email!')
+            }
+            else if (this.form.Phone === '') {
+                alert('Please enter your phone number!')
+            }
+            else {
                 var url = 'http://127.0.0.1:5000/register_user';
                 var para = {
                     UserType: this.form.UserType,
