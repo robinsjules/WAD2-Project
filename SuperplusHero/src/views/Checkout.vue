@@ -104,17 +104,17 @@
                                         </div>
 
                                         <div>
-                                            <button class="btn btn-primary" @click="decreaseQuantity(item)" :disabled="desiredQuantity[item.id] <= 1">-</button>
+                                            <button class="btn btn-success" @click="decreaseQuantity(item)" :disabled="desiredQuantity[item.id] <= 1">-</button>
                                             {{desiredQuantity[item.id] || 1}} 
                                             <!-- If item id exists in desiered quantity object set value to 1 if not go next -->
-                                            <button class="btn btn-primary" @click="increaseQuantity(item)" :disabled="desiredQuantity[item.id] >= item.Quantity">+</button>
+                                            <button class="btn btn-success" @click="increaseQuantity(item)" :disabled="desiredQuantity[item.id] >= item.Quantity">+</button>
                                         </div>
 
                                     </div>
                                     
                                     <div class="nestedFlex2">
-                                        <button class="btn btn-primary remove" @click="removeFromCart(item)">X</button>
-                                        <p class="price"> <s>${{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">${{ item.SalePrice }}</strong></p>
+                                        <button class="btn btn-secondary remove" @click="removeFromCart(item)">X</button>
+                                        <p class="price text-danger"> <s>${{ item.OriginalPrice }}</s><strong class="ms-2" style="color:black;">${{ item.SalePrice }}</strong></p>
                                     </div>
                                     
                                 </li>
@@ -139,7 +139,7 @@
                 
                 <div class="checkoutBtn">
                     <router-link to="/home">
-                        <button class="btn btn-primary checkout" @click="checkout">Checkout</button>
+                        <button class="btn btn-success checkout" @click="checkout">Checkout</button>
                     </router-link>
                 </div>
 
