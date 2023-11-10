@@ -36,8 +36,6 @@
     <div class="content" :style="mainContentStyle">
       <h2  style="color: rgb(10, 160, 10); margin-left:15px;">
         Recipe Book
-          <img class="rotating-image" src="../../src/assets/appLogo.png" style="max-width: 100px; max-height: 100px;">
-          <span><i class="fa-solid fa-kitchen-set" style="float: right; margin-top: 25px; margin-right: 20px; font-size: 1.5em;"></i></span>
       </h2>
       
       <!-- Search Bar -->
