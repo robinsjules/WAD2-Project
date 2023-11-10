@@ -54,8 +54,8 @@
                     <div class="col-lg-4 mb-5 mb-lg-0">
                         <div class="fixed-position">
                             <h1 span class="my-5 display-3 fw-bold ls-tight">
-                                <span>Profile of<br/> our <br/></span>
-                                <span class="text-success">Surplus <br/>Hero!</span>
+                                <span>Profile of our <br/></span>
+                                <span class="text-success">Surplus Hero,<br> julesrobins!</span>
                             </h1>
                         </div>
                     </div>
@@ -160,13 +160,13 @@
 <script>
 import axios from 'axios';
 import Cookies from 'js-cookie';
-
 export default {
-props:[],
-  data() {
-    return {
-        //need to add cookies to store username since not editable
-        userName: 'test3',
+    props:['test','phoneNum'],
+    data() {
+        console.log(this.test);
+        return {
+            //need to add cookies to store username since not editable
+            userName: 'test3',
         userPicture:'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
         email: '',
         phoneNum: '',
