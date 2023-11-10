@@ -110,7 +110,7 @@
                                         <div class="form-outline">
                                             <label for="fridgeItems">Enter Item</label>
                                             <input v-model="newItem" type="text" id="form3Example2"
-                                                class="form-control" placeholder="Eg. Banana" />
+                                                class="form-control" placeholder="Eg. Banana, YYYY/MM/DD" />
                                         </div>
                                     </div>
                                     <br />
@@ -146,7 +146,7 @@
                                             <li v-for="(item, index) in items">
                                                 <div class="d-flex justify-content-between ingredient-card">
                                                     <span class="text-start" style="font-weight:600;">{{ item.name }}</span>&nbsp;
-                                                    <span class="text-start" style="font-weight:600;"> ({{ item.expiryDate }})</span>&nbsp;
+                                                    <span class="text-start" style="font-weight:600; color: rgb(161, 0, 0)"> ({{ item.expiryDate }})</span>
                                                     <button @click="removeItem(index)" @mouseover="hoveredIndex = index" @mouseout="hoveredIndex = null"
                                                         class="text-end btn-custom" :class="{ 'text-end': true, 'btn-custom-hovered': index === hoveredIndex, 'btn-custom': true }">
                                                         Remove
@@ -191,25 +191,8 @@ export default {
                 console.log('Fetched Fridge Data:', response.data); // Log the fetched data
                 this.data = response.data;
                 this.items = this.data[0].Fridge;
-
             } catch (error) {
                 console.error('Error fetching items:', error);
-            }
-        },
-        async add() {
-            if (this.newItem != '') {
-                this.items.push(this.newItem)
-                this.newItem = ''
-            }
-            try {
-                const fridgeuser = 'julesrobins';
-                const updatedData = {
-                    'Fridge': this.items,
-                }
-                const response = await axios.put(`http://127.0.0.1:5000/update_fridge/${fridgeuser}`, updatedData);
-                console.log('Sending Fridge Data:', updatedData);
-            } catch (error) {
-                console.error('Error sending items:', error);
             }
         },
         async addnewFridge() {
@@ -232,18 +215,7 @@ export default {
             } catch (error) {
                 console.error('Error sending items:', error);
             }
-        },
-        // [{
-        // "name": "sesame seeds",
-        // "expiryDate": "2023/11/15"
-        // },
-        // {
-        // "name": "sesame seeds",
-        // "expiryDate": "2023/11/15"
-        // },
-        // {
-        // "name": "sesame seeds",
-    
+        }, 
         async removeItem(index) {
             this.items.splice(index, 1);
             try {
