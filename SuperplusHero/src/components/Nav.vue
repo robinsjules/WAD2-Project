@@ -75,6 +75,10 @@
   align-items: center;
 }
 
+.color-coord{
+  background-color: rgb(10, 160, 10);
+}
+
 </style>
 
 <template>
@@ -161,7 +165,7 @@
                   >
                   <p class="text-help mt-2">- OR -</p>
                   <button 
-                    class="btn mt-2 btn-primary" 
+                    class="btn mt-2 btn-success color-coord" 
                     @click="useCurrentLocation"
                   >
                     Get the closest NTUC
@@ -185,14 +189,14 @@
                     <img :src="item.ImageURL" alt="Surplus Listing" class="cartThumbnail">
                     <div class="cart-item-details">
                         <h3 class="cartItemName">{{item.IngredientName}}</h3>
-                        <span class="price"> Price: $<s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger">{{ item.SalePrice }}</strong></span>
+                        <span class="price"> Price: $<s>{{ item.OriginalPrice }}</s><strong class="ms-2 text-danger"> ${{ item.SalePrice }}</strong></span>
     
                           <div class="cartItemQuantity">
                             Quantity: 
-                              <button class="btn btn-primary" @click="decreaseQuantity(item)"  :disabled="desiredQuantity[item.id] <= 1" >-</button>
+                              <button class="btn btn-success color-coord" @click="decreaseQuantity(item)"  :disabled="desiredQuantity[item.id] <= 1" >-</button>
                               {{desiredQuantity[item.id] || 1}} 
                               <!-- If item id exists in desiered quantity object set value to 1 if not go next -->
-                              <button class="btn btn-primary" @click="increaseQuantity(item)" :disabled="desiredQuantity[item.id] >= item.Quantity">+</button>
+                              <button class="btn btn-success color-coord" @click="increaseQuantity(item)" :disabled="desiredQuantity[item.id] >= item.Quantity">+</button>
                               
                               
                               <div class="cartItemStock">
@@ -206,7 +210,7 @@
                           
                           
                         </div>
-                        <button class="btn btn-primary remove" @click="removeFromCart(item)">X</button>
+                        <button class="btn btn-success color-coord remove" @click="removeFromCart(item)">X</button>
                         
                       <hr>
                     </div>
@@ -216,7 +220,7 @@
                         Total Cost: ${{ totalPrice }}
                       </div>
                       <router-link to="/checkout">
-                        <button class="btn btn-primary checkout" data-bs-dismiss="modal">Checkout</button>
+                        <button class="btn btn-success color-coord checkout" data-bs-dismiss="modal">Checkout</button>
                       </router-link>
 
                     </div>
