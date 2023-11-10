@@ -64,7 +64,7 @@
     border-radius: 15px;
 }
 
-.btn-custom.hovered{
+.btn-custom-hovered{
     background-color: rgb(161, 0, 0);
 }
 
@@ -116,7 +116,7 @@
                                     <br />
                                     <div class="col-12 mb-4">
                                         <div class="d-flex">
-                                            <button type="button" class="btn btn-success w-100" style="background-color:rgb(10, 160, 10)" @click="addnewFridge">
+                                            <button type="button" class="btn btn-success w-100" style="background-color:rgb(10, 160, 10)" @click="addnewFridge()">
                                                 Add Item</button>
                                         </div>
                                     </div>
@@ -143,12 +143,14 @@
                                     <div class="card-body fridge"
                                         style="background-color:rgb(237, 243, 235); border: 2px solid rgba(10, 160, 10, 0.728);">
                                         <ul id="item-list" class="item-list" :class="{ hidden: !isFridgeOpen }">
-                                            <li v-for="(item, i) in items">
+                                            <li v-for="(item, index) in items">
                                                 <div class="d-flex justify-content-between ingredient-card">
                                                     <span class="text-start" style="font-weight:600;">{{ item.name }}</span>&nbsp;
                                                     <span class="text-start" style="font-weight:600;"> ({{ item.expiryDate }})</span>&nbsp;
-                                                    <button @click="removeItem(item)" @mouseover="changeButtonColor" @mouseout="restoreButtonColor"
-                                                        class="text-end btn-custom">Remove</button>
+                                                    <button @click="removeItem(index)" @mouseover="hoveredIndex = index" @mouseout="hoveredIndex = null"
+                                                        class="text-end btn-custom" :class="{ 'text-end': true, 'btn-custom-hovered': index === hoveredIndex, 'btn-custom': true }">
+                                                        Remove
+                                                    </button>
                                                 </div>
                                                 &nbsp;
                                             </li>
@@ -175,6 +177,7 @@ export default {
             isFridgeOpen: false,
             test: '',
             data: [],
+            hoveredIndex: null,
         }
     },
     mounted() {
@@ -254,6 +257,19 @@ export default {
                 console.error('Error sending items:', error);
             }
         },
+        async removeItem(i) {
+            this.items.splice(i, 1);
+            try {
+                const fridgeuser = 'julesrobins';
+                const updatedData = {
+                    'Fridge': this.items,
+                }
+                const response = await axios.put(`http://127.0.0.1:5000/update_fridge/${fridgeuser}`, updatedData);
+                console.log('Sending Fridge Data:', updatedData);
+            } catch (error) {
+                console.error('Error sending items:', error);
+            }
+        },
         goToNext() {
             this.$router.push({ name: 'Login' });
             console.log(JSON.stringify(this.form));
@@ -269,13 +285,13 @@ export default {
                 fridgeImage.classList.add("fridge-img-closed");
             }
         },
-        changeButtonColor() {
-        // Add a class to change the button color on hover
-        document.querySelector('.btn-custom').classList.add('hovered');
-         },
-        restoreButtonColor() {
-        // Remove the added class to restore the original button color
-        document.querySelector('.btn-custom').classList.remove('hovered');
+        changeButtonColor(index) {
+            this.hoveredIndex = index;
+            document.querySelector(`#btn.-${index}`).classList.add('hovered');
+        },
+        restoreButtonColor(index) {
+            this.hoveredIndex = -1;
+            document.querySelector(`#btn.-${index}`).classList.remove('hovered');
         },
     }
 }
