@@ -11,8 +11,8 @@ body {
     min-height: 10vh;
 }
 
-h2{
-    font-weight:bold;
+h2 {
+    font-weight: bold;
 
 }
 
@@ -113,6 +113,14 @@ button.carousel-control-next {
     background-color: rgb(10, 160, 10);
 }
 
+.card button:hover {
+    text-align: center;
+    width: 90%;
+    margin: 8px;
+    /* font-size: 18px; */
+    background-color: gray;
+}
+
 .repBtn {
     width: fit-content;
 }
@@ -130,11 +138,11 @@ button.carousel-control-next {
 } */
 
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
     .btn-edit {
         padding: 16px 48px;
     }
-}
+} */
 
 .card-edit {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -176,7 +184,7 @@ button.carousel-control-next {
             <div class="box typewriter">
                 <h2 class="type" data-text="Welcome to SurplusHero!">Welcome to SurplusHero!</h2>
                 <h2 class="type1" data-text="Your go-to for cheap groceries"> Your go-to for <span
-                        class="text-success">cheap groceries</span></h2>
+                        style="color:rgb(10, 160, 10);">cheap groceries</span></h2>
             </div>
 
         </div>
@@ -245,7 +253,7 @@ button.carousel-control-next {
                 <h2>Explore recipes</h2>
             </div>
             <div class="col-md-6">
-                <h5 style="padding:0px; text-align:right; transform:translateY(50%)"><router-link
+                <h5 style="padding:0px; text-align:right; transform:translateY(50%);"><router-link
                         :to="{ name: 'AllRecipes' }" class="custom-link">View all</router-link></h5>
             </div>
         </div>
@@ -317,6 +325,8 @@ button.carousel-control-next {
                             </div>
 
                         </div>
+                        <div class="col-md-1"></div>
+
                     </div>
                 </div>
             </div>
@@ -608,9 +618,5 @@ export default {
     },
 
 }
-
-
-
-
 
 </script>
