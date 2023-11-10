@@ -11,12 +11,17 @@ In line with the United Nation's SDGs, our group is committed to this mission of
 - <b>SDG 13: Climate Action:</b> Wasting food also wastes all the energy taken to grow, water and cultivate it, as well as the resources spent to harvest, package, and transport them. Avoiding food waste can lower greenhouse gas emissions associated with food production, processing, transport, and disposal, which accounts for 8% of global emissions.
 
 ## App Features
-
+- Recipe Viewing
+- Grocery Shopping
+- Email Notification for Order Confirmation
+- Community Platform to Create and Like Posts
+- Location Matching Algorithm
 
 ## Installation
 Firstly, install the dependencies for the project to run.
 - pip install flask
 - pip install flask-cors
+- pip install trycourier
 - npm install supabase
 - npm install @googlemaps/js-api-loader
 - npm install js-cookie
