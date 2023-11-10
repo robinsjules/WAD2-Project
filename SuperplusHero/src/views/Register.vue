@@ -258,8 +258,6 @@ body {
                             placeholder="Phone Number" />
                         <input v-model="form.Password" type="password" id="form3Example5" class="form-control"
                             placeholder="Password" />
-                        <input v-if="form.UserType === 'Consumer'" v-model="form.Allergies" type="text" class="form-control"
-                            id="Allergies" placeholder="Allergies (Eg. Shellfish)">
                         <textarea v-if="form.UserType === 'Consumer'" cols="4" rows="5" v-model="form.Fridge" type="text"
                             id="Fridge" class="form-control" placeholder="Items in your fridge (Eg. Banana)" />
                         <button @click="goToNext" @click.prevent="activate">submit</button>
@@ -315,7 +313,6 @@ export default {
                 Email: '',
                 Phone: '',
                 Password: '',
-                Allergies: '',
                 Fridge: '',
             }
         }
@@ -338,7 +335,6 @@ export default {
                     Email: this.form.Email,
                     Phone: this.form.Phone,
                     Password: this.form.Password,
-                    Allergies: JSON.stringify(this.form.Allergies),
                     Fridge: JSON.stringify(this.form.Fridge),
                 }
                 axios.post(url, para)
