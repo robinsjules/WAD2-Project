@@ -11,33 +11,20 @@
     min-height: 100vh;
 }
 
-.page-title {
-    color: white;
-    margin-top: 50px;
-    font-weight: bold;
-}
-
-
-/* .button-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-
-} */
-
 .content {
     padding-top: 20px;
 }
 
 /* create post/modal style */
 .post-button {
+    margin-top: 20px;
     background-color: white;
     color: black;
     border-color: lightgray;
 }
 
 .post-button:hover {
+    margin-top: 20px;
     background-color: gray;
     color: white;
     border-color: lightgray;
@@ -147,7 +134,7 @@
 }
 
 .form-floating {
-    margin-top: 50px;
+    margin-top: 20px;
     margin-bottom: 10px;
 }
 
@@ -170,25 +157,23 @@
     <div class="background">
         <section class="content">
             <!-- <div class="button-container"> -->
-            <header class="bg-dark py-5">
-
-                <h1 class="page-title text-center">
-                    Share with the Community
-                </h1>
-
-
+            <header class="bg-dark py-4">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Heroes Community</h1>
                 <div class="container-fluid">
                     <!-- Create a post
                     <img @click="" src="../assets/writingIconGreen.png" data-bs-toggle="modal"
                     data-bs-target="#createPostModal" style="cursor:pointer; height:40px;"> -->
-
                     <div class="d-flex justify-content-center align-items-center">
                         <button @click="" class="post-button btn" href="#" data-bs-toggle="modal"
                             data-bs-target="#createPostModal">
                             Click to create post!</button>
                     </div>
                 </div>
-            </header>
+            </div>
+            </div>
+        </header>
 
 
 
@@ -242,10 +227,10 @@
             <!-- </div> -->
 
             <div class="container posts-content">
+
                 <div class="form-group">
                     <div class="container-fluid">
                         <div class="row justify-content-center">
-
                             <div class="col-1g-6">
                                 <!-- Search Input -->
                                 <div class="form-floating">
@@ -257,7 +242,6 @@
 
 
                             <!-- Dropdown for Sorting -->
-
                             <div class="col-lg-3">
                                 <div class="dropdown">
                                     <span class="mr-auto sort">Sort by:</span>
@@ -290,7 +274,6 @@
                                         </li>
                                     </ul>
                                 </div>
-
                             </div>
                         </div>
                     </div>

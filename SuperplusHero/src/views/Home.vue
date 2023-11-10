@@ -417,7 +417,7 @@ button.carousel-control-next {
         <div class="row" style="padding-top:30px;">
             <div class="col-md-1"></div>
             <div class="col-md-4">
-                <h2>Featured deals</h2>
+                <h2>Today's deals</h2>
             </div>
             <div class="col-md-6">
                 <h5 style="transform:translateY(50%); padding:0px; text-align:right;"><router-link
