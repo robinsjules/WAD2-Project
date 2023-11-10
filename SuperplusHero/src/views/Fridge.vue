@@ -109,14 +109,14 @@
                                     <div class="col-12 mb-2">
                                         <div class="form-outline">
                                             <label for="fridgeItems">Enter Item</label>
-                                            <input @keyup.enter="add" v-model="newItem" type="text" id="form3Example2"
+                                            <input v-model="newItem" type="text" id="form3Example2"
                                                 class="form-control" placeholder="Eg. Banana" />
                                         </div>
                                     </div>
                                     <br />
                                     <div class="col-12 mb-4">
                                         <div class="d-flex">
-                                            <button type="button" class="btn btn-success w-100" style="background-color:rgb(10, 160, 10)" @click="add">
+                                            <button type="button" class="btn btn-success w-100" style="background-color:rgb(10, 160, 10)" @click="addnewFridge">
                                                 Add Item</button>
                                         </div>
                                     </div>
@@ -145,7 +145,8 @@
                                         <ul id="item-list" class="item-list" :class="{ hidden: !isFridgeOpen }">
                                             <li v-for="(item, i) in items">
                                                 <div class="d-flex justify-content-between ingredient-card">
-                                                    <span class="text-start" style="font-weight:600;">{{ item }}</span>
+                                                    <span class="text-start" style="font-weight:600;">{{ item.name }}</span>&nbsp;
+                                                    <span class="text-start" style="font-weight:600;"> ({{ item.expiryDate }})</span>&nbsp;
                                                     <button @click="removeItem(item)" @mouseover="changeButtonColor" @mouseout="restoreButtonColor"
                                                         class="text-end btn-custom">Remove</button>
                                                 </div>
@@ -208,6 +209,38 @@ export default {
                 console.error('Error sending items:', error);
             }
         },
+        async addnewFridge() {
+            if (this.newItem != '') {
+                const [itemName, expiryDate] = this.newItem.split(',').map((item) => item.trim());
+                const newfridgeItem = {
+                "name": itemName,
+                "expiryDate": expiryDate,
+                };
+                this.items.push(newfridgeItem);
+                this.newItem='';
+            }
+            try {
+                const fridgeuser = 'julesrobins';
+                const updatedData = {
+                    'Fridge': this.items,
+                }
+                const response = await axios.put(`http://127.0.0.1:5000/update_fridge/${fridgeuser}`, updatedData);
+                console.log('Sending Fridge Data:', updatedData);
+            } catch (error) {
+                console.error('Error sending items:', error);
+            }
+        },
+        // [{
+        // "name": "sesame seeds",
+        // "expiryDate": "2023/11/15"
+        // },
+        // {
+        // "name": "sesame seeds",
+        // "expiryDate": "2023/11/15"
+        // },
+        // {
+        // "name": "sesame seeds",
+    
         async removeItem(index) {
             this.items.splice(index, 1);
             try {
