@@ -132,6 +132,9 @@
           </div>
           <div>
           </div>
+          <div style="text-align: right; margin-top: 20px;">
+            <button class="btn btn-success" @click="checkout">Checkout</button>
+          </div>
         </div>
 
         <!-- Red Box -->
