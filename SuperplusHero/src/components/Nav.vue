@@ -247,6 +247,7 @@ export default {
       cart:[],
       newCartItem: false,
       cartLength: 0,
+      showCheckoutAlert: false,
     };
   },
   async created() {
@@ -262,6 +263,15 @@ export default {
       }, 500);
       // this.totalPrice = this.desiredQuantity.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
       this.totalPrice = this.calcTotal(this.itemTotalPrice);
+
+      this.showCheckoutAlert = setInterval(() => {
+        this.checkedOut();
+      },500);
+
+
+
+      
+
     },
 
     computed: { 
@@ -270,6 +280,17 @@ export default {
       // }
     },
   methods: {
+
+    checkedOut(){
+        this.showCheckoutAlert = Cookies.get("showCheckoutAlert")
+        if (this.showCheckoutAlert == "true" ){
+          console.log(this.showCheckoutAlert);
+          console.log(this.totalPrice);
+          this.totalPrice = 0;
+          Cookies.remove("totalPrice");
+          Cookies.set("showCheckoutAlert", false);
+        }
+    },
     calcTotal(obj){
       let sum = Object.values(obj).reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
       return parseFloat(sum.toFixed(2)); 
@@ -293,8 +314,6 @@ export default {
       }else{
         this.totalPrice = 0.0;
       }
-      
-      
     }
   },
     checkCartLength(){
@@ -333,6 +352,13 @@ export default {
           }
           this.totalPrice = this.calcTotal(this.itemTotalPrice);  
           Cookies.set("totalPrice", this.totalPrice);
+          this.showCheckoutAlert = Cookies.get("showCheckoutAlert")
+          if (this.showCheckoutAlert == "true" ){
+            // console.log('WORKING');
+            this.totalPrice=this.calc(this.itemTotalPrice);
+            Cookies.set("totalPrice",0);
+          }
+
 
       }else{
         this.cart = [];
