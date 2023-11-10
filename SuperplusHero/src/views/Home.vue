@@ -311,7 +311,7 @@ button.carousel-control-next {
                                         <p class="overflow-text">The recipe Mexican Casserole could satisfy your Mexican craving in about 1 hour and 5 minutes. 
                                             This main course has 581 calories, 48g of protein, and 21g of fat per serving. 
                                             This recipe serves 6 and costs $2.63 per serving. It is brought to you by Pink When. 503 people were impressed by this recipe.
-                                             It will be a hit at your Autumn event. A mixture of cheddar cheese, monterrey jack, salsa, and a handful of other ingredients are all it takes to make this recipe so scrumptious. It is a good option if you're following a gluten free diet </p>
+                                            It will be a hit at your Autumn event. A mixture of cheddar cheese, monterrey jack, salsa, and a handful of other ingredients are all it takes to make this recipe so scrumptious. It is a good option if you're following a gluten free diet </p>
                                         
                                             <p>
                                                 <button type="button" class="btn btn-success" @click="gotoRec()">Find out More!</button>
