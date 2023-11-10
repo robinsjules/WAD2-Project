@@ -1,4 +1,4 @@
-<style>
+<style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 .navbar-nav{
@@ -9,6 +9,20 @@
 
 * {
     font-family: 'Montserrat', sans-serif;
+}
+
+.card button{
+    text-align: center;
+    width: 90%;
+    margin: 8px;
+    background-color: rgb(10, 160, 10);
+}
+
+.card button:hover {
+    text-align: center;
+    width: 90%;
+    margin: 8px;
+    background-color: gray;
 }
 </style>
 
@@ -43,7 +57,9 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><p><button type="button" style="font-family:Montserrat;" class="btn btn-success" @click="addtoCart(item)">Add to Cart</button></p></div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-success" @click="addtoCart(item)">Add to Cart</button>
+                                </div>
                             </div>  
                         </div>
                     </div>
