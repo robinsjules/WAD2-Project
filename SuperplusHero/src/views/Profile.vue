@@ -55,7 +55,7 @@
                         <div class="fixed-position">
                             <h1 span class="my-5 display-3 fw-bold ls-tight">
                                 <span>Profile of<br/> our <br/></span>
-                                <span style="color:rgb(10, 160, 10)">Surplus <br/>Hero!</span>
+                                <span style="color:rgb(10, 160, 10)">Surplus <br/>Hero,<br/> julesrobins!</span>
                             </h1>
                         </div>
                     </div>
