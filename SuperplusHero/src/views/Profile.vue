@@ -5,7 +5,6 @@
 
     * {
     font-family: "Montserrat";
-    color:white
     }
     
     .profile-form {
@@ -55,24 +54,24 @@
                     <div class="col-lg-4 mb-5 mb-lg-0">
                         <div class="fixed-position">
                             <h1 span class="my-5 display-3 fw-bold ls-tight">
-                                <span class="text-dark">Profile of<br/> our <br/></span>
+                                <span>Profile of<br/> our <br/></span>
                                 <span class="text-success">Surplus <br/>Hero!</span>
                             </h1>
                         </div>
                     </div>
     <!-- card -->
     <div class="mx-auto col-lg-6 mb-5 mb-lg-0 ">
-            <div class="card">
-                <div class="card-body rounded py-5" style="background-color:#3F8256">
+            <div class="card" style="border: 3px solid rgb(10, 160, 10);">
+                <div class="card-body rounded py-5" style="background-color:rgb(237, 243, 235);">
                     <form id="profileEdit" class="my-4" autocomplete="on" @submit.prevent="">
                         <div id="app">
                             <div class="profile-form">
                                 <div class="profile-picture">
                                     <div class="image-container">
-                                        <img :src="userPicture" alt="User's Profile Picture" class="rounded-circle p-1 bg-light"/>
+                                        <img :src="userPicture" alt="User's Profile Picture" class="rounded-circle p-1" style="background-color: rgb(10, 160, 10)"/>
                                     </div>
                                     <div class="file-input">
-                                        <label for="file-upload" class="btn btn-success">Choose File</label>
+                                        <label for="file-upload" class="btn btn-success" style="background-color:rgb(10, 160, 10)">Choose File</label>
                                         <input id="file-upload" type="file" @change="uploadPicture" accept="image/*" />
                                     </div>
                                 </div>
@@ -115,7 +114,7 @@
                                 Dietary Preferences:
                                 <div class="container">
                                     <div class="row">
-                                        <div v-for="(preference, index) in dPreferences" :key="index" class="col-sm text-white bg-success rounded d-flex justify-content-center align-items-center m-1">
+                                        <div v-for="(preference, index) in dPreferences" :key="index" class="col-sm text-white rounded d-flex justify-content-center align-items-center m-1" style="background-color:rgb(10, 160, 10)">
                                             <div class="form-group form-check">
                                                 <input class="form-check-input" type="checkbox" :value="preference.value" :id="preference.value" v-model="foodPreferences" />
                                                 <label class="form-check-label" :for="preference.value">{{ preference.name }}</label>
@@ -132,19 +131,19 @@
                                         <label for="intoleranceInput" >Intolerance</label>
                                     </div>
                                     <div class="col-sm-4">
-                                        <button @click="addIntolerance" type="submit" class="btn btn-success" style="height:36px; width:100px">Add</button>
+                                        <button @click="addIntolerance" type="submit" class="btn btn-success" style="height:36px; width:100px;background-color:rgb(10, 160, 10)">Add</button>
                                     </div>
                                 </div>
                                 <br/>
                                 <ul>
                                     <li v-for="(intolerance, index) in intolerances" :key="index">
                                         {{ intolerance }}
-                                        <button @click="removeIntolerance(index)" type="button" class="btn btn-danger remove-button">Remove</button>
+                                        <button @click="removeIntolerance(index)" type="button" class="btn btn-danger remove-button" style="background-color:rgb(10, 160, 10)">Remove</button>
                                     </li>
                                 </ul>
                             </div>
-                            <button @click= "updateProfile" class="btn btn-success btn-block mt-4" type="submit" value="submit"> Save changes </button>&nbsp;
-                            <button @click= "logoutProfile" class="btn btn-success mt-4" type="button" value= true>Log out</button>        
+                            <button @click= "updateProfile" class="btn btn-success btn-block mt-4" type="submit" value="submit" style="background-color:rgb(10, 160, 10)"> Save changes </button>&nbsp;
+                            <button @click= "logoutProfile" class="btn btn-success mt-4" type="button" value= true style="background-color:rgb(10, 160, 10)">Log out</button>        
                         </div>
                     </form>
                 </div>
