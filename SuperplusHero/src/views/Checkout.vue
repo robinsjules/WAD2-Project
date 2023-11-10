@@ -3,7 +3,7 @@
     body{
         background-color: rgb(237,243,235);
         font-family: 'Montserrat';
-        min-height: 10vh;
+        min-height: 100vh;
     }
     .content {
         padding-top: 125px;
@@ -79,6 +79,10 @@
 </style>
 
 <template>
+
+    <body>
+
+
     <div class="content">
         <div class="container-fluid row test">
             <div class="col-lg-1"></div>
@@ -150,6 +154,7 @@
         <div class="col-lg-1"></div>
 
     </div>
+</body>
 </template>
 
 
@@ -235,8 +240,16 @@ export default {
                 }
             }
             this.totalPrice = this.calcTotal(this.itemTotalPrice);
+            Cookies.set("totalPrice", this.totalPrice);
+            console.log(Cookies.get('totalPrice'));
             this.normalTotalPrice = this.calcTotal(this.itemNormalTotal);
             this.savedTotal = (this.normalTotalPrice - this.totalPrice).toFixed(2);
+            
+            this.cartLength = this.checkCartLength();
+
+            Cookies.set('cartLength', this.checkCartLength);
+            
+
             },
         checkCartLength(){
             if (Cookies.get("cartLength")){
@@ -263,14 +276,29 @@ export default {
 
                 for (let item of this.cart) {
                     if(this.desiredQuantity[item.id] === undefined){
-                    this.desiredQuantity[item.id] = 1;
+                        this.desiredQuantity[item.id] = 1;
                     }
+
                     this.calculateItemTotal(item);
                     this.calculateItemNormalTotal(item);
                     
                     
                 }
                 
+                if (Cookies.get('totalPrice')){
+                    this.totalPrice = Cookies.get('totalPrice');
+                }
+
+                this.totalPrice = this.calcTotal(this.itemTotalPrice);  
+                Cookies.set("totalPrice", this.totalPrice);
+                this.showCheckoutAlert = Cookies.get("showCheckoutAlert")
+                if (this.showCheckoutAlert == "true" ){
+                    // console.log('WORKING');
+                    this.totalPrice=this.calc(this.itemTotalPrice);
+                    Cookies.set("totalPrice",0);
+                }
+
+
             }else{
                 this.cart = [];
             }

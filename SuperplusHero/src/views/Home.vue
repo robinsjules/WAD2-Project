@@ -252,32 +252,6 @@ button.carousel-control-next {
                                             <button type="button" class="btn btn-success"  @click="gotoRec()">Find out More!</button>    
                                     </div>
                             </div>
-                            <!-- <div class="card card-edit text-center col-md-2 mb-3" data-bs-toggle="modal" data-bs-target="#repModal" role="button" tabindex="0" aria-label="Open information in a popup modal">
-                                <img src="https://blog.udemy.com/wp-content/uploads/2014/05/bigstock-test-icon-63758263.jpg" class="card-img-top" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h2 class="card-title">Chicken Rice</h2>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    </div>
-                                <p><button type="button" class="btn btn-success">Click for more!</button></p>   
-                            </div> -->
-
-                            <!-- <div class="modal fade" id="repModal" tabindex="-1" aria-labelledby="myModalLabel" role="dialog">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title fs-5" id="myModalLabel">Modal title</h5>
-                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Modal body text goes here.</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div> -->
                             
                             <div class="col-md-2 mb-3">
                                 <div class="card card-edit">
@@ -393,14 +367,7 @@ button.carousel-control-next {
                     </div>
                 </div>
             </div>
-            <!-- <a class="left carousel-control" href="#surplusCaro" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#surplusCaro" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a> -->
+            
     
             <button class="carousel-control-prev" type="button" data-bs-target="#recipeCaro" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -515,7 +482,8 @@ export default {
         cart: [],
         cartLength:0,
         showCheckoutAlert: false,
-        modal: null
+        modal: null,
+        totalPrice:0.0,
 
 
     };
@@ -544,6 +512,15 @@ export default {
             }else{
                 this.cartLength=0;
             }
+
+            if (Cookies.get("itemTotalPrice")){
+                // this.calcTotal(Cookies.get("itemTotalPrice"));
+                this.totalPrice = this.calcTotal(Cookies.get("itemTotalPrice"));
+                // console.log(this.totalPrice);
+            }else{
+                this.totalPrice = 0.0;
+            }
+
         } catch(error) {
             console.error(error);
         }
@@ -571,6 +548,8 @@ export default {
                     this.cartLength++;
                     Cookies.set('cartLength', this.cartLength);
                     // console.log("notaddcart");
+
+                    
                 }
             }else{
                 if (!this.checkDup(item)){
@@ -596,6 +575,14 @@ export default {
                 // console.log("not dup");
                 return false;
             }
+        },
+        calcTotal(obj){
+            let sum = Object.values(obj).reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
+            return parseFloat(sum.toFixed(2)); 
+        },
+        calculateItemTotal(item){
+            let calc = this.desiredQuantity[item.id] * item.SalePrice
+            this.itemTotalPrice[item.id] = parseFloat(calc.toFixed(2)); 
         },
 
     },

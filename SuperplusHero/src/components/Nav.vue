@@ -282,6 +282,10 @@ export default {
         this.checkedOut();
       },500);
 
+      this.cartLength = setInterval(() => {
+        this.checkCartLength();
+      }, 500);
+
 
 
       
@@ -364,8 +368,15 @@ export default {
             }
             this.calculateItemTotal(item);
           }
-          this.totalPrice = this.calcTotal(this.itemTotalPrice);  
-          Cookies.set("totalPrice", this.totalPrice);
+
+          if (Cookies.get('totalPrice')){
+            this.totalPrice = Cookies.get('totalPrice');
+          }else{
+            this.totalPrice = this.calcTotal(this.itemTotalPrice);  
+            Cookies.set("totalPrice", this.totalPrice);
+
+          }
+
           this.showCheckoutAlert = Cookies.get("showCheckoutAlert")
           if (this.showCheckoutAlert == "true" ){
             // console.log('WORKING');
