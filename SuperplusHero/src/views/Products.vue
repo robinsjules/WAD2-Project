@@ -1,4 +1,4 @@
-<style>
+<style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 .navbar-nav {
@@ -9,6 +9,20 @@
 
 * {
     font-family: 'Montserrat', sans-serif;
+}
+
+.card button{
+    text-align: center;
+    width: 90%;
+    margin: 8px;
+    background-color: rgb(10, 160, 10);
+}
+
+.card button:hover {
+    text-align: center;
+    width: 90%;
+    margin: 8px;
+    background-color: gray;
 }
 </style>
 
