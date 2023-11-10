@@ -80,7 +80,7 @@
                             <br/>
                             <div class="form-outline mb-4">
                                 <!-- need to include original email in box-->
-                                <input type="email" class="form-control" id="email" v-model="email" autocomplete="on">
+                                <input type="email" class="form-control" id="email" v-model="email" autocomplete="on" placeholder="robinsjules2019@gmail.com">
                                 <label for="email">Email Address</label>
                             </div>
                             <div class="form-outline mb-4">
@@ -89,7 +89,7 @@
                             </div>
                             <div class="form-outline mb-4">
                                 <!-- need to include original phone num in box-->
-                                <input type="name" class="form-control" id="phoneNum" v-model="phoneNum">
+                                <input type="name" class="form-control" id="phoneNum" v-model="phoneNum" placeholder="88889999">
                                 <label for="phoneNum">Phone Number</label>
                             </div>
                             <hr/>
@@ -163,6 +163,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 export default {
+props:[],
   data() {
     return {
         //need to add cookies to store username since not editable
