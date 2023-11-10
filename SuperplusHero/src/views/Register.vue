@@ -202,7 +202,9 @@ body {
     transform: translateX(200%);
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
+
+    /* Styles for screens with a maximum width of 768px */
     .container {
         width: 100%;
         border-radius: 0;
@@ -218,27 +220,47 @@ body {
     .sign-in {
         width: 100%;
         opacity: 1;
-        transform: none;
-        z-index: 5;
-        animation: none;
+        transform: translateX(0);
     }
 
     .toggle-container {
         display: none;
     }
 
-    .toggle {
-        width: 100%;
-        transform: none;
+    .container.active .sign-in {
+        transform: translateX(100%);
     }
 
-    .toggle-panel {
-        width: 100%;
-        transform: none;
+    .container.active .sign-up {
+        transform: translateX(100%);
+        opacity: 1;
+        z-index: 5;
+        animation: move 0.6s;
+    }
+
+    .container.active .toggle-container {
+        transform: translateX(-100%);
+        border-radius: 0 150px 100px 0;
+    }
+
+    .container.active .toggle {
+        transform: translateX(50%);
+    }
+
+    .container.active .toggle-left {
+        transform: translateX(0);
+    }
+
+    .container.active .toggle-right {
+        transform: translateX(200%);
     }
 }
 </style>
 <template>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+
     <body>
         <div>
             <div class="container" :class="containerClasses">
@@ -326,18 +348,18 @@ export default {
         },
         goToNext() {
             if (this.form.UserType === 'What type of user are you?' && this.form.Password === '' && this.form.UserName === '' && this.form.Email === '' && this.form.Phone === '') {
-            alert('Please fill up the form!')
+                alert('Please fill up the form!')
             }
             else if (this.form.UserType === 'What type of user are you?') {
-            alert('Please select a user type')
+                alert('Please select a user type')
             }
-            else if(this.form.Password === ''){
-            alert('Please enter a password')
+            else if (this.form.Password === '') {
+                alert('Please enter a password')
             }
-            else if(this.form.Password.length < 8){
+            else if (this.form.Password.length < 8) {
                 alert('Minimum Password length is 8')
             }
-            else if( this.form.Password ){
+            else if (this.form.Password) {
                 alert('Minimum Password length is 8')
             }
             else if (this.form.UserName === '') {
@@ -402,3 +424,4 @@ export default {
 }
 </script>
     
+
