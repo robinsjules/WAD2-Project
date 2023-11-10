@@ -55,7 +55,7 @@
                         <div class="fixed-position">
                             <h1 span class="my-5 display-3 fw-bold ls-tight">
                                 <span>Profile of<br/> our <br/></span>
-                                <span class="text-success">Surplus <br/>Hero!</span>
+                                <span style="color:rgb(10, 160, 10)">Surplus <br/>Hero!</span>
                             </h1>
                         </div>
                     </div>
@@ -82,10 +82,10 @@
                                 <input type="email" class="form-control" id="email" v-model="email" autocomplete="on" placeholder="robinsjules2019@gmail.com">
                                 <label for="email">Email Address</label>
                             </div>
-                            <div class="form-outline mb-4">
+                            <!-- <div class="form-outline mb-4">
                                 <input type="number" class="form-control" id="postalCode" v-model="postalCode">
                                 <label for="postalCode">Postal Code</label>
-                            </div>
+                            </div> -->
                             <div class="form-outline mb-4">
                                 <!-- need to include original phone num in box-->
                                 <input type="name" class="form-control" id="phoneNum" v-model="phoneNum" placeholder="88889999">
@@ -329,7 +329,7 @@ props:[],
             this.userPicture=this.data.UserPicture;
             this.email=this.data.Email;
             this.phoneNum=this.data.Phone;
-            this.postalCode=this.data.PostalCode;
+            // this.postalCode=this.data.PostalCode;
             this.foodPreferences=this.data.Allergies;
             this.intolerances=this.data.intolerances;
             this.checkPassword=this.data.Password;
@@ -343,7 +343,7 @@ props:[],
                 'UserPicture':this.userPicture,
                 'Email':this.email,
                 'Phone':this.phoneNum,
-                'PostalCode':this.postalCode,
+                // 'PostalCode':this.postalCode,
                 'Allergies':this.intolerances,
                 }
             const response = await axios.put(`http://127.0.0.1:5000/update_profile/${userName}`, updatedData);
