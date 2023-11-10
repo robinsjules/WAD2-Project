@@ -1,4 +1,12 @@
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
 #child {
     position: absolute;
     top: 50%;
@@ -34,14 +42,14 @@
 }
 
 .ingredient-card {
-    border: 2px solid #FF6F61;
+    border: 2px solid rgb(10, 160, 10);
     padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-radius: 20px;
-    background-color: #008080;
-    color: white;
+    background-color: rgb(237, 243, 235);
+    color: rgb(10, 160, 10);
 }
 
 .fridge {
@@ -49,11 +57,13 @@
 }
 
 .btn-custom {
-    background-color: #c1c5c49d;
-    color: #ff5748;
-    border-radius: 20px;
-    font-weight: bold;
+    background-color: rgb(10, 160, 10);
+    color: white;
+    border: 1px solid white; 
+    padding: 5px;
+    border-radius: 5px;
 }
+
 
 .glowing-image {
     animation: glow 2s infinite;
@@ -61,15 +71,15 @@
 
 @keyframes glow {
     0% {
-        box-shadow: 0 0 20px rgba(255, 225, 0, 0.7);
+        box-shadow: 0 0 40px rgba(255, 225, 0, 0.7);
     }
 
     50% {
-        box-shadow: 0 0 40px rgba(255, 225, 0, 0.9);
+        box-shadow: 0 0 60px rgba(255, 225, 0, 0.9);
     }
 
     100% {
-        box-shadow: 0 0 20px rgba(255, 225, 0, 0.7);
+        box-shadow: 0 0 40px rgba(255, 225, 0, 0.7);
     }
 }
 </style>
@@ -113,9 +123,6 @@
                                 </form>
                             </div>
                         </div>
-                        <p class="py-3">
-                            <button @click=sendFridgeToServer class="btn btn-success">Save Changes</button>
-                        </p>
                     </div>
 
                     <div class="fridge-container col-lg-6 mb-5 mb-lg-0 mt-5 align-items-center">
@@ -130,11 +137,11 @@
                                 <div class="card fridge glowing-image" style="height:560px; overflow:auto;"
                                     :class="{ hidden: !isFridgeOpen }">
                                     <div class="card-body fridge"
-                                        style="background-color:#86cbc99d; border: 3px solid #FF6F61;">
+                                        style="background-color:rgb(237, 243, 235); border: 2px solid rgba(10, 160, 10, 0.728);">
                                         <ul id="item-list" class="item-list" :class="{ hidden: !isFridgeOpen }">
                                             <li v-for="(item, i) in items">
                                                 <div class="d-flex justify-content-between ingredient-card">
-                                                    <span class="text-start">{{ item }}</span>
+                                                    <span class="text-start" style="font-weight:600;">{{ item }}</span>
                                                     <button @click="removeItem(item)"
                                                         class="text-end btn-custom">Remove</button>
                                                 </div>
@@ -181,7 +188,11 @@ export default {
                 console.error('Error fetching items:', error);
             }
         },
-        async sendFridgeToServer() {
+        async add() {
+            if (this.newItem != '') {
+                this.items.push(this.newItem)
+                this.newItem = ''
+            }
             try {
                 const fridgeuser = 'julesrobins';
                 const updatedData = {
@@ -193,14 +204,18 @@ export default {
                 console.error('Error sending items:', error);
             }
         },
-        add() {
-            if (this.newItem != '') {
-                this.items.push(this.newItem)
-                this.newItem = ''
-            }
-        },
-        removeItem(index) {
+        async removeItem(index) {
             this.items.splice(index, 1);
+            try {
+                const fridgeuser = 'julesrobins';
+                const updatedData = {
+                    'Fridge': this.items,
+                }
+                const response = await axios.put(`http://127.0.0.1:5000/update_fridge/${fridgeuser}`, updatedData);
+                console.log('Sending Fridge Data:', updatedData);
+            } catch (error) {
+                console.error('Error sending items:', error);
+            }
         },
         goToNext() {
             this.$router.push({ name: 'Login' });
