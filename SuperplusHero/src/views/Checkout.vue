@@ -203,6 +203,8 @@ export default {
             Cookies.remove('itemNormalTotal');
             Cookies.remove('cart');
             Cookies.remove("cartLength");
+            this.totalPrice = 0;
+            Cookies.remove('totalPrice');
 
             axios.post('http://127.0.0.1:5000/send_email/robinsjules2019@gmail.com')
         },

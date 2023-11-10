@@ -380,7 +380,7 @@ button.carousel-control-next {
                             <div class="col-md-2 mb-3">
                                 <div class="card card-edit">
                                         <img src="https://spoonacular.com/recipeImages/918033-312x231.jpg" alt="Recipe" style="width:100%">
-                                        <h1>Salmon Caesar Salad</h1>
+                                        <h1>Chicken Spring Rolls</h1>
                                         <p class="overflow-text">Need a gluten free and dairy free hor d'oeuvre? 
                                             Chicken Spring Rolls could be an outstanding recipe to try. One serving contains 337 calories, 28g of protein, and 11g of fat. 
                                             This recipe serves 4. For $2.08 per serving, this recipe covers 23% of your daily requirements of vitamins and minerals. 
@@ -544,8 +544,10 @@ export default {
             // console.log('All cookies:', Cookies.get());
             if (Cookies.get("showCheckoutAlert")){
                 this.showCheckoutAlert = Cookies.get('showCheckoutAlert');
-                console.log(this.showCheckoutAlert);
+                // console.log(this.showCheckoutAlert);
                 if (this.showCheckoutAlert) {
+                    
+                    Cookies.remove("totalPrice");
                     Cookies.set('showCheckoutAlert', false);
                 }
             }
@@ -605,10 +607,10 @@ export default {
         checkDup(item){
   // Check if the `cart` array has an object with the same `id` as `item`
             if (this.cart.some(cartItem => cartItem.id === item.id)){
-                console.log("Dup check");
+                // console.log("Dup check");
                 return true
             }else{
-                console.log("not dup");
+                // console.log("not dup");
                 return false;
             }
         },
