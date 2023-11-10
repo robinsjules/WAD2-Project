@@ -198,9 +198,7 @@ props:[],
         intolerances:[],
         newIntolerances:'',
         data:[],
-        checkPassword:'',
-        updateurl: `http://127.0.0.1:5000/update_profile/${this.userName}`,
-        geturl:`http://127.0.0.1:5000/get_profile/${this.userName}`};
+        checkPassword:''};
   },
     //get userName from cookies 
     // created() {
@@ -335,6 +333,21 @@ props:[],
             this.foodPreferences=this.data.Allergies;
             this.intolerances=this.data.intolerances;
             this.checkPassword=this.data.Password;
+        } catch (error) {
+            console.error('Error fetching items:', error);
+        }},
+        async updateProfile(){
+            try {
+            const userName = 'julesrobins';
+            const updatedData = {
+                'UserPicture':this.userPicture,
+                'Email':this.email,
+                'Phone':this.phoneNum,
+                'PostalCode':this.postalCode,
+                'Allergies':this.intolerances,
+                }
+            const response = await axios.put(`http://127.0.0.1:5000/update_profile/${userName}`, updatedData);
+            console.log('Sending User Data:', response.data); // Log the fetched data
         } catch (error) {
             console.error('Error fetching items:', error);
         }
