@@ -109,7 +109,7 @@
                 <li class="nav-item">
                   <router-link to="/products"> <!-- Edit to Community Page, also apply to index.js router -->
             <a class="nav-link" href="#">
-            <img src="../assets/carrot.png" alt="products" width="40" height="40">
+            <img src="../assets/broccoli.png" alt="products" width="40" height="40">
           </a>
           </router-link>
             
