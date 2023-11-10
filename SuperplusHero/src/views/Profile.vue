@@ -61,7 +61,7 @@
                     </div>
     <!-- card -->
     <div class="mx-auto col-lg-6 mb-5 mb-lg-0 ">
-            <div class="card" style="border: 3px solid rgb(10, 160, 10);">
+            <div class="card" style="border: 3px solid rgb(10, 160, 10); width:500px">
                 <div class="card-body rounded py-5" style="background-color:rgb(237, 243, 235);">
                     <form id="profileEdit" class="my-4" autocomplete="on" @submit.prevent="">
                         <div id="app">
@@ -196,10 +196,11 @@ export default {
             }],
         intolerances:[],
         newIntolerances:'',
+        data:[],
+        checkPassword:'',
         updateurl: `http://127.0.0.1:5000/update_profile/${this.userName}`,
-        geturl:`http://127.0.0.1:5000/get_profile/${this.userName}`
-        };
-    },
+        geturl:`http://127.0.0.1:5000/get_profile/${this.userName}`};
+  },
     //get userName from cookies 
     // created() {
     // // Get the 'username' cookie and set it in the component's data
@@ -249,6 +250,9 @@ export default {
     //     alert('Error in retrieving data')
     //   })
     // },
+    mounted() {
+        this.getProfile();
+    },
     methods: {
         uploadPicture(event) {
             const file = event.target.files[0];
@@ -260,62 +264,79 @@ export default {
                 reader.readAsDataURL(file);
                 }
         },
-        updateProfile() {
-        // Check if new passwords is filled and if they match
-            if (this.newPassword && this.newPassword !== this.confirmPassword) {
-                alert('New passwords do not match.');
-                return;
-            }
-            const updatedData = {
-                UserPicture: this.userPicture,
-                Email: this.email,
-                Phone: this.phoneNum,
-                PostalCode: this.postalCode,
-                FoodPreferences: this.foodPreferences,
-                Allergies: this.intolerances
-            }
-            // Perform an Axios GET request to your server to check the old password
-            // Check if the old password is not blank
-            if (this.password) {
-                // Perform an Axios GET request to your server to check the old password
-                axios.get(this.geturl, {
-                    params: {
-                    Password: this.password,
-                    },
-                })
-                .then((response) => {
-                    console.log("error1");
-                    // Include newPassword in the data if it's not blank
-                    updatedData.Password = this.newPassword;
-                    // The old password is correct
-                    // Perform an Axios PUT request to update the password in the database
-                    axios.put(this.updateurl, updatedData)
-                    .then((response) => {
-                        console.log("error2");
-                        alert('Profile updated successfully');
-                    })
-                    .catch((error) => {
-                        console.log("error3");
-                        alert('Error updating the profile');
-                    });
-                })
-                .catch((error) => {
-                    console.log("error4");
-                    alert('Incorrect old password');
-                });
-            } 
-            else {
-                // If old password is blank, update the profile data without changing the password
-                axios.put(this.updateurl, updatedData)
-                .then((response) => {
-                    console.log("error5");
-                    alert('Profile updated successfully');
-                })
-                .catch((error) => {
-                    console.log("error6");
-                    alert('Error updating the profile');
-                });
-            }
+        // updateProfile() {
+        // // Check if new passwords is filled and if they match
+        //     if (this.newPassword && this.newPassword !== this.confirmPassword) {
+        //         alert('New passwords do not match.');
+        //         return;
+        //     }
+        //     const updatedData = {
+        //         UserPicture: this.userPicture,
+        //         Email: this.email,
+        //         Phone: this.phoneNum,
+        //         PostalCode: this.postalCode,
+        //         FoodPreferences: this.foodPreferences,
+        //         Allergies: this.intolerances
+        //     }
+        //     // Perform an Axios GET request to your server to check the old password
+        //     // Check if the old password is not blank
+        //     if (this.password) {
+        //         // Perform an Axios GET request to your server to check the old password
+        //         axios.get(this.geturl, {
+        //             params: {
+        //             Password: this.password,
+        //             },
+        //         })
+        //         .then((response) => {
+        //             console.log("error1");
+        //             // Include newPassword in the data if it's not blank
+        //             updatedData.Password = this.newPassword;
+        //             // The old password is correct
+        //             // Perform an Axios PUT request to update the password in the database
+        //             axios.put(this.updateurl, updatedData)
+        //             .then((response) => {
+        //                 console.log("error2");
+        //                 alert('Profile updated successfully');
+        //             })
+        //             .catch((error) => {
+        //                 console.log("error3");
+        //                 alert('Error updating the profile');
+        //             });
+        //         })
+        //         .catch((error) => {
+        //             console.log("error4");
+        //             alert('Incorrect old password');
+        //         });
+        //     } 
+        //     else {
+        //         // If old password is blank, update the profile data without changing the password
+        //         axios.put(this.updateurl, updatedData)
+        //         .then((response) => {
+        //             console.log("error5");
+        //             alert('Profile updated successfully');
+        //         })
+        //         .catch((error) => {
+        //             console.log("error6");
+        //             alert('Error updating the profile');
+        //         });
+        //     }
+        // },
+        async getProfile(){
+            try {
+            const userName = 'julesrobins';
+            const response = await axios.get(`http://127.0.0.1:5000/get_profile/${userName}`);
+            console.log('Fetched User Data:', response.data); // Log the fetched data
+            this.data = response.data[0];
+            this.userPicture=this.data.UserPicture;
+            this.email=this.data.Email;
+            this.phoneNum=this.data.Phone;
+            this.postalCode=this.data.PostalCode;
+            this.foodPreferences=this.data.Allergies;
+            this.intolerances=this.data.intolerances;
+            this.checkPassword=this.data.Password;
+        } catch (error) {
+            console.error('Error fetching items:', error);
+        }
         },
             logoutProfile() {
             alert("You have signed out successfully!")
