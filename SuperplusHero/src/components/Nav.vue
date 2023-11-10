@@ -283,8 +283,10 @@ export default {
       },500);
 
       this.cartLength = setInterval(() => {
-        this.checkCartLength();
+        this.checkCartLength();console.log(Cookies.get('showCheckoutAlert'));console.log(this.totalPrice);
       }, 500);
+
+      this.totalPrice=this.calcTotal(this.itemTotalPrice);
 
 
 
@@ -300,13 +302,17 @@ export default {
   methods: {
 
     checkedOut(){
-        this.showCheckoutAlert = Cookies.get("showCheckoutAlert")
-        if (this.showCheckoutAlert == "true" ){
-          // console.log(this.showCheckoutAlert);
-          // console.log(this.totalPrice);
-          this.totalPrice = 0;
-          Cookies.remove("totalPrice");
-          Cookies.set("showCheckoutAlert", false);
+        // this.showCheckoutAlert = Cookies.get("showCheckoutAlert")
+        if (Cookies.get("showCheckoutAlert")){
+          if (Cookies.get("showCheckoutAlert") == 'true'){
+            // console.log(this.showCheckoutAlert);
+            // console.log(this.totalPrice);
+            this.totalPrice = 0;
+            Cookies.remove("totalPrice");
+            Cookies.set("showCheckoutAlert", false);
+          }else{
+            this.showCheckoutAlert = 'false';
+          }
         }
     },
     calcTotal(obj){
@@ -322,16 +328,20 @@ export default {
         if (this.desiredQuantity[item.id]) {
           delete this.desiredQuantity[item.id];
           delete this.itemTotalPrice[item.id];  
-          Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity)); // Update cookies
-      }
+          Cookies.set('desiredQuantity', JSON.stringify(this.desiredQuantity)); 
+          Cookies.set('itemTotalPrice', JSON.stringify(this.itemTotalPrice)); 
 
-      if (Cookies.get("itemTotalPrice")){
-        // this.calcTotal(Cookies.get("itemTotalPrice"));
-        this.totalPrice = this.calcTotal(Cookies.get("itemTotalPrice"));
-        // console.log(this.totalPrice);
-      }else{
-        this.totalPrice = 0.0;
-      }
+        }
+        this.checkCart();
+
+      // if (Cookies.get("itemTotalPrice")){
+      //   // this.calcTotal(Cookies.get("itemTotalPrice"));
+      //   this.totalPrice = this.calcTotal(Cookies.get("itemTotalPrice"));
+      //   // console.log(this.totalPrice);
+      //   Cookies.set("totalPrice", this.totalPrice);
+      // }else{
+      //   this.totalPrice = 0.0;
+      // }
     }
   },
     checkCartLength(){
@@ -377,6 +387,9 @@ export default {
 
           }
 
+          this.totalPrice = this.calcTotal(this.itemTotalPrice);
+          Cookies.set("totalPrice", this.totalPrice);
+
           this.showCheckoutAlert = Cookies.get("showCheckoutAlert")
           if (this.showCheckoutAlert == "true" ){
             // console.log('WORKING');
@@ -401,7 +414,7 @@ export default {
       this.calculateItemTotal(item);
       this.totalPrice = this.calcTotal(this.itemTotalPrice);
       Cookies.set("itemTotalPrice", this.itemTotalPrice);
-      Cookies.set("totalPrice", this.totalprice);
+      Cookies.set("totalPrice", this.totalPrice);
     },
     decreaseQuantity(item) {
       if (!this.desiredQuantity[item.id] || this.desiredQuantity[item.id] <= 1) {
@@ -413,7 +426,7 @@ export default {
       this.calculateItemTotal(item);
       this.totalPrice = this.calcTotal(this.itemTotalPrice);
       Cookies.set("itemTotalPrice", this.itemTotalPrice);
-      Cookies.set("totalPrice", this.totalprice);
+      Cookies.set("totalPrice", this.totalPrice);
 
       
     },
