@@ -138,15 +138,14 @@
                                 src="../assets/FridgeOpen.png" alt="Fridge open picture"
                                 style="height:700px; width:420px" />
                             <div id="child">
-                                <div class="card fridge glowing-image" style="height:560px; overflow:auto;"
+                                <div class="card fridge glowing-image" style="height:560px; overflow:auto; background-color:rgb(237, 243, 235); border: 2px solid rgba(10, 160, 10, 0.728);"
                                     :class="{ hidden: !isFridgeOpen }">
-                                    <div class="card-body fridge"
-                                        style="background-color:rgb(237, 243, 235); border: 2px solid rgba(10, 160, 10, 0.728);">
+                                    <div class="card-body fridge">
                                         <ul id="item-list" class="item-list" :class="{ hidden: !isFridgeOpen }">
                                             <li v-for="(item, index) in items">
                                                 <div class="d-flex justify-content-between ingredient-card">
                                                     <span class="text-start" style="font-weight:600;">{{ item.name }}</span>&nbsp;
-                                                    <span class="text-start" style="font-weight:600; color: rgb(161, 0, 0)"> ({{ item.expiryDate }})</span>
+                                                    <span class="text-start" style="font-weight:600; color: rgb(161, 0, 0)"> ({{ item.expiryDate }})</span>&nbsp;
                                                     <button @click="removeItem(index)" @mouseover="hoveredIndex = index" @mouseout="hoveredIndex = null"
                                                         class="text-end btn-custom" :class="{ 'text-end': true, 'btn-custom-hovered': index === hoveredIndex, 'btn-custom': true }">
                                                         Remove
