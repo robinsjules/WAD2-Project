@@ -570,7 +570,8 @@ export default {
 
         readRecipe(post) {
             this.recipeTitle = post.recipeTitle;
-            this.$router.push('/readRecipe/' + post.postTitle);
+            window.scroll(0,0)
+            this.$router.push({ name: 'readRecipe', params: { id: this.recipeTitle } });
             Cookies.set("recipeTitle", this.recipeTitle);
         }
     },
